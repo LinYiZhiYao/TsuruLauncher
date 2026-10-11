@@ -6,13 +6,15 @@
 
 Windows 10+ · .NET 8 · WPF
 
+官网：[**tsuru.ink**](https://tsuru.ink)
+
 [![Release](https://img.shields.io/github/v/release/LinYiZhi-wp/TsuruLauncher?style=flat-square&label=release)](https://github.com/LinYiZhi-wp/TsuruLauncher/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/LinYiZhi-wp/TsuruLauncher/total?style=flat-square)](https://github.com/LinYiZhi-wp/TsuruLauncher/releases)
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%2B-0078D4?style=flat-square&logo=windows)](https://github.com/LinYiZhi-wp/TsuruLauncher/releases/latest)
 [![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=flat-square&logo=dotnet)](https://dotnet.microsoft.com/download/dotnet/8.0)
 [![License](https://img.shields.io/github/license/LinYiZhi-wp/TsuruLauncher?style=flat-square)](LICENSE)
 
-[下载](#下载) · [界面](#界面) · [设计](#设计) · [从源码构建](#从源码构建) · [版本历史](#版本历史)
+[官网](https://tsuru.ink) · [下载](#下载) · [界面](#界面) · [设计](#设计) · [从源码构建](#从源码构建) · [版本历史](#版本历史)
 
 </div>
 
@@ -48,7 +50,8 @@ Windows 10+ · .NET 8 · WPF
 
 ![实例库](docs/screenshots/download.png)
 
-**实验室** — 一组离线小工具，全部本地计算，不上传任何内容
+**实验室** — 8 个离线小工具：崩溃日志分析、JVM 参数生成器、渐变文字、颜色转换、种子、文本 / 编码，
+外加 **AI 工具管理器**与 **NCRE 二级 Python 刷题**（详见下方[附带](#附带)）
 
 ![实验室](docs/screenshots/lab.png)
 
@@ -87,14 +90,23 @@ Windows 10+ · .NET 8 · WPF
 **实验室** —— 崩溃日志分析、JVM 参数生成器、渐变色文字生成器、颜色转换、
 种子工具、文本 / 编码工具。
 
+**AI 工具管理器** —— 在实验室里管理本机的 AI 命令行工具（OpenClaw / Claude Code /
+DeepSeek Harness）：一眼看出装没装、有没有新版，直接安装 / 更新 / 启动，
+还能一键在桌面建快捷方式。探测走本机 npm 全局目录与 `.dsh`，不联网上传任何东西。
+
+**NCRE 二级 Python 刷题** —— 计算机二级 Python 的章节刷题与限时模拟套题，
+直接在这个窗口里打开（整窗覆盖，左上角可返回启动器）。内置 620 道题
+（464 选择 + 156 操作），支持「仅真题」筛选、错题本、章节正确率统计；
+操作题调用本机 Python 解释器判题，可填程序输入。
+
 ## 下载
 
 前往 [**Releases**](https://github.com/LinYiZhi-wp/TsuruLauncher/releases/latest)：
 
 | 文件 | 说明 |
 |------|------|
-| `Tsuru-Launcher-Setup-v2.1.3.exe` | **安装版**（推荐）：带安装向导，自动创建开始菜单与桌面快捷方式，支持卸载 |
-| `Tsuru-v2.1.3.zip` | **便携版**：解压后直接运行 `TsuruLauncher.exe`，不写注册表 |
+| `Tsuru-Launcher-Setup-v2.1.4.exe` | **安装版**（推荐）：带安装向导，自动创建开始菜单与桌面快捷方式，支持卸载 |
+| `Tsuru-v2.1.4.zip` | **便携版**：解压后直接运行 `TsuruLauncher.exe`，不写注册表 |
 
 **运行要求**：Windows 10 或更高版本（64 位） + [.NET 8 桌面运行时](https://dotnet.microsoft.com/download/dotnet/8.0)。
 安装器会自动检测运行时，缺失时给出下载链接（不阻断安装）。
@@ -161,10 +173,16 @@ python TsuruLauncher/Setup/audit-package.py
 TsuruLauncher/
 ├── Views/                 页面（首页 / 资源站 / 实例库 / 皮肤 / 实验室 / 设置 …）
 ├── Controls/              自定义控件（iOS26Dialog、3D 皮肤预览、虚拟化面板、分段指示块 …）
+├── Converters/            值转换器（状态色映射等）
+├── Quiz/                  页内版 NCRE 二级 Python 刷题模块
+│   ├── Views/             刷题 / 模拟套题 / 错题本 / 统计 / 设置
+│   ├── Services/          题库加载、进度、Python 判题
+│   └── Data/              题库 JSON（选择题 + 操作题）
 ├── Services/
 │   ├── Animation/         动效体系（缓动曲线、页面转场、性能诊断）
 │   ├── Ecosystem/         资源生态（Modrinth / CurseForge 双源、Mod Loader、整合包）
-│   └── Network/           下载队列、Mojang 版本清单
+│   ├── Network/           下载队列、Mojang 版本清单
+│   └── AiToolService.cs   AI 工具管理器的本机探测 / 安装 / 启动 / 快捷方式
 ├── Models/                数据模型
 ├── Styles/                配色与组件样式
 ├── Resources/Languages/   多语言（zh-CN / en-US）
@@ -173,7 +191,35 @@ TsuruLauncher/
 
 ## 版本历史
 
-### v2.1 系列 — 皮肤页与动效收尾（当前 v2.1.3）
+### v2.1.4 — 实验室扩充（当前）
+
+**新增两个实验室工具**
+
+- **AI 工具管理器** —— 管理本机的 AI 命令行工具（OpenClaw / Claude Code / DeepSeek Harness）：
+  检测安装状态、查询 npm 最新版、一键安装 / 更新 / 启动、创建桌面快捷方式。
+  探测走本机 npm 全局目录（`%APPDATA%\npm`）与 `.dsh`，全部本地完成，不上传任何数据。
+- **NCRE 二级 Python 刷题** —— 计算机二级 Python 的章节刷题与限时模拟套题，
+  整窗覆盖打开（盖住导航栏，左上角返回启动器）。内置 620 道题（464 选择 + 156 操作），
+  含「仅真题」筛选、错题本、章节正确率统计；操作题调用本机 Python 判题，可填程序输入。
+
+**皮肤页**
+
+- 修复**首次打开皮肤页卡顿** —— `CoreWebView2Environment` 之前每次重建（创建时会拉起
+  浏览器进程、占用 UI 线程，正好撞上页面转场动画）。改为进程级单例 + 防重入。
+- 新增**预热**：启动后空闲时提前拉起 WebView2 并预创建皮肤页对象，
+  进皮肤页的初始化耗时从 ~2000ms 降到 ~40ms，内容不再「猛地跳一下」。
+- 皮肤卡片不再有第二段错峰平移，跟着页面进场一起动。
+
+**实验室**
+
+- 工具列表从「一行一个大卡片」改成三列网格，一屏放得下全部工具。
+
+**界面**
+
+- 修复 `ItemTemplate` 里带 Storyboard 的 Style 导致的渲染失败（WPF 无法 Seal
+  这类 Style，会让整块列表空白）。
+
+### v2.1 系列 — 皮肤页与动效收尾
 
 **账号**
 - 账号不再只存一个 —— 之前切换账号会直接覆盖上一个，重启后只剩最后用的那个。

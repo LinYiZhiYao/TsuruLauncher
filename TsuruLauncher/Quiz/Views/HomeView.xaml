@@ -1,0 +1,119 @@
+<UserControl x:Class="TsuruLauncher.Quiz.Views.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="Transparent">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- 模块自带色板：挂在页面级，避免和启动器的全局资源打架 -->
+                <ResourceDictionary Source="/TsuruLauncher;component/Quiz/Theme/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="32,28,32,32">
+            <TextBlock Text="开始今天的刷题" Style="{StaticResource H1}"/>
+            <TextBlock Text="全国计算机等级考试 二级 Python · 天津考区使用全国统考卷"
+                       Style="{StaticResource Muted}" Margin="0,6,0,0"/>
+
+            <Grid Margin="0,24,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Style="{StaticResource CardStyle}" Margin="0,0,12,0">
+                    <StackPanel>
+                        <TextBlock Text="已做题目" Style="{StaticResource Muted}"/>
+                        <TextBlock x:Name="StatDone" Text="0" FontSize="26" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextBrush}" Margin="0,6,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="1" Style="{StaticResource CardStyle}" Margin="0,0,12,0">
+                    <StackPanel>
+                        <TextBlock Text="总正确率" Style="{StaticResource Muted}"/>
+                        <TextBlock x:Name="StatAcc" Text="0%" FontSize="26" FontWeight="SemiBold"
+                                   Foreground="{StaticResource AccentBrush}" Margin="0,6,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="2" Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="待复习错题" Style="{StaticResource Muted}"/>
+                        <TextBlock x:Name="StatWrong" Text="0" FontSize="26" FontWeight="SemiBold"
+                                   Foreground="{StaticResource DangerBrush}" Margin="0,6,0,0"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Grid Margin="0,16,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Style="{StaticResource CardStyle}" Margin="0,0,12,0">
+                    <StackPanel>
+                        <TextBlock Text="考试信息" Style="{StaticResource H2}"/>
+                        <Grid Margin="0,12,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="86"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="考试形式"
+                                       Style="{StaticResource Muted}" Margin="0,0,0,7"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="上机考试，120 分钟，满分 100 分"
+                                       Style="{StaticResource Body}" FontSize="12.5" Margin="0,0,0,7"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="选择题 40 分"
+                                       Style="{StaticResource Muted}" Margin="0,0,0,7"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="公共基础知识 10 + Python 语言 30"
+                                       Style="{StaticResource Body}" FontSize="12.5" Margin="0,0,0,7"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="操作题 60 分"
+                                       Style="{StaticResource Muted}" Margin="0,0,0,7"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="基本操作 15 + 简单应用 25 + 综合应用 20"
+                                       Style="{StaticResource Body}" FontSize="12.5" Margin="0,0,0,7"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="及格线"
+                                       Style="{StaticResource Muted}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="60 分，天津考区使用全国统考卷"
+                                       Style="{StaticResource Body}" FontSize="12.5"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="1" Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="题库状态" Style="{StaticResource H2}"/>
+                        <TextBlock x:Name="BankInfo" Style="{StaticResource Body}"
+                                   Margin="0,12,0,0" FontSize="12.5"/>
+                        <TextBlock Text="题库文件在程序目录的 Data 文件夹，直接替换 JSON 就能换题。"
+                                   Style="{StaticResource Muted}" Margin="0,8,0,0" FontSize="11"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <TextBlock Text="快速开始" Style="{StaticResource H2}" Margin="0,26,0,12"/>
+            <WrapPanel>
+                <Button Content="刷选择题" Style="{StaticResource PrimaryButton}"
+                        Padding="18,10" Margin="0,0,10,0" Click="GoChoice"/>
+                <Button Content="刷操作题" Style="{StaticResource SoftButton}"
+                        Padding="18,10" Margin="0,0,10,0" Click="GoCode"/>
+                <Button Content="模拟套题" Style="{StaticResource SoftButton}"
+                        Padding="18,10" Margin="0,0,10,0" Click="GoExam"/>
+                <Button Content="复习错题" Style="{StaticResource SoftButton}"
+                        Padding="18,10" Click="GoWrong"/>
+            </WrapPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

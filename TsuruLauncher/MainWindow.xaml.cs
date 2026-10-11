@@ -45,6 +45,57 @@ namespace TsuruLauncher
             this.Loaded += MainWindow_Loaded;
             this.Activated += MainWindow_Activated;
 
+            // 调试用：TSURU_START_PAGE=lab 时启动后直接进实验室页，
+            // 配合 --screenshot 可以在抢不到前台 / 无 GPU 的场景下自检页面渲染。
+            // 不设这个环境变量时行为完全不变。
+            try
+            {
+                string? startPage = Environment.GetEnvironmentVariable("TSURU_START_PAGE");
+                if (!string.IsNullOrWhiteSpace(startPage))
+                {
+                    string target = startPage.ToLowerInvariant().Trim();
+                    this.Loaded += (_, __) =>
+                    {
+                        if (target == "pythonquiz") ShowQuizOverlay();
+                        else NavigateTo(target);
+                    };
+                }
+            }
+            catch { }
+
+            // WebView2 预热：等启动高峰过去再跑。
+            // 不预热的话，用户点进皮肤页那一瞬间要现启动 chromium（~2s），
+            // 正好顶掉页面滑入动画 —— 表现就是「滑入时卡一下」。
+            this.Loaded += async (_, __) =>
+            {
+                try
+                {
+                    await Task.Delay(6000);
+                    await Controls.SkinPreviewWeb.PrewarmAsync(WebViewPrewarmHost);
+
+                    // 页面预热：首次创建 SkinPage 要解析 41KB 的 XAML + 建整棵控件树，
+                    // 这段同步开销会把页面转场动画的时钟卡住 —— 逐帧采样显示进场 280ms 内
+                    // 位移和透明度一点没推进，然后一次性跳到终点，
+                    // 表现就是「打开皮肤页时内容猛地向上跳一下」。提前建好就没这问题了。
+                    await Task.Delay(2000);
+                    GetCachedPage("skin", () => new Views.SkinPage());
+                    Utilities.Logger.LogInfo("[Prewarm] 皮肤页已预创建");
+
+                    // 自检：TSURU_SELFTEST=skinwarm —— 预热跑完再进皮肤页，用来验证转场是否顺畅。
+                    // 间隔留长一点：预热完紧接着导航的话，皮肤页的首次布局会和进场动画抢时钟，
+                    // 测出来的进场值全是 0（真实场景用户手点，中间隔很久，不会撞在一起）。
+                    if (Environment.GetEnvironmentVariable("TSURU_SELFTEST") == "skinwarm")
+                    {
+                        await Task.Delay(3000);
+                        NavigateTo("skin");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Utilities.Logger.LogError(ex, "MainWindow.PrewarmWebView");
+                }
+            };
+
             // When the language changes, re-navigate the current page so
             // DynamicResource texts refresh immediately; cached pages keep state.
             TsuruLauncher.App.LanguageChanged += () =>
@@ -771,6 +822,9 @@ namespace TsuruLauncher
 
         private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
+            // 刷题覆盖层盖着的时候，别让快捷键把底下的页面切走（用户看不到，只会觉得莫名其妙）
+            if (QuizOverlayHost != null && QuizOverlayHost.Visibility == Visibility.Visible) return;
+
             if (e.Key == System.Windows.Input.Key.F12)
             {
                 NavigateTo("settings");
@@ -815,6 +869,11 @@ namespace TsuruLauncher
                     // ⚠ 顺序不能反：PlayPageEnter 开头的 SettleActiveMotion 会把动效集合里的
                     //   所有元素立即归位，而 PlayHostOverlapFade 会把宿主登记进那个集合 ——
                     //   先播宿主回落再播新页进场的话，宿主的 1->0.86->1 会在同一帧被清掉。
+                    // 皮肤页不走页面级的位移：那套用的是 RenderTransform（渲染层变换、不触发布局），
+                    // 而页面正中的角色是 WebView2（HwndHost），它的原生窗口位置只在**布局阶段**同步，
+                    // 结果就是页面滑上去了、角色停在原地 —— 「角色和页面平移不一致」。
+                    // 皮肤页的位移改由 SkinPage.PlayLayoutSlideIn 用 LayoutTransform 做，
+                    // 那条路径会触发布局，HwndHost 才会跟着一起动。
                     PageTransition.PlayPageEnter(page, enterIsForward);
                     PageTransition.PlayHostOverlapFade(PageTransitionHost);
                 }
@@ -915,6 +974,66 @@ namespace TsuruLauncher
                 return;
             }
             NavigateTo("home");
+        }
+
+        // ─────────────── 刷题模块（整窗覆盖）───────────────
+
+        private Quiz.Views.PythonQuizPage? _quizPage;
+
+        /// <summary>
+        /// 把刷题模块整窗铺开：盖住顶栏、左侧导航栏和右侧信息栏 ——
+        /// 不这么盖的话，左上角那个「返回启动器」就没有意义。
+        /// 进出走 PlayPopup（280ms cubic-bezier(0.22,1,0.36,1) + 56px 位移），
+        /// 与实验室工具覆盖层同一组令牌。
+        /// </summary>
+        public void ShowQuizOverlay()
+        {
+            try
+            {
+                _quizPage ??= new Quiz.Views.PythonQuizPage(HideQuizOverlay);
+                if (!QuizOverlayHost.Children.Contains(_quizPage))
+                    QuizOverlayHost.Children.Add(_quizPage);
+
+                if (QuizOverlayHost.Visibility == Visibility.Visible) return;
+
+                QuizOverlayHost.Visibility = Visibility.Visible;
+                PageTransition.PlayPopup(QuizOverlayHost, show: true, fromScale: 1.0,
+                    durationMs: AxolotlMotion.PageEnterSlideMs,
+                    ease: AxolotlMotion.Ease,
+                    offsetY: AxolotlMotion.PageEnterSlidePx,
+                    useCache: false);
+
+                MotionDiagnostics.NavigationStarted("pythonquiz");
+                TsuruLauncher.Utilities.Logger.LogInfo("[Quiz] overlay shown");
+            }
+            catch (Exception ex)
+            {
+                TsuruLauncher.Utilities.Logger.LogError(ex, "MainWindow.ShowQuizOverlay");
+                QuizOverlayHost.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        /// <summary>收起刷题覆盖层，动画结束后才 Collapsed —— 不做 Visibility 硬切。</summary>
+        public void HideQuizOverlay()
+        {
+            try
+            {
+                if (QuizOverlayHost.Visibility != Visibility.Visible) return;
+
+                PageTransition.PlayPopup(QuizOverlayHost, show: false, fromScale: 1.0,
+                    durationMs: AxolotlMotion.PageEnterSlideMs,
+                    ease: AxolotlMotion.Ease,
+                    offsetY: AxolotlMotion.PageEnterSlidePx,
+                    onCompleted: () => QuizOverlayHost.Visibility = Visibility.Collapsed,
+                    useCache: false);
+
+                TsuruLauncher.Utilities.Logger.LogInfo("[Quiz] overlay hidden");
+            }
+            catch (Exception ex)
+            {
+                TsuruLauncher.Utilities.Logger.LogError(ex, "MainWindow.HideQuizOverlay");
+                QuizOverlayHost.Visibility = Visibility.Collapsed;
+            }
         }
 
         #endregion

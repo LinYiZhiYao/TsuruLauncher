@@ -1,0 +1,566 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- 配色取自 Axolotl 的 packages/assets/styles/variables.scss (.light-properties)
+         surface-1 页面底 / surface-3 卡片 / surface-4 按钮与描边 / surface-5 分隔线 -->
+    <SolidColorBrush x:Key="BgBrush" Color="#EBEBEB"/>
+    <SolidColorBrush x:Key="SurfaceBrush" Color="#F8F8F8"/>
+    <SolidColorBrush x:Key="SurfaceAltBrush" Color="#F5F5F5"/>
+    <SolidColorBrush x:Key="WhiteBrush" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="BorderBrush" Color="#DDDDDD"/>
+    <SolidColorBrush x:Key="BorderStrongBrush" Color="#CECFD3"/>
+    <SolidColorBrush x:Key="CardBorderBrush" Color="#FFFFFF"/>
+
+    <SolidColorBrush x:Key="TextBrush" Color="#2C2E31"/>
+    <SolidColorBrush x:Key="TextMutedBrush" Color="#484D54"/>
+    <SolidColorBrush x:Key="TextFaintBrush" Color="#83868D"/>
+    <SolidColorBrush x:Key="ContrastBrush" Color="#1A202C"/>
+
+    <!-- brand = color-green-600 -->
+    <SolidColorBrush x:Key="AccentBrush" Color="#00AF5C"/>
+    <SolidColorBrush x:Key="AccentHighlightBrush" Color="#4000AF5C"/>
+    <SolidColorBrush x:Key="AccentSoftBrush" Color="#1A00AF5C"/>
+    <SolidColorBrush x:Key="HoverBrush" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="PressBrush" Color="#E8E8E8"/>
+
+    <SolidColorBrush x:Key="SuccessBrush" Color="#00AF5C"/>
+    <SolidColorBrush x:Key="SuccessSoftBrush" Color="#1A00AF5C"/>
+    <SolidColorBrush x:Key="DangerBrush" Color="#CB2245"/>
+    <SolidColorBrush x:Key="DangerSoftBrush" Color="#1ACB2245"/>
+    <SolidColorBrush x:Key="WarnBrush" Color="#E08325"/>
+    <SolidColorBrush x:Key="WarnSoftBrush" Color="#1AE08325"/>
+    <SolidColorBrush x:Key="InfoBrush" Color="#1F68C0"/>
+
+    <!-- .base-card：padding 1rem / radius-lg 16px / bg surface-3 / 1px 白描边 -->
+    <Style x:Key="CardStyle" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource CardBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="16"/>
+        <Setter Property="Padding" Value="16"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="#323264" Opacity="0.1" BlurRadius="6"
+                                  ShadowDepth="1" Direction="270"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- 按钮：surface-4 白底 + rgba(161,161,161,.35) 描边；
+         hover/press 用叠加层透明度过渡；按下按 .button-animation 缩到 0.95 -->
+    <Style x:Key="SoftButton" TargetType="Button">
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="Background" Value="{StaticResource WhiteBrush}"/>
+        <Setter Property="BorderBrush" Value="#59A1A1A1"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="14,8"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Root" Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8" SnapsToDevicePixels="True"
+                            RenderTransformOrigin="0.5,0.5">
+                        <Border.RenderTransform>
+                            <ScaleTransform x:Name="PressScale" ScaleX="1" ScaleY="1"/>
+                        </Border.RenderTransform>
+                        <Grid>
+                            <Border x:Name="HoverLayer" Background="#0A000000"
+                                    CornerRadius="8" Opacity="0"/>
+                            <Border x:Name="PressLayer" Background="#14000000"
+                                    CornerRadius="8" Opacity="0"/>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="HoverLayer"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1" Duration="0:0:0.15"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="HoverLayer"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="0" Duration="0:0:0.15"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="PreviewMouseDown">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="PressLayer"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1" Duration="0:0:0.08"/>
+                                    <DoubleAnimation Storyboard.TargetName="PressScale"
+                                                     Storyboard.TargetProperty="ScaleX"
+                                                     To="0.95" Duration="0:0:0.05"/>
+                                    <DoubleAnimation Storyboard.TargetName="PressScale"
+                                                     Storyboard.TargetProperty="ScaleY"
+                                                     To="0.95" Duration="0:0:0.05"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="PreviewMouseUp">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="PressLayer"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="0" Duration="0:0:0.15"/>
+                                    <DoubleAnimation Storyboard.TargetName="PressScale"
+                                                     Storyboard.TargetProperty="ScaleX"
+                                                     To="1" Duration="0:0:0.15"/>
+                                    <DoubleAnimation Storyboard.TargetName="PressScale"
+                                                     Storyboard.TargetProperty="ScaleY"
+                                                     To="1" Duration="0:0:0.15"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.45"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource SoftButton}">
+        <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Root" Background="{TemplateBinding Background}"
+                            CornerRadius="8" SnapsToDevicePixels="True"
+                            RenderTransformOrigin="0.5,0.5">
+                        <Border.RenderTransform>
+                            <ScaleTransform x:Name="PressScale" ScaleX="1" ScaleY="1"/>
+                        </Border.RenderTransform>
+                        <Grid>
+                            <Border x:Name="HoverLayer" Background="#1F000000"
+                                    CornerRadius="8" Opacity="0"/>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="HoverLayer"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1" Duration="0:0:0.15"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="HoverLayer"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="0" Duration="0:0:0.15"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="PreviewMouseDown">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="PressScale"
+                                                     Storyboard.TargetProperty="ScaleX"
+                                                     To="0.95" Duration="0:0:0.05"/>
+                                    <DoubleAnimation Storyboard.TargetName="PressScale"
+                                                     Storyboard.TargetProperty="ScaleY"
+                                                     To="0.95" Duration="0:0:0.05"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="PreviewMouseUp">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="PressScale"
+                                                     Storyboard.TargetProperty="ScaleX"
+                                                     To="1" Duration="0:0:0.15"/>
+                                    <DoubleAnimation Storyboard.TargetName="PressScale"
+                                                     Storyboard.TargetProperty="ScaleY"
+                                                     To="1" Duration="0:0:0.15"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.45"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- 侧栏图标按钮：对齐 Axolotl 的 NavButton.vue —— w-12 h-12 rounded-full，
+         hover 时背景变 surface-4 白。选中态的绿色胶囊由 NavIndicator 滑块提供。 -->
+    <Style x:Key="NavIconButton" TargetType="Button">
+        <Setter Property="Width" Value="44"/>
+        <Setter Property="Height" Value="44"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border x:Name="Hover" CornerRadius="22"
+                                Background="{StaticResource WhiteBrush}" Opacity="0"/>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="Hover"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1" Duration="0:0:0.15"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="Hover"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="0" Duration="0:0:0.15"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- 标题栏窗口按钮：对齐 Axolotl 的 WindowControls.vue —— 圆形透明按钮，
+         hover 变白；关闭按钮 hover 用危险色填充 -->
+    <Style x:Key="CaptionButton" TargetType="Button">
+        <Setter Property="Width" Value="32"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border x:Name="Hover" CornerRadius="16"
+                                Background="{StaticResource WhiteBrush}" Opacity="0"/>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="Hover"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1" Duration="0:0:0.15"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="Hover"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="0" Duration="0:0:0.15"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CaptionCloseButton" TargetType="Button" BasedOn="{StaticResource CaptionButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border x:Name="Hover" CornerRadius="16"
+                                Background="{StaticResource DangerBrush}" Opacity="0"/>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="Hover"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1" Duration="0:0:0.15"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="Hover"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="0" Duration="0:0:0.15"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- 顶部子页导航胶囊：本身透明，选中态的绿色胶囊由 NavIndicator 滑块提供 -->
+    <Style x:Key="NavPillButton" TargetType="Button">
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border x:Name="Hover" CornerRadius="16"
+                                Background="{StaticResource HoverBrush}" Opacity="0"/>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                          Margin="{TemplateBinding Padding}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="Hover"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1" Duration="0:0:0.15"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="Hover"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="0" Duration="0:0:0.15"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="H1" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource ContrastBrush}"/>
+    </Style>
+    <Style x:Key="H2" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource ContrastBrush}"/>
+    </Style>
+    <Style x:Key="Body" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="LineHeight" Value="21"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+    <Style x:Key="Muted" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="{StaticResource TextMutedBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <!-- 选项卡：白底（surface-4），比卡片更"抬起来"一层 -->
+    <Style x:Key="OptionCard" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource WhiteBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="12"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Margin" Value="0,0,0,8"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+    </Style>
+
+    <Style x:Key="SoftComboBoxItem" TargetType="ComboBoxItem">
+        <Setter Property="Padding" Value="10,7"/>
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBoxItem">
+                    <!-- 用内联画刷实例，共享资源做 Color 动画会污染其它控件 -->
+                    <Border x:Name="Bg" CornerRadius="6" Margin="4,1">
+                        <Border.Background>
+                            <SolidColorBrush Color="#00FFFFFF"/>
+                        </Border.Background>
+                        <ContentPresenter Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsHighlighted" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="Bg"
+                                                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                        To="#1A00AF5C" Duration="0:0:0.12"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="Bg"
+                                                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                        To="#00FFFFFF" Duration="0:0:0.12"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SoftComboBox" TargetType="ComboBox">
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Padding" Value="10,6"/>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource SoftComboBoxItem}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <ToggleButton Focusable="False" ClickMode="Press"
+                                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="ToggleButton">
+                                    <Border Background="{StaticResource WhiteBrush}" BorderBrush="#59A1A1A1"
+                                            BorderThickness="1" CornerRadius="8">
+                                        <Border Width="7" Height="7" BorderBrush="{StaticResource TextBrush}"
+                                                BorderThickness="0,0,1.6,1.6" HorizontalAlignment="Right"
+                                                VerticalAlignment="Center" Margin="0,0,13,3"
+                                                RenderTransformOrigin="0.5,0.5">
+                                            <Border.RenderTransform>
+                                                <RotateTransform Angle="45"/>
+                                            </Border.RenderTransform>
+                                        </Border>
+                                    </Border>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+                        <ContentPresenter Content="{TemplateBinding SelectionBoxItem}"
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                          Margin="{TemplateBinding Padding}" VerticalAlignment="Center"
+                                          HorizontalAlignment="Left" IsHitTestVisible="False"/>
+                        <Popup x:Name="PART_Popup" IsOpen="{TemplateBinding IsDropDownOpen}"
+                               Placement="Bottom" AllowsTransparency="True" Focusable="False"
+                               PopupAnimation="Fade">
+                            <Border Background="{StaticResource WhiteBrush}"
+                                    BorderBrush="{StaticResource BorderBrush}" BorderThickness="1"
+                                    CornerRadius="8" Margin="0,4,0,0" Padding="0,4"
+                                    MinWidth="{TemplateBinding ActualWidth}">
+                                <ScrollViewer MaxHeight="260">
+                                    <ItemsPresenter/>
+                                </ScrollViewer>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SoftCheckBox" TargetType="CheckBox">
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <StackPanel Orientation="Horizontal" Background="Transparent">
+                        <Border x:Name="Box" Width="16" Height="16" CornerRadius="5"
+                                BorderBrush="#59A1A1A1"
+                                BorderThickness="1" VerticalAlignment="Center">
+                            <Border.Background>
+                                <SolidColorBrush Color="#FFFFFF"/>
+                            </Border.Background>
+                            <Path x:Name="Check" Data="M3.6 8.2 L6.6 11.2 L12.4 4.8"
+                                  Stroke="White" StrokeThickness="2" StrokeStartLineCap="Round"
+                                  StrokeEndLineCap="Round" StrokeLineJoin="Round" Opacity="0"/>
+                        </Border>
+                        <ContentPresenter Margin="8,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="Box"
+                                                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                        To="#FF00AF5C" Duration="0:0:0.15"/>
+                                        <ColorAnimation Storyboard.TargetName="Box"
+                                                        Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
+                                                        To="#FF00AF5C" Duration="0:0:0.15"/>
+                                        <DoubleAnimation Storyboard.TargetName="Check"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="1" Duration="0:0:0.15"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="Box"
+                                                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                        To="#FFFFFFFF" Duration="0:0:0.15"/>
+                                        <ColorAnimation Storyboard.TargetName="Box"
+                                                        Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
+                                                        To="#59A1A1A1" Duration="0:0:0.15"/>
+                                        <DoubleAnimation Storyboard.TargetName="Check"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0" Duration="0:0:0.15"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="MonoBlock" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Cascadia Mono, Consolas, Courier New, monospace"/>
+        <Setter Property="FontSize" Value="12.5"/>
+        <Setter Property="LineHeight" Value="20"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style x:Key="MonoBox" TargetType="TextBox">
+        <Setter Property="FontFamily" Value="Consolas, Cascadia Mono, monospace"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="CaretBrush" Value="{StaticResource AccentBrush}"/>
+        <Setter Property="Background" Value="{StaticResource WhiteBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="10"/>
+    </Style>
+</ResourceDictionary>

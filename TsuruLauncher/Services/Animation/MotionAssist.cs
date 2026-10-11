@@ -493,6 +493,10 @@ namespace TsuruLauncher.Services.Animation
         private static readonly Dictionary<FrameworkElement, HostMemo> _hostMemo =
             new Dictionary<FrameworkElement, HostMemo>();
 
+        /// <summary>调试用：静态集合大小（排查「越用越卡」）。</summary>
+        public static string DebugCounters =>
+            $"hostMemo={_hostMemo.Count} cacheHosts={_motionCacheHosts.Count}";
+
         private static void Remember(FrameworkElement root, double w, double h, FrameworkElement? host, double px)
         {
             try

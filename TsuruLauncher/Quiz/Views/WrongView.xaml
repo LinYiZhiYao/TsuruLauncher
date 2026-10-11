@@ -1,0 +1,38 @@
+<UserControl x:Class="TsuruLauncher.Quiz.Views.WrongView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="Transparent">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- 模块自带色板：挂在页面级，避免和启动器的全局资源打架 -->
+                <ResourceDictionary Source="/TsuruLauncher;component/Quiz/Theme/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Padding="28,18" Background="{StaticResource SurfaceBrush}"
+                BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1">
+            <Grid>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="错题本" Style="{StaticResource H1}"/>
+                    <TextBlock x:Name="SummaryText" Style="{StaticResource Muted}" Margin="0,4,0,0"/>
+                </StackPanel>
+                <Button Content="全部标记已掌握" Style="{StaticResource SoftButton}"
+                        HorizontalAlignment="Right" VerticalAlignment="Center" Padding="16,8"
+                        Click="ClearAllClicked"/>
+            </Grid>
+        </Border>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel x:Name="List" Margin="28,18,28,28"/>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

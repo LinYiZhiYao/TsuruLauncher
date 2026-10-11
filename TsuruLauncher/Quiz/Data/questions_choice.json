@@ -1,0 +1,6498 @@
+[
+ {
+  "id": "c0001",
+  "category": "基本数据类型",
+  "stem": "下面不是IPO 模式的一部分的是",
+  "options": [
+   "Input",
+   "Program",
+   "Process",
+   "Output"
+  ],
+  "answer": "B",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0002",
+  "category": "基本数据类型",
+  "stem": "在Python3.X 版本中语句输出正确的是",
+  "options": [
+   ">>>3/2\n1.50",
+   ">>>3/2\n1",
+   ">>>3//2\n1",
+   ">>>3//2\n1.5"
+  ],
+  "answer": "C",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0003",
+  "category": "基本数据类型",
+  "stem": "下面语句输出正确的是\n>>>TempStr=\"105C\"\n>>>eval(TempStr[0:-1])",
+  "options": [
+   "105",
+   "105C",
+   "C",
+   "1"
+  ],
+  "answer": "A",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0004",
+  "category": "基本数据类型",
+  "stem": "Python 语言中表示八进制的是",
+  "options": [
+   "0b1708",
+   "0B1010",
+   "0B1019",
+   "0bC3F"
+  ],
+  "answer": "B",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0005",
+  "category": "基本数据类型",
+  "stem": "1.23e-4+5.67e+8j.real 语句的输出结果正确的是",
+  "options": [
+   "0.000123",
+   "1.23",
+   "5.67e+8",
+   "1.23e-4"
+  ],
+  "answer": "A",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0006",
+  "category": "基本数据类型",
+  "stem": "下面对Python 语言浮点数类型描述不正确的是",
+  "options": [
+   "浮点数类型与数学中实数的概念一致",
+   "浮点数类型表示带有小数的类型",
+   "Python 语言要求所有浮点数必须带有小数部分",
+   "小数部分不可以为0"
+  ],
+  "answer": "D",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0007",
+  "category": "Python语法基础",
+  "stem": "下面对Python 语言内置操作符描述不正确的是",
+  "options": [
+   "x/y 表示x 与y 之商",
+   "x//y 表示x 与y 之整数商，即不大于x 与y 之商的最大整数",
+   "x%y 表示x 与y 之整数商，即不大于x 与y 之商的最大整数",
+   "x%y 表示x 与y 之商的余数，也称为模运算"
+  ],
+  "answer": "C",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0008",
+  "category": "Python语法基础",
+  "stem": "在Python 语言中，如果x=3，则执行语句+x 的结果是",
+  "options": [
+   "0",
+   "3",
+   "6",
+   "9"
+  ],
+  "answer": "B",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0009",
+  "category": "基本数据类型",
+  "stem": "下面语句输出正确的是\n>>>abs(-3+4j)",
+  "options": [
+   "3",
+   "4",
+   "5",
+   "5.0"
+  ],
+  "answer": "D",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0010",
+  "category": "基本数据类型",
+  "stem": "假设x=1， x*=3+5**2 的运算结果是",
+  "options": [
+   "13",
+   "14",
+   "28",
+   "29"
+  ],
+  "answer": "C",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0011",
+  "category": "基本数据类型",
+  "stem": "如果name=\"全国计算机等级考试二级Python\"下面输出错误的是",
+  "options": [
+   ">>>print(name[0],name[8],name[-1])\n全 试",
+   ">>>print(name[:])\n全国计算机等级考试二级Python",
+   ">>>print(name[11:])\nPython",
+   ">>>print(name[:11])\n全国计算机等级考试二级"
+  ],
+  "answer": "A",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0012",
+  "category": "基本数据类型",
+  "stem": "下列表达式错误的是",
+  "options": [
+   "‘abcd’<’ad’",
+   "‘abc’<’abcd’",
+   "“<’a’",
+   "‘Hello’>’hello’"
+  ],
+  "answer": "D",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0013",
+  "category": "基本数据类型",
+  "stem": "下列程序运行结果正确的是\n>>>s=‘PYTHON’\n>>>“{0:3}”.format(s)",
+  "options": [
+   "‘PYT’",
+   "‘PYTH’",
+   "‘PYTHON’",
+   "‘ PYTHON’"
+  ],
+  "answer": "C",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0014",
+  "category": "程序的控制结构",
+  "stem": "程序的基本结构包括",
+  "options": [
+   "顺序结构",
+   "分支结构",
+   "循环结构",
+   "跳转结构"
+  ],
+  "answer": "C",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0015",
+  "category": "程序的控制结构",
+  "stem": "以下可以结束一个循环的保留字是",
+  "options": [
+   "If",
+   "continue",
+   "break",
+   "exit"
+  ],
+  "answer": "B",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0016",
+  "category": "程序的控制结构",
+  "stem": "下面对分支结构描述不正确的是",
+  "options": [
+   "If 语句中语句块执行与否依赖于条件判断。",
+   "if 语句中条件部分可以使用任何能够产生True 和False 的语句和函数。",
+   "Python 通过if、else 保留字来实现单分支、二分支和多分支结构。",
+   "多分支结构是二分支结构的扩展，用于设置同一个判断条件的多条执行路径。"
+  ],
+  "answer": "C",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0017",
+  "category": "函数和代码复用",
+  "stem": "下面关于函数描述不正确的是",
+  "options": [
+   "函数是一段具有特定功能的语句组。",
+   "函数是一段可重用的语句组。",
+   "函数通过函数名进行调用。",
+   "每次使用函数需要提供相同的参数作为输入。"
+  ],
+  "answer": "D",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0018",
+  "category": "函数和代码复用",
+  "stem": "Python 中定义函数的关键字是",
+  "options": [
+   "define",
+   "return",
+   "def",
+   "function"
+  ],
+  "answer": "C",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0019",
+  "category": "函数和代码复用",
+  "stem": "关于递归描述不正确的是",
+  "options": [
+   "函数定义中调用函数自身的方式称为递归。",
+   "递归只能存在一个基例。",
+   "默认情况下，当递归调用到1000 层，Python 解释器将终止程序。",
+   "递归不是循环。"
+  ],
+  "answer": "B",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0020",
+  "category": "组合数据类型",
+  "stem": "下列不属于组合数据类型的是",
+  "options": [
+   "序列类型",
+   "集合类型",
+   "字典类型",
+   "映射类型"
+  ],
+  "answer": "C",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0021",
+  "category": "组合数据类型",
+  "stem": "下面对元组描述不正确的是",
+  "options": [
+   "元组是一种集合类型。",
+   "元组一旦被创建就不能被修改。",
+   "一个元组可以作为另外一个元组的元素。",
+   "Python 语言中元组可以采用逗号和圆括号来表示。"
+  ],
+  "answer": "A",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0022",
+  "category": "组合数据类型",
+  "stem": "列表ls=[[1,2,3],[[4,5],6],[7,8]]，则len(ls)的值是",
+  "options": [
+   "1",
+   "3",
+   "4",
+   "8"
+  ],
+  "answer": "B",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0023",
+  "category": "组合数据类型",
+  "stem": "下面是错误的字典创建方式的是",
+  "options": [
+   "d={1:[1,2],3:[3,4]}",
+   "d={[1,2]:1,[3,4]:3}",
+   "d={(1,2):1,(3,4):3}",
+   "d={'张三':1,'李四':2}"
+  ],
+  "answer": "B",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0024",
+  "category": "文件和数据格式化",
+  "stem": "下列不属于Python 对文件的读操作方法的是",
+  "options": [
+   "read",
+   "readline",
+   "readall",
+   "readtext"
+  ],
+  "answer": "D",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0025",
+  "category": "文件和数据格式化",
+  "stem": "下面对文件描述错误的是",
+  "options": [
+   "文件是一个存储在辅助存储器上的数据序列。",
+   "文件中可以包含任何数据内容。",
+   "文本文件和二进制文件都是文件。",
+   "文本文件不能用二进制文件方式读入。"
+  ],
+  "answer": "D",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0026",
+  "category": "组合数据类型",
+  "stem": "假设ls=[3.5, “Python”,[10, “LIST”],3.6]，则执行ls[2][-1][1]的结果为",
+  "options": [
+   "L",
+   "I",
+   "P",
+   "Y"
+  ],
+  "answer": "B",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0027",
+  "category": "Python计算生态",
+  "stem": "不改变绘制方向的Turtle 命令是",
+  "options": [
+   "turtle.fd()",
+   "turtle.seth()",
+   "turtle.right()",
+   "turtle.circle()"
+  ],
+  "answer": "A",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0028",
+  "category": "Python计算生态",
+  "stem": "在Turtle 绘图中表示颜色值不正确的是",
+  "options": [
+   "“grey”",
+   "(190,190,190)",
+   "BEBEBE",
+   "#BEBEBE"
+  ],
+  "answer": "C",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0029",
+  "category": "Python计算生态",
+  "stem": "关于random 库描述不正确的是",
+  "options": [
+   "生成随机数之前必须要指定随机数种子。",
+   "设定相同种子，每次调用随机函数生成的随机数相同。",
+   "通过fromrandomimport*可以引入random 随机库。",
+   "通过importrandom 可以引入random 随机库。"
+  ],
+  "answer": "A",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0030",
+  "category": "Python计算生态",
+  "stem": "下面不属于Python 中开发用户界面的第三方库的是",
+  "options": [
+   "Turtle",
+   "PyQt",
+   "wxpython",
+   "pygtk"
+  ],
+  "answer": "A",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "c0031",
+  "category": "公共基础",
+  "stem": "在并发程序执行过程中，进程调度负责分配",
+  "options": [
+   "CPU",
+   "CPU、打印机",
+   "CPU、打印机、外存",
+   "所有系统资源"
+  ],
+  "answer": "A",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/104-1.htm"
+ },
+ {
+  "id": "c0032",
+  "category": "公共基础",
+  "stem": "为了解决CPU和主存之间的速度匹配问题，应该",
+  "options": [
+   "在主存储器和CPU之间增加高速缓冲存储器",
+   "提高主存储器访问速度",
+   "扩大CPU中通用寄存器的数量",
+   "扩大主存容量"
+  ],
+  "answer": "A",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/104-1.htm"
+ },
+ {
+  "id": "c0033",
+  "category": "公共基础",
+  "stem": "下列数据结构中，属于非线性结构的是",
+  "options": [
+   "双向链表",
+   "循环链表",
+   "二叉链表",
+   "循环队列"
+  ],
+  "answer": "C",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/104-1.htm"
+ },
+ {
+  "id": "c0034",
+  "category": "公共基础",
+  "stem": "一棵二叉树共有 25 个结点，其中5个是叶子结点，则度为1的结点数为",
+  "options": [
+   "16",
+   "10",
+   "4",
+   "6"
+  ],
+  "answer": "A",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/104-1.htm"
+ },
+ {
+  "id": "c0035",
+  "category": "公共基础",
+  "stem": "下列关于循环队列的叙述中，正确的是",
+  "options": [
+   "循环队列是队列的一种链式存储结构",
+   "循环队列是队列的一种顺序存储结构",
+   "循环队列是非线性结构",
+   "循环队列是一种逻辑结构"
+  ],
+  "answer": "B",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/104-1.htm"
+ },
+ {
+  "id": "c0036",
+  "category": "公共基础",
+  "stem": "下面对软件特点的描述中，错误的是",
+  "options": [
+   "软件是一种逻辑实体，具有抽象性",
+   "软件开发、运行对计算机系统具有依赖性",
+   "软件开发涉及软件知识产权、法律及心理等社会因素",
+   "软件运行存在磨损和老化问题"
+  ],
+  "answer": "D",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/104-1.htm"
+ },
+ {
+  "id": "c0037",
+  "category": "公共基础",
+  "stem": "下面属于黑盒测试方法的是",
+  "options": [
+   "基本路径测试",
+   "等价类划分",
+   "判定覆盖测试",
+   "语句覆盖测试"
+  ],
+  "answer": "B",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/104-1.htm"
+ },
+ {
+  "id": "c0038",
+  "category": "公共基础",
+  "stem": "在E-R图中，表示实体的图元是",
+  "options": [
+   "矩形",
+   "椭圆",
+   "菱形",
+   "圆"
+  ],
+  "answer": "A",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/104-1.htm"
+ },
+ {
+  "id": "c0039",
+  "category": "公共基础",
+  "stem": "有两个关系R和T如下：则由关系R得到关系T的操作是",
+  "options": [
+   "选择",
+   "交",
+   "投影",
+   "并"
+  ],
+  "answer": "C",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/104-1.htm"
+ },
+ {
+  "id": "c0040",
+  "category": "公共基础",
+  "stem": "对图书进行编目时，图书有如下属性：ISBN书号，书名，作者，出版社，出版日期。能作为关键字的是",
+  "options": [
+   "ISBN 书号",
+   "书名",
+   "作者",
+   "出版社"
+  ],
+  "answer": "A",
+  "explanation": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/104-1.htm"
+ },
+ {
+  "id": "c0041",
+  "category": "公共基础",
+  "stem": "程序流程图中带有箭头的线段表示的是（　　）。",
+  "options": [
+   "图元关系",
+   "数据流",
+   "控制流",
+   "调用关系"
+  ],
+  "answer": "C",
+  "explanation": "在数据流图中，用标有名字的箭头表示数据流。在程序流程图中，用标有名字的箭头表示控制流。所以选择C。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0042",
+  "category": "公共基础",
+  "stem": "结构化程序设计的基本原则不包括（　　）。",
+  "options": [
+   "多态性",
+   "自顶向下",
+   "模块化",
+   "逐步求精"
+  ],
+  "answer": "A",
+  "explanation": "结构化程序设计的思想包括：自顶向下、逐步求精、模块化、限制使用goto语句，所以选择A。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0043",
+  "category": "公共基础",
+  "stem": "软件设计中模块划分应遵循的准则是（　　）。",
+  "options": [
+   "低内聚低耦合",
+   "高内聚低耦合",
+   "低内聚高耦合",
+   "高内聚高耦合"
+  ],
+  "answer": "B",
+  "explanation": "软件设计中模块划分应遵循的准则是高内聚低偶合、模块大小规模适当、模块的依赖关系适当等。模块的划分应遵循一定的要求，以保证模块划分合理，并进一步保证以此为依据开发出的软件系统可靠性强，易于理解和维护。模块之间的耦合应尽可能的低，模块的内聚度应尽可能的高。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0044",
+  "category": "公共基础",
+  "stem": "在软件开发中，需求分析阶段产生的主要文档是（　　）。",
+  "options": [
+   "可行性分析报告",
+   "软件需求规格说明书",
+   "概要设计说明书",
+   "集成测试计划"
+  ],
+  "answer": "B",
+  "explanation": "A错误，可行性分析阶段产生可行性分析报告。C错误，概要设计说明书是总体设计阶段产生的文档。D错误，集成测试计划是在概要设计阶段编写的文档。B正确，需求规格说明书是后续工作如设计、编码等需要的重要参考文档。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0045",
+  "category": "公共基础",
+  "stem": "算法的有穷性是指（　　）。",
+  "options": [
+   "算法程序的运行时间是有限的",
+   "算法程序所处理的数据量是有限的",
+   "算法程序的长度是有限的",
+   "算法只能被有限的用户使用"
+  ],
+  "answer": "A",
+  "explanation": "算法原则上能够精确地运行，而且人们用笔和纸做有限次运算后即可完成。有穷性是指算法程序的运行时间是有限的。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0046",
+  "category": "公共基础",
+  "stem": "对长度为n的线性表排序，在最坏情况下，比较次数不是n（n－1）/2的排序方法是（　　）。",
+  "options": [
+   "快速排序",
+   "冒泡排序",
+   "直接插入排序",
+   "堆排序"
+  ],
+  "answer": "D",
+  "explanation": "除了堆排序算法的比较次数是O(log2^n)，其他的都是n(n－1)/2。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0047",
+  "category": "公共基础",
+  "stem": "下列关于栈的叙述正确的是（　　）。",
+  "options": [
+   "栈按“先进先出”组织数据",
+   "栈按“先进后出”组织数据",
+   "只能在栈底插入数据",
+   "不能删除数据"
+  ],
+  "answer": "B",
+  "explanation": "栈是按“先进后出”的原则组织数据的，数据的插入和删除都在栈顶进行操作。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0048",
+  "category": "公共基础",
+  "stem": "在数据库设计中，将E－R图转换成关系数据模型的过程属于（　　）。",
+  "options": [
+   "需求分析阶段",
+   "概念设计阶段",
+   "逻辑设计阶段",
+   "物理设计阶段"
+  ],
+  "answer": "C",
+  "explanation": "E－R图转换成关系模型数据则是把图形分析出来的联系反映到数据库中，即设计出表，所以属于逻辑设计阶段。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0049",
+  "category": "公共基础",
+  "stem": "有三个关系R、S和T如下：",
+  "options": [
+   "并",
+   "自然连接",
+   "笛卡尔积",
+   "交"
+  ],
+  "answer": "D",
+  "explanation": "自然连接是一种特殊的等值连接，它要求两个关系中进行比较的分量必须是相同的属性组，并且在结果中把重复的属性列去掉，所以B错误。笛卡尔积是用R集合中元素为第一元素，S集合中元素为第二元素构成的有序对，所以C错误。根据关系T可以很明显的看出是从关系R与关系S中取得相同的关系组，所以取得是交运算，选择D。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0050",
+  "category": "公共基础",
+  "stem": "设有表示学生选课的三张表，学生S（学号，姓名，性别，年龄，身份证号），课程C（课号，课名），选课SC（学号，课号，成绩），则表SC的关键字（键或码）为（　　）。",
+  "options": [
+   "课号，成绩",
+   "学号，成绩",
+   "学号，课号",
+   "学号，姓名，成绩"
+  ],
+  "answer": "C",
+  "explanation": "学号是学生表S的主键，课号是课程表C的主键，所以选课表SC的关键字就应该是与前两个表能够直接联系且能唯一定义的学号和课号，所以选择C。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0051",
+  "category": "公共基础",
+  "stem": "一个栈的初始状态为空。现将元素1、2、3、4、5、A、B、C、D、E依次入栈，然后再依次出栈，则元素出栈的顺序是（　　）。",
+  "options": [
+   "12345ABCDE",
+   "EDCBA54321",
+   "ABCDE12345",
+   "54321EDCBA"
+  ],
+  "answer": "B",
+  "explanation": "栈按先进后出的原则组织数据，所以入栈最早的最后出栈，所以选择B。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0052",
+  "category": "公共基础",
+  "stem": "下列叙述中正确的是（　　）。",
+  "options": [
+   "循环队列有队头和队尾两个指针，因此，循环队列是非线性结构",
+   "在循环队列中，只需要队头指针就能反映队列中元素的动态变化情况",
+   "在循环队列中，只需要队尾指针就能反映队列中元素的动态变化情况",
+   "循环队列中元素的个数是由队头指针和队尾指针共同决定"
+  ],
+  "answer": "D",
+  "explanation": "循环队列有队头和队尾两个指针，但是循环队列仍是线性结构的，所以A错误；在循环队列中只需要队头指针与队尾两个指针来共同反映队列中元素的动态变化情况，所以B与C错误。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0053",
+  "category": "公共基础",
+  "stem": "在长度为n的有序线性表中进行二分查找，最坏情况下需要比较的次数是（　　）。",
+  "options": [
+   "O(n)",
+   "O(n^2)",
+   "O(log2^n)",
+   "O(nlog2^n)"
+  ],
+  "answer": "C",
+  "explanation": "当有序线性表为顺序存储时才能用二分法查找。可以证明的是对于长度为n的有序线性表，在最坏情况下，二分法查找只需要比较",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0054",
+  "category": "公共基础",
+  "stem": "数据流图中带有箭头的线段表示的是（　　）。",
+  "options": [
+   "控制流",
+   "事件驱动",
+   "模块调用",
+   "数据流"
+  ],
+  "answer": "D",
+  "explanation": "数据流图中带箭头的线段表示的是数据流，即沿箭头方向传送数据的通道，一般在旁边标注数据流名。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0055",
+  "category": "公共基础",
+  "stem": "在软件开发中，需求分析阶段可以使用的工具是（　　）。",
+  "options": [
+   "N－S图",
+   "DFD图",
+   "PAD图",
+   "程序流程图"
+  ],
+  "answer": "B",
+  "explanation": "在需求分析阶段可以使用的工具有数据流图DFD图，数据字典DD，判定树与判定表，所以选择B。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0056",
+  "category": "公共基础",
+  "stem": "在面向对象方法中，不属于“对象”基本特点的是（　　）。",
+  "options": [
+   "一致性",
+   "分类性",
+   "多态性",
+   "标识唯一性"
+  ],
+  "answer": "A",
+  "explanation": "对象有如下一些基本特点：标识唯一性、分类性、多态性、封装性、模块独立性好。所以选择A。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0057",
+  "category": "公共基础",
+  "stem": "一间宿舍可住多个学生，则实体宿舍和学生之间的联系是（　　）。",
+  "options": [
+   "一对一",
+   "一对多",
+   "多对一",
+   "多对多"
+  ],
+  "answer": "B",
+  "explanation": "因为一间宿舍可以住多个学生即多个学生住在一个宿舍中，但一个学生只能住一间宿舍，所以实体宿舍和学生之间是一对多的关系。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0058",
+  "category": "公共基础",
+  "stem": "在数据管理技术发展的三个阶段中，数据共享最好的是（　　）。",
+  "options": [
+   "人工管理阶段",
+   "文件系统阶段",
+   "数据库系统阶段",
+   "三个阶段相同"
+  ],
+  "answer": "C",
+  "explanation": "数据管理发展至今已经历了三个阶段：人工管理阶段、文件系统阶段和数据库系统阶段。其中最后一个阶段结构简单，使用方便逻辑性强物理性少，在各方面的表现都最好，一直占据数据库领域的主导地位，所以选择C。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0059",
+  "category": "公共基础",
+  "stem": "支持子程序调用的数据结构是（　　）。",
+  "options": [
+   "栈",
+   "树",
+   "队列",
+   "二叉树"
+  ],
+  "answer": "A",
+  "explanation": "栈支持子程序调用。栈是一种只能在一端进行插入或删除的线性表，在主程序调用子函数时要首先保存主程序当前的状态，然后转去执行子程序，最终把子程序的执行结果返回到主程序中调用子程序的位置，继续向下执行，这种调用符合栈的特点，因此本题的答案为A。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0060",
+  "category": "公共基础",
+  "stem": "某二叉树有5个度为2的结点，则该二叉树中的叶子结点数是（　　）。",
+  "options": [
+   "10",
+   "8",
+   "6",
+   "4"
+  ],
+  "answer": "C",
+  "explanation": "根据二叉树的基本性质3：在任意一棵二叉树中，度为0的叶子节点总是比度为2的节点多一个，所以本题中是5＋1＝6个。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0061",
+  "category": "公共基础",
+  "stem": "下列排序方法中，最坏情况下比较次数最少的是（　　）。",
+  "options": [
+   "冒泡排序",
+   "简单选择排序",
+   "直接插入排序",
+   "堆排序"
+  ],
+  "answer": "D",
+  "explanation": "冒泡排序与简单插入排序与简单选择排序法在最坏情况下均需要比较n(n－1)/2次，而堆排序在最坏情况下需要比较的次数是",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0062",
+  "category": "公共基础",
+  "stem": "nlog2^n。",
+  "options": [
+   "编译程序",
+   "操作系统",
+   "教务管理系统",
+   "汇编程序"
+  ],
+  "answer": "C",
+  "explanation": "编译软件、操作系统、汇编程序都属于系统软件，只有C教务管理系统才是应用软件。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0063",
+  "category": "公共基础",
+  "stem": "下面叙述中错误的是（　　）",
+  "options": [
+   "软件测试的目的是发现错误并改正错误",
+   "对被调试的程序进行“错误定位”是程序调试的必要步骤",
+   "程序调试通常也称为Debug",
+   "软件测试应严格执行测试计划，排除测试的随意性"
+  ],
+  "answer": "A",
+  "explanation": "软件测试的目的是为了发现错误而执行程序的过程，并不涉及改正错误，所以选项A错误。程序调试的基本步骤有：错误定位、修改设计和代码，以排除错误、进行回归测试，防止引进新的错误。程序调试通常称为Debug，即排错。软件测试的基本准则有：所有测试都应追溯到需求、严格执行测试计划，排除测试的随意性、充分注意测试中的群集现象、程序员应避免检查自己的程序、穷举测试不可能、妥善保存测试计划等文件。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0064",
+  "category": "公共基础",
+  "stem": "耦合性和内聚性是对模块独立性度量的两个标准。下列叙述中正确的是（　　）。",
+  "options": [
+   "提高耦合性降低内聚性有利于提高模块的独立性",
+   "降低耦合性提高内聚性有利于提高模块的独立性",
+   "耦合性是指一个模块内部各个元素间彼此结合的紧密程度",
+   "内聚性是指模块间互相连接的紧密程度"
+  ],
+  "answer": "B",
+  "explanation": "模块独立性是指每个模块只完成系统要求的独立的子功能，并且与其他模块的联系最少且接口简单。一般较优秀的软件设计，应尽量做到高内聚，低耦合，即减弱模块之间的耦合性和提高模块内的内聚性，有利于提高模块的独立性，所以A错误，B正确。耦合性是模块间互相连接的紧密程度的度量而内聚性是指一个模块内部各个元素间彼此结合的紧密程度，所以C与D错误。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0065",
+  "category": "公共基础",
+  "stem": "数据库应用系统中的核心问题是（　　）。",
+  "options": [
+   "数据库设计",
+   "数据库系统设计",
+   "数据库维护",
+   "数据库管理员培训"
+  ],
+  "answer": "A",
+  "explanation": "数据库应用系统中的核心问题是数据库的设计。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0066",
+  "category": "公共基础",
+  "stem": "有两个关系R，S如下：",
+  "options": [
+   "选择",
+   "投影",
+   "插入",
+   "连接"
+  ],
+  "answer": "B",
+  "explanation": "投影运算是指对于关系内的域指定可引入新的运算。本题中S是在原有关系R的内部进行的，是由R中原有的那些域的列所组成的关系。所以选择B。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0067",
+  "category": "公共基础",
+  "stem": "将E－R图转换为关系模式时，实体和联系都可以表示为（　　）。",
+  "options": [
+   "属性",
+   "键",
+   "关系",
+   "域"
+  ],
+  "answer": "C",
+  "explanation": "从E－R图到关系模式的转换是比较直接的，实体与联系都可以表示成关系，E－R图中属性也可以转换成关系的属性。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0068",
+  "category": "公共基础",
+  "stem": "下列数据结构中，能够按照“先进后出”原则存取数据的是（　　）。",
+  "options": [
+   "循环队列",
+   "栈",
+   "队列",
+   "二叉树"
+  ],
+  "answer": "B",
+  "explanation": "栈是按先进后出的原则组织数据的；队列按先进先出的原则组织数据。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0069",
+  "category": "公共基础",
+  "stem": "对于循环队列，下列叙述中正确的是（　　）。",
+  "options": [
+   "队头指针是固定不变的",
+   "队头指针一定大于队尾指针",
+   "队头指针一定小于队尾指针",
+   "队头指针可以大于队尾指针，也可以小于队尾指针"
+  ],
+  "answer": "D",
+  "explanation": "循环队列的队头指针与队尾指针都不是固定的，随着入队与出队操作要进行变化。因为是循环利用的队列结构，所以对头指针有时可能大于队尾指针有时也可能小于队尾指针。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0070",
+  "category": "公共基础",
+  "stem": "算法的空间复杂度是指（　　）。",
+  "options": [
+   "算法在执行过程中所需要的计算机存储空间",
+   "算法所处理的数据量",
+   "算法程序中的语句或指令条数",
+   "算法在执行过程中所需要的临时工作单元数"
+  ],
+  "answer": "A",
+  "explanation": "算法的空间复杂度是指算法在执行过程中所需要的内存空间。所以选择A。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0071",
+  "category": "公共基础",
+  "stem": "软件设计中划分模块的一个准则是（　　）。",
+  "options": [
+   "低内聚低耦合",
+   "高内聚低耦合",
+   "低内聚高耦合",
+   "高内聚高耦合"
+  ],
+  "answer": "B",
+  "explanation": "一般较优秀的软件设计，应尽量做到高内聚，低耦合，即减弱模块之间的耦合性和提高模块内的内聚性，有利于提高模块的独立性。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0072",
+  "category": "公共基础",
+  "stem": "下列选项中不属于结构化程序设计原则的是（　　）。",
+  "options": [
+   "可封装",
+   "自顶向下",
+   "模块化",
+   "逐步求精"
+  ],
+  "answer": "A",
+  "explanation": "结构化程序设计的思想包括：自顶向下、逐步求精、模块化、限制使用goto语句，所以选择A。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0073",
+  "category": "公共基础",
+  "stem": "软件详细设计生产的图如下：",
+  "options": [
+   "N－S图",
+   "PAD图",
+   "程序流程图",
+   "E－R图"
+  ],
+  "answer": "C",
+  "explanation": "N－S图提出了用方框图来代替传统的程序流程图，所以A不对。PAD图是问题分析图，它是继承程序流程图和方框图之后提出的又一种主要用于描述软件详细设计的图形表示工具，所以B不对。E－R图是数据库中的用于表示E－R模型的图示工具，所以D不对。根据图中所示表示方法是进行软件详细设计时使用的程序流程图。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0074",
+  "category": "公共基础",
+  "stem": "数据库管理系统是（　　）。",
+  "options": [
+   "操作系统的一部分",
+   "在操作系统支持下的系统软件",
+   "一种编译系统",
+   "一种操作系统"
+  ],
+  "answer": "B",
+  "explanation": "数据库管理系统是数据库的机构，它是一种系统软件，负责数据库中数据组织、数据操纵、数据维护、控制及保护和数据服务等。是一种在操作系统之上的系统软件。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0075",
+  "category": "公共基础",
+  "stem": "在E－R图中，用来表示实体联系的图形是（　　）。",
+  "options": [
+   "椭圆形",
+   "矩形",
+   "菱形",
+   "三角形"
+  ],
+  "answer": "C",
+  "explanation": "在E－R图中实体集用矩形表示，属性用椭圆表示，联系用菱形表示。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0076",
+  "category": "公共基础",
+  "stem": "软件测试的目的是（　　）。",
+  "options": [
+   "评估软件可靠性",
+   "发现并改正程序中的错误",
+   "改正程序中的错误",
+   "发现程序中的错误"
+  ],
+  "answer": "D",
+  "explanation": "软件测试是为了发现错误而执行程序的过程，测试要以查找错误为中心，而不是为了演示软件的正确功能。不是为了评估软件或改正错",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0077",
+  "category": "公共基础",
+  "stem": "软件生命周期是指（　　）。",
+  "options": [
+   "软件产品从提出、实现、使用维护到停止使用退役的过程",
+   "软件从需求分析、设计、实现到测试完成的过程",
+   "软件的开发过程",
+   "软件的运行维护过程"
+  ],
+  "answer": "A",
+  "explanation": "通常，将软件产品从提出、实现、使用维护到停止使用退役的过程称为软件生命周期。也就是说，软件产品从考虑其概念开始，到该软件产品不能使用为止的整个时期都属于软件生命周期。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0078",
+  "category": "公共基础",
+  "stem": "面向对象方法中，继承是指（　　）。",
+  "options": [
+   "一组对象所具有的相似性质",
+   "一个对象具有另一个对象的性质",
+   "各对象之间的共同性质",
+   "类之间共享属性和操作的机制"
+  ],
+  "answer": "D",
+  "explanation": "继承是面向对象的方法的一个主要特征，是使用已有的类的定义作为基础建立新类的定义技术。广义的说，继承是指能够直接获得已有的性质和特征，而不必重复定义它们，所以说继承是指类之间共享属性和操作的机制。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0079",
+  "category": "公共基础",
+  "stem": "层次型、网状型和关系型数据库划分原则是（　　）。",
+  "options": [
+   "记录长度",
+   "文件的大小",
+   "联系的复杂程度",
+   "数据之间的联系方式"
+  ],
+  "answer": "D",
+  "explanation": "层次模型的基本结构是树形结构，网状模型是一个不加任何条件限制的无向图，关系模型采用二维表来表示，所以三种数据库的划分原则是数据之间的联系方式。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0080",
+  "category": "公共基础",
+  "stem": "一个工作人员可以使用多台计算机，而一台计算机可被多个人使用，则实体工作人员与实体计算机之间的联系是（　　）。",
+  "options": [
+   "一对一",
+   "一对多",
+   "多对多",
+   "多对一"
+  ],
+  "answer": "C",
+  "explanation": "因为一个人可以操作多个计算机，而一台计算机又可以被多个人使用，所以两个实体之间是多对多的关系。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0081",
+  "category": "公共基础",
+  "stem": "数据库设计中反映用户对数据要求的模式是（　　）。",
+  "options": [
+   "内模式",
+   "概念模式",
+   "外模式",
+   "设计模式"
+  ],
+  "answer": "C",
+  "explanation": "数据库系统的三级模式是概念模式、外模式和内模式。概念模式是数据库系统中全局数据逻辑结构的描述，是全体用户公共数据视图。外模式也称子模式或用户模式，它是用户的数据视图，给出了每个用户的局部数据描述，所以选择C。内模式又称物理模式，它给出了数据库物理存储结构与物理存取方法。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0082",
+  "category": "公共基础",
+  "stem": "下列关于栈叙述正确的是（　　）。",
+  "options": [
+   "算法就是程序",
+   "设计算法时只需要考虑数据结构的设计",
+   "设计算法时只需要考虑结果的可靠性",
+   "以上三种说法都不对"
+  ],
+  "answer": "D",
+  "explanation": "算法是指解题方案的准确而完整的描述，算法不等于程序，也不等于计算方法，所以A错误。设计算法时不仅要考虑对数据对象的运算和操作，还要考虑算法的控制结构。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0083",
+  "category": "公共基础",
+  "stem": "下列关于二叉树的叙述中，正确的是（　　）。",
+  "options": [
+   "叶子结点总是比度为2的结点少一个",
+   "叶子结点总是比度为2的结点多一个",
+   "叶子结点数是度为2的结点数的两倍",
+   "度为2的结点数是度为1的结点数的两倍"
+  ],
+  "answer": "B",
+  "explanation": "根据二叉树的基本性质3：在任意一棵二叉树中，度为0的叶子结点总是比度为2的结点多一个。所以选择B。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0084",
+  "category": "公共基础",
+  "stem": "软件生命周期中的活动不包括（　　）。",
+  "options": [
+   "市场调研",
+   "需求分析",
+   "软件测试",
+   "软件维护"
+  ],
+  "answer": "A",
+  "explanation": "软件生命周期可以分为软件定义、软件开发与软件运行维护三个阶段。主要活动阶段是：可行性研究与计划阶段，需求分析，软件设计，软件实现，软件测试，运行和维护，所以选择A。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0085",
+  "category": "公共基础",
+  "stem": "某系统总体结构图如下图所示：",
+  "options": [
+   "7",
+   "6",
+   "3",
+   "2"
+  ],
+  "answer": "C",
+  "explanation": "根据总体结构图可以看出该树的深度为3，比如：XY系统-功能2-功能2.1，就是最深的度数的一个表现。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0086",
+  "category": "公共基础",
+  "stem": "程序调试的任务是（　　）。",
+  "options": [
+   "设计测试用例",
+   "验证程序的正确性",
+   "发现程序中的错误",
+   "诊断和改正程序中的错误"
+  ],
+  "answer": "D",
+  "explanation": "程序调试的任务是诊断和改正程序中的错误。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0087",
+  "category": "公共基础",
+  "stem": "下列关于数据库设计的叙述中，正确的是（　　）。",
+  "options": [
+   "在需求分析阶段建立数据字典",
+   "在概念设计阶段建立数据字典",
+   "在逻辑设计阶段建立数据字典",
+   "在物理设计阶段建立数据字典"
+  ],
+  "answer": "A",
+  "explanation": "数据字典是在需求分析阶段建立，在数据库设计过程中不断修改、充实和完善的。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0088",
+  "category": "公共基础",
+  "stem": "下列选项中属于面向对象设计方法主要特征的是（　　）。",
+  "options": [
+   "继承",
+   "自顶向下",
+   "模块化",
+   "逐步求精"
+  ],
+  "answer": "A",
+  "explanation": "面向对象基本方法的基本概念有对象、类和实例、消息、继承与多态性，所以选择A。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0089",
+  "category": "公共基础",
+  "stem": "下列关于线性链表的叙述中，正确的是（　　）。",
+  "options": [
+   "各数据结点的存储空间可以不连续，但它们的存储顺序与逻辑顺序必须一致",
+   "各数据结点的存储顺序与逻辑顺序可以不一致，但它们的存储空间必须连续",
+   "进行插入与删除时，不需要移动表中的元素",
+   "以上说法均不正确"
+  ],
+  "answer": "C",
+  "explanation": "一般来说，在线性表的链式存储结构中，各数据结点的存储序号是不连续的，并且各结点在存储空间中的位置关系与逻辑关系也不一致。线性链表中数据的插入和删除都不需要移动表中的元素，只需改变结点的指针域即可。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0090",
+  "category": "公共基础",
+  "stem": "在下列模式中，能够给出数据库物理存储结构与物理存取方法的是（　　）。",
+  "options": [
+   "外模式",
+   "内模式",
+   "概念模式",
+   "逻辑模式"
+  ],
+  "answer": "B",
+  "explanation": "数据库系统的三级模式是概念模式、外模式和内模式。概念模式是数据库系统中全局数据逻辑结构的描述，是全体用户公共数据视图。外模式也称子模式或用户模式，它是用户的数据视图，给出了每个用户的局部数据描述。内模式又称物理模式，它给出了数据库物理存储结构与物理存取方法，所以选择B。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0091",
+  "category": "公共基础",
+  "stem": "在满足实体完整性约束的条件下（　　）。",
+  "options": [
+   "一个关系中应该有一个或多个候选关键字",
+   "一个关系中只能有一个候选关键字",
+   "一个关系中必须有多关键字个候选",
+   "一个关系中可以没有候选关键字"
+  ],
+  "answer": "A",
+  "explanation": "实体完整性约束要求关系的主键中属性值不能为空值，所以选择A。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0092",
+  "category": "公共基础",
+  "stem": "下面描述中，不属于软件危机表现的是（　　）。",
+  "options": [
+   "软件过程不规范",
+   "软件开发生产率低",
+   "软件质量难以控制",
+   "软件成本不断提高"
+  ],
+  "answer": "A",
+  "explanation": "软件危机主要表现在：软件需求的增长得不到满足；软件开发成本和进度无法控制；软件质量难以保证；软件不可维护或维护程度非常低；软件的成本不断提高；软件开发生产率的提高赶不上硬件的发展和应用需求的增长。所以选择A。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0093",
+  "category": "公共基础",
+  "stem": "下面不属于需求分析阶段任务的是（　　）。",
+  "options": [
+   "确定软件系统的功能需求",
+   "确定软件系统的性能需求",
+   "需求规格说明书评审",
+   "制定软件集成测试计划"
+  ],
+  "answer": "D",
+  "explanation": "需求分析阶段的工作有：需求获取；需求分析；编写需求规格说明书；需求评审，所以选择D。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0094",
+  "category": "公共基础",
+  "stem": "在黑盒测试方法中，设计测试用例的主要根据是（　　）。",
+  "options": [
+   "程序内部逻辑",
+   "程序外部功能",
+   "程序数据结构",
+   "程序流程图"
+  ],
+  "answer": "B",
+  "explanation": "黑盒测试是对软件已经实现的功能是否满足需求进行测试和验证，黑盒测试完全不考虑程序内部的逻辑结构和内部特性，只根据程序的需求和功能规格说明，检查程序的功能是否符合它的功能说明，所以本题选择B。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0095",
+  "category": "公共基础",
+  "stem": "在软件设计中不使用的工具是（　　）。",
+  "options": [
+   "系统结构图",
+   "PAD图",
+   "数据流图（DFD图）",
+   "程序流程图"
+  ],
+  "answer": "C",
+  "explanation": "系统结构图是对软件系统结构的总体设计的图形显示。在需求分析阶段，已经从系统开发的角度出发，把系统按功能逐次分割成层次结构，是在概要设计阶段用到的。PAD图是在详细设计阶段用到的。程序流程图是对程序流程的图形表示，在详细设计过程中用到。数据流图是结构化分析方法中使用的工具，它以图形的方式描绘数据在系统中流动和处理的过程，由于它只反映系统必须完成的逻辑功能，所以它是一种功能模型，是在可行性研究阶段用到的而非软件设计时用到，所以选择C。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0096",
+  "category": "公共基础",
+  "stem": "某二叉树共有7个结点，其中叶子结点只有1个，则该二叉树的深度为（假设根结点在第1层）（　　）。",
+  "options": [
+   "3",
+   "4",
+   "6",
+   "7"
+  ],
+  "answer": "D",
+  "explanation": "根据二叉树的基本性质3：在任意一棵二叉树中，多为0的叶子结点总比度为2的结点多一个，所以本题中度为2的结点为1－1＝0个，所以可以知道本题目中的二叉树的每一个结点都有一个分支，所以共7个结点共7层，即度为7。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0097",
+  "category": "公共基础",
+  "stem": "软件按功能可以分为应用软件、系统软件和支撑软件（或工具软件）。下面属于应用软件的是（　　）。",
+  "options": [
+   "学生成绩管理系统",
+   "C语言编译程序",
+   "UNIX 操作系统",
+   "数据库管理系统"
+  ],
+  "answer": "A",
+  "explanation": "软件按功能可以分为：应用软件、系统软件、支撑软件。操作系统、编译程序、汇编程序、网络软件、数据库管理系统都属于系统软件。所以B、C、D都是系统软件，只有A是应用软件。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0098",
+  "category": "公共基础",
+  "stem": "结构化程序所要求的基本结构不包括（　　）。",
+  "options": [
+   "顺序结构",
+   "GOTO跳转",
+   "选择（分支）结构",
+   "重复（循环）结构"
+  ],
+  "answer": "B",
+  "explanation": "1966年Boehm和Jacopini证明了程序设计语言仅仅使用顺序、选择和重复三种基本控制结构就足以表达出各种其他形式结构的程序设计方法。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0099",
+  "category": "公共基础",
+  "stem": "下面描述中错误的是（　　）。",
+  "options": [
+   "系统总体结构图支持软件系统的详细设计",
+   "软件设计是将软件需求转换为软件表示的过程",
+   "数据结构与数据库设计是软件设计的任务之一",
+   "PAD图是软件详细设计的表示工具"
+  ],
+  "answer": "A",
+  "explanation": "详细设计的任务是为软件结构图中而非总体结构图中的每一个模块确定实现算法和局部数据结构，用某种选定的表达工具表示算法和数据结构的细节，所以A错误。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0100",
+  "category": "公共基础",
+  "stem": "负责数据库中查询操作的数据库语言是（　　）。",
+  "options": [
+   "数据定义语言",
+   "数据管理语言",
+   "数据操纵语言",
+   "数据控制语言"
+  ],
+  "answer": "C",
+  "explanation": "数据定义语言：负责数据的模式定义与数据的物理存取构建；数据操纵语言：负责数据的操纵，包括查询及增、删、改等操作；数据控制语言：负责数据完整性、安全性的定义与检查以及并发控制、故障恢复等功能。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0101",
+  "category": "公共基础",
+  "stem": "一个教师可讲授多门课程，一门课程可由多个教师讲授。则实体教师和课程间的联系是（　　）。",
+  "options": [
+   "1：1联系",
+   "1：m联系",
+   "m：1联系",
+   "m：n联系"
+  ],
+  "answer": "D",
+  "explanation": "因为一个教师可讲授多门课程，而一门课程又能由多个老师讲授所以他们之间是多对多的关系，可以表示为m：n。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0102",
+  "category": "公共基础",
+  "stem": "定义无符号整数类为UInt，下面可以作为类UInt实例化值的是（　　）。",
+  "options": [
+   "－369",
+   "369",
+   "0.369",
+   "整数集合{1,2,3,4,5}"
+  ],
+  "answer": "B",
+  "explanation": "只有B选项369可以用无符号整数来表示和存储。A选项－369有负号，选项C0.369是小数都不能用无符号整数类存储，选项D是一个整数集合得用数组来存储。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0103",
+  "category": "公共基础",
+  "stem": "下列链表中，其逻辑结构属于非线性结构的是",
+  "options": [
+   "二叉链表",
+   "循环链表",
+   "双向链表",
+   "带链的栈"
+  ],
+  "answer": "A",
+  "explanation": "在定义的链表中，若只含有一个指针域来存放下一个元素地址，称这样的链表为单链表或线性链表。带链的栈可以用来收集计算机存储空间中所有空闲的存储结点，是线性表。在单链表中的结点中增加一个指针域指向它的直接前件，这样的链表，就称为双向链表（一个结点中含有两个指针），也是线性链表。循环链表具有单链表的特征，但又不需要增加额外的存贮空间，仅对表的链接方式稍做改变，使得对表的处理更加方便灵活，属于线性链表。二叉链表是二叉树的物理实现，是一种存储结构，不属于线性结构。答案为A选项。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0104",
+  "category": "公共基础",
+  "stem": "设循环队列的存储空间为Q（1: 35），初始状态为front=rear=35。现经过一系列入队与退队运算后，front=15，rear=15，则循环队列中的元素个数为",
+  "options": [
+   "15",
+   "16",
+   "20",
+   "0或35"
+  ],
+  "answer": "D",
+  "explanation": "在循环队列中，用队尾指针rear指向队列中的队尾元素，用排头指针front指向排头元素的前一个位置。在循环队列中进行出队、入队操作时，头尾指针仍要加1，朝前移动。只不过当头尾指针指向向量上界时，其加1操作的结果是指向向量的下界0。由于入队时尾指针向前追赶头指针，出队时头指针向前追赶尾指针，故队空和队满时，头尾指针均相等。答案为D选项。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0105",
+  "category": "公共基础",
+  "stem": "下列关于栈的叙述中，正确的是",
+  "options": [
+   "栈底元素一定是最后入栈的元素",
+   "栈顶元素一定是最先入栈的元素",
+   "栈操作遵循先进后出的原则",
+   "以上说法均错误"
+  ],
+  "answer": "C",
+  "explanation": "栈顶元素总是后被插入的元素，从而也是最先被删除的元素；栈底元素总是最先被插入的元素，从而也是最后才能被删除的元素。栈的修改是按后进先出的原则进行的。因此，栈称为先进后出表，或“后进先出”表，所以选择C。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0106",
+  "category": "公共基础",
+  "stem": "在关系数据库中，用来表示实体间联系的是",
+  "options": [
+   "属性",
+   "二维表",
+   "网状结构",
+   "树状结构"
+  ],
+  "answer": "B",
+  "explanation": "关系模型实体间的联系采用二维表来表示，简称表。选项C为网状模型实体间的联系，选项D为层次模型实体间的联系，选项A属性刻画了实体。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0107",
+  "category": "公共基础",
+  "stem": "公司中有多个部门和多名职员，每个职员只能属于一个部门，一个部门可以有多名职员。则实体部门和职员间的联系是",
+  "options": [
+   "1：1联系",
+   "m：1联系",
+   "1：m联系",
+   "m：n联系"
+  ],
+  "answer": "C",
+  "explanation": "两个实体集间的联系实际上是实体集间的函数关系，主要有一对一联系（1:1）、一对多联系（1:m）、多对一联系（m:1）、多对多联系（m:n）。对于每一个实体部门，都有多名职员，则其对应的联系为一对多联系（1:m），答案选C。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0108",
+  "category": "公共基础",
+  "stem": "有两个关系R和S如下：",
+  "options": [
+   "选择",
+   "投影",
+   "自然连接",
+   "并"
+  ],
+  "answer": "A",
+  "explanation": "由关系R到关系S为一元运算，排除C和D。关系S是关系R的一部分，是通过选择之后的结果，因此选A。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0109",
+  "category": "公共基础",
+  "stem": "数据字典(DD)所定义的对象都包含于",
+  "options": [
+   "数据流图（DFD图）",
+   "程序流程图",
+   "软件结构图",
+   "方框图"
+  ],
+  "answer": "A",
+  "explanation": "在数据流图中，对所有元素都进行了命名，所有名字的定义集中起来就构成了数据字典。因此选A，而B，C，D都不符合。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0110",
+  "category": "公共基础",
+  "stem": "软件需求规格说明书的作用不包括",
+  "options": [
+   "软件验收的依据",
+   "用户与开发人员对软件要做什么的共同理解",
+   "软件设计的依据",
+   "软件可行性研究的依据"
+  ],
+  "answer": "D",
+  "explanation": "软件需求规格说明书是需求分析阶段的最后成果，是软件开发的重要文档之一。软件需求规格说明书有以下几个方面的作用。①便于用户、开发人员进行理解和交流，B正确；②反映出用户问题的结构，可以作为软件开发工作的基础和依据，C正确；③作为确认测试和验收的依据，A正确。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0111",
+  "category": "公共基础",
+  "stem": "下面不属于软件设计阶段任务的是",
+  "options": [
+   "软件总体设计",
+   "算法设计",
+   "制定软件确认测试计划",
+   "数据库设计"
+  ],
+  "answer": "C",
+  "explanation": "从技术观点上看，软件设计包括软件结构设计、数据设计、接口设计、过程设计。所以A、B、D正确，C为软件测试阶段的任务。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0112",
+  "category": "公共基础",
+  "stem": "下列与队列结构有关联的是",
+  "options": [
+   "函数的递归调用",
+   "数组元素的引用",
+   "多重循环的执行",
+   "先到先服务的作业调度"
+  ],
+  "answer": "D",
+  "explanation": "队列的修改是依先进先出的原则进行的，D正确。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0113",
+  "category": "公共基础",
+  "stem": "对下列二叉树进行前序遍历的结果为",
+  "options": [
+   "DYBEAFCZX",
+   "YDEBFZXCA",
+   "ABDYECFXZ",
+   "ABCDEFXYZ"
+  ],
+  "answer": "C",
+  "explanation": "前序遍历是指在访问根结点、遍历左子树与遍历右子树这三者中，首先访问根结点，然后遍历左子树，最后遍历右子树；并且，在遍历左右子树时，仍然先访问根结点，然后遍历左子树，最后遍历右子树。前序遍历描述为：若二叉树为空，则执行空操作。否则：①访问根结点；②前序遍历左子树；③前序遍历右子树，C正确。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0114",
+  "category": "公共基础",
+  "stem": "一个栈的初始状态为空。现将元素1,2,3,A,B,C依次入栈，然后再依次出栈，则元素出栈的顺序是",
+  "options": [
+   "1,2,3,A,B,C",
+   "C,B,A,1,2,3",
+   "C,B,A,3,2,1",
+   "1,2,3,C,B,A"
+  ],
+  "answer": "C",
+  "explanation": "栈的修改是按后进先出的原则进行的，所以顺序应与入栈顺序相反，故选C。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0115",
+  "category": "公共基础",
+  "stem": "下面属于白盒测试方法的是",
+  "options": [
+   "等价类划分法",
+   "逻辑覆盖",
+   "边界值分析法",
+   "错误推测法"
+  ],
+  "answer": "B",
+  "explanation": "白盒测试法主要有逻辑覆盖、基本路径测试等。逻辑覆盖测试包括语句覆盖、路径覆盖、判定覆盖、条件覆盖、判断-条件覆盖，选择B。其余为黑盒测试法。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0116",
+  "category": "公共基础",
+  "stem": "下面对对象概念描述正确的是",
+  "options": [
+   "对象间的通信靠消息传递",
+   "对象是名字和方法的封装体",
+   "任何对象必须有继承性",
+   "对象的多态性是指一个对象有多个操作"
+  ],
+  "answer": "A",
+  "explanation": "对象之间进行通信的构造叫做消息，A正确。多态性是指同一个操作可以是不同对象的行为，D错误。对象不一定必须有继承性，C错误。封装性是指从外面看只能看到对象的外部特征，而不知道也无须知道数据的具体结构以及实现操作，B错误。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0117",
+  "category": "公共基础",
+  "stem": "下面描述中不属于数据库系统特点的是",
+  "options": [
+   "数据共享",
+   "数据完整性",
+   "数据冗余度高",
+   "数据独立性高"
+  ],
+  "answer": "C",
+  "explanation": "数据库系统的特点为高共享、低冗余、独立性高、具有完整性等，C错误。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0118",
+  "category": "公共基础",
+  "stem": "数据库设计过程不包括",
+  "options": [
+   "概念设计",
+   "逻辑设计",
+   "物理设计",
+   "算法设计"
+  ],
+  "answer": "D",
+  "explanation": "数据库设计过程主要包括需求分析、、概念结构设计、逻辑结构分析、数据库物理设计、数据库实施、数据库运行和维护阶段。答案为D选项。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0119",
+  "category": "公共基础",
+  "stem": "一棵二叉树中共有80个叶子结点与70个度为1的结点，则该二叉树中的总结点数为",
+  "options": [
+   "219",
+   "229",
+   "230",
+   "231"
+  ],
+  "answer": "B",
+  "explanation": "二叉树中，度为0的节点数等于度为2的节点数加1，即n2=n0-1，叶子节点即度为0，则n2=79，总结点数为n0+n1+n2=80+70+79=229，答案为B。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0120",
+  "category": "公共基础",
+  "stem": "对长度为10的线性表进行冒泡排序，最坏情况下需要比较的次数为",
+  "options": [
+   "9",
+   "10",
+   "45",
+   "90"
+  ],
+  "answer": "C",
+  "explanation": "冒泡法是在扫描过程中逐次比较相邻两个元素的大小，最坏的情况是每次比较都要将相邻的两个元素互换，需要互换的次数为9+8+7+6+5+4+3+2+1=45，选C。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0121",
+  "category": "公共基础",
+  "stem": "构成计算机软件的是",
+  "options": [
+   "源代码",
+   "程序和数据",
+   "程序和文档",
+   "程序、数据及相关文档"
+  ],
+  "answer": "D",
+  "explanation": "软件指的是计算机系统中与硬件相互依赖的另一部分，包括程序、数据和有关的文档，选D。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0122",
+  "category": "公共基础",
+  "stem": "软件生命周期可分为定义阶段、开发阶段和维护阶段，下面不属于开发阶段任务的是",
+  "options": [
+   "测试",
+   "设计",
+   "可行性研究",
+   "实现"
+  ],
+  "answer": "C",
+  "explanation": "开发阶段包括分析、设计和实施两类任务。其中分析、设计包括需求分析、总体设计和详细设计3个阶段，实施则包括编码和测试两个阶段，C不属于开发阶段。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0123",
+  "category": "公共基础",
+  "stem": "下面不能作为结构化方法软件需求分析工具的是",
+  "options": [
+   "系统结构图",
+   "数据字典（D-D)",
+   "数据流程图（DFD图）",
+   "判定表"
+  ],
+  "answer": "A",
+  "explanation": "结构化方法软件需求分析工具主要有数据流图、数据字典、判定树和判定表。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0124",
+  "category": "公共基础",
+  "stem": "在关系模型中，每一个二维表称为一个",
+  "options": [
+   "关系",
+   "属性",
+   "元组",
+   "主码（键）"
+  ],
+  "answer": "A",
+  "explanation": "关系模型采用二维表来表示，即每个二维表称为一个关系。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0125",
+  "category": "公共基础",
+  "stem": "若实体A和B是一对多的联系，实体B和C是一对一的联系，则实体A和C的联系是",
+  "options": [
+   "一对一",
+   "一对多",
+   "多对一",
+   "多对多"
+  ],
+  "answer": "B",
+  "explanation": "A和B为一对多的联系，则对于A中的每一个实体，B中有多个实体与之联系，而B与C为一对一联系，则对于B中的每一个实体，C中之多有一个实体与之联系，则可推出对于A中的每一个实体，C中有多个实体与联系，所以为一对多联系。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0126",
+  "category": "公共基础",
+  "stem": "某二叉树共有12个结点，其中叶子结点只有1个。则该二叉树的深度为（根结点在第1层）",
+  "options": [
+   "3",
+   "6",
+   "8",
+   "12"
+  ],
+  "answer": "D",
+  "explanation": "二叉树中，度为0的节点数等于度为2的节点数加1，即n2=n0-1，叶子节点即度为0，n0=1，则n2=0，总节点数为12=n0+n1+n2=1+n1+0，则度为1的节点数n1=11，故深度为12，选D。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0127",
+  "category": "公共基础",
+  "stem": "对长度为n的线性表作快速排序，在最坏情况下，比较次数为",
+  "options": [
+   "n",
+   "n-1",
+   "n（n-1）",
+   "n（n-1）/2"
+  ],
+  "answer": "D",
+  "explanation": "快速排序最坏情况就是每次选的基准数都和其他数做过比较，共需比较(n-1)+(n-2)+…+1=n(n-1)/2，选D。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0128",
+  "category": "公共基础",
+  "stem": "结构化程序设计中，下面对goto语句使用描述正确的是",
+  "options": [
+   "禁止使用goto语句",
+   "使用goto语句程序效率高",
+   "应避免滥用goto语句",
+   "以上说法均错误"
+  ],
+  "answer": "C",
+  "explanation": "结构化程序设计中，要注意尽量避免goto语句的使用，故选C。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0129",
+  "category": "公共基础",
+  "stem": "下面不属于软件测试实施步骤的是",
+  "options": [
+   "集成测试",
+   "回归测试",
+   "确认测试",
+   "单元测试"
+  ],
+  "answer": "B",
+  "explanation": "软件测试主要包括单元测试、集成测试、确认测试和系统测试。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0130",
+  "category": "公共基础",
+  "stem": "下面不属于软件需求分析阶段主要工作的是",
+  "options": [
+   "需求变更申请",
+   "需求分析",
+   "需求评审",
+   "需求获取"
+  ],
+  "answer": "A",
+  "explanation": "需求分析阶段的工作可概括为4个方面：①需求获取。②需求分析。③编写需求规格说明书。④需求审评。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0131",
+  "category": "公共基础",
+  "stem": "一般情况下，当对关系R和S进行自然连接时，要求R和S含有一个或者多个共有的",
+  "options": [
+   "记录",
+   "行",
+   "属性",
+   "元组"
+  ],
+  "answer": "C",
+  "explanation": "自然连接是一种特殊的等值连接，它满足下面的条件：①两关系间有公共域；②通过公共域的等值进行连接，选C。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0132",
+  "category": "公共基础",
+  "stem": "有表示公司和职员及工作的三张表，职员可在多家公司兼职。其中公司C（公司号，公司名，地址，注册资本，法人代表，员工数），职员S（职员号，姓名，性别，年龄，学历），工作W（公司号，职员号，工资），则表W的键（码）为",
+  "options": [
+   "公司号，职员号",
+   "职员号，工资",
+   "职员号",
+   "公司号，职员号，工资"
+  ],
+  "answer": "A",
+  "explanation": "由于职员可以再多加公司兼职，表W的键（码）应为公司关系和职员关系的主码，即公司号和职员号。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0133",
+  "category": "公共基础",
+  "stem": "对长度为n的线性表排序，在最坏情况下，比较次数不是n(n-1)/2的排序方法是",
+  "options": [
+   "快速排序",
+   "冒泡排序",
+   "简单插入排序",
+   "堆排序"
+  ],
+  "answer": "D",
+  "explanation": "除了堆排序算法的比较次数是O(nlog2^n)，其他的都是n(n－1)/2。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0134",
+  "category": "公共基础",
+  "stem": "在数据库设计中，将E-R图转换成关系数据模型的过程属于",
+  "options": [
+   "需求分析阶段",
+   "概念设计阶段",
+   "逻辑设计阶段",
+   "物理设计阶段"
+  ],
+  "answer": "C",
+  "explanation": "E－R图转换成关系模型数据则是把图形分析出来的联系反映到数据库中，即设计出表，所以属于逻辑设计阶段。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0135",
+  "category": "公共基础",
+  "stem": "log2^n次，而顺序查找需要比较n次。",
+  "options": [
+   "顺序存储结构的存储一定是连续的，链式存储结构的存储空间不一定是连续的",
+   "顺序存储结构只针对线性结构，链式存储结构只针对非线性结构",
+   "顺序存储结构能存储有序表，链式存储结构不能存储有序表",
+   "链式存储结构比顺序存储结构节省存储空间"
+  ],
+  "answer": "A",
+  "explanation": "链式存储结构既可以针对线性结构也可以针对非线性结构，所以B与C错误。链式存储结构中每个结点都由数据域与指针域两部分组成，增加了存储空间，所以D错误。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0136",
+  "category": "公共基础",
+  "stem": "面向对象方法中，实现对象的数据和操作结合于统一体中的是（ ）。",
+  "options": [
+   "结合",
+   "封装",
+   "隐藏",
+   "抽象"
+  ],
+  "answer": "B",
+  "explanation": "对象的基本特点是：标识唯一性、分类性、多态性、封装性、模块独立性好。封装是指隐藏对象的属性和实现细节，将数据和操作结合于统一体，仅对外提供访问方式，B选项正确。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0137",
+  "category": "公共基础",
+  "stem": "在进行逻辑设计时，将E-R图中实体之间联系转换为关系数据库的（ ）。",
+  "options": [
+   "关系",
+   "元组",
+   "属性",
+   "属性的值域"
+  ],
+  "answer": "A",
+  "explanation": "E-R图中实体之间的联系转换为关系数据库的关系，A选项正确。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0138",
+  "category": "公共基础",
+  "stem": "线性表的链式存储结构与顺序存储结构相比，链式存储结构的优点有（ ）。",
+  "options": [
+   "节省存储空间",
+   "插入与删除运算效率高",
+   "便于查找",
+   "排序时减少元素的比较次数"
+  ],
+  "answer": "B",
+  "explanation": "顺序表和链表的优缺点比较如下表：",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0139",
+  "category": "公共基础",
+  "stem": "由表中可以看出链式存储插入与删除运算效率高，故B选项正确。",
+  "options": [
+   "62",
+   "63",
+   "64",
+   "65"
+  ],
+  "answer": "B",
+  "explanation": "在树结构中，定义一棵树的根结点所在的层次为1，其他结点所在的层次等于它的父结点所在的层次加1，树的最大层次称为树的深度。完全二叉树指除最后一层外，每一层上的结点数均达到最大值，在最后一层上只缺少右边的若干结点。深度为6的满二叉树，结点个数为2^6-1=63，则第7层共有125-63=62个叶子结点，分别挂在第6层的左边62个结点上，加上第6层的最后1个叶子结点，该完全二叉树共有63个叶子结点，故B选项正确。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0140",
+  "category": "公共基础",
+  "stem": "设二叉树如下",
+  "options": [
+   "ABDEGCFH",
+   "DBGEAFHC",
+   "DGEBHFCA",
+   "ABCDEFGH"
+  ],
+  "answer": "C",
+  "explanation": "二叉树遍历可以分为3种：前序遍历（访问根结点在访问左子树和访问右子树之前）、中序遍历（访问根结点在访问左子树和访问右子树两者之间）、后序遍历（访问根结点在访问左子树和访问右子树之后）。本题中前序遍历为ABDEGCFH，中序遍历为DBGEAFHC，后序遍历为DGEBHFCA，故C选项正确。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0141",
+  "category": "公共基础",
+  "stem": "计算机软件包括（ ）。",
+  "options": [
+   "算法和数据",
+   "程序和数据",
+   "程序和文档",
+   "程序、数据及相关文档"
+  ],
+  "answer": "D",
+  "explanation": "计算机软件由两部分组成：一是机器可执行的程序和数据；二是机器不可执行的，与软件开发、运行、维护、使用等有关的文档。故D选项正确。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0142",
+  "category": "公共基础",
+  "stem": "下面描述中不属于软件需求分析阶段任务的是（ ）。",
+  "options": [
+   "撰写软件需求规格说明书",
+   "软件的总体结构设计",
+   "软件的需求分析",
+   "软件的需求评审"
+  ],
+  "answer": "B",
+  "explanation": "需求分析阶段的工作可以分为4个方面：需求获取、需求分析、编写需求规格说明书和需求评审。故B选项正确。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0143",
+  "category": "公共基础",
+  "stem": "当数据库中数据总体逻辑结构发生变化，而应用程序不受影响，称为数据的（ ）。",
+  "options": [
+   "逻辑独立性",
+   "物理独立性",
+   "应用独立性",
+   "空间独立性"
+  ],
+  "answer": "A",
+  "explanation": "数据独立性包括物理独立性和逻辑独立性，物理独立性指数据的物理结构的改变，不会影响数据库的逻辑结构，也不会引起应用程序的改动；逻辑独立性指数据库的总体逻辑结构的改变，不会导致相应的应用程序的改变。故A选项正确。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0144",
+  "category": "公共基础",
+  "stem": "某二叉树的前序序列为ABCD，中序序列为DCBA，则后序序列为（ ）。",
+  "options": [
+   "BADC",
+   "DCBA",
+   "CDAB",
+   "ABCD"
+  ],
+  "answer": "B",
+  "explanation": "二叉树遍历可以分为3种：前序遍历（访问根结点在访问左子树和访问右子树之前）、中序遍历（访问根结点在访问左子树和访问右子树两者之间）、后序遍历（访问根结点在访问左子树和访问右子树之后）。本题根据前序序列为ABCD，可知A为根结点。根据中序序列为DCBA可知DCB是A的左子树。根据前序序列可知B是CD的根结点。再根据中序序列可知DC是结点B的左子树。根据前序序列可知，C是D的根结点，故后序序列为DCBA，B选项正确。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0145",
+  "category": "公共基础",
+  "stem": "下面不能作为软件设计工具的是（ ）。",
+  "options": [
+   "PAD图",
+   "程序流程图",
+   "数据流程图(DFD图)",
+   "总体结构图"
+  ],
+  "answer": "C",
+  "explanation": "软件设计常用的工具有：图形工具：程序流程图、N-S图、PAD图、HIPO；表格工具：判定表；语言工具：PDL（伪码）。另外，在结构化设计方法中，常用的结构设计工具是结构图，故选择C选项。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0146",
+  "category": "公共基础",
+  "stem": "逻辑模型是面向数据库系统的模型，下面属于逻辑模型的是（ ）。",
+  "options": [
+   "关系模型",
+   "谓词模型",
+   "物理模型",
+   "实体-联系模型"
+  ],
+  "answer": "A",
+  "explanation": "逻辑数据模型也称数据模型，是面向数据库系统的模型，着重于在数据库系统一级的实现。成熟并大量使用的数据模型有层次模型、网状模型、关系模型和面向对象模型等。故A选项正确。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0147",
+  "category": "公共基础",
+  "stem": "运动会中一个运动项目可以有多名运动员参加，一个运动员可以参加多个项目。则实体项目和运动员之间的联系是（ ）。",
+  "options": [
+   "多对多",
+   "一对多",
+   "多对一",
+   "一对一"
+  ],
+  "answer": "A",
+  "explanation": "一般来说，实体集之间必须通过联系来建立联接关系，分为三类：一对一联系（1:1）、一对多联系（1:m）、多对多联系（m:n）。一个运动项目有很多运动员参加，而一个运动员可以参加多项运动项目，故实体项目和运动员之间的联系是多对多，A选项正确。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0148",
+  "category": "公共基础",
+  "stem": "堆排序最坏情况下的时间复杂度为（ ）。",
+  "options": [
+   "O(n^1.5)",
+   "(nlog2^n)",
+   "(n(n-1))/2",
+   "(log2^n)"
+  ],
+  "answer": "B",
+  "explanation": "堆排序属于选择类的排序方法，最坏情况时间复杂度为O(nlog2^n)。故B选项正确。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0149",
+  "category": "公共基础",
+  "stem": "某二叉树中有15个度为1的结点，16个度为2的结点，则该二叉树中总的结点数为（ ）。",
+  "options": [
+   "32",
+   "46",
+   "48",
+   "49"
+  ],
+  "answer": "C",
+  "explanation": "在树结构中，一个结点所拥有的后件个数称为该结点的度，所有结点中最大的度称为树的度。对任何一棵二叉树，度为0的结点（即叶子结点）总是比度为2的结点多一个。由16个度为2的结点可知叶子结点个数为17，则结点结点总数为16+17+15=48，C选项正确。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0150",
+  "category": "公共基础",
+  "stem": "下面对软件特点描述错误的是（ ）。",
+  "options": [
+   "软件没有明显的制作过程",
+   "软件是一种逻辑实体，不是物理实体，具有抽象性",
+   "软件的开发、运行对计算机系统具有依赖性",
+   "软件在使用中存在磨损、老化问题"
+  ],
+  "answer": "D",
+  "explanation": "软件具有以下特点：软件是一种逻辑实体，具有抽象性；软件没有明显的制作过程；软件在使用期间不存在磨损、老化问题；对硬件和环境具有依赖性；软件复杂性高，成本昂贵；软件开发涉及诸多的社会因素。故D选项正确。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0151",
+  "category": "公共基础",
+  "stem": "某系统结构图如下图所示",
+  "options": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "answer": "C",
+  "explanation": "扇入指的是调用一个给定模块的模块个数。题干系统中，第2层模块扇入均为1，第3层中功能模块3.1扇入为2，其余为1，故最大扇入为2，C选项正确。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0152",
+  "category": "公共基础",
+  "stem": "设有表示公司和员工及雇佣的三张表，员工可在多家公司兼职，其中公司C（公司号，公司名，地址，注册资本，法人代表，员工数），员工S（员工号，姓名，性别，年龄，学历），雇佣E（公司号，员工号，工资，工作起始时间）。其中表C的键为公司号，表S的键为员工号，则表E的键（码）为（ ）。",
+  "options": [
+   "公司号，员工号",
+   "员工号，工资",
+   "员工号",
+   "公司号，员工号，工资"
+  ],
+  "answer": "A",
+  "explanation": "二维表中的行称为元组，候选键（码）是二维表中能唯一标识元组的最小属性集。若一个二维表有多个候选码，则选定其中一个作为主键（码）供用户使用。公司号唯一标识公司，员工号唯一标识员工，而雇佣需要公司号与员工号同时唯一标识，故表Ｅ的键（码）为（公司号，员工号），故A选项正确。",
+  "source": "https://blog.csdn.net/qq_45385706/article/details/111118801"
+ },
+ {
+  "id": "c0153",
+  "category": "Python语法基础",
+  "stem": "下面哪一个不属于 Python 3 的保留字？",
+  "options": [
+   "class",
+   "def",
+   "lambda",
+   "function"
+  ],
+  "answer": "D",
+  "explanation": "function 是 JavaScript 的关键字。Python 3 共 35 个保留字：False/None/True/and/as/assert/async/await/break/class/continue/def/del/elif/else/except/finally/for/from/global/if/import/in/is/lambda/nonlocal/not/or/pass/raise/return/try/while/with/yield。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0154",
+  "category": "Python语法基础",
+  "stem": "下列对 Python 标识符命名规则的说法正确的是？",
+  "options": [
+   "标识符不能以下划线开头",
+   "标识符不能以数字开头",
+   "标识符不能含中文",
+   "保留字可以用作类名"
+  ],
+  "answer": "B",
+  "explanation": "标识符规则：①字母/下划线/中文开头（不能数字开头）②后续字符可含字母/数字/下划线/中文 ③大小写敏感 ④不能用保留字。中文字符在 Python 3 是合法标识符字符。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0155",
+  "category": "Python语法基础",
+  "stem": "下列标识符中合法的是？",
+  "options": [
+   "2nd",
+   "my-var",
+   "_private",
+   "for"
+  ],
+  "answer": "C",
+  "explanation": "2nd 数字开头错；my-var 含减号错；for 是保留字错；_private 以下划线开头合法。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0156",
+  "category": "Python语法基础",
+  "stem": "表达式 type(3.14) 返回？",
+  "options": [
+   "<class 'int'>",
+   "<class 'float'>",
+   "<class 'double'>",
+   "<class 'number'>"
+  ],
+  "answer": "B",
+  "explanation": "Python 只有 float 没有 double；3.14 是 float。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0157",
+  "category": "Python语法基础",
+  "stem": "下面代码的输出是？\nprint(type(True))",
+  "options": [
+   "<class 'bool'>",
+   "<class 'int'>",
+   "True",
+   "1"
+  ],
+  "answer": "A",
+  "explanation": "type(True) 返回 bool。注意 bool 是 int 的子类（isinstance(True, int) == True），但 type 严格返回 bool。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0158",
+  "category": "Python语法基础",
+  "stem": "下面关于 Python 数据类型的描述错误的是？",
+  "options": [
+   "str 是不可变类型",
+   "tuple 是不可变类型",
+   "dict 是不可变类型",
+   "frozenset 是不可变类型"
+  ],
+  "answer": "C",
+  "explanation": "dict 是可变类型（可增删改键值对）；frozenset 是 set 的不可变版本。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0159",
+  "category": "Python语法基础",
+  "stem": "表达式 17 // 5 和 17 % 5 的值是？",
+  "options": [
+   "3, 2",
+   "3.4, 2",
+   "4, 0",
+   "2, 3"
+  ],
+  "answer": "A",
+  "explanation": "// 是整除（向下取整），% 是取模。17 ÷ 5 = 3 余 2。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0160",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nprint(2 ** 3 ** 2)",
+  "options": [
+   "64",
+   "512",
+   "256",
+   "65536"
+  ],
+  "answer": "B",
+  "explanation": "** 是右结合的，等价于 2 ** (3 ** 2) = 2 ** 9 = 512。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0161",
+  "category": "Python语法基础",
+  "stem": "表达式 1 < 2 < 3 等价于？",
+  "options": [
+   "1 < 2 and 2 < 3",
+   "(1 < 2) and (2 < 3)",
+   "1 < (2 < 3)",
+   "前三个都对"
+  ],
+  "answer": "D",
+  "explanation": "链式比较 a < b < c 等价于 a < b and b < c。Python 独有特性，C/Java 不支持。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0162",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nprint('hi', 'world', sep='-')",
+  "options": [
+   "hi world",
+   "hi-world",
+   "hi+world",
+   "hi, world"
+  ],
+  "answer": "B",
+  "explanation": "sep 参数替换多参分隔符（默认空格），改成 '-' 后输出 'hi-world'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0163",
+  "category": "Python语法基础",
+  "stem": "input('提示') 的返回值类型是？",
+  "options": [
+   "str",
+   "int",
+   "随用户输入而定",
+   "bool"
+  ],
+  "answer": "A",
+  "explanation": "input() 永远返回字符串（str），需要用 int()/float() 转换。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0164",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nx = input('n: '); print(x * 2)，输入 5",
+  "options": [
+   "10",
+   "25",
+   "55",
+   "5 5"
+  ],
+  "answer": "C",
+  "explanation": "input 返回字符串 '5'，'5' * 2 = '55'（字符串重复）。需要 int(input()) 才能算术。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0165",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nprint('a', 'b', 'c', end='!')",
+  "options": [
+   "a b c",
+   "a b c!",
+   "a!b!c",
+   "!a b c"
+  ],
+  "answer": "B",
+  "explanation": "end 参数替换末尾的默认换行符 \\n，改成 '!' 后不换行。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0166",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nprint('A', 'B', 'C', sep='', end='\\n')",
+  "options": [
+   "A B C",
+   "ABC",
+   "ABC\\n",
+   "ABC（换行）"
+  ],
+  "answer": "D",
+  "explanation": "sep='' 取消分隔，end='\\n' 加换行。ABC 三个紧挨着输出后换行。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0167",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nx = 'Python'; print(x[1:4])",
+  "options": [
+   "Py",
+   "yth",
+   "ytho",
+   "yth"
+  ],
+  "answer": "B",
+  "explanation": "切片 [1:4] 是左闭右开，取下标 1/2/3 = y/t/h。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0168",
+  "category": "程序的控制结构",
+  "stem": "下面 if 语句的语法正确的是？",
+  "options": [
+   "if x > 0 then:",
+   "if (x > 0):",
+   "if x > 0:",
+   "If x > 0:"
+  ],
+  "answer": "C",
+  "explanation": "Python if 语法是 if 条件: 末尾冒号，无 then 无括号无大写 If。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0169",
+  "category": "程序的控制结构",
+  "stem": "下面代码输出？\nx = 5\nif x > 0: print('A')\nelse: print('B')",
+  "options": [
+   "A",
+   "B",
+   "AB",
+   "什么都不输出"
+  ],
+  "answer": "A",
+  "explanation": "x=5 > 0 满足，输出 A。if 块可以是一行简单语句。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0170",
+  "category": "程序的控制结构",
+  "stem": "三元表达式 y = 1 if x > 0 else -1 等价于？",
+  "options": [
+   "if x > 0: y=1 else: y=-1",
+   "y = (x > 0) ? 1 : -1",
+   "if x > 0: y=1; y=-1",
+   "y = 1 总是"
+  ],
+  "answer": "A",
+  "explanation": "Python 三元 A if cond else B 完全等价于 if/else 两行写法。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0171",
+  "category": "程序的控制结构",
+  "stem": "range(5) 返回值的列表是？",
+  "options": [
+   "[0,1,2,3,4]",
+   "[1,2,3,4,5]",
+   "[0,1,2,3,4,5]",
+   "[1,2,3,4]"
+  ],
+  "answer": "A",
+  "explanation": "range(n) 从 0 到 n-1；range(5) = [0,1,2,3,4]。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0172",
+  "category": "程序的控制结构",
+  "stem": "range(2, 10, 2) 返回？",
+  "options": [
+   "[2,4,6,8]",
+   "[2,4,6,8,10]",
+   "[2,4,6,8,10,12]",
+   "[4,6,8]"
+  ],
+  "answer": "A",
+  "explanation": "range(start, stop, step) 从 2 到 10（不含）步长 2 = [2,4,6,8]。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0173",
+  "category": "程序的控制结构",
+  "stem": "下面代码输出？\nfor i in 'abc': print(i, end=' ')",
+  "options": [
+   "a b c",
+   "abc",
+   "1 2 3",
+   "0 1 2"
+  ],
+  "answer": "A",
+  "explanation": "字符串可迭代，依次取字符 a/b/c。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0174",
+  "category": "程序的控制结构",
+  "stem": "下面代码输出？\ni = 1\nwhile i < 5: i *= 2\nprint(i)",
+  "options": [
+   "2",
+   "4",
+   "8",
+   "16"
+  ],
+  "answer": "C",
+  "explanation": "i=1: 1*2=2; i=2: 2*2=4; i=4: 4*2=8; i=8 不小于 5 退出。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0175",
+  "category": "程序的控制结构",
+  "stem": "下面代码输出？\nn = 0\nwhile n < 3: n += 1\nelse: print('done')",
+  "options": [
+   "done",
+   "0 1 2 done",
+   "3 done",
+   "什么都不输出"
+  ],
+  "answer": "A",
+  "explanation": "while 正常结束（n=3 不再满足）执行 else 块；break 跳出时 else 不执行。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0176",
+  "category": "程序的控制结构",
+  "stem": "下面代码输出？\nfor i in range(3): print(i, end='')\nelse: print('X')",
+  "options": [
+   "012X",
+   "012",
+   "X",
+   "012 123 0 1 2"
+  ],
+  "answer": "A",
+  "explanation": "for 正常完成（无 break）后执行 else 块打印 X。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0177",
+  "category": "程序的控制结构",
+  "stem": "下面代码输出？\nfor i in range(5):\n if i == 3: break\n print(i, end='')",
+  "options": [
+   "012",
+   "0123",
+   "01234",
+   "123"
+  ],
+  "answer": "A",
+  "explanation": "break 在 i==3 时跳出循环，不执行 else。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0178",
+  "category": "程序的控制结构",
+  "stem": "下面代码输出？\nfor i in range(5):\n if i == 3: continue\n print(i, end='')",
+  "options": [
+   "012",
+   "0123",
+   "01234",
+   "1245"
+  ],
+  "answer": "A",
+  "explanation": "continue 跳过 i==3 那次循环，输出 0/1/2/4。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0179",
+  "category": "程序的控制结构",
+  "stem": "下面代码输出？\nprint(0 and 1/0)",
+  "options": [
+   "0",
+   "1/0",
+   "ZeroDivisionError",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "and 短路：A 为假时直接返回 A（0），不计算 B。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0180",
+  "category": "程序的控制结构",
+  "stem": "下面代码输出？\nprint('hi' or 'bye')",
+  "options": [
+   "hi",
+   "bye",
+   "True",
+   "False"
+  ],
+  "answer": "A",
+  "explanation": "or 短路：A 为真（非空字符串）直接返回 A。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0181",
+  "category": "程序的控制结构",
+  "stem": "下列关于 pass 的描述正确的是？",
+  "options": [
+   "pass 什么都不做，只占位",
+   "pass 等同于 break",
+   "pass 终止函数",
+   "pass 是注释"
+  ],
+  "answer": "A",
+  "explanation": "pass 是空语句，用于语法上必须有语句但什么也不做的地方。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0182",
+  "category": "程序的控制结构",
+  "stem": "表达式 sum(range(1, 11)) 的值是？",
+  "options": [
+   "55",
+   "45",
+   "50",
+   "10"
+  ],
+  "answer": "A",
+  "explanation": "1+2+...+10 = 55。range(1,11) 含 1~10。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0183",
+  "category": "函数和代码复用",
+  "stem": "下面函数定义的语法正确的是？",
+  "options": [
+   "def f(x, y): return x+y",
+   "function f(x,y) { return x+y }",
+   "def f: x+y",
+   "def f(x y): return x+y"
+  ],
+  "answer": "A",
+  "explanation": "Python 函数用 def 关键字，形参逗号分隔，函数体缩进，无大括号，无 function 关键字。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0184",
+  "category": "函数和代码复用",
+  "stem": "下面函数返回值的描述错误的是？",
+  "options": [
+   "函数没 return 时返回 None",
+   "return 后可接元组自动解包",
+   "return 后必须有表达式",
+   "多个 return 按条件走只走一个"
+  ],
+  "answer": "C",
+  "explanation": "return 后可无表达式（返回 None），也可以完全省略 return。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0185",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\ndef f(): return 1, 2, 3\na, b, c = f()\nprint(b)",
+  "options": [
+   "1",
+   "2",
+   "3",
+   "(1, 2, 3)"
+  ],
+  "answer": "B",
+  "explanation": "return 1, 2, 3 等价于 return (1, 2, 3)，返回元组。解包后 b = 2。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0186",
+  "category": "函数和代码复用",
+  "stem": "def f(a, b, c=10): print(a, b, c)\n下列调用正确的是？",
+  "options": [
+   "f(1, 2)",
+   "f(1, 2, 3, 4)",
+   "f(a=1, b=2, 3)",
+   "f(*1, 2, 3)"
+  ],
+  "answer": "A",
+  "explanation": "默认参数 c=10 可以省略；不能传 4 个位置参数；关键字后不能接位置参数；*1 错（应传 iterable）。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0187",
+  "category": "函数和代码复用",
+  "stem": "下面代码连续调用输出？\ndef f(lst=[]):\n lst.append(1)\n return lst\nprint(f()); print(f())",
+  "options": [
+   "[1] [1]",
+   "[1] [1, 1]",
+   "[1] [1, 1, 1]",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "默认参数在函数定义时只求一次。两次调用共享同一个 list。考点：默认参数陷阱。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0188",
+  "category": "函数和代码复用",
+  "stem": "*args 和 **kwargs 的类型分别是？",
+  "options": [
+   "list, dict",
+   "tuple, dict",
+   "tuple, list",
+   "set, dict"
+  ],
+  "answer": "B",
+  "explanation": "*args 把多余位置参数收成元组；**kwargs 收成字典。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0189",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\ndef f(a, /, b, *, c):\n return a + b + c\nprint(f(1, 2, c=3))",
+  "options": [
+   "6",
+   "报错",
+   "1 2 3",
+   "TypeError"
+  ],
+  "answer": "A",
+  "explanation": "/ 前必须位置传参，* 后必须关键字传参。f(1, 2, c=3)：a=1, b=2, c=3 → 6。Python 3.8+。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0190",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\nx = 5\ndef f(): print(x)\nf()",
+  "options": [
+   "5",
+   "None",
+   "报错",
+   "x"
+  ],
+  "answer": "A",
+  "explanation": "函数读全局变量 x=5，输出 5。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0191",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\nx = 5\ndef f(): print(x); x = 10\nf()",
+  "options": [
+   "5",
+   "10",
+   "UnboundLocalError",
+   "x"
+  ],
+  "answer": "C",
+  "explanation": "Python 看到函数内有 x = 10，把 x 当 local；先 print 再赋值触发 UnboundLocalError。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0192",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\nx = 5\ndef f(): global x; x = 10\nf(); print(x)",
+  "options": [
+   "5",
+   "10",
+   "报错",
+   "None"
+  ],
+  "answer": "B",
+  "explanation": "global x 声明 x 是全局变量，函数内 x = 10 修改全局 x。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0193",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\ndef outer():\n x = 'e'\n def inner():\n nonlocal x\n x = 'i'\n inner()\n print(x)\nouter()",
+  "options": [
+   "e",
+   "i",
+   "报错",
+   "x"
+  ],
+  "answer": "B",
+  "explanation": "nonlocal x 让 inner 修改 outer 作用域的 x。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0194",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\nf = lambda x: x * 2\nprint(f(5))",
+  "options": [
+   "5",
+   "10",
+   "f(5)",
+   "x*2"
+  ],
+  "answer": "B",
+  "explanation": "lambda x: x*2 等价于函数 f(x): return x*2。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0195",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\ndata = [(1,3), (2,1), (3,2)]\nprint(sorted(data, key=lambda t: t[1]))",
+  "options": [
+   "[(1,3), (2,1), (3,2)]",
+   "[(2,1), (3,2), (1,3)]",
+   "[(1,3), (3,2), (2,1)]",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "按第二个元素升序：(2,1) < (3,2) < (1,3)。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0196",
+  "category": "函数和代码复用",
+  "stem": "下面 import 语法正确的是？",
+  "options": [
+   "import math",
+   "from math import *",
+   "import math as m",
+   "都对"
+  ],
+  "answer": "D",
+  "explanation": "三种 import 都合法：标准 import / 通配 import / 别名 import。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0197",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\nif __name__ == '__main__':\n print('main')\nelse:\n print('else')",
+  "options": [
+   "main",
+   "else",
+   "main else",
+   "什么都不输出"
+  ],
+  "answer": "A",
+  "explanation": "当文件直接运行时 __name__ == '__main__'，输出 main。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0198",
+  "category": "基本数据类型",
+  "stem": "下面代码输出？\ns = 'Python'; print(s[1:4])",
+  "options": [
+   "Py",
+   "yth",
+   "ytho",
+   "yth"
+  ],
+  "answer": "B",
+  "explanation": "切片左闭右开 [1:4] = 下标 1/2/3 = y/t/h。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0199",
+  "category": "基本数据类型",
+  "stem": "下面代码输出？\ns = 'hello'; print(s[::-1])",
+  "options": [
+   "hello",
+   "olleh",
+   "HELLO",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "[::-1] 是步长 -1 切片，反转字符串。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0200",
+  "category": "基本数据类型",
+  "stem": "下面代码输出？\ns = 'hello'; s[0] = 'H'; print(s)",
+  "options": [
+   "Hello",
+   "hello",
+   "H",
+   "TypeError"
+  ],
+  "answer": "D",
+  "explanation": "str 是不可变类型，不能用 s[0] = 'H'，会抛 TypeError。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0201",
+  "category": "基本数据类型",
+  "stem": "下面哪个方法不存在？",
+  "options": [
+   "str.append",
+   "str.upper",
+   "str.split",
+   "str.replace"
+  ],
+  "answer": "A",
+  "explanation": "str 没有 append（append 是 list 方法）。upper/split/replace 都是字符串方法。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0202",
+  "category": "基本数据类型",
+  "stem": "下面代码输出？\n''.join(['a', 'b', 'c'])",
+  "options": [
+   "['a', 'b', 'c']",
+   "'a', 'b', 'c'",
+   "abc",
+   "a b c"
+  ],
+  "answer": "C",
+  "explanation": "str.join(iter) 用 str 连接 iter 中所有元素，结果是字符串 'abc'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0203",
+  "category": "基本数据类型",
+  "stem": "下面代码输出？\n'a,b,c'.split(',')",
+  "options": [
+   "['a', 'b', 'c']",
+   "'a', 'b', 'c'",
+   "['abc']",
+   "[a,b,c]"
+  ],
+  "answer": "A",
+  "explanation": "split 按 ',' 切分返回列表。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0204",
+  "category": "基本数据类型",
+  "stem": "下面代码输出？\n'hello'.replace('l', 'L', 1)",
+  "options": [
+   "heLlo",
+   "heLLo",
+   "hello",
+   "HELLO"
+  ],
+  "answer": "B",
+  "explanation": "replace(old, new, count) 第三参数限制替换次数为 1。第一个 l 变 L。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0205",
+  "category": "基本数据类型",
+  "stem": "下面代码输出？\n' hi '.strip()",
+  "options": [
+   "'hi'",
+   "' hi '",
+   "'hi '",
+   "' hi'"
+  ],
+  "answer": "A",
+  "explanation": "strip() 去掉首尾空白字符（空格/\\n/\\t）。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0206",
+  "category": "基本数据类型",
+  "stem": "下面代码输出？\n'abc'.center(10, '-')",
+  "options": [
+   "'---abc----'",
+   "'-abc-' 配齐",
+   "'---abc---'",
+   "' abc ' 配齐"
+  ],
+  "answer": "C",
+  "explanation": "center(width, fill) 总宽 10 居中 'abc'，左右各填 3 个 '-'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0207",
+  "category": "基本数据类型",
+  "stem": "下面代码输出？\n'hello'.find('x')",
+  "options": [
+   "0",
+   "-1",
+   "1",
+   "ValueError"
+  ],
+  "answer": "B",
+  "explanation": "find 找不到返回 -1，index 找不到抛 ValueError。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0208",
+  "category": "基本数据类型",
+  "stem": "下面代码输出？\n'Hello'.lower().upper()",
+  "options": [
+   "hello",
+   "HELLO",
+   "Hello",
+   "helloHELLO"
+  ],
+  "answer": "B",
+  "explanation": "lower() → 'hello'，upper() → 'HELLO'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0209",
+  "category": "基本数据类型",
+  "stem": "下面关于 format() 格式控制标记的描述正确的是？",
+  "options": [
+   "精度标记用 .2f 表示保留 2 位小数",
+   "对齐标记 >5 表示左对齐 5 宽",
+   "类型标记 d 表示字符串",
+   "format 只能格式化数字"
+  ],
+  "answer": "A",
+  "explanation": "常见格式控制：精度用 .2f 保留 2 位小数；对齐用 >5 右对齐 5 宽（不是左对齐）；类型 d 是十进制整数（不是字符串）；format 可格式化任意类型。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0210",
+  "category": "基本数据类型",
+  "stem": "下面代码输出？\nprint('{:>5}'.format('hi'))",
+  "options": [
+   "hi",
+   "hi",
+   "hi",
+   "hi"
+  ],
+  "answer": "A",
+  "explanation": ">5 右对齐 5 宽，'hi' 右边补 3 空格。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0211",
+  "category": "基本数据类型",
+  "stem": "下面代码输出？\nprint(f'{3.14159:.2f}')",
+  "options": [
+   "3.14",
+   "3.15",
+   "3.14159",
+   "3.1"
+  ],
+  "answer": "A",
+  "explanation": "f-string 中 :.2f 保留 2 位小数。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0212",
+  "category": "基本数据类型",
+  "stem": "下面代码输出？\nprint(r'C:\\new\\note.txt')",
+  "options": [
+   "C:new:note.txt",
+   "C:\\\\new\\\\note.txt",
+   "C:\\new\\note.txt",
+   "报错"
+  ],
+  "answer": "C",
+  "explanation": "r-string（原始字符串）不转义反斜杠，输出原样 'C:\\new\\note.txt'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0213",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\nls = [1,2,3]; print(ls[-1])",
+  "options": [
+   "1",
+   "2",
+   "3",
+   "报错"
+  ],
+  "answer": "C",
+  "explanation": "负索引 -1 表示最后一个元素，ls[-1] = 3。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0214",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\nls = [1,2,3]; ls.append([4,5]); print(ls)",
+  "options": [
+   "[1, 2, 3, 4, 5]",
+   "[1, 2, 3, [4, 5]]",
+   "[1, 2, 3]",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "append 把整个对象作为单一元素加入；extend 才会展开。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0215",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\nls = [1,2,3]; ls.extend([4,5]); print(ls)",
+  "options": [
+   "[1, 2, 3, 4, 5]",
+   "[1, 2, 3, [4, 5]]",
+   "[1, 2, 3]",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "extend 把可迭代对象的每个元素逐个加入。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0216",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\nls = [3,1,2]; print(sorted(ls)); print(ls)",
+  "options": [
+   "[1, 2, 3] [3, 1, 2]",
+   "[1, 2, 3] [1, 2, 3]",
+   "[3, 1, 2] [3, 1, 2]",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "sorted 返回新列表，不修改原列表；ls.sort() 才原地修改。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0217",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\nls = [1,2,3,2,1]; print(ls.count(2), ls.index(3))",
+  "options": [
+   "1 2",
+   "2 2",
+   "1 3",
+   "2 3"
+  ],
+  "answer": "B",
+  "explanation": "count(2) 数 2 出现 2 次；index(3) 返回 3 首次出现的下标 2。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0218",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\nt = (1, 2, 3); print(t[0], len(t))",
+  "options": [
+   "1 3",
+   "0 3",
+   "1 2",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "元组支持索引和 len()。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0219",
+  "category": "组合数据类型",
+  "stem": "下面代码能执行的是？",
+  "options": [
+   "(1, 2, [3])[2].append(4)",
+   "(1, 2, [3])[0] = 4",
+   "(1, 2, [3]).append(4)",
+   "(1, 2, [3]).sort()"
+  ],
+  "answer": "A",
+  "explanation": "tuple 本身不可变（[0]= 错），没有 append/sort；但内嵌的 list 是可变的，可以 append。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0220",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\na, b, c = (1, 2, 3); print(b)",
+  "options": [
+   "1",
+   "2",
+   "3",
+   "(1, 2, 3)"
+  ],
+  "answer": "B",
+  "explanation": "元组解包：a=1, b=2, c=3。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0221",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\nd = {'a': 1, 'b': 2}; print(d.get('c', 0))",
+  "options": [
+   "报错",
+   "None",
+   "0",
+   "c"
+  ],
+  "answer": "C",
+  "explanation": "get(key, default) 缺键返回 default；不传 default 返回 None。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0222",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\nd = {'a': 1, 'b': 2}; print(list(d.keys()))",
+  "options": [
+   "['a', 'b']",
+   "[1, 2]",
+   "['a': 1]",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "dict.keys() 返回键视图，list() 转为列表。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0223",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\nd = {}; d.setdefault('a', []).append(1); print(d)",
+  "options": [
+   "{'a': [1]}",
+   "{}",
+   "[1]",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "setdefault 缺键时设默认 'a': []，然后 append 1，结果 {'a': [1]}。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0224",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\nd = {'a': 1}; d.update({'b': 2}); print(d)",
+  "options": [
+   "{'a': 1}",
+   "{'a': 1, 'b': 2}",
+   "报错",
+   "{'a': 1}, {'b': 2}"
+  ],
+  "answer": "B",
+  "explanation": "update 把另一个 dict 合并到当前 dict（后者覆盖前者同键）。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0225",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\ns = {1, 2, 2, 3}; print(s, len(s))",
+  "options": [
+   "{1, 2, 2, 3} 4",
+   "{1, 2, 3} 3",
+   "[1, 2, 3] 3",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "set 自动去重，len 为 3。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0226",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\na = {1,2,3}; b = {2,3,4}; print(a & b)",
+  "options": [
+   "{1, 2, 3, 4}",
+   "{2, 3}",
+   "{1, 4}",
+   "{1, 2}"
+  ],
+  "answer": "B",
+  "explanation": "& 是 set 交集运算。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0227",
+  "category": "组合数据类型",
+  "stem": "下面哪个对象不能作为 set 元素？",
+  "options": [
+   "[1, 2]",
+   "(1, 2)",
+   "1",
+   "frozenset([1, 2])"
+  ],
+  "answer": "A",
+  "explanation": "set 元素必须可哈希；list 是不可哈希的（会抛 TypeError）。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0228",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\na = [[1]]; b = a.copy(); a[0].append(2); print(b)",
+  "options": [
+   "[[1]]",
+   "[[1, 2]]",
+   "[]",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "a.copy() 是浅拷贝：外层新 list，内层 list 仍共享。改 a[0] 也影响 b[0]。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0229",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\nimport copy; a = [[1]]; b = copy.deepcopy(a); a[0].append(2); print(b)",
+  "options": [
+   "[[1]]",
+   "[[1, 2]]",
+   "[]",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "deepcopy 深拷贝：所有层级独立。改 a 不影响 b。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0230",
+  "category": "文件和数据格式化",
+  "stem": "打开文件读模式正确的是？",
+  "options": [
+   "open('f', 'r')",
+   "open('f', 'read')",
+   "open('f', 'R')",
+   "都对"
+  ],
+  "answer": "A",
+  "explanation": "Python 文件模式是单个字母：'r'/'w'/'a'/'x'/'b'/'+'；'read' 是关键字参数不是模式。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0231",
+  "category": "文件和数据格式化",
+  "stem": "下面代码打开文件的描述错误的是？",
+  "options": [
+   "'r' 只读，文件不存在报错",
+   "'w' 写入，文件存在则清空",
+   "'a' 追加，写入位置在文件末尾",
+   "'r+' 既可读又可写，且会清空文件"
+  ],
+  "answer": "D",
+  "explanation": "'r+' 读写不截断（不会清空）；'w+' 才会先清空。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0232",
+  "category": "文件和数据格式化",
+  "stem": "下面代码输出？\nf = open('a.txt', 'w'); f.write('hi'); f.close()",
+  "options": [
+   "hi",
+   "写入文件 a.txt，内容 'hi'",
+   "报错",
+   "'hi\\n'"
+  ],
+  "answer": "B",
+  "explanation": "write 不自动加换行符；close 关闭文件。文件内容是 'hi'（无换行）。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0233",
+  "category": "文件和数据格式化",
+  "stem": "下面关于 read() 的描述正确的是？",
+  "options": [
+   "read() 读取整文件为字符串",
+   "readline() 读取所有行返回列表",
+   "readlines() 读取整文件为字符串",
+   "read() 只能读一个字符"
+  ],
+  "answer": "A",
+  "explanation": "read() 默认读全部为字符串；readline() 读一行；readlines() 读所有行返回列表。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0234",
+  "category": "文件和数据格式化",
+  "stem": "下面代码输出？\nwith open('a.txt', 'w') as f: f.write('hi')\nwith open('a.txt') as f: print(f.read())",
+  "options": [
+   "hi",
+   "''",
+   "报错",
+   "'hi\\n'"
+  ],
+  "answer": "A",
+  "explanation": "with 自动 close；读出来是 'hi'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0235",
+  "category": "文件和数据格式化",
+  "stem": "用 with open(...) 的主要好处是？",
+  "options": [
+   "打开速度更快",
+   "自动以 utf-8 编码",
+   "异常时也保证关闭文件",
+   "独占文件"
+  ],
+  "answer": "C",
+  "explanation": "with 触发 __exit__，即使中途抛异常也调用 f.close()，不泄漏文件句柄。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0236",
+  "category": "文件和数据格式化",
+  "stem": "Windows 上打开文本文件，推荐加什么参数？",
+  "options": [
+   "encoding='utf-8'",
+   "encoding='gbk'",
+   "newline=''",
+   "encoding='ascii'"
+  ],
+  "answer": "A",
+  "explanation": "推荐显式 encoding='utf-8'，跨平台一致；不同系统默认编码可能不同。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0237",
+  "category": "文件和数据格式化",
+  "stem": "下面代码可能出错的情形是？",
+  "options": [
+   "open('a.txt') 读 UTF-8 编码文件",
+   "open('a.txt', encoding='utf-8') 读 GBK 编码文件",
+   "open('a.txt', 'rb') 读二进制文件",
+   "open('a.txt', 'w', encoding='utf-8') 写 ASCII 字符"
+  ],
+  "answer": "B",
+  "explanation": "UTF-8 编码的文件用 UTF-8 读 OK；用 GBK 读 UTF-8 编码文件可能乱码或 UnicodeDecodeError。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0238",
+  "category": "文件和数据格式化",
+  "stem": "下面哪个是合法的 Windows 路径写法？",
+  "options": [
+   "D:\\test\\file.txt",
+   "D:/test/file.txt",
+   "'D:' + 'test' + 'file.txt'",
+   "D;\\test\\file.txt"
+  ],
+  "answer": "B",
+  "explanation": "Python 字符串里反斜杠 \\ 是转义符；用正斜杠 / 是最稳的跨平台写法。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0239",
+  "category": "文件和数据格式化",
+  "stem": "pathlib.Path('data') / 'sub' / 'f.txt' 等价于？",
+  "options": [
+   "Path('data/sub/f.txt')",
+   "Path('data\\sub\\f.txt')",
+   "'data/sub/f.txt'",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "/ 是 Path 的重载除法，跨平台拼接路径。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0240",
+  "category": "文件和数据格式化",
+  "stem": "import csv; csv.reader(f) 的返回值是？",
+  "options": [
+   "list of list",
+   "可迭代的 reader 对象",
+   "dict of list",
+   "list of str"
+  ],
+  "answer": "B",
+  "explanation": "csv.reader 返回 reader 对象，可 for 循环遍历，每行是 list of str。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0241",
+  "category": "文件和数据格式化",
+  "stem": "下面代码输出？\nimport csv, io\nb = io.StringIO('a,b\\n1,2\\n3,4')\nprint(list(csv.reader(b)))",
+  "options": [
+   "[['a', 'b'], ['1', '2'], ['3', '4']]",
+   "['a,b', '1,2', '3,4']",
+   "报错",
+   "[('a', 'b'), ('1', '2'), ('3', '4')]"
+  ],
+  "answer": "A",
+  "explanation": "csv.reader 把每行解析为 list（注意：元素都是 str）。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0242",
+  "category": "文件和数据格式化",
+  "stem": "下面哪个模式不能创建新文件？",
+  "options": [
+   "'w'",
+   "'a'",
+   "'x'",
+   "'r'"
+  ],
+  "answer": "D",
+  "explanation": "'r' 模式要求文件必须存在，否则报错；其他三个都能创建新文件。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0243",
+  "category": "文件和数据格式化",
+  "stem": "open('f', 'w', buffering=1) 中 buffering=1 表示？",
+  "options": [
+   "无缓冲",
+   "行缓冲",
+   "1 字节缓冲",
+   "关闭缓冲"
+  ],
+  "answer": "B",
+  "explanation": "buffering=1 行缓冲；=0 无缓冲（仅二进制）；>1 按字节数缓冲。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0244",
+  "category": "文件和数据格式化",
+  "stem": "下面关于 flush() 的描述正确的是？",
+  "options": [
+   "flush 关闭文件",
+   "flush 强制把缓冲数据写入磁盘/管道",
+   "flush 在 with 块里自动调用",
+   "flush 等同于 close"
+  ],
+  "answer": "B",
+  "explanation": "flush 把缓冲区的数据立即写入；close 会自动调用 flush。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0245",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\ntry:\n 1/0\nexcept ZeroDivisionError:\n print('A')\nelse:\n print('B')",
+  "options": [
+   "A",
+   "B",
+   "A B",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "except 捕获后不再走 else；没有异常才走 else。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0246",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\ntry:\n print('hi')\nexcept:\n print('E')\nfinally:\n print('F')",
+  "options": [
+   "hi",
+   "hi E",
+   "hi F",
+   "hi E F"
+  ],
+  "answer": "C",
+  "explanation": "没异常时跳过 except；finally 始终执行。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0247",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\ntry:\n 1/0\nexcept:\n print('E')\nfinally:\n print('F')",
+  "options": [
+   "E",
+   "F",
+   "E F",
+   "报错"
+  ],
+  "answer": "C",
+  "explanation": "except 接住异常并打印 E；finally 始终打印 F。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0248",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\ntry:\n raise ValueError('x')\nexcept Exception as e:\n print(type(e).__name__)",
+  "options": [
+   "ValueError",
+   "Exception",
+   "x",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "type(e).__name__ 取异常类名 ValueError。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0249",
+  "category": "函数和代码复用",
+  "stem": "finally 块中不会执行的是？",
+  "options": [
+   "return 语句",
+   "正常代码",
+   "异常处理后继续",
+   "打印信息"
+  ],
+  "answer": "A",
+  "explanation": "finally 中写 return 会吞掉 try/except 里的 return/异常，这是反模式。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0250",
+  "category": "函数和代码复用",
+  "stem": "try...except...else 中 else 的执行时机是？",
+  "options": [
+   "except 之后",
+   "try 块没抛异常时",
+   "finally 之前",
+   "任意时刻"
+  ],
+  "answer": "B",
+  "explanation": "else 仅在 try 块成功完成（无异常）时执行，与 finally 顺序为 else → finally。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0251",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\nraise ValueError",
+  "options": [
+   "正常",
+   "抛出 ValueError",
+   "抛出 None",
+   "语法错"
+  ],
+  "answer": "B",
+  "explanation": "raise 一个异常类会构造并抛出该异常实例。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0252",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\ntry:\n raise ValueError from KeyError\nexcept Exception as e:\n print(e.__cause__)",
+  "options": [
+   "ValueError(...)",
+   "KeyError",
+   "None",
+   "NoneType"
+  ],
+  "answer": "B",
+  "explanation": "from 设置显式异常链：__cause__ 是 KeyError。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0253",
+  "category": "函数和代码复用",
+  "stem": "自定义异常类通常继承自？",
+  "options": [
+   "object",
+   "BaseException",
+   "Exception",
+   "Error"
+  ],
+  "answer": "C",
+  "explanation": "用户自定义异常继承 Exception；BaseException 包含 KeyboardInterrupt/SystemExit 等系统异常，不宜继承。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0254",
+  "category": "函数和代码复用",
+  "stem": "下面定义自定义异常正确的是？",
+  "options": [
+   "class MyErr(object): pass",
+   "class MyErr(Exception): pass",
+   "def MyErr(Exception): pass",
+   "MyErr = Exception()"
+  ],
+  "answer": "B",
+  "explanation": "自定义异常继承 Exception 的写法，class 关键字。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0255",
+  "category": "函数和代码复用",
+  "stem": "with open('f') as f: 的作用是？",
+  "options": [
+   "打开文件后立即关闭",
+   "自动调用 f.close()，即使中途异常",
+   "关闭后再次打开",
+   "读写加速"
+  ],
+  "answer": "B",
+  "explanation": "with 通过 __enter__/__exit__ 保证文件/锁等资源最终被释放。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0256",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\nclass A:\n def __enter__(self): return 'X'\n def __exit__(self,*a): return True\nwith A() as v: raise ValueError\nprint('OK')",
+  "options": [
+   "OK",
+   "报错",
+   "X",
+   "什么都不打印"
+  ],
+  "answer": "A",
+  "explanation": "__exit__ 返回 True 吞掉 ValueError，跳出 with 块继续执行 print(\"OK\")，输出 OK。注意 print(\"X\") 是 __enter__ 的返回值 v 才会被打印（题里没打印 v）。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0257",
+  "category": "函数和代码复用",
+  "stem": "assert 1==2, 'err' 抛出？",
+  "options": [
+   "AssertionError: 'err'",
+   "ValueError",
+   "SyntaxError",
+   "无异常"
+  ],
+  "answer": "A",
+  "explanation": "assert 失败抛 AssertionError，后接错误消息。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0258",
+  "category": "函数和代码复用",
+  "stem": "Python 用 import warnings 处理的是？",
+  "options": [
+   "错误",
+   "警告信息（不中断）",
+   "调试断点",
+   "类型检查"
+  ],
+  "answer": "B",
+  "explanation": "warnings 模块发出警告，默认不中断程序，可被过滤升级为异常。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0259",
+  "category": "函数和代码复用",
+  "stem": "traceback.print_exc() 的作用是？",
+  "options": [
+   "抛出异常",
+   "打印异常的回溯栈",
+   "终止程序",
+   "导入模块"
+  ],
+  "answer": "B",
+  "explanation": "traceback.print_exc() 把当前异常栈打到 stderr，方便调试。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0260",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\ntry:\n 1/0\nexcept (TypeError, ZeroDivisionError):\n print('E')",
+  "options": [
+   "E",
+   "报错",
+   "无输出",
+   "ZeroDivisionError"
+  ],
+  "answer": "A",
+  "explanation": "except 接元组匹配多个异常类；ZeroDivisionError 在元组中被捕获。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0261",
+  "category": "Python计算生态",
+  "stem": "下面不能导入模块的方式是？",
+  "options": [
+   "import math",
+   "from math import pi",
+   "import math as m",
+   "include math"
+  ],
+  "answer": "D",
+  "explanation": "include 不是 Python 关键字，Python 用 import / from...import / as 别名。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0262",
+  "category": "Python计算生态",
+  "stem": "下面代码输出？\nimport math\nprint(math.floor(3.7))",
+  "options": [
+   "3",
+   "4",
+   "3.7",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "math.floor 取向下取整 → 3。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0263",
+  "category": "Python计算生态",
+  "stem": "下面代码输出？\nfrom math import pi\nprint(pi)",
+  "options": [
+   "3.141592653589793",
+   "math.pi",
+   "报错",
+   "0"
+  ],
+  "answer": "A",
+  "explanation": "from import 把名字直接绑到当前命名空间，pi 是个 float。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0264",
+  "category": "Python计算生态",
+  "stem": "__name__ == '__main__' 的常见用途是？",
+  "options": [
+   "模块名",
+   "主程序入口判断",
+   "类名",
+   "版本号"
+  ],
+  "answer": "B",
+  "explanation": "直接运行脚本时 __name__ 为 '__main__'，被 import 时为模块名。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0265",
+  "category": "Python计算生态",
+  "stem": "下面代码作为模块被 import 时输出？\nprint('A')\nif __name__ == '__main__':\n print('B')",
+  "options": [
+   "A",
+   "B",
+   "A B",
+   "无输出"
+  ],
+  "answer": "A",
+  "explanation": "被 import 时 __name__ 是模块名（≠ '__main__'），跳过 B；只打印 A。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0266",
+  "category": "Python计算生态",
+  "stem": "包（package）的标志性文件是？",
+  "options": [
+   "__init__.py",
+   "main.py",
+   "setup.py",
+   "config.py"
+  ],
+  "answer": "A",
+  "explanation": "Python 3.3+ 命名空间包可省略，但带 __init__.py 的仍是常规包，能放 __all__、初始化代码等。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0267",
+  "category": "Python计算生态",
+  "stem": "__all__ 在 from package import * 时的作用是？",
+  "options": [
+   "限定可被导入的名字",
+   "列出全部异常",
+   "类成员",
+   "类型检查"
+  ],
+  "answer": "A",
+  "explanation": "__all__ 是显式公开名单，配合 import * 时生效；不写则不导入任何东西（带 __init__.py 时）。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0268",
+  "category": "Python计算生态",
+  "stem": "sys.path 的作用是？",
+  "options": [
+   "当前目录",
+   "模块搜索路径列表",
+   "环境变量",
+   "命令行参数"
+  ],
+  "answer": "B",
+  "explanation": "sys.path 是 Python 找模块的路径列表，包含脚本目录、PYTHONPATH、site-packages 等。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0269",
+  "category": "Python计算生态",
+  "stem": "sys.argv 的第一个元素是？",
+  "options": [
+   "第一个命令行参数",
+   "脚本名（含路径）",
+   "参数个数",
+   "None"
+  ],
+  "answer": "B",
+  "explanation": "sys.argv[0] 是脚本名（可能带路径），argv[1:] 才是真正的命令行参数。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0270",
+  "category": "Python计算生态",
+  "stem": "安装第三方库的命令是？",
+  "options": [
+   "pip install xxx",
+   "python --install xxx",
+   "import xxx",
+   "pkg add xxx"
+  ],
+  "answer": "A",
+  "explanation": "pip install 包名 是标准安装命令。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0271",
+  "category": "Python计算生态",
+  "stem": "查看已安装包列表的命令是？",
+  "options": [
+   "pip list",
+   "pip show",
+   "pip freeze",
+   "都是"
+  ],
+  "answer": "D",
+  "explanation": "pip list 展示表格、pip freeze 输出 requirements 格式；两个都能查看。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0272",
+  "category": "Python计算生态",
+  "stem": "下面代码输出？\nimport os\nprint(os.getcwd())",
+  "options": [
+   "当前工作目录",
+   "用户主目录",
+   "脚本路径",
+   "/"
+  ],
+  "answer": "A",
+  "explanation": "os.getcwd() 返回当前进程工作目录。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0273",
+  "category": "Python计算生态",
+  "stem": "os.path.join('a', 'b', 'c.txt') 返回？",
+  "options": [
+   "a/b/c.txt",
+   "a\\b\\c.txt",
+   "依据 OS（POSIX 用 /，Windows 用 \\）",
+   "报错"
+  ],
+  "answer": "C",
+  "explanation": "os.path.join 用当前 OS 的分隔符拼接；不同平台结果不同。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0274",
+  "category": "Python计算生态",
+  "stem": "time.time() 返回？",
+  "options": [
+   "格式时间字符串",
+   "Unix 时间戳（秒，float）",
+   "日期对象",
+   "None"
+  ],
+  "answer": "B",
+  "explanation": "time.time() 返回自 epoch 起的秒数（float）。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0275",
+  "category": "Python计算生态",
+  "stem": "下面代码输出？\nimport time\nprint(time.strftime('%Y'))",
+  "options": [
+   "当前年份字符串",
+   "秒数",
+   "报错",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "strftime 把时间元组按格式串格式化；%Y 是四位年份。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0276",
+  "category": "Python语法基础",
+  "stem": "下面定义类正确的是？",
+  "options": [
+   "class Dog: pass",
+   "def Dog: pass",
+   "class Dog()",
+   "struct Dog: pass"
+  ],
+  "answer": "A",
+  "explanation": "Python 用 class 关键字；def 是函数定义。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0277",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nclass A: x = 1\nprint(A.x)",
+  "options": [
+   "1",
+   "A",
+   "报错",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "类属性 A.x 直接访问。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0278",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nclass A:\n def __init__(self, n): self.n = n\nprint(A(5).n)",
+  "options": [
+   "5",
+   "A",
+   "报错",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "__init__ 在实例化时自动调用，self.n 存实例属性。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0279",
+  "category": "Python语法基础",
+  "stem": "实例方法的第一个参数习惯叫？",
+  "options": [
+   "cls",
+   "self",
+   "this",
+   "obj"
+  ],
+  "answer": "B",
+  "explanation": "Python 习惯 self（不代表关键字），cls 用于类方法。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0280",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nclass A:\n def f(self): print('x')\nA().f()",
+  "options": [
+   "x",
+   "报错",
+   "None",
+   "A"
+  ],
+  "answer": "A",
+  "explanation": "实例方法 f 通过 A() 实例调用，self 自动绑定。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0281",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nclass A: x = 1\nclass B(A): pass\nprint(B.x)",
+  "options": [
+   "1",
+   "B",
+   "报错",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "子类继承父类属性，B.x 沿继承链找到 A.x。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0282",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nclass A: x = 1\nclass B(A): x = 2\nprint(A.x, B.x)",
+  "options": [
+   "1 1",
+   "1 2",
+   "2 2",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "子类重定义 x 覆盖父类属性；A.x=1，B.x=2。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0283",
+  "category": "Python语法基础",
+  "stem": "Python 用哪种算法解析多继承方法顺序？",
+  "options": [
+   "DFS",
+   "BFS",
+   "C3 线性化",
+   "随机"
+  ],
+  "answer": "C",
+  "explanation": "Python 用 C3 线性化算法计算 MRO（Method Resolution Order）。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0284",
+  "category": "Python语法基础",
+  "stem": "print(C.__mro__) 用于？",
+  "options": [
+   "查看类的方法解析顺序",
+   "创建类",
+   "删除类",
+   "导入模块"
+  ],
+  "answer": "A",
+  "explanation": "__mro__ 是 C3 算出的元组，显示方法查找顺序。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0285",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nclass A:\n def __init__(self): print('A')\nclass B(A):\n def __init__(self):\n super().__init__()\n print('B')\nB()",
+  "options": [
+   "A",
+   "A B",
+   "B A",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "super().__init__() 调用父类 __init__，先打 A 再打 B。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0286",
+  "category": "Python语法基础",
+  "stem": "@property 的作用是？",
+  "options": [
+   "把方法变成只读属性",
+   "删除属性",
+   "创建私有变量",
+   "类型检查"
+  ],
+  "answer": "A",
+  "explanation": "@property 把方法伪装成属性，访问 obj.x 时调用方法。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0287",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nclass A:\n def __init__(self): self._x = 0\n @property\n def x(self): return self._x\na = A(); print(a.x)",
+  "options": [
+   "0",
+   "报错",
+   "None",
+   "_x"
+  ],
+  "answer": "A",
+  "explanation": "@property 让 a.x 返回 self._x 的值 0。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0288",
+  "category": "Python语法基础",
+  "stem": "__str__ 在何时被调用？",
+  "options": [
+   "对象销毁时",
+   "print(obj) / str(obj) 时",
+   "对象创建时",
+   "导入时"
+  ],
+  "answer": "B",
+  "explanation": "__str__ 定义 print/str 的可读字符串表示。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0289",
+  "category": "Python语法基础",
+  "stem": "__len__ 让对象支持？",
+  "options": [
+   "print",
+   "len(obj)",
+   "+",
+   "for"
+  ],
+  "answer": "B",
+  "explanation": "__len__ 让 obj 支持内置 len()。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0290",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nclass A:\n def __repr__(self): return 'X'\nprint(A())",
+  "options": [
+   "X",
+   "<A object>",
+   "报错",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "未定义 __str__ 时 print 走 __repr__；本题定义了 __repr__ 返回 'X'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0291",
+  "category": "Python语法基础",
+  "stem": "下面关于静态方法的描述正确的是？",
+  "options": [
+   "能访问 self",
+   "能访问 cls",
+   "既不传 self 也不传 cls",
+   "等同于类方法"
+  ],
+  "answer": "C",
+  "explanation": "@staticmethod 不传 self/cls；@classmethod 传 cls。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0292",
+  "category": "Python语法基础",
+  "stem": "@classmethod 的第一个参数是？",
+  "options": [
+   "self",
+   "cls",
+   "obj",
+   "this"
+  ],
+  "answer": "B",
+  "explanation": "classmethod 第一个参数约定为 cls，指向类本身。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0293",
+  "category": "Python语法基础",
+  "stem": "Python 中以 __name 双下划线开头的属性是？",
+  "options": [
+   "真私有（外部不可访问）",
+   "名称改编（name mangling）",
+   "公开属性",
+   "类属性"
+  ],
+  "answer": "B",
+  "explanation": "双下划线触发 name mangling，外部以 _类名__name 仍可访问，但属约定私有。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0294",
+  "category": "Python语法基础",
+  "stem": "isinstance(3, int) 返回？",
+  "options": [
+   "True",
+   "False",
+   "报错",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "3 是 int 实例。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0295",
+  "category": "Python语法基础",
+  "stem": "issubclass(bool, int) 返回？",
+  "options": [
+   "True",
+   "False",
+   "报错",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "bool 继承自 int，是 int 的子类。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0296",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nx = [1,2,3]; y = x; y.append(4); print(x)",
+  "options": [
+   "[1,2,3]",
+   "[1,2,3,4]",
+   "[4]",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "y 和 x 指向同一个 list，y.append 后 x 也变。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0297",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nx = [1,2,3]; y = x[:]; y.append(4); print(x, y)",
+  "options": [
+   "[1,2,3] [1,2,3,4]",
+   "[1,2,3,4] [1,2,3,4]",
+   "[1,2,3] [1,2,3]",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "切片复制创建新列表，x 不受 y 的影响。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0298",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ndef f(a, L=[]): L.append(a); return L\nprint(f(1)); print(f(2))",
+  "options": [
+   "[1]\n[2]",
+   "[1]\n[1, 2]",
+   "报错",
+   "[1]\n[1]"
+  ],
+  "answer": "B",
+  "explanation": "默认参数在函数定义时只创建一次；多次调用共享同一个 L。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0299",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\na = 3; b = a; b = 5; print(a, b)",
+  "options": [
+   "3 3",
+   "5 5",
+   "3 5",
+   "报错"
+  ],
+  "answer": "C",
+  "explanation": "int 是不可变类型，b = 5 是把 b 重新绑定到新对象，a 不变。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0300",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\na = (1,2,[3]); a[2].append(4); print(a)",
+  "options": [
+   "报错",
+   "(1, 2, [3, 4])",
+   "[1, 2, [3, 4]]",
+   "(1, 2, 3, 4)"
+  ],
+  "answer": "B",
+  "explanation": "tuple 本身不可变，但 list 元素可变；list.append 后 tuple 内嵌的 list 变了。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0301",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\na = [1,2,3]; print(a[10:])",
+  "options": [
+   "报错",
+   "[]",
+   "[1,2,3]",
+   "None"
+  ],
+  "answer": "B",
+  "explanation": "切片越界不报错，返回空列表。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0302",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint('a' in ['a','b'])",
+  "options": [
+   "True",
+   "False",
+   "报错",
+   "'a'"
+  ],
+  "answer": "A",
+  "explanation": "in 检查元素是否存在。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0303",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint('a' in {'a':1})",
+  "options": [
+   "True",
+   "False",
+   "报错",
+   "1"
+  ],
+  "answer": "A",
+  "explanation": "对 dict 而言，in 检查的是键是否存在。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0304",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ndef f(x): return x*2 if x>0 else 0\nprint(f(-1), f(0), f(2))",
+  "options": [
+   "0 0 4",
+   "-2 0 4",
+   "0 0 2",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "三元表达式 x>0 → x*2，否则 0。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0305",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nx = [3,1,2]; x.sort(); print(x)",
+  "options": [
+   "[1,2,3]",
+   "[3,1,2]",
+   "报错",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "list.sort() 原地排序，返回 None；打印修改后的列表。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0306",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nx = [3,1,2]; print(sorted(x, reverse=True))",
+  "options": [
+   "[1,2,3]",
+   "[3,1,2]",
+   "[3,2,1]",
+   "报错"
+  ],
+  "answer": "C",
+  "explanation": "sorted(..., reverse=True) 倒序返回新列表。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0307",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint(list(map(str, [1,2,3])))",
+  "options": [
+   "['1','2','3']",
+   "[1,2,3]",
+   "报错",
+   "[str,str,str]"
+  ],
+  "answer": "A",
+  "explanation": "map 把 str 作用到每个元素，list 转列表。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0308",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint(list(filter(lambda x: x%2, [1,2,3,4])))",
+  "options": [
+   "[1,3]",
+   "[2,4]",
+   "[1,2,3,4]",
+   "[]"
+  ],
+  "answer": "A",
+  "explanation": "filter 保留 lambda 返回真的元素；奇数 %2 == 1 为真。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0309",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint([i*i for i in range(5) if i%2==0])",
+  "options": [
+   "[0, 4, 16]",
+   "[0, 4]",
+   "[1, 9]",
+   "[0, 1, 4, 9, 16]"
+  ],
+  "answer": "A",
+  "explanation": "列表推导式：i=0,2,4 偶数，对应平方 0²=0, 2²=4, 4²=16 → [0, 4, 16]。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0310",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint({i: i*i for i in range(3)})",
+  "options": [
+   "{0:0, 1:1, 2:4}",
+   "[0,1,4]",
+   "(0,1,4)",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "字典推导式：i:i*i for i in range(3)。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0311",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint(' '.join(['a','b','c']))",
+  "options": [
+   "a b c",
+   "abc",
+   "['a','b','c']",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "str.join 用空格把列表拼成字符串。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0312",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint('Hi'.lower(), 'Hi'.upper())",
+  "options": [
+   "hi HI",
+   "HI hi",
+   "hi hi",
+   "Hi Hi"
+  ],
+  "answer": "A",
+  "explanation": "lower() 小写、upper() 大写。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0313",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint(' hello '.strip())",
+  "options": [
+   "'hello'",
+   "' hello '",
+   "'hello '",
+   "' hello'"
+  ],
+  "answer": "A",
+  "explanation": "strip() 去掉两端空白。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0314",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint('a,b,c'.split(','))",
+  "options": [
+   "['a','b','c']",
+   "'a,b,c'",
+   "报错",
+   "['a,b,c']"
+  ],
+  "answer": "A",
+  "explanation": "split 按 ',' 切分为 list。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0315",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nimport re; print(re.findall(r'\\d+', 'a1b22c3'))",
+  "options": [
+   "['1','22','3']",
+   "['1223']",
+   "报错",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "findall 匹配所有连续数字，返回字符串列表。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0316",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nwith open('x.txt','w') as f:\n f.write('hi')",
+  "options": [
+   "正常",
+   "报错",
+   "创建空文件",
+   "权限错"
+  ],
+  "answer": "A",
+  "explanation": "with 块正常退出，文件被创建并写入 'hi'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0317",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ntry:\n print(int('abc'))\nexcept ValueError as e:\n print(type(e).__name__)",
+  "options": [
+   "ValueError",
+   "报错",
+   "'abc'",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "int('abc') 抛 ValueError，捕获后打印类名。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0318",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nclass A:\n x = 0\na = A(); a.x = 5; print(A.x, a.x)",
+  "options": [
+   "0 5",
+   "5 5",
+   "0 0",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "实例属性 a.x = 5 不影响类属性 A.x；A.x=0, a.x=5。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0319",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint(list(range(2, 10, 3)))",
+  "options": [
+   "[2, 5, 8]",
+   "[2, 5]",
+   "[2, 3, 5, 8]",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "range(2, 10, 3) → 2, 5, 8（步长 3，不到 10）。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0320",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint(sum(i for i in range(4)))",
+  "options": [
+   "6",
+   "10",
+   "报错",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "生成器 (0+1+2+3)=6。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0321",
+  "category": "Python语法基础",
+  "stem": "下列不属于 Python 3 保留字的是？",
+  "options": [
+   "if",
+   "elif",
+   "else",
+   "select"
+  ],
+  "answer": "D",
+  "explanation": "Python 用 if/elif/else；select 是 SQL 关键字。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0322",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nx = 5; y = 3; print(x // y, x % y)",
+  "options": [
+   "1 2",
+   "1.66 2",
+   "2 1",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "// 是整除，% 是取模：5//3=1, 5%3=2。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0323",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nprint('Hello' > 'Hello World')",
+  "options": [
+   "True",
+   "False",
+   "报错",
+   "0"
+  ],
+  "answer": "B",
+  "explanation": "字符串从左到右逐字符比较 ASCII；'Hello' 是 'Hello World' 的前缀，所以 False。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0324",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nprint('a' in 'abc')",
+  "options": [
+   "True",
+   "False",
+   "报错",
+   "'a'"
+  ],
+  "answer": "A",
+  "explanation": "in 检查子串，'a' 在 'abc' 里 → True。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0325",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nfor i in range(2, 10, 3): print(i, end=' ')",
+  "options": [
+   "2 5 8",
+   "2 5 8 11",
+   "2 3 5 8",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "range(2,10,3) 是 2,5,8（不到 10）。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0326",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nx = 10\nif x > 5 and x < 15: print('Y')",
+  "options": [
+   "Y",
+   "无输出",
+   "True",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "x=10 满足 5<x<15，复合布尔表达式求值为 True，打印 Y。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0327",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nprint(0 or 'hi')",
+  "options": [
+   "0",
+   "'hi'",
+   "True",
+   "False"
+  ],
+  "answer": "B",
+  "explanation": "or 短路：A 为假时返回 B（B 是非空字符串 'hi'）。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0328",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nprint(not (3 < 1))",
+  "options": [
+   "True",
+   "False",
+   "0",
+   "1"
+  ],
+  "answer": "A",
+  "explanation": "3<1 是 False，not False = True。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0329",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\ni = 0\nwhile i < 3:\n i += 1\nprint(i)",
+  "options": [
+   "0",
+   "2",
+   "3",
+   "报错"
+  ],
+  "answer": "C",
+  "explanation": "循环结束后 i=3。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0330",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nls = [1,2,3]; print(ls.pop())",
+  "options": [
+   "1",
+   "3",
+   "[1,2]",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "pop() 默认弹出最后一个元素并返回 3；列表变为 [1,2]。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0331",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nls = [3,1,2]; print(max(ls), min(ls))",
+  "options": [
+   "3 1",
+   "1 3",
+   "2 1",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "max=3, min=1。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0332",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nt = (1, 2, 3, 4); print(t[1:3])",
+  "options": [
+   "(1, 2)",
+   "(2, 3)",
+   "[2, 3]",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "tuple 切片仍是 tuple：(2, 3)。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0333",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nd = {'a': 1, 'b': 2}; print('a' in d, 'c' in d)",
+  "options": [
+   "True False",
+   "True True",
+   "False True",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "'a' 是键（在），'c' 不是键（不在）。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0334",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ns = {1,2,3,2}; print(s)",
+  "options": [
+   "{1,2,3,2}",
+   "{1,2,3}",
+   "[1,2,3]",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "set 自动去重，{1,2,3}。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0335",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\na = [1,2,3]; b = a[:]; b[0] = 9; print(a[0])",
+  "options": [
+   "9",
+   "1",
+   "报错",
+   "None"
+  ],
+  "answer": "B",
+  "explanation": "切片创建新列表，b 不影响 a。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0336",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint([i for i in range(10) if i % 2])",
+  "options": [
+   "[0,2,4,6,8]",
+   "[1,3,5,7,9]",
+   "[1,3,5,7]",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "i%2 == 1 是奇数 1,3,5,7,9。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0337",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint({i: i*2 for i in range(3)})",
+  "options": [
+   "{0:0, 1:2, 2:4}",
+   "{0,2,4}",
+   "[0,2,4]",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "字典推导式，i:i*2。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0338",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nx = [[0]]*3; x[0][0] = 1; print(x)",
+  "options": [
+   "[[1],[0],[0]]",
+   "[[1],[1],[1]]",
+   "[[1,0,0]]",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "*3 复制的是同一子列表引用，改一个全变。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0339",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nfor k,v in {'a':1,'b':2}.items(): print(k, end='')",
+  "options": [
+   "ab",
+   "12",
+   "{'a':1}",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "items() 给 (k,v) 对；只打键 a b。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0340",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ndef f(x, y=2): return x*y\nprint(f(3))",
+  "options": [
+   "6",
+   "报错",
+   "5",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "y 用默认值 2；3*2=6。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0341",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ndef f(*a): return sum(a)\nprint(f(1,2,3))",
+  "options": [
+   "6",
+   "(1,2,3)",
+   "报错",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "*a 收集为 (1,2,3)，sum=6。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0342",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nx = [1,2]\ndef f(): x.append(3)\nf(); print(x)",
+  "options": [
+   "[1,2]",
+   "[1,2,3]",
+   "报错",
+   "None"
+  ],
+  "answer": "B",
+  "explanation": "函数内访问外层 list，append 后 x 变 [1,2,3]。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0343",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ndef f(x): return x\nprint(type(f).__name__)",
+  "options": [
+   "function",
+   "method",
+   "object",
+   "NoneType"
+  ],
+  "answer": "A",
+  "explanation": "函数对象的 type 是 function。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0344",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nimport math\nprint(math.sqrt(16))",
+  "options": [
+   "4.0",
+   "4",
+   "16",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "math.sqrt 返回 float 4.0。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0345",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nfrom math import *\nprint(pi)",
+  "options": [
+   "3.14159...",
+   "math.pi",
+   "报错",
+   "0"
+  ],
+  "answer": "A",
+  "explanation": "通配导入后可直接用 pi。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0346",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint(__name__)（直接运行该脚本时）",
+  "options": [
+   "__main__",
+   "模块名",
+   "main",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "脚本入口运行时 __name__ 为 '__main__'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0347",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ndef f(): return 1, 2\na, b = f(); print(a, b)",
+  "options": [
+   "1 2",
+   "(1, 2)",
+   "报错",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "函数隐式返回 tuple；解包为 a=1, b=2。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0348",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ndef f(x): x = x + [1]; return x\na = [1]; f(a); print(a)",
+  "options": [
+   "[1]",
+   "[1,1]",
+   "报错",
+   "[2]"
+  ],
+  "answer": "A",
+  "explanation": "x = x + [1] 创建新列表并重绑定，原 a 不变。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0349",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ndef f(x): x.append(1); return x\na = [1]; f(a); print(a)",
+  "options": [
+   "[1]",
+   "[1,1]",
+   "报错",
+   "[2]"
+  ],
+  "answer": "B",
+  "explanation": "append 是原地修改，影响外部 a。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0350",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint('Hello, World!'[7:12])",
+  "options": [
+   "World",
+   "World!",
+   "Worl",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "[7:12] 是索引 7~11 的字符 → 'World'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0351",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint('Python'.replace('Py', 'My'))",
+  "options": [
+   "Mython",
+   "Python",
+   "MyPy",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "replace 把 'Py' 换成 'My'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0352",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint(' hi '.strip())",
+  "options": [
+   "'hi'",
+   "' hi '",
+   "'hi '",
+   "' hi'"
+  ],
+  "answer": "A",
+  "explanation": "strip 去掉两端空白。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0353",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint('abc'.upper(), 'ABC'.lower())",
+  "options": [
+   "ABC abc",
+   "abc ABC",
+   "ABC ABC",
+   "abc abc"
+  ],
+  "answer": "A",
+  "explanation": "upper 大写、lower 小写。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0354",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint('-'.join(['2024','01','01']))",
+  "options": [
+   "2024-01-01",
+   "2024/01/01",
+   "['2024','01','01']",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "join 用 '-' 拼接列表元素。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0355",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint('hello'.count('l'))",
+  "options": [
+   "1",
+   "2",
+   "3",
+   "0"
+  ],
+  "answer": "B",
+  "explanation": "'hello' 中 'l' 出现 2 次。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0356",
+  "category": "Python语言综合",
+  "stem": "下面关于文件打开模式描述错误的是？",
+  "options": [
+   "'r' 只读",
+   "'w' 写入并清空",
+   "'a' 追加写入",
+   "'x' 追加但不创建"
+  ],
+  "answer": "D",
+  "explanation": "'x' 是排他创建，文件已存在则报错；不是 '追加但不创建'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0357",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nopen('f','w').write('hi')",
+  "options": [
+   "hi",
+   "2",
+   "None",
+   "无输出（写入文件后表达式值被丢弃，脚本中不打印）"
+  ],
+  "answer": "B",
+  "explanation": "open('f','w').write('hi') 是表达式语句，write 返回 2 但被丢弃；脚本无 print() 故不打印任何内容。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0358",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint('hello\\nworld'.splitlines())",
+  "options": [
+   "['hello\\nworld']",
+   "['hello','world']",
+   "报错",
+   "['hello\\\\nworld']"
+  ],
+  "answer": "B",
+  "explanation": "splitlines 按 \\n 等行边界切分。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0359",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\nls = [1,2,3]; print(ls*2)",
+  "options": [
+   "[1,2,3,1,2,3]",
+   "[2,4,6]",
+   "[1,2,3]*2",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "list * n 重复元素 n 次。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0360",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\nls = [[]]*3; print(len(ls), ls[0] is ls[1])",
+  "options": [
+   "3 True",
+   "3 False",
+   "1 True",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "*3 共享同一子列表，is 比较 True；总长 3。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0361",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\nls = [3,1,2,1,3]; print(list(set(ls)))",
+  "options": [
+   "[1,2,3]",
+   "[3,1,2,1,3]",
+   "报错",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "set 去重后 list 化，无固定顺序但内容是 {1,2,3}。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0362",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\nd = {'a':1}; d['a'] = d.get('a', 0)+1; print(d)",
+  "options": [
+   "{'a':1}",
+   "{'a':2}",
+   "报错",
+   "{}"
+  ],
+  "answer": "B",
+  "explanation": "d.get('a')=1，加 1 后赋值 2。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0363",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\nprint(sorted([3,1,2], key=str))",
+  "options": [
+   "[1,2,3]",
+   "[3,2,1]",
+   "[3,1,2]",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "sorted 默认升序；key=str 不改变整数比较结果。等等：'1','2','3' 字典序与整数升序一致。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0364",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\nprint(list(reversed([1,2,3])))",
+  "options": [
+   "[3,2,1]",
+   "[1,2,3]",
+   "报错",
+   "(3,2,1)"
+  ],
+  "answer": "A",
+  "explanation": "reversed 是迭代器，list 转列表得倒序。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0365",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\nfor k in {'a':1,'b':2}: print(k, end='')",
+  "options": [
+   "ab",
+   "12",
+   "{'a':1}",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "dict 直接迭代是键。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0366",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\nimport copy; a=[[1]]; b=copy.deepcopy(a); a[0][0]=2; print(b)",
+  "options": [
+   "[[1]]",
+   "[[2]]",
+   "报错",
+   "[]"
+  ],
+  "answer": "A",
+  "explanation": "deepcopy 完全独立子对象。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0367",
+  "category": "组合数据类型",
+  "stem": "下面代码输出？\nd = {}; print(d.get('x', 'def'))",
+  "options": [
+   "def",
+   "None",
+   "报错",
+   "x"
+  ],
+  "answer": "A",
+  "explanation": "get 缺键返回默认 'def'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0368",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\ntry:\n print(1/0)\nexcept Exception as e:\n print('caught')",
+  "options": [
+   "caught",
+   "ZeroDivisionError",
+   "报错",
+   "无输出"
+  ],
+  "answer": "A",
+  "explanation": "Exception 是 ZeroDivisionError 的父类，能捕获。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0369",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\ntry:\n x\nexcept NameError:\n print('N')\nexcept:\n print('A')",
+  "options": [
+   "N",
+   "A",
+   "报错",
+   "无输出"
+  ],
+  "answer": "A",
+  "explanation": "NameError 在第一个 except 命中；不会落到 except:。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0370",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\nprint(issubclass(ValueError, Exception))",
+  "options": [
+   "True",
+   "False",
+   "报错",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "ValueError 是 Exception 的子类。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0371",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\ntry:\n raise\nexcept:\n print('caught')",
+  "options": [
+   "caught",
+   "RuntimeError",
+   "报错",
+   "无输出"
+  ],
+  "answer": "A",
+  "explanation": "raise 不带参数重新抛出当前异常；except: 捕获。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0372",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\ntry:\n int('1.5')\nexcept ValueError:\n print('V')\nexcept TypeError:\n print('T')",
+  "options": [
+   "V",
+   "T",
+   "VT",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "int('1.5') 抛 ValueError（不是 TypeError）。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0373",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\ntry:\n 1/0\nexcept ZeroDivisionError as e:\n print(e)",
+  "options": [
+   "division by zero",
+   "ZeroDivisionError",
+   "报错",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "str(e) = 'division by zero'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0374",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\ndef f():\n try: return 1\n finally: print('F')\nf()",
+  "options": [
+   "1",
+   "1 F",
+   "F 1",
+   "F"
+  ],
+  "answer": "D",
+  "explanation": "finally 在 return 之前执行，打印 F；函数返回 1（被丢弃），最终输出 F。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0375",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\ntry:\n open('missing.txt')\nexcept FileNotFoundError:\n print('NF')",
+  "options": [
+   "NF",
+   "报错",
+   "无输出",
+   "FileNotFoundError"
+  ],
+  "answer": "A",
+  "explanation": "open 不存在文件抛 FileNotFoundError，被捕获。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0376",
+  "category": "函数和代码复用",
+  "stem": "下面代码输出？\ntry:\n [1,2][5]\nexcept IndexError:\n print('I')\nexcept Exception:\n print('E')",
+  "options": [
+   "I",
+   "E",
+   "IE",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "IndexError 在第一个 except 命中。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0377",
+  "category": "函数和代码复用",
+  "stem": "下面关于 with 语句说法错误的是？",
+  "options": [
+   "进入时调用 __enter__",
+   "退出时调用 __exit__",
+   "异常时 __exit__ 返回 True 会传播",
+   "多个上下文用逗号分隔"
+  ],
+  "answer": "C",
+  "explanation": "__exit__ 返回 True 等价于吞掉异常（不传播）；返回 False/None 才传播。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0378",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nclass A:\n def __init__(self): self.x = 1\na = A(); print(a.x)",
+  "options": [
+   "1",
+   "A",
+   "报错",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "__init__ 中 self.x = 1，实例属性访问为 1。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0379",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nclass A:\n def f(self): return 'f'\nprint(A.f)",
+  "options": [
+   "<function A.f>",
+   "<bound method>",
+   "报错",
+   "f"
+  ],
+  "answer": "A",
+  "explanation": "类访问实例方法返回函数对象本身（未绑定）。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0380",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nclass A:\n @classmethod\n def f(cls): return cls.__name__\nprint(A.f())",
+  "options": [
+   "A",
+   "f",
+   "报错",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "@classmethod 第一个参数是 cls，cls.__name__ = 'A'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0381",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nclass A:\n def __str__(self): return 'A!';\nprint(A())",
+  "options": [
+   "A!",
+   "<A object>",
+   "报错",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "print 走 __str__。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0382",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nclass A: pass\na = A(); setattr(a, 'x', 5); print(a.x)",
+  "options": [
+   "5",
+   "报错",
+   "None",
+   "A"
+  ],
+  "answer": "A",
+  "explanation": "setattr 动态加属性。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0383",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nclass A:\n pass\nprint(isinstance(A(), A))",
+  "options": [
+   "True",
+   "False",
+   "报错",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "A() 是 A 的实例。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0384",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nclass A:\n def __init__(self): self._x = 0\n @property\n def x(self): return self._x + 1\na = A(); print(a.x)",
+  "options": [
+   "1",
+   "0",
+   "报错",
+   "_x"
+  ],
+  "answer": "A",
+  "explanation": "@property 返回 self._x + 1 = 0 + 1 = 1。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0385",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nclass A:\n def __eq__(self, other): return True\nprint(A() == 1)",
+  "options": [
+   "True",
+   "False",
+   "报错",
+   "1"
+  ],
+  "answer": "A",
+  "explanation": "__eq__ 返回 True，== 任意对象都是 True。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0386",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nclass A:\n def __init__(self): self.__x = 1\na = A(); print(a._A__x)",
+  "options": [
+   "1",
+   "报错",
+   "None",
+   "__x"
+  ],
+  "answer": "A",
+  "explanation": "双下划线属性被 name mangling 为 _A__x，外部可以这样访问。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0387",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nwith open('x','w') as f:\n f.write('a\\nb\\n')\nprint(sum(1 for _ in open('x')))",
+  "options": [
+   "2",
+   "3",
+   "报错",
+   "0"
+  ],
+  "answer": "A",
+  "explanation": "写入两行；再读时按 \\n 切分是 2 行（取决于缓冲/换行）。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0388",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint(list(filter(None, [0,1,'', 'a', None, []])))",
+  "options": [
+   "[0,1,'','a',None,[]]",
+   "[1,'a']",
+   "[1,'', 'a']",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "filter(None) 过滤所有假值；0/''/None/[] 都假，被过滤掉。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0389",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nimport csv, io\nb = io.StringIO('x,y\\n1,2\\n3,4\\n')\nr = list(csv.DictReader(b))\nprint(r[0]['x'])",
+  "options": [
+   "1",
+   "2",
+   "'1'",
+   "报错"
+  ],
+  "answer": "C",
+  "explanation": "DictReader 把首行当键，第一行数据 {'x':'1','y':'2'}。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0390",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint(list(map(int, ['1','2','3'])))",
+  "options": [
+   "[1,2,3]",
+   "['1','2','3']",
+   "报错",
+   "(1,2,3)"
+  ],
+  "answer": "A",
+  "explanation": "map 把 int 应用到每个元素。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0391",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nfor i, c in enumerate('ab'):\n print(i, c, end=' ')",
+  "options": [
+   "0 a 1 b",
+   "a 0 b 1",
+   "报错",
+   "0 1 a b"
+  ],
+  "answer": "A",
+  "explanation": "enumerate 给 (索引, 元素)。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0392",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint(list(zip([1,2,3], ['a','b'])))",
+  "options": [
+   "[(1,'a'),(2,'b'),(3,None)]",
+   "[(1,'a'),(2,'b')]",
+   "[(1,2,3),('a','b')]",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "zip 按最短截断；返回 [(1,'a'),(2,'b')]。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0393",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint(any([0, '', None, 1]))",
+  "options": [
+   "True",
+   "False",
+   "报错",
+   "1"
+  ],
+  "answer": "A",
+  "explanation": "any 在第一个真值处返回 True。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0394",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint(all([1, 2, 3, 0]))",
+  "options": [
+   "True",
+   "False",
+   "报错",
+   "None"
+  ],
+  "answer": "B",
+  "explanation": "all 要求全部真；0 是假 → False。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0395",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nx = 'a,b,c'.split(','); print('-'.join(x))",
+  "options": [
+   "a-b-c",
+   "abc",
+   "['a','b','c']",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "split 切分再 join 拼接。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0396",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint({x: x**2 for x in range(4) if x%2})",
+  "options": [
+   "{1:1, 3:9}",
+   "{0:0, 1:1, 2:4, 3:9}",
+   "{}",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "x=1,3 奇数，对应 1²=1, 3²=9。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0397",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ndef f():\n try: return 'A'\n except: return 'B'\n finally: return 'C'\nprint(f())",
+  "options": [
+   "A",
+   "B",
+   "C",
+   "AB"
+  ],
+  "answer": "C",
+  "explanation": "finally 中的 return 会覆盖 try 中的 return → C。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0398",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nclass A:\n x = 10\ndef f():\n print(A.x)\nf()",
+  "options": [
+   "10",
+   "报错",
+   "None",
+   "A"
+  ],
+  "answer": "A",
+  "explanation": "类属性在函数内通过 A.x 访问。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0399",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nimport os; print(os.path.basename('a/b/c.txt'))",
+  "options": [
+   "c.txt",
+   "a/b/c.txt",
+   "c",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "basename 取路径最后一段文件名。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0400",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nfrom datetime import date\nprint(date(2024,1,1).weekday())",
+  "options": [
+   "0",
+   "1",
+   "6",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "2024-01-01 是周一，weekday() 返回 0（周一为 0）。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0401",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nimport json; print(json.dumps({'a':1}))",
+  "options": [
+   "{\"a\": 1}",
+   "{'a': 1}",
+   "{a:1}",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "json.dumps 用双引号 + 默认空格分隔。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0402",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nimport re; print(re.sub(r'\\d', '*', 'a1b2'))",
+  "options": [
+   "a*b*",
+   "a1b2",
+   "ab",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "re.sub 把数字替换为 *。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0403",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nimport random; random.seed(0); print(random.randint(1,3))",
+  "options": [
+   "1",
+   "2",
+   "3",
+   "不固定"
+  ],
+  "answer": "B",
+  "explanation": "random.seed(0) 之后第一个 randint(1,3) 固定为 2。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0404",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ndef f(x): return x*2\nprint(list(map(f, [1,2,3])))",
+  "options": [
+   "[2,4,6]",
+   "[1,2,3]",
+   "报错",
+   "[1,2,3,1,2,3]"
+  ],
+  "answer": "A",
+  "explanation": "map 应用 f 后得到 [2,4,6]。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0405",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nclass A:\n def __init__(self): self.__d = 1\n def g(self): return self.__d\na = A(); print(a.g())",
+  "options": [
+   "1",
+   "报错",
+   "None",
+   "__d"
+  ],
+  "answer": "A",
+  "explanation": "类内访问 __d 被解释为 self._A__d。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0406",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ntry:\n print(int('3.14'))\nexcept:\n print('e')\nelse:\n print('ok')",
+  "options": [
+   "e",
+   "ok",
+   "eok",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "int('3.14') 抛 ValueError，except 接住，走 e；不进入 else。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0407",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nx = [1,2,3,4,5]; print([v for v in x if v % 2 == 0])",
+  "options": [
+   "[2,4]",
+   "[1,3,5]",
+   "[2]",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "保留偶数 2,4。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0408",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nimport collections\nc = collections.Counter('abracadabra')\nprint(c.most_common(2))",
+  "options": [
+   "[('a', 5), ('b', 2)]",
+   "[5, 2]",
+   "报错",
+   "[('r', 2)]"
+  ],
+  "answer": "A",
+  "explanation": "most_common(2) 返回频率最高的 2 项：a:5, b:2。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0409",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nprint(' Python '.strip().lower().upper())",
+  "options": [
+   "PYTHON",
+   "python",
+   "python",
+   "Python"
+  ],
+  "answer": "A",
+  "explanation": "strip 去两端空白，lower 小写、upper 大写 → 'PYTHON'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0410",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nd = {'x': 1, 'y': 2}; print(max(d, key=d.get))",
+  "options": [
+   "y",
+   "x",
+   "1",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "max 按 d.get 取最大值，y 的值 2 最大。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0411",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nx = (1, [2, 3]); x[1].append(4); print(x)",
+  "options": [
+   "报错",
+   "(1, [2, 3, 4])",
+   "[1, 2, 3, 4]",
+   "(1, [4])"
+  ],
+  "answer": "B",
+  "explanation": "tuple 不可变但 list 元素可变，append 后内嵌 list 变 [2,3,4]。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0412",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nimport sys; print(sys.getsizeof(''))",
+  "options": [
+   "41",
+   "49",
+   "0",
+   "1"
+  ],
+  "answer": "A",
+  "explanation": "CPython 3.13 中 sys.getsizeof('') = 41 字节（含对象头）。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0413",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\ndef f(n):\n return n if n<2 else f(n-1)+f(n-2)\nprint(f(6))",
+  "options": [
+   "8",
+   "13",
+   "5",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "斐波那契：f(6)=f(5)+f(4)=5+3=8。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0414",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nclass A:\n def __init__(self, n): self.n = n\n def __repr__(self): return f'A({self.n})'\nprint([A(i) for i in range(3)])",
+  "options": [
+   "[A(0), A(1), A(2)]",
+   "[A(0) A(1) A(2)]",
+   "报错",
+   "[0, 1, 2]"
+  ],
+  "answer": "A",
+  "explanation": "列表推导式 + __repr__ 给可读字符串。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0415",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\nwith open('a','w') as f:\n f.write('x')\nwith open('a') as f:\n print(f.read())",
+  "options": [
+   "x",
+   "''",
+   "报错",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "写入 'x' 后读出 'x'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0416",
+  "category": "Python语法基础",
+  "stem": "下面代码输出？\ntry:\n print(eval('1+'))\nexcept SyntaxError:\n print('SE')\nexcept:\n print('E')",
+  "options": [
+   "SE",
+   "E",
+   "1+",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "eval('1+') 抛 SyntaxError，被第一个 except 接住。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0417",
+  "category": "Python语言综合",
+  "stem": "Python 3 中，下列合法的标识符是？",
+  "options": [
+   "3a",
+   "my_name",
+   "for",
+   "a-b"
+  ],
+  "answer": "B",
+  "explanation": "标识符不能数字开头；for 是保留字；a-b 含减号不合法。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0418",
+  "category": "Python语言综合",
+  "stem": "表达式 3 * 1 ** 3 的值是？",
+  "options": [
+   "3",
+   "27",
+   "9",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "** 高于 *，1**3=1，3*1=3。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0419",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint('Hello'[1:3])",
+  "options": [
+   "He",
+   "el",
+   "ell",
+   "Hello"
+  ],
+  "answer": "B",
+  "explanation": "'Hello'[1:3] = 'el'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0420",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nls = [1,2,3]; print(ls + [4])",
+  "options": [
+   "[1,2,3]",
+   "[1,2,3,4]",
+   "报错",
+   "[5]"
+  ],
+  "answer": "B",
+  "explanation": "list + list 拼接。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0421",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nfor i in range(3):\n print(i, end=' ')",
+  "options": [
+   "1 2 3",
+   "0 1 2",
+   "0 1 2 3",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "range(3) = 0,1,2。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0422",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nd = {'a':1}; print(d.get('b', 0))",
+  "options": [
+   "None",
+   "0",
+   "报错",
+   "b"
+  ],
+  "answer": "B",
+  "explanation": "get 缺键返回默认 0。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0423",
+  "category": "Python语言综合",
+  "stem": "下面关于列表说法错误的是？",
+  "options": [
+   "列表有序",
+   "列表可变",
+   "列表元素类型可不同",
+   "列表元素不可重复"
+  ],
+  "answer": "D",
+  "explanation": "列表允许重复元素；要去重用 set 或 dict。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0424",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ndef f(x): return x*2\nprint(f('a'))",
+  "options": [
+   "aa",
+   "a2",
+   "'aa'",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "字符串 * n 重复：'a'*2 = 'aa'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0425",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ntry:\n 1/0\nexcept:\n print('E')",
+  "options": [
+   "E",
+   "ZeroDivisionError",
+   "报错",
+   "无输出"
+  ],
+  "answer": "A",
+  "explanation": "except 接住异常。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0426",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nwith open('f','w') as fp:\n fp.write('hi')",
+  "options": [
+   "'hi'",
+   "2",
+   "None",
+   "报错"
+  ],
+  "answer": "C",
+  "explanation": "write 返回写入字符数 2；表达式的值被丢弃。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0427",
+  "category": "Python语言综合",
+  "stem": "Python 源文件默认编码是？",
+  "options": [
+   "ASCII",
+   "UTF-8",
+   "GBK",
+   "Latin-1"
+  ],
+  "answer": "B",
+  "explanation": "Python 3 源文件默认 UTF-8。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0428",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint(type(1+2j).__name__)",
+  "options": [
+   "int",
+   "float",
+   "complex",
+   "str"
+  ],
+  "answer": "C",
+  "explanation": "1+2j 是 complex。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0429",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nx = 'abc'; print(x.replace('a', 'A'))",
+  "options": [
+   "Abc",
+   "ABC",
+   "abc",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "replace 返回新字符串 'Abc'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0430",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nls = [3,1,2]; ls.sort(); print(ls[0])",
+  "options": [
+   "3",
+   "1",
+   "2",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "原地排序后 ls[0] = 1（最小）。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0431",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint('a' * 3 + 'b' * 2)",
+  "options": [
+   "aaabb",
+   "abcde",
+   "a3b2",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "'a'*3='aaa'，'b'*2='bb'，相加 'aaabb'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0432",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nt = (1,2,3); print(t * 2)",
+  "options": [
+   "(1,2,3,1,2,3)",
+   "[1,2,3,1,2,3]",
+   "报错",
+   "(2,4,6)"
+  ],
+  "answer": "A",
+  "explanation": "tuple * n 重复元素 n 次。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0433",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nd = {}; d[1] = 'a'; print(d)",
+  "options": [
+   "{'1':'a'}",
+   "{1:'a'}",
+   "报错",
+   "{1: 'a'}"
+  ],
+  "answer": "D",
+  "explanation": "d[1] = 'a' 是整型键；Python 字典自动美化打印 {1: 'a'}。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0434",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint(list(range(5))[::2])",
+  "options": [
+   "[0,2,4]",
+   "[1,3,5]",
+   "[0,2,4,6,8]",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "range(5)=0..4，[::2] 取 0,2,4。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0435",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ndef f(a, b=[]): b.append(a); return b\nprint(f(1), f(2))",
+  "options": [
+   "[1] [2]",
+   "[1] [1, 2]",
+   "[1,2] [1,2]",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "默认参数陷阱：b 在函数定义时只创建一次。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0436",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nimport os; print(os.sep)",
+  "options": [
+   "/",
+   "\\",
+   ":",
+   "依据 OS"
+  ],
+  "answer": "D",
+  "explanation": "os.sep 是当前 OS 路径分隔符（Windows '\\'，POSIX '/'）。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0437",
+  "category": "Python语言综合",
+  "stem": "Python 中不可变数据类型是？",
+  "options": [
+   "list",
+   "dict",
+   "tuple",
+   "set"
+  ],
+  "answer": "C",
+  "explanation": "tuple 是不可变；list/dict/set 都是可变。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0438",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint(10 // 3, 10 % 3)",
+  "options": [
+   "3 1",
+   "3.33 1",
+   "1 3",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "整除 3 余数 1。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0439",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint(bool(''), bool(' '))",
+  "options": [
+   "False True",
+   "False False",
+   "True True",
+   "True False"
+  ],
+  "answer": "A",
+  "explanation": "空字符串 False，空格（非空）True。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0440",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nls = [1,2,3]; print(ls[-2])",
+  "options": [
+   "1",
+   "2",
+   "3",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "负索引 -2 是倒数第二个 → 2。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0441",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint('a' in 'banana')",
+  "options": [
+   "True",
+   "False",
+   "报错",
+   "'a'"
+  ],
+  "answer": "A",
+  "explanation": "in 检查子串。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0442",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nd = {'a':1, 'b':2}; print(len(d))",
+  "options": [
+   "1",
+   "2",
+   "3",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "dict 长度等于键数。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0443",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint(2 in [1,2,3])",
+  "options": [
+   "True",
+   "False",
+   "报错",
+   "1"
+  ],
+  "answer": "A",
+  "explanation": "in 检查元素是否存在。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0444",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ns = {1,2,3}; s.add(3); print(s)",
+  "options": [
+   "{1,2,3,3}",
+   "{1,2,3}",
+   "报错",
+   "[1,2,3]"
+  ],
+  "answer": "B",
+  "explanation": "set 自动去重，add 重复元素不变化。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0445",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ndef f(x=1, y=2): return x+y\nprint(f(y=3))",
+  "options": [
+   "1",
+   "2",
+   "4",
+   "报错"
+  ],
+  "answer": "C",
+  "explanation": "f(y=3) 中 x 用默认 1，y=3；返回 1+3=4。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0446",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nclass A: pass\nprint(type(A()))",
+  "options": [
+   "<class '__main__.A'>",
+   "<class 'A'>",
+   "报错",
+   "A"
+  ],
+  "answer": "A",
+  "explanation": "type 返回类对象；__main__ 是脚本入口命名空间。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0447",
+  "category": "Python语言综合",
+  "stem": "Python 文件扩展名通常是？",
+  "options": [
+   ".py",
+   ".python",
+   ".pt",
+   ".pys"
+  ],
+  "answer": "A",
+  "explanation": "Python 源文件 .py。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0448",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint(0.1 + 0.2 == 0.3)",
+  "options": [
+   "True",
+   "False",
+   "报错",
+   "None"
+  ],
+  "answer": "B",
+  "explanation": "浮点精度问题：0.1+0.2 = 0.30000000000000004 ≠ 0.3。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0449",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint('Hello, World!'.count('o'))",
+  "options": [
+   "1",
+   "2",
+   "3",
+   "0"
+  ],
+  "answer": "B",
+  "explanation": "'Hello, World!' 中 'o' 出现 2 次。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0450",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nls = [1,2,3]; print(ls.pop(0))",
+  "options": [
+   "1",
+   "2",
+   "3",
+   "[1,2,3]"
+  ],
+  "answer": "A",
+  "explanation": "pop(0) 弹出索引 0 处的元素。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0451",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint('a,b,c'.rsplit(',', 1))",
+  "options": [
+   "['a','b','c']",
+   "['a,b','c']",
+   "['a','b,c']",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "rsplit(',', 1) 从右切 1 次：['a,b', 'c']。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0452",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nt = (1,2,3,4); print(t[::-2])",
+  "options": [
+   "(4, 2)",
+   "(1, 3)",
+   "(4, 3, 2, 1)",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "t[::-2] 倒序步长 2：(4, 2)。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0453",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nd = {'a':1, 'b':2}; print(sum(d.values()))",
+  "options": [
+   "3",
+   "{'a':1,'b':2}",
+   "报错",
+   "'ab'"
+  ],
+  "answer": "A",
+  "explanation": "values() 求和 = 1+2 = 3。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0454",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nfor k in sorted({'b':2,'a':1}): print(k, end='')",
+  "options": [
+   "ab",
+   "ba",
+   "12",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "sorted 给键排序 'a','b'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0455",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ndef f(): pass\nprint(type(f).__name__)",
+  "options": [
+   "function",
+   "method",
+   "NoneType",
+   "lambda"
+  ],
+  "answer": "A",
+  "explanation": "函数对象的 type 是 'function'。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0456",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ntry:\n print(undefined)\nexcept Exception:\n print('E')",
+  "options": [
+   "E",
+   "NameError",
+   "报错",
+   "无输出"
+  ],
+  "answer": "A",
+  "explanation": "NameError 是 Exception 子类，被捕获。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0457",
+  "category": "Python语言综合",
+  "stem": "Python 中可变数据类型是？",
+  "options": [
+   "str",
+   "tuple",
+   "list",
+   "int"
+  ],
+  "answer": "C",
+  "explanation": "list 可变；str/tuple/int 都是不可变。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0458",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nprint('abc' > 'abd')",
+  "options": [
+   "True",
+   "False",
+   "报错",
+   "0"
+  ],
+  "answer": "B",
+  "explanation": "'c' < 'd'，所以 'abc' < 'abd'，比较结果 False。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0459",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nls = [1,2,3]; print(sum(ls), max(ls))",
+  "options": [
+   "6 3",
+   "5 3",
+   "6 2",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "sum=6, max=3。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0460",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nt = (1,2,3,4,5); print(t[1::2])",
+  "options": [
+   "(1,3,5)",
+   "(2,4)",
+   "(2,4,5)",
+   "报错"
+  ],
+  "answer": "B",
+  "explanation": "t[1::2] 从 1 起步长 2 → (2, 4)。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0461",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nd = {'a':1}; d['b'] = 2; print(sorted(d))",
+  "options": [
+   "['a','b']",
+   "[1, 2]",
+   "报错",
+   "{'a','b'}"
+  ],
+  "answer": "A",
+  "explanation": "sorted(d) 给键排序。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0462",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ns = {1,2,3}; print(len(s), 1 in s)",
+  "options": [
+   "3 True",
+   "2 True",
+   "3 False",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "set 长度 3，含 1 → True。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0463",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\ndef f(a, b=2, c=3): return a+b+c\nprint(f(1, c=5))",
+  "options": [
+   "6",
+   "8",
+   "10",
+   "报错"
+  ],
+  "answer": "A",
+  "explanation": "f(1, c=5) 中 a=1, b=默认 2, c=5；返回 1+2+5=8。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "c0464",
+  "category": "Python语言综合",
+  "stem": "下面代码输出？\nimport re; print(re.findall(r'\\d+', 'a1b22'))",
+  "options": [
+   "['1','22']",
+   "[1,22]",
+   "报错",
+   "None"
+  ],
+  "answer": "A",
+  "explanation": "findall 匹配所有连续数字。",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ }
+]

@@ -42,3 +42,15 @@ Thumbs.db
 !/LICENSE
 !/TsuruLauncher/
 !/docs/
+
+# ───────────────────────────────────────────────────────
+#  项目内不进仓库的目录
+# ───────────────────────────────────────────────────────
+
+# 官网源码与成品预览图（官网部署在 https://tsuru.ink，不随仓库走）
+/TsuruLauncher/Website/
+/TsuruLauncher/Website-previews/
+
+# 旧「独立版」刷题程序的编译产物 —— 已被页内 Quiz/ 模块取代，且不该把 exe/dll 入库
+/TsuruLauncher/Tools/
+

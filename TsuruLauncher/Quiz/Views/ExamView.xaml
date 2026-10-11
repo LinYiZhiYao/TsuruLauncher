@@ -1,0 +1,120 @@
+<UserControl x:Class="TsuruLauncher.Quiz.Views.ExamView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="Transparent">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- 模块自带色板：挂在页面级，避免和启动器的全局资源打架 -->
+                <ResourceDictionary Source="/TsuruLauncher;component/Quiz/Theme/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid x:Name="BriefPanel">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="32,28">
+                    <TextBlock Text="模拟考试" Style="{StaticResource H1}"/>
+                    <TextBlock Text="按全国统考的真实结构随机组卷，限时 120 分钟"
+                               Style="{StaticResource Muted}" Margin="0,6,0,0"/>
+
+                    <Border Style="{StaticResource CardStyle}" Margin="0,20,0,0">
+                        <StackPanel>
+                            <TextBlock Text="试卷结构" Style="{StaticResource H2}"/>
+                            <TextBlock x:Name="StructureText" Style="{StaticResource Body}"
+                                       Margin="0,10,0,0" LineHeight="22"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource CardStyle}" Margin="0,12,0,0">
+                        <StackPanel>
+                            <TextBlock Text="计分方式" Style="{StaticResource H2}"/>
+                            <TextBlock Style="{StaticResource Body}" Margin="0,10,0,0" LineHeight="22"
+                                       Text="选择题每题 1 分，答对得分。操作题：代码跑通且输出与答案一致得满分；没跑通就按你的自评给分 —— 「会做」满分、「会一半」一半分、「不会」0 分。"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Button Content="开始考试" Style="{StaticResource PrimaryButton}"
+                            HorizontalAlignment="Left" Padding="22,10" Margin="0,20,0,0"
+                            Click="StartClicked"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid x:Name="RunPanel" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Padding="24,14" Background="{StaticResource SurfaceBrush}"
+                    BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1">
+                <Grid>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="剩余时间" Style="{StaticResource Muted}" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="ClockText" Text="120:00" FontSize="18" FontWeight="SemiBold"
+                                   Margin="10,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <TextBlock x:Name="ExamProgressText" Style="{StaticResource Muted}"
+                                   VerticalAlignment="Center" Margin="0,0,16,0"/>
+                        <Button Content="交卷" Style="{StaticResource PrimaryButton}"
+                                Padding="18,8" Click="SubmitClicked"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="230"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Background="{StaticResource SurfaceBrush}"
+                        BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,1,0">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <WrapPanel x:Name="QNavGrid" Margin="14"/>
+                    </ScrollViewer>
+                </Border>
+
+                <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="QuestionArea" Margin="26,20"/>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+
+        <Grid x:Name="ScorePanel" Visibility="Collapsed">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="32,28">
+                    <TextBlock Text="考试成绩" Style="{StaticResource H1}"/>
+
+                    <Border Style="{StaticResource CardStyle}" Margin="0,20,0,0">
+                        <StackPanel>
+                            <TextBlock x:Name="TotalScoreText" FontSize="40" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="PassText" Style="{StaticResource Body}" Margin="0,6,0,0"/>
+                            <TextBlock x:Name="UsedTimeText" Style="{StaticResource Muted}" Margin="0,8,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource CardStyle}" Margin="0,12,0,0">
+                        <StackPanel>
+                            <TextBlock Text="各部分得分" Style="{StaticResource H2}"/>
+                            <StackPanel x:Name="SectionBars" Margin="0,14,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                        <Button Content="再来一套" Style="{StaticResource PrimaryButton}"
+                                Padding="22,10" Margin="0,0,12,0" Click="RestartClicked"/>
+                        <Button Content="看错题解析" Style="{StaticResource SoftButton}"
+                                Padding="22,10" Click="ReviewClicked"/>
+                    </StackPanel>
+
+                    <StackPanel x:Name="ReviewArea" Margin="0,16,0,0"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</UserControl>

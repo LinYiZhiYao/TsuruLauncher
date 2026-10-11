@@ -1264,6 +1264,20 @@
                 </StackPanel>
             </Border>
         </Grid>
+
+        <!-- WebView2 预热宿主：1x1 全透明。
+             只是给预热用的 WebView2 一个能初始化的落脚点（要有 HWND 才能起浏览器进程），
+             用户既看不见也点不到。 -->
+        <Grid x:Name="WebViewPrewarmHost" Width="1" Height="1" Opacity="0"
+              IsHitTestVisible="False" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        <!-- ==================== 刷题模块全屏覆盖层 ====================
+             放在 RootGrid 的最后一层，所以能盖住顶栏 / 左侧导航栏 / 右侧信息栏 ——
+             这样刷题页左上角那个「返回启动器」才名副其实。
+             进出走 PageTransition.PlayPopup（280ms cubic-bezier(0.22,1,0.36,1) + 56px 位移），
+             与实验室工具覆盖层同一组令牌；内容页由代码挂进来。 -->
+        <Grid x:Name="QuizOverlayHost" Visibility="Collapsed" Opacity="0"
+              Background="{DynamicResource BackgroundBrush}"/>
     </Grid>
     </AdornerDecorator>
 </ui:FluentWindow>

@@ -104,24 +104,115 @@ namespace TsuruLauncher.Controls
 
         // ── 初始化 ─────────────────────────────────────────────────
 
-        private async void OnLoaded(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// CoreWebView2Environment 是**进程级**的重量级对象：创建它的同时会拉起浏览器进程，
+        /// 一次要几百毫秒，而且这段开销会占着 UI 线程。
+        ///
+        /// 之前每次进皮肤页都重建一份，于是：
+        ///   * 页面转场动画正好被它抢了 UI 线程 → 肉眼可见的卡顿 / 动画顿住
+        ///   * 同一个 WebView2 实例拿**不同的** env 再初始化会直接抛
+        ///     「WebView2 was already initialized with a different CoreWebView2Environment」
+        ///
+        /// 所以做成进程级单例，只建一次。
+        /// </summary>
+        private static CoreWebView2Environment? _sharedEnv;
+        private static readonly System.Threading.SemaphoreSlim _envGate = new(1, 1);
+
+        public static async System.Threading.Tasks.Task<CoreWebView2Environment> GetSharedEnvAsync()
         {
-            if (_ready) return;
+            if (_sharedEnv != null) return _sharedEnv;
+
+            await _envGate.WaitAsync().ConfigureAwait(true);
             try
             {
+                if (_sharedEnv == null)
+                {
+                    // ⚠ 必须允许软件 WebGL（SwiftShader）。
+                    //   在没有 GPU / GPU 被禁用的机器上，Chromium 的 GpuProcess 会反复崩溃
+                    //   （日志里刷 GpuProcessExited），WebGL 直接起不来、预览一片空白。
+                    //   --enable-unsafe-swiftshader 让它在没有 GPU 时退回软件渲染。
+                    _sharedEnv = await CoreWebView2Environment.CreateAsync(null, null,
+                        new CoreWebView2EnvironmentOptions
+                        {
+                            AdditionalBrowserArguments = "--no-sandbox --disable-gpu-sandbox --enable-unsafe-swiftshader --ignore-gpu-blocklist",
+                        });
+                    Log("[SkinPreviewWeb] CoreWebView2Environment 已创建（进程级，只建一次）");
+                }
+                return _sharedEnv;
+            }
+            finally
+            {
+                _envGate.Release();
+            }
+        }
+
+        /// <summary>
+        /// 预热用的 WebView2，**故意保活**：
+        /// 它一旦被释放，Chromium 的浏览器进程会跟着退出，预热就白做了。
+        /// </summary>
+        private static Microsoft.Web.WebView2.Wpf.WebView2? _prewarmView;
+
+        /// <summary>
+        /// 预热：提前把 CoreWebView2Environment 和**浏览器进程**拉起来。
+        ///
+        /// 首次 <c>EnsureCoreWebView2Async</c> 要 ~2s —— 时间全花在启动 chromium 上。
+        /// 这段开销不管放哪都要付，但放在「用户点进皮肤页」那一瞬间付，就会顶掉页面滑入动画。
+        /// 所以在启动器空闲时先跑一遍：之后新建的 WebView2 会复用同一个浏览器进程，快得多。
+        /// </summary>
+        public static async System.Threading.Tasks.Task PrewarmAsync(System.Windows.Controls.Panel host)
+        {
+            try
+            {
+                if (_prewarmView != null) return;
+
+                var env = await GetSharedEnvAsync();
+
+                // 1x1 + 不吃鼠标：在视觉树里（所以有 HWND 能初始化），但用户看不见也点不到。
+                // 宿主 Grid 自身是 Opacity=0，所以这里不用（也不能）再设 Opacity —— WebView2.Opacity 是只读的。
+                var view = new Microsoft.Web.WebView2.Wpf.WebView2
+                {
+                    Width = 1,
+                    Height = 1,
+                    IsHitTestVisible = false,
+                };
+                host.Children.Add(view);
+
+                var watch = System.Diagnostics.Stopwatch.StartNew();
+                await view.EnsureCoreWebView2Async(env);
+                _prewarmView = view;
+
+                Log($"[SkinPreviewWeb] 预热完成，浏览器进程已就绪（耗时 {watch.ElapsedMilliseconds}ms）");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, "SkinPreviewWeb.Prewarm");
+            }
+        }
+
+        /// <summary>
+        /// 初始化期间的占位锁。_ready 要等**导航完成**才置上，
+        /// 在那之前的窗口期里如果又触发一次 Loaded（页面切换、视觉树重挂），
+        /// 就会重复建环境 + 重复 EnsureCoreWebView2Async。
+        /// </summary>
+        private bool _initializing;
+
+        private async void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (_ready || _initializing) return;
+            _initializing = true;
+            try
+            {
+                // 先让页面转场动画跑完（PageEnterSlideMs = 280ms）再碰 WebView2。
+                // 它的初始化会在 UI 线程上抢一大段，起步帧正好落在动画上就是一次明显掉帧。
+                await System.Threading.Tasks.Task.Delay(320);
+
                 Log("[SkinPreviewWeb] 开始初始化 WebView2");
 
-                // ⚠ 必须允许软件 WebGL（SwiftShader）。
-                //   在没有 GPU / GPU 被禁用的机器上，Chromium 的 GpuProcess 会反复崩溃
-                //   （日志里刷 GpuProcessExited），WebGL 直接起不来、预览一片空白。
-                //   --enable-unsafe-swiftshader 让它在没有 GPU 时退回软件渲染。
-                var env = await CoreWebView2Environment.CreateAsync(null, null,
-                    new CoreWebView2EnvironmentOptions
-                    {
-                        AdditionalBrowserArguments = "--no-sandbox --disable-gpu-sandbox --enable-unsafe-swiftshader --ignore-gpu-blocklist",
-                    });
+                var initWatch = System.Diagnostics.Stopwatch.StartNew();
+                var env = await GetSharedEnvAsync();
                 await View.EnsureCoreWebView2Async(env);
-                Log("[SkinPreviewWeb] EnsureCoreWebView2Async 完成");
+                Log($"[SkinPreviewWeb] EnsureCoreWebView2Async 完成（耗时 {initWatch.ElapsedMilliseconds}ms，" +
+                    $"已预热={_prewarmView != null}）");
 
                 var core = View.CoreWebView2;
                 core.Settings.AreDefaultContextMenusEnabled = false;
@@ -165,6 +256,10 @@ namespace TsuruLauncher.Controls
             {
                 Logger.LogError(ex, "SkinPreviewWeb 初始化");
                 Placeholder.Visibility = Visibility.Visible;
+            }
+            finally
+            {
+                _initializing = false;
             }
         }
 

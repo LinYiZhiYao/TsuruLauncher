@@ -82,7 +82,9 @@ namespace TsuruLauncher.Views
                     sw.Stop();
 
                     Log($"  {i + 1}/12 -> {(vm.IsMinimalHome ? "简洁" : "网格")}  " +
-                        $"耗时 {sw.Elapsed.TotalMilliseconds:F0}ms  {MotionPerf.CacheSummary()}");
+                        $"耗时 {sw.Elapsed.TotalMilliseconds:F0}ms  " +
+                        $"内存 {GC.GetTotalMemory(false) / 1048576.0:F1}MB  " +
+                        $"[{PageTransition.DebugCounters} | {MotionAssist.DebugCounters}]");
                 }
                 Log("✅ 12 次切换全部完成，没有卡死");
             }

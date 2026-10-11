@@ -1,13 +1,16 @@
 using System;
 using TsuruLauncher.Controls;
+using TsuruLauncher.Services;
 using TsuruLauncher.Services.Animation;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json.Linq;
@@ -90,7 +93,15 @@ namespace TsuruLauncher.Views
 
             new LabTool("text", "文本 / 编码工具", "\U0001F524",
                 "Base64、URL 编解码与 JSON 美化，全部离线处理",
-                "工具", "长文本也不会卡，输出框可以直接全选复制。")
+                "工具", "长文本也不会卡，输出框可以直接全选复制。"),
+
+            new LabTool("ncre", "NCRE 二级 Python 刷题", "\U0001F40D",
+                "计算机二级 Python 的章节刷题与限时模拟套题，直接在这个窗口里打开",
+                "学习", "全国统考卷，天津考区同卷；错题会自动收进错题本，统计页能看到各章节正确率。"),
+
+            new LabTool("aitools", "AI 工具管理器", "\U0001F6E0\uFE0F",
+                "检测 / 安装 / 更新 / 启动本机的 AI 命令行工具，还能一键建桌面快捷方式",
+                "工具", "目前管理 OpenClaw、Claude Code、DeepSeek Harness 三个命令行工具，装没装、有没有新版都能一眼看到。")
         };
 
         // 工具输入框的默认值：属于工具数据（用户可随意改），不是界面配色。
@@ -128,6 +139,42 @@ namespace TsuruLauncher.Views
             UpdateJvmArgs();
             UpdateSeed();
             RefreshToolList();
+
+            // 自检钩子（沿用本项目其它页面的 TSURU_SELFTEST 惯例）：
+            //   ncre        -> 直接打开 NCRE 工具详情，方便截图验证面板
+            //   ncrelaunch  -> 再往前一步自动点「启动刷题」，验证启动过渡动画
+            //   aitools     -> 直接打开 AI 工具管理器详情面板，方便截图验证
+            string selfTest = Environment.GetEnvironmentVariable("TSURU_SELFTEST") ?? string.Empty;
+            if (selfTest == "ncre" || selfTest == "ncrelaunch" || selfTest == "aitools")
+            {
+                string targetId = selfTest == "aitools" ? "aitools" : "ncre";
+                Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
+                {
+                    try
+                    {
+                        var tool = Tools.FirstOrDefault(t => t.Id == targetId);
+                        if (tool == null) return;
+                        OpenTool(tool);
+
+                        if (selfTest != "ncrelaunch") return;
+                        DispatcherTimer? t = null;
+                        t = new DispatcherTimer(
+                            TimeSpan.FromMilliseconds(1000),
+                            DispatcherPriority.Background,
+                            (_, __) =>
+                            {
+                                try { t?.Stop(); LaunchQuiz_Click(this, new RoutedEventArgs()); }
+                                catch (Exception ex) { Utilities.Logger.LogError(ex, "LabPage selfTest launch"); }
+                            },
+                            Dispatcher);
+                        t.Start();
+                    }
+                    catch (Exception ex)
+                    {
+                        Utilities.Logger.LogError(ex, "LabPage selfTest ncre");
+                    }
+                }));
+            }
 
             Utilities.Logger.LogDebug("[Lab] page ready");
         }
@@ -283,6 +330,11 @@ namespace TsuruLauncher.Views
             PanelColor.Visibility = tool.Id == "color" ? Visibility.Visible : Visibility.Hidden;
             PanelSeed.Visibility = tool.Id == "seed" ? Visibility.Visible : Visibility.Hidden;
             PanelText.Visibility = tool.Id == "text" ? Visibility.Visible : Visibility.Hidden;
+            PanelNcre.Visibility = tool.Id == "ncre" ? Visibility.Visible : Visibility.Hidden;
+            PanelAiTools.Visibility = tool.Id == "aitools" ? Visibility.Visible : Visibility.Hidden;
+
+            if (tool.Id == "ncre") LoadQuizStats();
+            if (tool.Id == "aitools") InitAiTools();
 
             // 帧间隔采样必须**从点击这一刻**就装（TSURU_FRAME_DBG=1 才开）。
             // 之前是装在延迟回调里（布局之后），结果把最贵的那一帧——覆盖层刚 Visible
@@ -780,6 +832,337 @@ namespace TsuruLauncher.Views
             {
                 iOS26Dialog.Show("复制失败: " + ex.Message, "错误", DialogIcon.Error, DialogButtons.OK);
             }
+        }
+
+        // ─────────────── NCRE 刷题：从实验室进 ───────────────
+
+        /// <summary>读题库 JSON 统计题目数量，填到详情面板的三个数字上。</summary>
+        private void LoadQuizStats()
+        {
+            try
+            {
+                // 页内模块的题库在 Quiz\Data（csproj 按 Content 复制到输出）
+                string dataDir = System.IO.Path.Combine(AppContext.BaseDirectory, "Quiz", "Data");
+
+                var choice = ReadArray(System.IO.Path.Combine(dataDir, "questions_choice.json"));
+                var code = ReadArray(System.IO.Path.Combine(dataDir, "questions_code.json"));
+
+                NcreChoiceCount.Text = choice.Count.ToString(CultureInfo.InvariantCulture);
+                NcreCodeCount.Text = code.Count.ToString(CultureInfo.InvariantCulture);
+
+                int real = choice.Count(t => IsRealSource((string?)t["source"]))
+                         + code.Count(t => IsRealSource((string?)t["source"]));
+                NcreRealCount.Text = real.ToString(CultureInfo.InvariantCulture);
+            }
+            catch (Exception ex)
+            {
+                Utilities.Logger.LogError(ex, "LabPage.LoadQuizStats");
+            }
+        }
+
+        private static JArray ReadArray(string path)
+        {
+            if (!System.IO.File.Exists(path)) return new JArray();
+            return JArray.Parse(System.IO.File.ReadAllText(path)) ?? new JArray();
+        }
+
+        /// <summary>和刷题模块里 BankService.IsRealSource 同一套判定，两边数字才对得上。</summary>
+        private static bool IsRealSource(string? source)
+        {
+            if (string.IsNullOrWhiteSpace(source)) return false;
+            if (source.Contains("BUZAI946", StringComparison.OrdinalIgnoreCase)) return false;
+            if (source.Contains("内置示例", StringComparison.Ordinal)) return false;
+            return true;
+        }
+
+        /// <summary>「打开刷题」：把刷题模块整窗铺开（盖住导航栏和右栏，左上角可返回）。</summary>
+        private void LaunchQuiz_Click(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current?.MainWindow is MainWindow mw)
+            {
+                mw.ShowQuizOverlay();
+                return;
+            }
+
+            iOS26Dialog.Show("没能拿到主窗口，暂时打不开刷题页。", "打开失败", DialogIcon.Error, DialogButtons.OK);
+        }
+
+        // ─────────────── AI 工具管理器 ───────────────
+
+        private readonly System.Collections.ObjectModel.ObservableCollection<AiToolState> _aiTools = new();
+        private bool _aiToolsInitialized;
+
+        /// <summary>进入面板时只做本地探测（不联网、不起进程），秒开。</summary>
+        public void InitAiTools()
+        {
+            try
+            {
+                if (!_aiToolsInitialized)
+                {
+                    _aiTools.Clear();
+                    foreach (var def in AiToolService.Tools)
+                        _aiTools.Add(AiToolService.Probe(def));
+
+                    AiToolList.ItemsSource = _aiTools;
+                    _aiToolsInitialized = true;
+                    AiToolStatusText.Text = "就绪 · 点「检测全部」查询最新版本";
+                }
+                else
+                {
+                    // 再次进入时只刷新本地安装状态，保留已查到的“最新版”信息
+                    foreach (var def in AiToolService.Tools)
+                    {
+                        var fresh = AiToolService.Probe(def);
+                        var existing = _aiTools.FirstOrDefault(s => s.Key == def.Key);
+                        if (existing == null) continue;
+                        existing.Installed = fresh.Installed;
+                        existing.Version = fresh.Version;
+                        existing.EntryPath = fresh.EntryPath;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Utilities.Logger.LogError(ex, "LabPage.InitAiTools");
+            }
+        }
+
+        private void SetAiBusy(bool busy, string status)
+        {
+            try
+            {
+                AiToolSpinner.Visibility = busy ? Visibility.Visible : Visibility.Collapsed;
+                AiCheckAllButton.IsEnabled = !busy;
+                AiUpdateAllButton.IsEnabled = !busy;
+                AiToolStatusText.Text = status;
+            }
+            catch (Exception ex)
+            {
+                Utilities.Logger.LogError(ex, "LabPage.SetAiBusy");
+            }
+        }
+
+        /// <summary>依次探测 + 查最新版（查版本走后台线程，不卡 UI）。</summary>
+        private async void AiCheckAll_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SetAiBusy(true, "正在检测全部工具 …");
+                int npmCount = 0;
+
+                foreach (var state in _aiTools.ToList())
+                {
+                    try
+                    {
+                        state.Busy = true;
+                        AiToolStatusText.Text = "正在检测 " + state.Name + " …";
+
+                        var def = state.Definition;
+                        var fresh = await Task.Run(() => AiToolService.Probe(def));
+                        state.Installed = fresh.Installed;
+                        state.Version = fresh.Version;
+                        state.EntryPath = fresh.EntryPath;
+                        state.Checked = true;
+
+                        if (def.IsNpm && fresh.Installed)
+                        {
+                            AiToolStatusText.Text = "正在查询 " + state.Name + " 最新版本 …";
+                            string? latest = await Task.Run(() => AiToolService.QueryLatestVersion(def));
+                            state.Latest = latest ?? "";
+                            if (!string.IsNullOrEmpty(latest)) npmCount++;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Utilities.Logger.LogError(ex, "LabPage.AiCheckAll " + state.Key);
+                    }
+                    finally
+                    {
+                        state.Busy = false;
+                    }
+                }
+
+                SetAiBusy(false, "检测完成 · 共 " + _aiTools.Count + " 个工具" +
+                    (npmCount > 0 ? "，其中 " + npmCount + " 个查到最新版" : ""));
+            }
+            catch (Exception ex)
+            {
+                Utilities.Logger.LogError(ex, "LabPage.AiCheckAll_Click");
+                SetAiBusy(false, "检测失败：" + ex.Message);
+            }
+        }
+
+        /// <summary>对「有更新」的 npm 类工具依次更新，完了重测。</summary>
+        private async void AiUpdateAll_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var targets = _aiTools.Where(s => s.HasUpdate && s.Definition.IsNpm).ToList();
+                if (targets.Count == 0)
+                {
+                    SetAiBusy(false, "没有需要更新的工具（请先点「检测全部」）");
+                    return;
+                }
+
+                SetAiBusy(true, "正在更新 " + targets.Count + " 个工具 …");
+                foreach (var state in targets)
+                {
+                    try
+                    {
+                        state.Busy = true;
+                        AiToolStatusText.Text = "正在更新 " + state.Name + " …（可能需要几分钟）";
+                        var def = state.Definition;
+                        bool ok = await Task.Run(() => AiToolService.InstallOrUpdate(def, latest: true, out string _));
+                        Utilities.Logger.LogInfo("[AiTools] 更新 " + def.Key + " ok=" + ok);
+                    }
+                    catch (Exception ex)
+                    {
+                        Utilities.Logger.LogError(ex, "LabPage.AiUpdateAll " + state.Key);
+                    }
+                    finally
+                    {
+                        state.Busy = false;
+                    }
+                }
+
+                SetAiBusy(false, "更新完成，正在重新检测 …");
+                AiCheckAll_Click(this, new RoutedEventArgs());
+            }
+            catch (Exception ex)
+            {
+                Utilities.Logger.LogError(ex, "LabPage.AiUpdateAll_Click");
+                SetAiBusy(false, "更新失败：" + ex.Message);
+            }
+        }
+
+        /// <summary>单项：检测（探测 + 查最新版）。</summary>
+        private async void AiCheckOne_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (!TryGetAiState(sender, out var state)) return;
+                var def = state.Definition;
+
+                state.Busy = true;
+                AiToolStatusText.Text = "正在检测 " + state.Name + " …";
+
+                var fresh = await Task.Run(() => AiToolService.Probe(def));
+                state.Installed = fresh.Installed;
+                state.Version = fresh.Version;
+                state.EntryPath = fresh.EntryPath;
+                state.Checked = true;
+
+                if (def.IsNpm && fresh.Installed)
+                {
+                    AiToolStatusText.Text = "正在查询 " + state.Name + " 最新版本 …";
+                    string? latest = await Task.Run(() => AiToolService.QueryLatestVersion(def));
+                    state.Latest = latest ?? "";
+                }
+
+                state.Busy = false;
+                AiToolStatusText.Text = state.Name + " 检测完成";
+            }
+            catch (Exception ex)
+            {
+                Utilities.Logger.LogError(ex, "LabPage.AiCheckOne_Click");
+                if (TryGetAiState(sender, out var s)) s.Busy = false;
+                AiToolStatusText.Text = "检测失败：" + ex.Message;
+            }
+        }
+
+        /// <summary>单项：安装。</summary>
+        private async void AiInstallOne_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (!TryGetAiState(sender, out var state)) return;
+                var def = state.Definition;
+
+                state.Busy = true;
+                AiToolStatusText.Text = "正在安装 " + state.Name + " …（可能需要几分钟）";
+
+                bool ok = await Task.Run(() => AiToolService.InstallOrUpdate(def, latest: false, out string log));
+                Utilities.Logger.LogInfo("[AiTools] 安装 " + def.Key + " ok=" + ok);
+
+                state.Busy = false;
+                state.Checked = false;
+                AiToolStatusText.Text = state.Name + (ok ? " 安装完成" : " 安装失败");
+            }
+            catch (Exception ex)
+            {
+                Utilities.Logger.LogError(ex, "LabPage.AiInstallOne_Click");
+                if (TryGetAiState(sender, out var s)) s.Busy = false;
+                AiToolStatusText.Text = "安装失败：" + ex.Message;
+            }
+        }
+
+        /// <summary>单项：更新到最新版。</summary>
+        private async void AiUpdateOne_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (!TryGetAiState(sender, out var state)) return;
+                var def = state.Definition;
+
+                state.Busy = true;
+                AiToolStatusText.Text = "正在更新 " + state.Name + " …（可能需要几分钟）";
+
+                bool ok = await Task.Run(() => AiToolService.InstallOrUpdate(def, latest: true, out string log));
+                Utilities.Logger.LogInfo("[AiTools] 更新 " + def.Key + " ok=" + ok);
+
+                state.Busy = false;
+                state.Checked = false;
+                AiToolStatusText.Text = state.Name + (ok ? " 更新完成" : " 更新失败");
+            }
+            catch (Exception ex)
+            {
+                Utilities.Logger.LogError(ex, "LabPage.AiUpdateOne_Click");
+                if (TryGetAiState(sender, out var s)) s.Busy = false;
+                AiToolStatusText.Text = "更新失败：" + ex.Message;
+            }
+        }
+
+        /// <summary>单项：启动（cmd /k，窗口留着看输出）。</summary>
+        private void AiLaunchOne_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (!TryGetAiState(sender, out var state)) return;
+                AiToolService.Launch(state.Definition, state);
+                AiToolStatusText.Text = "已启动 " + state.Name;
+            }
+            catch (Exception ex)
+            {
+                Utilities.Logger.LogError(ex, "LabPage.AiLaunchOne_Click");
+                AiToolStatusText.Text = "启动失败：" + ex.Message;
+            }
+        }
+
+        /// <summary>创建桌面快捷方式。</summary>
+        private void AiMakeShortcuts_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string msg = AiToolService.CreateDesktopShortcuts(_aiTools.ToList());
+                AiToolStatusText.Text = msg;
+                iOS26Dialog.Show(msg, "桌面快捷方式", DialogIcon.Info, DialogButtons.OK);
+            }
+            catch (Exception ex)
+            {
+                Utilities.Logger.LogError(ex, "LabPage.AiMakeShortcuts_Click");
+                iOS26Dialog.Show("创建失败：" + ex.Message, "错误", DialogIcon.Error, DialogButtons.OK);
+            }
+        }
+
+        private static bool TryGetAiState(object sender, out AiToolState state)
+        {
+            state = null!;
+            if (sender is FrameworkElement element && element.DataContext is AiToolState s)
+            {
+                state = s;
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -316,7 +316,11 @@
                         <ItemsControl x:Name="SkinGrid" ItemsSource="{Binding SavedSkins}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <WrapPanel Orientation="Horizontal" motion:PageAnimation.StaggerChildren="True"/>
+                                    <!-- 关掉卡片自己的入场动画。
+                                         开着的话，列表数据异步加载完之后会**再**平移一次，
+                                         和页面入场分成两段（用户反馈「两个平移有间隔、不齐整」）。
+                                         现在卡片跟着页面入场一起平移，只有一段动作。 -->
+                                    <WrapPanel Orientation="Horizontal"/>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>

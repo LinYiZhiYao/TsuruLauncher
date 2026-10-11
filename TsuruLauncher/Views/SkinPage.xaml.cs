@@ -51,6 +51,7 @@ namespace TsuruLauncher.Views
 
             Loaded += (_, __) =>
             {
+                StartFollowDiagnostic();
                 if (Vm != null) FadeShadow(Vm.PreviewSkin != null, animate: false);
 
                 // 把「取当前账号」的方式交给 VM —— SkinPage 的 DataContext 是 SkinViewModel，
@@ -84,6 +85,87 @@ namespace TsuruLauncher.Views
                     await System.Threading.Tasks.Task.Delay(2500).ConfigureAwait(true);
                     Dispatcher.BeginInvoke(RunSkinSelfTest, System.Windows.Threading.DispatcherPriority.Background);
                 };
+        }
+
+        /// <summary>
+        /// 皮肤页的进场位移 —— 用 <see cref="FrameworkElement.LayoutTransform"/>，而不是 RenderTransform。
+        ///
+        /// 为什么：页面正中那个角色是 WebView2（HwndHost），它的**原生窗口位置只在布局阶段同步**。
+        /// 页面级那套位移走 RenderTransform（渲染层变换、不触发布局），所以页面平滑上移时
+        /// 角色会停在原地 —— 观感就是「角色和页面平移不一致」。
+        /// LayoutTransform 会触发布局，HwndHost 就跟着一起动了。
+        ///
+        /// 位移跑完立刻把 LayoutTransform 摘掉，不让页面长期背着每帧布局的开销。
+        /// </summary>
+        public void PlayLayoutSlideIn()
+        {
+            try
+            {
+                Utilities.Logger.LogInfo(
+                    $"[Skin] PlayLayoutSlideIn animations={PageTransition.AnimationsEnabled} " +
+                    $"content={(Content?.GetType().Name ?? "null")}");
+
+                if (!PageTransition.AnimationsEnabled) return;
+                if (Content is not FrameworkElement root) return;
+
+                var slide = new TranslateTransform(0, AxolotlMotion.PageEnterSlidePx);
+                root.LayoutTransform = slide;
+
+                var anim = new System.Windows.Media.Animation.DoubleAnimation(
+                    AxolotlMotion.PageEnterSlidePx, 0,
+                    AxolotlMotion.Ms(AxolotlMotion.PageEnterSlideMs))
+                {
+                    EasingFunction = AxolotlMotion.PageEnterMoveEase,
+                };
+                // ⚠ 跑完**不摘除** LayoutTransform：摘除本身会再触发一次布局，
+                //   而值归零的 TranslateTransform 就是恒等变换，长期开销可以忽略。
+                slide.BeginAnimation(TranslateTransform.YProperty, anim);
+            }
+            catch (Exception ex)
+            {
+                Utilities.Logger.LogError(ex, "SkinPage.PlayLayoutSlideIn");
+            }
+        }
+
+        /// <summary>
+        /// 【临时诊断】页面进场动画期间，逐帧记录「页面」和「WebView2 预览区」各自的屏幕 Y。
+        ///
+        /// 判读方法：看两者之差（相对）。如果相对值恒定 → HwndHost 跟随了页面位移；
+        /// 如果相对值在动画期间变化 → 它没跟随（页面动了、角色没动）。
+        /// </summary>
+        private void StartFollowDiagnostic()
+        {
+            if (Environment.GetEnvironmentVariable("TSURU_FOLLOW_DBG") != "1") return;
+            try
+            {
+                int n = 0;
+                var sw = System.Diagnostics.Stopwatch.StartNew();
+                System.Windows.Threading.DispatcherTimer? t = null;
+                t = new System.Windows.Threading.DispatcherTimer(
+                    TimeSpan.FromMilliseconds(40),
+                    System.Windows.Threading.DispatcherPriority.Render,
+                    (_, __) =>
+                    {
+                        try
+                        {
+                            if (n++ > 14) { t?.Stop(); return; }
+                            double renderY = -999;
+                            if (Content is FrameworkElement root &&
+                                root.RenderTransform is TranslateTransform tt) renderY = tt.Y;
+
+                            double pageY = PointToScreen(new Point(0, 0)).Y;
+                            double prevY = Preview.PointToScreen(new Point(0, 0)).Y;
+
+                            Utilities.Logger.LogInfo(
+                                $"[Follow] t={sw.ElapsedMilliseconds}ms pageRenderY={renderY:F1} " +
+                                $"pageScreenY={pageY:F1} previewScreenY={prevY:F1} 相对={prevY - pageY:F1}");
+                        }
+                        catch { }
+                    },
+                    Dispatcher);
+                t.Start();
+            }
+            catch { }
         }
 
         /// <summary>脚下投影的淡入淡出（和换皮肤的淡入同步，不做硬切）。</summary>

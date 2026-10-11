@@ -332,7 +332,12 @@ namespace TsuruLauncher.Services.Animation
         ///   * 内层容器也降不到 1.2MP 以下时，这一处**不做 scale、也不挂缓存**，只留 opacity + translateY。
         /// 埋点：<c>[MotionPerf] scale-host …</c> / <c>[MotionPerf] cache-target …</c>。</para>
         /// </summary>
-        public static void PlayPageEnter(FrameworkElement page, bool isForward = true)
+        /// <param name="slidePx">
+        /// 进场位移距离，默认 <see cref="AxolotlMotion.PageEnterSlidePx"/>（56px）。
+        /// 传 <c>0</c> = 只淡入不位移 —— 皮肤页用这个：页面正中是一大块 3D 角色，
+        /// 整页上移 56px 会让角色看起来先「飘」一下再落定。
+        /// </param>
+        public static void PlayPageEnter(FrameworkElement page, bool isForward = true, double? slidePx = null)
         {
             // 帧间隔采样（TSURU_FRAME_DBG=1 才开）：页面进场是本项目「公认流畅」的路径
             // （有缓存 + 下沉到内层容器），拿它当基准线，才能判断别处的帧率是不是真的差。
@@ -347,7 +352,8 @@ namespace TsuruLauncher.Services.Animation
             SettleElement(page);
 
             // 前进 / 后退的符号严格互为镜像。
-            double yFrom = isForward ? AxolotlMotion.PageEnterSlidePx : -AxolotlMotion.PageEnterSlidePx;
+            double slide = slidePx ?? AxolotlMotion.PageEnterSlidePx;
+            double yFrom = isForward ? slide : -slide;
 
             if (!AnimationsEnabled)
             {
@@ -1634,6 +1640,13 @@ namespace TsuruLauncher.Services.Animation
         }
 
         public static int ActiveMotionCount => _motionTargets.Count;
+
+        /// <summary>
+        /// 调试用：把各个静态集合的大小打出来。
+        /// 「越用越卡」八成是某个只增不减的集合在攒引用，先量再猜。
+        /// </summary>
+        public static string DebugCounters =>
+            $"motionTargets={_motionTargets.Count} cacheTimers={_cacheTimers.Count} scaleHosts={_scaleHosts.Count}";
 
         public static bool IsAnimating(FrameworkElement element) => element != null && _motionTargets.Contains(element);
 

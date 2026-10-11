@@ -6,12 +6,18 @@
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:motion="clr-namespace:TsuruLauncher.Services.Animation"
       xmlns:anim="clr-namespace:TsuruLauncher.Services.Animation"
+      xmlns:conv="clr-namespace:TsuruLauncher.Converters"
       mc:Ignorable="d"
       d:DesignHeight="760" d:DesignWidth="1180"
       Title="实验室"
       Background="Transparent">
 
     <Page.Resources>
+        <!-- AI 工具管理器：按 CanLaunch / CanInstall / HasUpdate 控制按钮可见性 -->
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+        <!-- AI 工具管理器：状态点颜色（ok / warn / missing / checking）映射主题画刷 -->
+        <conv:AiStatusBrushConverter x:Key="AiStatusBrush"/>
+
         <!-- ============ 圆角梯度（与全站 iOS26 半径对齐） ============
              面板 12 = iOS26.RadiusLarge；内部卡片 10；卡片内嵌小容器 8 = iOS26.RadiusMedium。
              详情覆盖层整块也按 12 收角：它是**不透明**的页面底，直角会把外框
@@ -299,6 +305,7 @@
                         <ComboBoxItem Content="创作"/>
                         <ComboBoxItem Content="世界"/>
                         <ComboBoxItem Content="工具"/>
+                        <ComboBoxItem Content="学习"/>
                     </ComboBox>
 
                     <ComboBox x:Name="FavoritesFilter" Grid.Column="4" SelectedIndex="0"
@@ -310,68 +317,64 @@
 
                 <!-- 工具卡片列表 -->
                 <ItemsControl x:Name="ToolList">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <!-- 网格排布：一行三个。原来是「一行一个 160x90 大缩略图」，
+                                 横向空间全空着，7 个工具要滚好几屏。 -->
+                            <UniformGrid Columns="3"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Style="{StaticResource LabToolCard}">
+                            <Border Style="{StaticResource LabToolCard}" Margin="0,0,14,14" Padding="16">
                                 <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
 
-                                    <!-- 160x90 圆角缩略图：强调色渐变图标块 -->
-                                    <Border Grid.Column="0" Width="160" Height="90"
-                                            CornerRadius="{StaticResource LabRadiusCard}"
-                                            BorderThickness="0" VerticalAlignment="Top" ClipToBounds="True">
-                                        <Border.Background>
-                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                <GradientStop Color="{DynamicResource AccentColor}" Offset="0"/>
-                                                <GradientStop Color="{DynamicResource AccentDimColor}" Offset="1"/>
-                                            </LinearGradientBrush>
-                                        </Border.Background>
-                                        <TextBlock Text="{Binding Glyph}" FontSize="34"
-                                                   Foreground="{DynamicResource AccentForegroundBrush}"
-                                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
+                                    <!-- 图标块 + 收藏星标 -->
+                                    <Grid Grid.Row="0">
+                                        <Border Width="44" Height="44" CornerRadius="10"
+                                                HorizontalAlignment="Left" ClipToBounds="True">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                    <GradientStop Color="{DynamicResource AccentColor}" Offset="0"/>
+                                                    <GradientStop Color="{DynamicResource AccentDimColor}" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <TextBlock Text="{Binding Glyph}" FontSize="20"
+                                                       Foreground="{DynamicResource AccentForegroundBrush}"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
 
-                                    <!-- 右侧：工具名 / 说明 / 分类标签 / 收藏 / 进入 -->
-                                    <Grid Grid.Column="1" Margin="16,0,0,0">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
+                                        <ToggleButton Style="{StaticResource LabStarToggle}"
+                                                      HorizontalAlignment="Right" VerticalAlignment="Top"
+                                                      IsChecked="{Binding IsFavorite, Mode=TwoWay}"
+                                                      Click="Favorite_Click"/>
+                                    </Grid>
 
-                                        <Grid Grid.Row="0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Grid.Column="0" Text="{Binding Name}" FontSize="16" FontWeight="Bold"
-                                                       Foreground="{DynamicResource TextPrimaryBrush}"
-                                                       TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
-                                            <ToggleButton Grid.Column="1" Style="{StaticResource LabStarToggle}"
-                                                          IsChecked="{Binding IsFavorite, Mode=TwoWay}"
-                                                          Click="Favorite_Click"/>
-                                        </Grid>
+                                    <TextBlock Grid.Row="1" Text="{Binding Name}" FontSize="15" FontWeight="Bold"
+                                               Margin="0,12,0,0" TextTrimming="CharacterEllipsis"
+                                               Foreground="{DynamicResource TextPrimaryBrush}"/>
 
-                                        <TextBlock Grid.Row="1" Text="{Binding Description}" FontSize="12.5"
-                                                   Margin="0,6,10,0" TextWrapping="Wrap"
-                                                   Foreground="{DynamicResource TextTertiaryBrush}"/>
+                                    <TextBlock Grid.Row="2" Text="{Binding Description}" FontSize="12"
+                                               Margin="0,6,0,0" TextWrapping="Wrap" LineHeight="18"
+                                               Foreground="{DynamicResource TextTertiaryBrush}"/>
 
-                                        <Grid Grid.Row="2" Margin="0,12,0,0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Border Grid.Column="0" Style="{StaticResource LabTag}" VerticalAlignment="Bottom">
-                                                <TextBlock Text="{Binding Category}" FontSize="11"
-                                                           Foreground="{DynamicResource TextSecondaryBrush}"/>
-                                            </Border>
-                                            <Button Grid.Column="2" Content="进入 &#x2192;" VerticalAlignment="Bottom"
-                                                    Style="{StaticResource LabPrimaryPill}" Click="EnterTool_Click"/>
-                                        </Grid>
+                                    <Grid Grid.Row="3" Margin="0,14,0,0">
+                                        <Border Style="{StaticResource LabTag}" HorizontalAlignment="Left"
+                                                VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding Category}" FontSize="11"
+                                                       Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                        </Border>
+
+                                        <Button Content="进入 &#x2192;" HorizontalAlignment="Right"
+                                                VerticalAlignment="Center"
+                                                Style="{StaticResource LabPrimaryPill}"
+                                                Click="EnterTool_Click"/>
                                     </Grid>
                                 </Grid>
                             </Border>
@@ -641,9 +644,197 @@
                                          FontSize="12" Padding="8"/>
                             </StackPanel>
                         </Border>
+
+                        <!-- ========== NCRE 二级 Python 刷题 ========== -->
+                        <Border x:Name="PanelNcre" Style="{StaticResource LabPanelCard}" Visibility="Hidden">
+                            <StackPanel>
+                                <TextBlock Text="&#x1F40D; NCRE 二级 Python 刷题" FontSize="16" FontWeight="SemiBold"
+                                           Foreground="{DynamicResource TextPrimaryBrush}"/>
+                                <TextBlock Text="计算机二级 Python 的刷题与模拟考试，直接在这个窗口里打开"
+                                           FontSize="12" Foreground="{DynamicResource TextTertiaryBrush}"
+                                           Margin="0,4,0,14"/>
+
+                                <Border Background="{DynamicResource Surface4Brush}"
+                                        CornerRadius="{StaticResource LabRadiusInner}"
+                                        BorderBrush="{DynamicResource GlassBorderBrush}" BorderThickness="1"
+                                        Padding="16">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Grid.Column="0">
+                                            <TextBlock x:Name="NcreChoiceCount" Text="—" FontSize="20" FontWeight="Bold"
+                                                       Foreground="{DynamicResource AccentBrush}"/>
+                                            <TextBlock Text="道选择题" FontSize="11.5" Margin="0,2,0,0"
+                                                       Foreground="{DynamicResource TextTertiaryBrush}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock x:Name="NcreCodeCount" Text="—" FontSize="20" FontWeight="Bold"
+                                                       Foreground="{DynamicResource AccentBrush}"/>
+                                            <TextBlock Text="道操作题" FontSize="11.5" Margin="0,2,0,0"
+                                                       Foreground="{DynamicResource TextTertiaryBrush}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="2">
+                                            <TextBlock x:Name="NcreRealCount" Text="—" FontSize="20" FontWeight="Bold"
+                                                       Foreground="{DynamicResource WarningBrush}"/>
+                                            <TextBlock Text="道真题" FontSize="11.5" Margin="0,2,0,0"
+                                                       Foreground="{DynamicResource TextTertiaryBrush}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+
+                                <StackPanel Margin="0,14,0,0">
+                                    <TextBlock Text="· 章节刷题 —— 按考点筛选，答完立刻判对错并给解析"
+                                               FontSize="12.5" Margin="0,0,0,6" TextWrapping="Wrap"
+                                               Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                    <TextBlock Text="· 模拟套题 —— 按真实考试结构组卷，限时 120 分钟，交卷自动评分"
+                                               FontSize="12.5" Margin="0,0,0,6" TextWrapping="Wrap"
+                                               Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                    <TextBlock Text="· 操作题能直接运行代码、对照参考答案，错题自动进错题本"
+                                               FontSize="12.5" TextWrapping="Wrap"
+                                               Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                </StackPanel>
+
+                                <Button x:Name="LaunchQuizButton" Content="打开刷题"
+                                        Style="{StaticResource LabPrimaryPill}"
+                                        HorizontalAlignment="Left" Margin="0,16,0,0"
+                                        Click="LaunchQuiz_Click"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- ========== AI 工具管理器 ========== -->
+                        <Border x:Name="PanelAiTools" Style="{StaticResource LabPanelCard}" Visibility="Hidden">
+                            <StackPanel>
+                                <TextBlock Text="&#x1F6E0;&#xFE0F; AI 工具管理器" FontSize="16" FontWeight="SemiBold"
+                                           Foreground="{DynamicResource TextPrimaryBrush}"/>
+                                <TextBlock Text="检测安装 · 检查更新 · 一键启动 · 创建快捷方式"
+                                           FontSize="12" Foreground="{DynamicResource TextTertiaryBrush}"
+                                           Margin="0,4,0,12"/>
+
+                                <!-- 工具条 -->
+                                <StackPanel Orientation="Horizontal">
+                                    <Button x:Name="AiCheckAllButton" Content="检测全部"
+                                            Style="{StaticResource LabPrimaryPill}"
+                                            Click="AiCheckAll_Click"/>
+                                    <Button x:Name="AiUpdateAllButton" Content="全部更新" Margin="8,0,0,0"
+                                            Style="{StaticResource LabGhostPill}"
+                                            Click="AiUpdateAll_Click"/>
+                                    <Button Content="创建桌面快捷方式" Margin="8,0,0,0"
+                                            Style="{StaticResource LabGhostPill}"
+                                            Click="AiMakeShortcuts_Click"/>
+                                </StackPanel>
+
+                                <!-- 工具卡片列表 -->
+                                <ItemsControl x:Name="AiToolList" Margin="0,14,0,0">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Vertical"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Background="{DynamicResource Surface4Brush}"
+                                                    CornerRadius="{StaticResource LabRadiusInner}"
+                                                    BorderBrush="{DynamicResource GlassBorderBrush}" BorderThickness="1"
+                                                    Padding="14" Margin="0,0,0,10"
+                                                    motion:MotionAssist.HoverTintBrush="{DynamicResource Surface5Brush}"
+                                                    motion:MotionAssist.HoverTintMs="250"
+                                                    motion:MotionAssist.HoverTintOpacity="0.75">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <!-- 状态点：颜色 + 过渡都由 code-behind 行为处理（AiDotMotion.Status），
+                                                         不在 ItemTemplate 里用带 BeginStoryboard 的 DataTrigger Style：
+                                                            列表项各自实例化这种 Style 时，WPF Seal() 会抛
+                                                            「无法冻结此 Storyboard 时间线树供跨线程使用」，整块面板渲染失败。 -->
+                                                    <Ellipse Grid.Column="0" Width="10" Height="10"
+                                                             VerticalAlignment="Center" Margin="2,0,12,0"
+                                                             Fill="{Binding StatusDot, Converter={StaticResource AiStatusBrush}}"
+                                                             conv:AiDotMotion.Status="{Binding StatusDot}"/>
+
+                                                    <!-- 名称 + 状态 -->
+                                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                        <TextBlock Text="{Binding Name}" FontSize="13.5" FontWeight="SemiBold"
+                                                                   Foreground="{DynamicResource TextPrimaryBrush}"/>
+                                                        <TextBlock Text="{Binding StatusLine}" FontSize="11.5" Margin="0,3,0,0"
+                                                                   TextTrimming="CharacterEllipsis"
+                                                                   Foreground="{DynamicResource TextTertiaryBrush}"/>
+                                                    </StackPanel>
+
+                                                    <!-- 按钮组：Visibility 用 BoolToVis 转换器（不落 Style，
+                                                         避免每个 item 各自实例化带 Storyboard 的 Style）。 -->
+                                                    <StackPanel Grid.Column="2" Orientation="Horizontal"
+                                                                VerticalAlignment="Center" Margin="12,0,0,0">
+                                                        <Button Content="启动" Padding="14,6" FontSize="12"
+                                                                Style="{StaticResource LabPrimaryPill}"
+                                                                Visibility="{Binding CanLaunch, Converter={StaticResource BoolToVis}}"
+                                                                Click="AiLaunchOne_Click"/>
+
+                                                        <Button Content="安装" Margin="6,0,0,0" Padding="14,6" FontSize="12"
+                                                                Style="{StaticResource LabGhostPill}"
+                                                                Visibility="{Binding CanInstall, Converter={StaticResource BoolToVis}}"
+                                                                Click="AiInstallOne_Click"/>
+
+                                                        <Button Content="更新" Margin="6,0,0,0" Padding="14,6" FontSize="12"
+                                                                Style="{StaticResource LabGhostPill}"
+                                                                Visibility="{Binding HasUpdate, Converter={StaticResource BoolToVis}}"
+                                                                Click="AiUpdateOne_Click"/>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+
+                                <!-- 底部状态栏 -->
+                                <Grid Margin="0,4,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- 小转圈：仅忙碌时可见，无限旋转 -->
+                                    <Grid x:Name="AiToolSpinner" Grid.Column="0" Width="14" Height="14"
+                                          VerticalAlignment="Center" Margin="0,0,8,0" Visibility="Collapsed"
+                                          RenderTransformOrigin="0.5,0.5">
+                                        <Ellipse StrokeThickness="2"
+                                                 Stroke="{DynamicResource AccentBrush}"
+                                                 StrokeDashArray="1.6 3.2"/>
+                                        <Grid.RenderTransform>
+                                            <RotateTransform x:Name="AiToolSpinnerRotate"/>
+                                        </Grid.RenderTransform>
+                                        <Grid.Triggers>
+                                            <EventTrigger RoutedEvent="Loaded">
+                                                <BeginStoryboard>
+                                                    <Storyboard RepeatBehavior="Forever">
+                                                        <DoubleAnimation Storyboard.TargetName="AiToolSpinnerRotate"
+                                                                         Storyboard.TargetProperty="Angle"
+                                                                         From="0" To="360" Duration="0:0:0.7"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </Grid.Triggers>
+                                    </Grid>
+
+                                    <TextBlock x:Name="AiToolStatusText" Grid.Column="1" Text="就绪"
+                                               FontSize="11.5" VerticalAlignment="Center" TextWrapping="Wrap"
+                                               Foreground="{DynamicResource TextTertiaryBrush}"/>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
                     </Grid>
                 </ScrollViewer>
             </Grid>
         </Border>
+
     </Grid>
 </Page>

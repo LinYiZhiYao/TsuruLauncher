@@ -1,0 +1,1406 @@
+[
+ {
+  "id": "p0001",
+  "category": "基本操作",
+  "stem": "根据斐波那契数列的定义，F(0)=0，F(1)=1,F(n)=F(n-1)+F(n-2)(n>=2），输出不大于100 的序列元素，请补充横线处的代码。",
+  "template": ">>>a,b=____(1)____\n>>>while____(2)____:\n    print(a,end=',')\n    a,b=__(3)__,_(4)__",
+  "reference": "",
+  "expectedOutput": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "p0002",
+  "category": "基本操作",
+  "stem": "请将下列数学表达式用Python 程序写出来，并计算结果。\nx = （原题此处为公式图片，PDF 文本未能提取）",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "p0003",
+  "category": "基本操作",
+  "stem": "随机密码生成。编写程序，在26 个字母大小写和9 个数字组成的列表中随机生成一个8 位密码。",
+  "template": "#随机密码生成\nchars=[\n'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',\n'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',\n]\nfromrandomimportchoice\n____(1)____\n____(2)____",
+  "reference": "",
+  "expectedOutput": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "p0004",
+  "category": "简单应用",
+  "stem": "使用turtle 库中的turtle.fd()函数和turtle.seth()函数绘制一个等边三角形，边长为200，效果如下图所示。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "p0005",
+  "category": "简单应用",
+  "stem": "写出下列操作的代码：\n(1) 建立字典D={\"数学\":101,\"语文\":202,\"英语\":203,\"物理\":204,\"生物\":206}。\n(2) 向字典中添加键值对\"化学\":205。\n(3) 修改\"数学\"对应的值为201。\n(4) 删除\"生物\"对应的键值对。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "p0006",
+  "category": "综合应用",
+  "stem": "重量计算。月球上物体的体重是在地球上的16.5%，假如你在地球上每年增长0.5kg，编写程序输出未来10 年你在地球和月球上的体重状况。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "",
+  "source": "https://ncre.neea.edu.cn/xhtml1/report/2501/88-1.htm"
+ },
+ {
+  "id": "p0007",
+  "category": "基本操作",
+  "stem": "考生文件夹下存在一个文件PY102.py，请写代码替换横线，不修改其他代码，实现以下功能：键盘输入一段中文文本，不含标点符号和空格，命名为变量s，采用jieba库对其进行分词，输出该文本中词语的平均长度，保留1位小数。例如：键盘输入：吃葡萄不吐葡萄皮　屏幕输出：1.6",
+  "template": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nimport ______\ntxt = input(\"请输入一段中文文本:\")\n______\nprint(\"{:.1f}\".format(len(txt)/len(ls)))",
+  "reference": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nimport jieba\ntxt = input(\"请输入一段中文文本:\")\nls=jieba.lcut(txt)\nprint(\"{:.1f}\".format(len(txt)/len(ls)))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0008",
+  "category": "基本操作",
+  "stem": "考生文件夹下存在一个文件PY103.py，请写代码替换横线，不修改其他代码，实现以下功能：键盘输入一个9800到9811之间的正整数n，作为Unicode编码，把n-1、n和n+1三个Unicode编码对应字符按照如下格式要求输出到屏幕：宽度为11个字符，加号字符+填充，居中。例如：键盘输入：9802　屏幕输出：++++♉♊♋++++",
+  "template": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nn = eval(input(\"请输入一个数字:\"))\nprint(\"{______}\".format(______))",
+  "reference": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nn = eval(input(\"请输入一个数字:\"))\nprint(\"{:+^11}\".format(chr(n-1)+chr(n)+chr(n+1)))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0009",
+  "category": "基本操作",
+  "stem": "考生文件夹下存在一个文件PY101.py，请写代码替换横线，不修改其他代码，实现以下功能：键盘输入正整数n，按要求把n输出到屏幕，格式要求：宽度为20个字符，减号字符-填充，右对齐，带千位分隔符。如果输入正整数超过20位，则按照真实长度输出。例如：键盘输入正整数n为1234，屏幕输出 ---------------1,234",
+  "template": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nn = eval(input(\"请输入正整数:\"))\nprint(\"{______}\".format(n))",
+  "reference": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nn = eval(input(\"请输入正整数:\"))\nprint(\"{:->20,}\".format(n))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0010",
+  "category": "基本操作",
+  "stem": "考生文件夹下存在一个文件PY103.py，请写代码替换横线，不修改其他代码，实现以下功能：键盘输入一句话，用jieba分词后，将切分的词组按照在原话中逆序输出到屏幕上，词组中间没有空格。示例如下：输入：我爱妈妈　输出：妈妈爱我",
+  "template": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nimport jieba\ntxt = input(\"请输入一段中文文本:\")\n______\nfor i in ls[::-1]:\n    ______",
+  "reference": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nimport jieba\ntxt = input(\"请输入一段中文文本:\")\nls = jieba.lcut(txt)\nfor i in ls[::-1]:\n    print(i,end=\"\")",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0011",
+  "category": "基本操作",
+  "stem": "考生文件夹下存在一个文件PY101.py，请写代码替换横线，不修改其他代码，实现以下功能：随机选择一个手机品牌屏幕输出。",
+  "template": "# 请在...处使用一行或多行代码替换\n# 请在______处使用一行代码替换\n#\n# 注意：请不要修改其他已给出代码\nimport ______\nbrandlist = ['华为','苹果','诺基亚','OPPO','小米']\nrandom.seed(0)\n...... \nprint(name)",
+  "reference": "# 请在...处使用一行或多行代码替换\n# 请在______处使用一行代码替换\n#\n# 注意：请不要修改其他已给出代码\nimport random\nbrandlist = ['华为','苹果','诺基亚','OPPO','小米']\nrandom.seed(0)\nname = random.sample(brandlist,1)\nprint(name)",
+  "expectedOutput": "['OPPO']",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0012",
+  "category": "基本操作",
+  "stem": "考生文件夹下存在一个文件PY102.py，请写代码替换横线，键盘输入一段文本，保存在一个字符串变量s中，分别用Python内置函数及jieba库中已有函数计算字符串s的中文字符个数及中文词语个数。注意：中文字符包含中文标点符号。例如，键盘输入：俄罗斯举办世界杯　屏幕输出：中文字符数为8，中文词语数为3。",
+  "template": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nimport jieba\ns = input(\"请输入一个字符串\")\nn = ______ \nm = ______\nprint(\"中文字符数为{}，中文词语数为{}。\".format(n, m))",
+  "reference": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nimport jieba\ns = input(\"请输入一个字符串\")\nn = len(s) \nm = len(jieba.lcut(s))\nprint(\"中文字符数为{}，中文词语数为{}。\".format(n, m))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0013",
+  "category": "基本操作",
+  "stem": "考生文件夹下存在一个文件PY101.py，请写代码替换横线，实现以下功能：从键盘输入4个数字，各数字采用空格分隔，对应为变量x0,y0,x1,y1。计算两点（x0,y0）和（x1,y1）之间的距离，屏幕输出这个距离，保留2位小数。例如：键盘输入：0 1 3 5　屏幕输出：5.00",
+  "template": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nntxt = input(\"请输入4个数字(空格分隔):\")\n______\nx0 = eval(nls[0])\ny0 = eval(nls[1])\nx1 = eval(nls[2])\ny1 = eval(nls[3])\nr = pow(pow(x1-x0, 2) + pow(y1-y0, 2), ______) \nprint(\"{:.2f}\".format(r))",
+  "reference": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nntxt = input(\"请输入4个数字(空格分隔):\")\nnls = ntxt.split()\nx0 = eval(nls[0])\ny0 = eval(nls[1])\nx1 = eval(nls[2])\ny1 = eval(nls[3])\nr = pow(pow(x1-x0, 2) + pow(y1-y0, 2), 0.5) \nprint(\"{:.2f}\".format(r))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0014",
+  "category": "基本操作",
+  "stem": "考生文件夹下存在一个文件PY101.py，请写代码替换横线，不修改其他代码，实现以下功能：键盘输入字符串s，按要求把s输出到屏幕，格式要求：宽度为20个字符，等号字符=填充，居中对齐。如果输入字符串超过20位，则全部输出。例如：键盘输入字符串s为“PYTHON”，屏幕输出 ========PYTHON=========",
+  "template": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\ns = input(\"请输入一个字符串:\")\nprint(\"{______}\".format(s))",
+  "reference": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\ns = input(\"请输入一个字符串:\")\nprint(\"{:=^20}\".format(s))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0015",
+  "category": "基本操作",
+  "stem": "考生文件夹下存在一个文件PY103.py，请写代码替换横线，不修改其他代码，实现以下功能：某商店出售某品牌运动鞋，每双定价160，1双不打折，2双（含）到4双（含）打九折，5双（含）到9双（含）打八折，10双（含）以上打七折，键盘输入购买数量，屏幕输出总额（保留整数）。示例格式如下：输入：1　输出：总额为：160",
+  "template": "# 请在...处使用一行或多行代码替换\n#\n# 注意：请不要修改其他已给出代码\nn = eval(input(\"请输入数量：\"))\n......   \nprint(\"总额为:\",cost)",
+  "reference": "# 请在...处使用一行或多行代码替换\n#\n# 注意：请不要修改其他已给出代码\nn = eval(input(\"请输入数量：\"))\nif n == 1:\n    cost = n * 160\nelif n <= 4:\n    cost = n * 160 * 0.9\nelif n <= 9:\n    cost = n * 160 * 0.8\nelse:\n    cost = n * 160 * 0.7\nprint(\"总额为:\",cost)",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0016",
+  "category": "基本操作",
+  "stem": "考生文件夹下存在一个文件PY102.py，请写代码替换横线，不修改其他代码，实现以下功能：根据斐波那契数列的定义，F(0)=0，F(1)=1，F(n)=F(n-1)+F(n-2) (n>=2)，输出不大于100的序列元素。例如：屏幕输出实例为：0, 1, 1, 2, 3, …（略）",
+  "template": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\na, b = 0, 1\nwhile ______:\n    print(a, end=',')\n    a, b = ______",
+  "reference": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\na, b = 0, 1\nwhile a<=100:\n    print(a, end=',')\n    a, b = b, a + b",
+  "expectedOutput": "0,1,1,2,3,5,8,13,21,34,55,89,",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0017",
+  "category": "基本操作",
+  "stem": "考生文件夹下存在一个文件PY102.py，请写代码替换横线，不修改其他代码，实现以下功能：a和b是两个列表变量，列表a为[3, 6, 9]已给定，键盘输入列表b，计算a中元素与b中对应元素乘积的累加和。例如：键盘输入列表b为[1, 2, 3]，累加和为1*3+2*6+3*9=42，因此，屏幕输出计算结果为42",
+  "template": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\na = [3,6,9]\nb =  eval(input()) #例如：[1,2,3]\n______\nfor i in ______:\n    s += a[i]*b[i]\nprint(s)",
+  "reference": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\na = [3,6,9]\nb =  eval(input()) #例如：[1,2,3]\ns = 0\nfor i in range(3):\n    s += a[i]*b[i]\nprint(s)",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0018",
+  "category": "基本操作",
+  "stem": "考生文件夹下存在一个文件PY103.py，请写代码替换横线，不修改其他代码，实现以下功能：以123为随机数种子，随机生成10个在1(含)到999(含)之间的随机数，每个随机数后跟随一个逗号进行分隔，屏幕输出这10个随机数。",
+  "template": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nimport random\n______\nfor i in range(______):\n    print(______, end=\",\")",
+  "reference": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nimport random\nrandom.seed(123)\nfor i in range(10):\n    print(random.randint(1,999), end=\",\")",
+  "expectedOutput": "54,275,90,788,418,273,111,859,923,896,",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0019",
+  "category": "基本操作",
+  "stem": "考生文件夹下存在一个文件PY102.py，请写代码替换横线，不修改其他代码，实现以下功能：a和b是两个长度相同的列表变量，列表a为[3, 6, 9]已给定，键盘输入列表b，计算a中元素与b中对应元素的和形成新的列表c，在屏幕上输出。例如：键盘输入列表b为[1, 2, 3]，屏幕输出计算结果为[4, 8, 12]",
+  "template": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\na = [3,6,9]\nb =  eval(input()) #例如：[1,2,3]\nc = []\nfor i in range(___(1)___):\n    c.append(___(2)___)\nprint(c)",
+  "reference": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\na = [3,6,9]\nb =  eval(input()) #例如：[1,2,3]\nc = []\nfor i in range(len(b)):\n    c.append(a[i]+b[i])\nprint(c)",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0020",
+  "category": "基本操作",
+  "stem": "考生文件夹下存在一个文件PY103.py，请写代码替换横线，不修改其他代码，实现以下功能：以0为随机数种子，随机生成5个在1(含)到97(含)之间的随机数，计算这五个随机数的平方和。",
+  "template": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nimport random\n___(1)___\ns = 0\nfor i in range(5):\n    n = random.randint(___(2)___)  # 产生随机数\n    s = ___(3)___  \nprint(s)",
+  "reference": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nimport random\nrandom.seed(0)\ns = 0\nfor i in range(5):\n    n = random.randint(1,97)  # 产生随机数\n    s = s + pow(n,2) \nprint(s)",
+  "expectedOutput": "10964",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0021",
+  "category": "基本操作",
+  "stem": "考生文件夹下存在一个文件PY103.py，请写代码替换横线，不修改其他代码，实现以下功能：以100为随机数种子，随机生成3个在1(含)到9(含)之间的随机数，计算这三个随机数的立方和。",
+  "template": "# 请在______处使用一行或多行代码替换\n#\n# 注意：请不要修改其他已给出代码\nimport random\n____________  # 此处可多行\ns = 0  # \n____________  # 此处可多行\nprint(s)",
+  "reference": "# 请在______处使用一行或多行代码替换\n#\n# 注意：请不要修改其他已给出代码\nimport random\nrandom.seed(100)  # 此处可多行\ns = 0  # \nfor i in range(3):# 此处可多行\n    s = s + pow(random.randint(1,9),3)\nprint(s)",
+  "expectedOutput": "1051",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0022",
+  "category": "基本操作",
+  "stem": "获得用户输入的一个字符串，将字符串逆序输出，同时紧接着输出字符串的个数，请完善PY102.py中代码。",
+  "template": "#请完善如下代码\ns = input()\nprint(_______(1)_________)\nprint(_______(2)_________)",
+  "reference": "#请完善如下代码\ns = input()\nprint(s[::-1],end=\"\")\nprint(len(s))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0023",
+  "category": "基本操作",
+  "stem": "获得用户输入的以逗号分隔的三个数字，记为a、b、c，以a为起始数值，b为差，c为数值的数量，产生一个递增的等差数列，将这个数列以列表格式输出，请完善PY103.py中代码。",
+  "template": "#请完善如下代码\na, b, c = _______(1)_________\nls = []\nfor i in range(c):\n    ls._______(2)_________\nprint(ls)",
+  "reference": "#请完善如下代码\na, b, c = eval(input())\nls = []\nfor i in range(c):\n    ls.append(a+b*i)\nprint(ls)",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0024",
+  "category": "基本操作",
+  "stem": "获得用户输入的一个数字，对该数字以30字符宽度，十六进制，居中输出，字母小写，多余字符采用双引号(\")填充，请完善PY101.py中代码。",
+  "template": "#请完善如下代码,不得修改其他代码\n#PY101.py\ns = input()\nprint(\"{_______(1)_________}\".format(_______(2)_________))",
+  "reference": "#请完善如下代码,不得修改其他代码\n#PY101.py\ns = input()\nprint(\"{:\\\"^30x}\".format(eval(s)))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0025",
+  "category": "基本操作",
+  "stem": "获得用户输入的一个数字，其中数字字符（0到9）用对应的中文字符“〇一二三四五六七八九”替换，输出替换后的结果，请完善PY102.py中的代码。",
+  "template": "#请完善如下代码,不得修改其他代码\n#在________处填写一行或多行代码\n#PY102.py\nn = input()\ns = \"〇一二三四五六七八九\"\nfor c in \"0123456789\":\n     _______(1)_________\nprint(n)",
+  "reference": "#请完善如下代码,不得修改其他代码\n#在________处填写一行或多行代码\n#PY102.py\nn = input()\ns = \"〇一二三四五六七八九\"\nfor c in \"0123456789\":\n     n = n.replace(c,s[int(c):int(c)+1])\nprint(n)",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0026",
+  "category": "基本操作",
+  "stem": "获得用户输入的以逗号分隔的三个数字，记为a、b、c，以a为起始数值，b为前后相邻数的比值，c为数列长度，产生一个等比数列，将这个数列以逗号分隔的形式输出，最后一个元素输出后无逗号，请完善PY103.py中代码。",
+  "template": "#请完善如下代码,不得修改其他代码\n#PY103.py\na, b, c = _______(1)_________\nls = []\nfor i in range(c):\n    _______(2)_________\nprint(\",\".join(ls))",
+  "reference": "#请完善如下代码,不得修改其他代码\n#PY103.py\na, b, c = eval(input())\nls = []\nfor i in range(c):\n    ls.append(str(a*(b**i)))\nprint(\",\".join(ls))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0027",
+  "category": "基本操作",
+  "stem": "在考生文件夹下有个文件PY101.py，在横线处填写代码，完成如下功能。程序接收用户输入的五个数，以逗号分隔。将这些数字按照输入顺序输出，每个数字占10个字符宽度，右对齐，所有数字显示在同一行。例如：输入：23, 42, 543, 56, 71　输出：　　　　23　　　　42　　　 543　　　　56　　　　71",
+  "template": "#\n# 在____________上补充代码\n# \nnum = input().____________\nfor i in num:\n    print(____________)",
+  "reference": "#\n# 在____________上补充代码\n# \nnum = input().split(\",\")\nfor i in num:\n    print(\"{:>10}\".format(i),end=\"\")",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0028",
+  "category": "基本操作",
+  "stem": "在考生文件夹下有个文件PY102.py，在横线处填写代码，完成如下功能。社会平均工作时间是每天8小时（不区分工作日和休息日），一位计算机科学家接受记者采访时说，他每天工作时间比社会平均工作时间多3小时。如果这位科学家的当下成就值是1，假设每工作1个小时成就值增加0.01%，计算并输出两个结果：这位科学家5年后的成就值，以及达到成就值100所需要的年数。其中，成就值和年数都以整数表示，每年以365天计算。输出格式示例如下：5年后的成就值是XX　　XX年后成就值是100",
+  "template": "#\n# 在____________上补充代码\n#\nscale = 0.0001  # 成就值增量\ndef calv(base, day):\n    val = base * pow(____________)\n    return val\nprint('5年后的成就值是{}'.format(int(calv(1, 5*365))))\n      \nyear = 1\nwhile calv(1, ____________) < 100:\n    year += 1\n    \nprint('{}年后成就值是100'.format(year))",
+  "reference": "#\n# 在____________上补充代码\n#\nscale = 0.0001  # 成就值增量\ndef calv(base, day):\n    val = base * pow((1+scale),day*11)\n    return val\nprint('5年后的成就值是{}'.format(int(calv(1, 5*365))))\n      \nyear = 1\nwhile calv(1, year*365) < 100:\n    year += 1\n    \nprint('{}年后成就值是100'.format(year))",
+  "expectedOutput": "5年后的成就值是7\n12年后成就值是100",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0029",
+  "category": "基本操作",
+  "stem": "在考生文件夹下有个文件PY103.py，在横线处填写代码，完成如下功能。程序接收用户输入的一个数字并判断是否为正整数，如果不是正整数，则显示“请输入正整数”并等待用户重新输入，直至输入正整数为止，并显示输出该正整数。例如：输入：请输入一个正整数：357　输出：357",
+  "template": "#\n# 在____________上补充代码\n#\nwhile True:\n    try:\n        a = eval(input('请输入一个正整数: '))    \n        if a > 0 and ____________:\n            print(a)\n            ____________\n        else:\n            print(\"请输入正整数\")\n    except:\n        print(\"请输入正整数\")",
+  "reference": "#\n# 在____________上补充代码\n#\nwhile True:\n    try:\n        a = eval(input('请输入一个正整数: '))    \n        if a > 0 and a % 1 == 0:\n            print(a)\n            break\n        else:\n            print(\"请输入正整数\")\n    except:\n        print(\"请输入正整数\")",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0030",
+  "category": "基本操作",
+  "stem": "在考生文件夹下有个文件PY101.py，在横线处填写代码，完成如下功能。接收用户输入的一个小于20的正整数，在屏幕上逐行递增显示从01到该正整数，数字显示的宽度为2，不足位置补0，后面追加一个空格，然后显示‘>’号，‘>’号的个数等于行首数字。例如：输入：3　输出：01 >　02 >>　03 >>>",
+  "template": "#\n# 在____________上补充代码\n#\nn = input('请输入一个正整数:')\nfor i in range(____________):\n    print('____________'.format(i, ____________))",
+  "reference": "#\n# 在____________上补充代码\n#\nn = input('请输入一个正整数:')\nfor i in range(1,eval(n)+1):\n    print('{:0>2}{}{}'.format(i, \" \",\">\"*(i)))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0031",
+  "category": "基本操作",
+  "stem": "在考生文件夹下有个文件PY103.py，在横线处填写代码，完成如下功能。将程序里定义好的std列表里的姓名和成绩与已经定义好的模板拼成一段话，显示在屏幕上。例如：亲爱的张三，你的考试成绩是:英语90, 数学87, Python语言95, 总成绩272. 特此通知. …（略）",
+  "template": "#\n# 在____________上补充代码\n#\nstd = [['张三',90,87,95],['李四',83,80,87],['王五',73,57,55]]\nmodl = \"亲爱的{}, 你的考试成绩是: 英语{}, 数学{}, Python语言{}, 总成绩{}.特此通知.\"\nfor st in std:\n    cnt = ____________\n    for i in range(____________):\n        cnt += ____________\n    print(modl.format(st[0],st[1],st[2],st[3],cnt))",
+  "reference": "#\n# 在____________上补充代码\n#\nstd = [['张三',90,87,95],['李四',83,80,87],['王五',73,57,55]]\nmodl = \"亲爱的{}, 你的考试成绩是: 英语{}, 数学{}, Python语言{}, 总成绩{}.特此通知.\"\nfor st in std:\n    cnt = 0\n    for i in range(1,4):\n        cnt += st[i]\n    print(modl.format(st[0],st[1],st[2],st[3],cnt))",
+  "expectedOutput": "亲爱的张三, 你的考试成绩是: 英语90, 数学87, Python语言95, 总成绩272.特此通知.\n亲爱的李四, 你的考试成绩是: 英语83, 数学80, Python语言87, 总成绩250.特此通知.\n亲爱的王五, 你的考试成绩是: 英语73, 数学57, Python语言55, 总成绩185.特此通知.",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0032",
+  "category": "基本操作",
+  "stem": "在考生文件夹下有个文件PY101.py，在横线处填写代码，完成如下功能。接收用户输入的一个大于10小于10^8的十进制正整数，输出这个正整数各字符的和，以25为宽度，居中显示，采用等号=填充。例如：输入：1357　输出：============16============",
+  "template": "#\n# 在____________上补充代码\n#\ns = input(\"请输入一个正整数: \")\n____________\nfor c in s:\n    cs += ____________\nprint('{____________}'.format(cs))",
+  "reference": "#\n# 在____________上补充代码\n#\ns = input(\"请输入一个正整数: \")\ncs = 0\nfor c in s:\n    cs += int(c)\nprint('{:=^25}'.format(cs))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0033",
+  "category": "基本操作",
+  "stem": "在考生文件夹下有个文件PY102.py，在横线处填写代码，完成如下功能。接收用户输入的数据，该数据仅由字母和中文混合构成，无其他类型字符，统计并输出中文字符出现的个数，示例如下：输入：world世界peace和平　输出：4",
+  "template": "#\n# 在____________上补充代码\n#\ns = input(\"请输入中文和字母的组合: \")\n____________\nfor c in s:\n    if ____________:\n        count += 1\nprint(count)",
+  "reference": "#\n# 在____________上补充代码\n#\ns = input(\"请输入中文和字母的组合: \")\ncount = 0\nfor c in s:\n    if \"\\u4e00\" <= c <= \"\\u9fff\":\n        count += 1\nprint(count)",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0034",
+  "category": "基本操作",
+  "stem": "在考生文件夹下有个文件PY103.py，在横线处填写代码，完成如下功能。接收用户输入的以英文逗号分隔的一组数据，其中，每个数据都是整数或浮点数，打印输出这组数据中的最大值。例如：输入：1, 3, 5, 7, 9, 7, 5, 3, 1　输出：9",
+  "template": "#\n# 在____________上补充代码\n#\ns = input(\"请输入一组数据: \")\nls = ____________\nlt = []\nfor i in ls:\n    lt.append(____________)\nprint(max(lt))",
+  "reference": "#\n# 在____________上补充代码\n#\ns = input(\"请输入一组数据: \")\nls = s.split(\",\")\nlt = []\nfor i in ls:\n    lt.append(eval(i))\nprint(max(lt))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0035",
+  "category": "基本操作",
+  "stem": "在考生文件夹下有个文件PY101.py，在横线处填写代码，完成如下功能。接收用户输入的一个浮点数，输出这个浮点数的小数部分各字符的和，以10为宽度，靠右显示，采用星号*填充。例如：输入：1234.5678　输出：********26",
+  "template": "#\n# 在____________上补充代码\n#\ns = input(\"请输入一个小数: \")\ns = s[::-1]\n____________\nfor c in s:\n    if c == '.':\n        ____________\n    cs += eval(c)\nprint('{____________}'.format(cs))",
+  "reference": "#\n# 在____________上补充代码\n#\ns = input(\"请输入一个小数: \")\ns = s[::-1]\ncs = 0\nfor c in s:\n    if c == '.':\n        break\n    cs += eval(c)\nprint('{:*>10}'.format(cs))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0036",
+  "category": "基本操作",
+  "stem": "在考生文件夹下有个文件PY102.py，在横线处填写代码，完成如下功能。time库是Python语言中与时间处理相关的标准库，time库中ctime()函数能够将一个表示时间的浮点数变成人类可以理解的时间格式，示例如下：import time; print(time.ctime(1519181231.0))　输出结果是：Wed Feb 21 10:47:11 2018。请获得用户输入时间，提取并输出其中的小时信息。以上述时间为例，应输出10。",
+  "template": "#\n# 在____________上补充代码\n#\nimport time\nt = input(\"请输入一个浮点数时间信息: \")\ns = time.ctime(____________)\nls = s.split()\nprint(____________)",
+  "reference": "#\n# 在____________上补充代码\n#\nimport time\nt = input(\"请输入一个浮点数时间信息: \")\ns = time.ctime(eval(t))\nls = s.split()\nprint(ls[3].split(\":\")[0])",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0037",
+  "category": "基本操作",
+  "stem": "在考生文件夹下有个文件PY103.py，在横线处填写代码，完成如下功能。以26个小写字母和0~9数字为基础，以用户输入的数值为种子，随机生成10个8位密码，并将每个密码在单独一行打印输出。例如：输入：125　输出：potlwjta ej460gqs k515jdr8 lblkedlf y37c4mhx loa18pv5 pz6r37t7 xegd1q13 12w0ksh6 pxuybhp9",
+  "template": "#\n# 在____________上补充代码\n#\nimport random\ns = input(\"请输入随机种子: \")\nls = []\nfor i in range(26):\n    ls.append(chr(ord('a')+i))\nfor i in range(10):\n    ls.append(chr(____________)\n    \nrandom.____________(eval(s))\nfor i in range(10):\n    for j in range(____________):\n        print(random.choice(ls),end='')\n    print()",
+  "reference": "#\n# 在____________上补充代码\n#\nimport random\ns = input(\"请输入随机种子: \")\nls = []\nfor i in range(26):\n    ls.append(chr(ord('a')+i))\nfor i in range(10):\n    ls.append(chr(ord('0')+i))\n    \nrandom.seed(eval(s))\nfor i in range(10):\n    for j in range(8):\n        print(ls[random.randint(0,35)],end='')\n    print()",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0038",
+  "category": "基本操作",
+  "stem": "在考生文件夹下存在一个Python源文件PY101.py，请编写代码替换横线，不修改其他代码，实现下面功能：用户按照列表格式输入数据，将用户输入的列表中属于字符串类型的元素连接成一个整字符串，并打印输出。示例如下（其中数据仅用于示意）：输入：[123, \"Python\", 98, \"等级考试\"]　输出：Python等级考试",
+  "template": "#\n# 在____________上补充代码\n#\nls = eval(input())\ns = \"\"\nfor item in ls:\n    if ___(1)_____ == type(\"香山\"):\n        s += ___（2）_____\nprint(s)",
+  "reference": "#\n# 在____________上补充代码\n#\nls = eval(input())\ns = \"\"\nfor item in ls:\n    if type(item) == type(\"香山\"):\n        s += item\nprint(s)",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0039",
+  "category": "基本操作",
+  "stem": "在考生文件夹下存在一个Python源文件PY102.py，请编写代码替换横线，不修改其他代码，实现下面功能：以25为种子，随机生成1个1~100之间的整数，让用户来猜，用户最多只能猜6次。接收用户输入的数字，输入的数字和随机数相同时，则打印“恭喜你，猜对了！”，然后程序结束；若输入的数比随机数小，则打印“小了，请再试试”，程序继续；若输入的数比随机数大，则打印“大了，请再试试”，程序继续；若6次还没猜对，在评判大小后，输出“谢谢！请休息后再猜”，然后程序退出。示例如下（其中数据仅用于示意）：输入：80　输出：大了，请再试试　（略）",
+  "template": "#\n# 在____________上补充代码\n#\nimport random\nrandom.seed(25)\nn = ___________(1)____________\nfor m in range(1,7):\n    x = eval(input(\"请输入猜测数字：\"))\n    if x == n:\n        print(\"恭喜你，猜对了！\")\n        break\n    elif  ___________(2)___________:\n        print(\"大了，再试试\")\n    else:\n        print(\"小了，再试试\")\n    if ___________(3)___________:\n        print(\"谢谢！请休息后再猜\")",
+  "reference": "#\n# 在____________上补充代码\n#\nimport random\nrandom.seed(25)\nn = random.randint(1,101)\nfor m in range(1,7):\n    x = eval(input(\"请输入猜测数字：\"))\n    if x == n:\n        print(\"恭喜你，猜对了！\")\n        break\n    elif  x > n:\n        print(\"大了，再试试\")\n    else:\n        print(\"小了，再试试\")\n    if m == 6:\n        print(\"谢谢！请休息后再猜\")",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0040",
+  "category": "基本操作",
+  "stem": "在考生文件夹下存在一个Python源文件PY103.py，请编写代码替换横线，不修改其他代码，实现下面功能：让用户输入一个自然数n，如果n为奇数，输出表达式1+1/3+1/5+…+1/n的值；如果n为偶数，输出表达式1/2+1/4+1/6+…+1/n的值。输出结果保留2位小数。示例如下（其中数据仅用于示意）：输入：4　输出：0.75",
+  "template": "#\n# 在____________上补充代码\n#\ndef f(n):\n    ___________(1)___________\n    if ___________(2)___________:\n        for i in range(1, n+1, 2):\n            s += 1/i\n    else:\n        for i in range(2, n+1, 2):\n            s += 1/i\n    return s\nn = int(input())\nprint(___________(3)___________)",
+  "reference": "#\n# 在____________上补充代码\n#\ndef f(n):\n    s = 0\n    if n % 2 == 1:\n        for i in range(1, n+1, 2):\n            s += 1/i\n    else:\n        for i in range(2, n+1, 2):\n            s += 1/i\n    return s\nn = int(input())\nprint(\"{:.2f}\".format(f(n)))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0041",
+  "category": "基本操作",
+  "stem": "在考生文件夹下存在一个Python源文件PY101.py，请编写代码替换横线，不修改其他代码，实现下面功能：获得用户输入的一个整数n，输出一个n-1行的数字三角形阵列。该阵列每行包含的整数序列为从该行序号开始到n-1，例如第1行包含1到n-1的整数，第i行包含从i到n-1的整数；数字之间用英文空格分隔。示例如下（其中数据仅用于示意）：输入：8　输出：1 2 3 4 5 6 7 / 2 3 4 5 6 7 / 3 4 5 6 7 / 4 5 6 7 / 5 6 7 / 6 7 / 7",
+  "template": "#\n# 编写代码替换横线\n#\nn = eval(input(\"请输入一个整数：\"))\nfor i in range(1,n):\n    for j in range(1,n):\n        if ______(1)_____________:\n            ______(2)___________\n    print()",
+  "reference": "#\n# 编写代码替换横线\n#\nn = eval(input(\"请输入一个整数：\"))\nfor i in range(1,n):\n    for j in range(1,n):\n        if i <= j < n:\n            print(j, end = \" \")\n    print()",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0042",
+  "category": "基本操作",
+  "stem": "在考生文件夹下存在一个Python源文件PY102.py，请编写代码替换横线，不修改其他代码，实现下面功能：获得用户输入的5个小写英文字母，将小写字母变成大写字母，并逆序输出，字母之间用逗号分隔。示例如下（其中数据仅用于示意）：输入：gbcde　输出：E, D, C, B, G",
+  "template": "#\n# 编写代码替换横线\n#\ns = input(\"请输入5个小写字母：\")\n___________(1)____________\nprint(','.join(_____(2)______))",
+  "reference": "#\n# 编写代码替换横线\n#\ns = input(\"请输入5个小写字母：\")\ns = s.upper()\nprint(','.join(s[::-1]))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0043",
+  "category": "基本操作",
+  "stem": "在考生文件夹下存在一个Python源文件PY103.py，请编写代码替换横线，不修改其他代码，实现如下功能：获得用户输入的一个整数，记为n，以100为随机数种子，随机生成10个1到n之间的随机数，输出生成的随机数，数字之间以逗号分隔。示例如下（其中数据仅用于示意）：输入：900　输出：150, 471, 466, 790, 777, 723, 403, 750, 359, 444",
+  "template": "#\n# 编写代码替换横线\n#\nimport random\n__________(1)_______________\nrandom.seed(100)\nfor i in range(1,11):\n    if i<10:\n        print(___________（2）_________)\n    else:\n        print(random.randint(1,n))",
+  "reference": "#\n# 编写代码替换横线\n#\nimport random\nn = eval(input())\nrandom.seed(100)\nfor i in range(1,11):\n    if i<10:\n        print(random.randint(1,n), end = ',')\n    else:\n        print(random.randint(1,n))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0044",
+  "category": "基本操作",
+  "stem": "在考生文件夹下存在一个Python源文件PY101.py，请编写代码替换横线，不修改其他代码，实现下面功能：让用户输入一个符号作为填充字符，将“PYTHON”字符串以30字符宽、居中、其余部分以填充字符的形式格式化输出。示例如下（其中数据仅用于示意）：输入：#　输出：#############PYTHON#############",
+  "template": "#\n# 编写代码替换横线\n#\na = input(\"请输入填充符号：\")\ns = \"PYTHON\"\nprint(\"{_____(1)____}\".format(_____(2)____))",
+  "reference": "#\n# 编写代码替换横线\n#\na = input(\"请输入填充符号：\")\ns = \"PYTHON\"\nprint(\"{0:{1}^30}\".format(s,a))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0045",
+  "category": "基本操作",
+  "stem": "在考生文件夹下存在一个Python源文件PY102.py，请编写代码替换横线，不修改其他代码，实现下面功能：获取一个由英文逗号、字母、汉字、数字字符组成的输入，计算该输入中所有数字的和，并输出。示例如下（其中数据仅用于示意）：输入：1,海淀区,ab,56,3,中关村　输出：数字和是：60",
+  "template": "#\n# 编写代码替换横线\n#\nmyinput = input(\"请输入：\")\nls = ______(1)___________\ns = 0\nfor c in ls:\n    if c.strip(\" \").isdigit():\n        ________(2)_______\nprint(\"数字和是：\" + str(s))",
+  "reference": "#\n# 编写代码替换横线\n#\nmyinput = input(\"请输入：\")\nls = myinput.split(',')\ns = 0\nfor c in ls:\n    if c.strip(\" \").isdigit():\n        s += eval(c)\nprint(\"数字和是：\" + str(s))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0046",
+  "category": "基本操作",
+  "stem": "在考生文件夹下存在一个Python源文件PY103.py，请完善代码，实现以下功能：data103.txt文件保存了一组汉字，输出该文件不同汉字的数量。示例如下（其中数据仅用于示意）：输出：100",
+  "template": "#\n# 请完善代码\n#\n______(1)_______\nls = []\nfor line in f:\n      for c in line:\n            if ______(2)_______:\n                  ls.append(c)\nf.close()\nprint(len(ls))\n \n附件：data103.txt",
+  "reference": "#\n# 请完善代码\n#\nf = open('data.txt','r')\nls = []\nfor line in f:\n      for c in line:\n            if c not in ls:\n                  ls.append(c)\nf.close()\nprint(len(ls))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0047",
+  "category": "基本操作",
+  "stem": "在考生文件夹下存在一个Python源文件PY101.py，请编写代码替换横线，不修改其他代码，实现下面功能：获得用户输入的浮点数，以10字符宽度、靠右输出这个浮点数，小数点后保留2位小数。示例如下（其中数据仅用于示意）：请输入一个浮点数:2.4　浮点数是:　　　2.40　请输入一个浮点数:5.98320　浮点数是:　　　5.98",
+  "template": "#\n# 在____________上补充代码 （12根短线）\n#不要修改其他代码\n#\nf = eval(input(\"请输入一个浮点数:\"))\nprint(\"浮点数是:{_____(1)_______}\".format(f))",
+  "reference": "#\n# 在____________上补充代码 （12根短线）\n#不要修改其他代码\n#\nf = eval(input(\"请输入一个浮点数:\"))\nprint(\"浮点数是:{:>10.2f}\".format(f))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0048",
+  "category": "基本操作",
+  "stem": "在考生文件夹下存在一个Python源文件PY102.py，请编写代码替换横线，不修改其他代码，实现下面功能：按照小写字母a到z顺序组成包含26个字母的字符表，其中，第一个字符a序号为0，依次递增。程序获得用户输入的起始字母序号及连续输出字母的个数，分别记为变量h和w，以逗号隔开，并根据字符表输出从起始字母序号h开始的连续w个字母。示例如下（其中数据仅用于示意）：输入：0, 3　输出：abc",
+  "template": "#\n# 在____________上补充代码 （12根短线）\n#不要修改其他代码\n#\nh,w = eval(input(\"请输入起始英文字母的序号和连续输出的个数，逗号隔开:\"))\ncstr = ''\nfor i in range(_______(1)_________):\n    c = _________(2)____________\n    cstr += c\nprint(cstr)",
+  "reference": "#\n# 在____________上补充代码 （12根短线）\n#不要修改其他代码\n#\nh,w = eval(input(\"请输入起始英文字母的序号和连续输出的个数，逗号隔开:\"))\ncstr = ''\nfor i in range(w):\n    c = chr(97+h+i)\n    cstr += c\nprint(cstr)",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0049",
+  "category": "基本操作",
+  "stem": "在考生文件夹下存在一个Python源文件PY103.py，请完善代码，实现以下功能：获得用户输入的三个整数，以逗号分隔，分别记为：n、m、k，其中m>k。以1为随机数种子，产生n个在k和m之间的随机整数（包括k和m），将这些随机数输出，每个数一行。示例如下（其中数据仅用于示意）：输入：4, 26, 10　输出：14 12 18 13",
+  "template": "# 请在......处完善代码，可以修改其他代码\nimport random as r\nr.seed(1)\ns=input(\"请输入三个整数 n,m,k：\")\nslist=s.split(\",\")\n……",
+  "reference": "# 请在......处完善代码，可以修改其他代码\nimport random as r\nr.seed(1)\ns=input(\"请输入三个整数 n,m,k：\")\nslist=s.split(\",\")\nfor i in range(eval(slist[0])):\n    print(r.randint(eval(slist[2]),eval(slist[1])))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0050",
+  "category": "基本操作",
+  "stem": "在考生文件夹下存在一个Python源文件PY101.py，请编写代码替换横线，不修改其他代码，实现下面功能：获得用户输入的一个由姓名、年龄字符串组成的若干学生信息，学生信息之间用英文逗号分隔，将输入的学生信息输出，每个信息一行，将姓名和年龄用英文逗号分隔，第一行输出姓名、年龄标题信息。示例如下（其中数据仅用于示意）：输入：张丽丽26, 王云25, 李莉21, 王晓芳23　输出：姓名,年龄 / 张丽丽,26 / 王云,25 / 李莉,21 / 王晓芳,23",
+  "template": "sinfo=input()\n_________(1)__________\nprint(\"姓名,年龄\")\nfor _________(2)__________\n    sname=strname[:-2]\n    _________(3)__________\n    print(\"{},{}\".format(sname,sage))",
+  "reference": "sinfo=input()\ns = sinfo.split(\",\")\nprint(\"姓名,年龄\")\nfor strname in s:\n    sname=strname[:-2]\n    sage=strname[-2:]\n    print(\"{},{}\".format(sname,sage))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0051",
+  "category": "基本操作",
+  "stem": "在考生文件夹下存在一个Python源文件PY102.py，请编写代码替换横线，不修改其他代码，实现下面功能：以20为随机数种子，生成1~20之间的10个随机数，将这些随机数分10行输出，第11行输出10个随机数的平均数，平均数保留一位小数。示例如下：输入：无　输出（仅为格式示例）：第0个数:20　第1个数:11　…　10个随机数的平均数是:12.4",
+  "template": "#在 _____上补充一行代码\n#不要修改其他代码\nimport random\nrandom.seed(20)\nsum=0\nfor i in range(10):\n    (1)________________________\n    sum+=n\n    (2)_________________________\nprint(\"10个随机数的平均数是:{}\".format(round(sum/10,1)))",
+  "reference": "#在 _____上补充一行代码\n#不要修改其他代码\nimport random\nrandom.seed(20)\nsum=0\nfor i in range(10):\n    n = random.randint(1,20)\n    sum+=n\n    print('第{}个数:{}'.format(i,n))\nprint(\"10个随机数的平均数是:{}\".format(round(sum/10,1)))",
+  "expectedOutput": "第0个数:5\n第1个数:9\n第2个数:4\n第3个数:11\n第4个数:19\n第5个数:6\n第6个数:1\n第7个数:14\n第8个数:14\n第9个数:3\n10个随机数的平均数是:8.6",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0052",
+  "category": "基本操作",
+  "stem": "在考生文件夹下存在一个Python源文件PY103.py，请完善代码，实现下面功能：若m整除n，则m是n的因子。例如：9的因子有1、3、9。定义一个因子函数，用于求整数n的所有因子列表。用户输入一个整数n，调用该因子函数，输出整数n所有因子的列表；如果输入非法字符，则检测异常，输出“输入有误！”。示例如下（其中数据仅用于示意）：输入：4　输出：整数4的因子是:[1, 2, 4]　输入：a1　输出：输入有误!",
+  "template": "#请在_______上填写一行表达式或语句\n#可以修改其他代码\ndef allFactor(n):\n    if n <=1: return [n]\n    if n <=3: return [1,n]\n    i=1\n    _____(1)___________\n    while i <= n:\n        if n % i == 0:\n            rlist.append(i)\n        _____(2)___________\n    return rlist\ntry:\n    n=eval(input(\"请输入一个正整数:\"))\n    print(\"整数{}的因子是:{}\".format(n,allFactor(n)))\nexcept:\n    print(\"输入错误!\")",
+  "reference": "#请在_______上填写一行表达式或语句\n#可以修改其他代码\ndef allFactor(n):\n    if n <=1: return [n]\n    if n <=3: return [1,n]\n    i=1\n    rlist = []\n    while i <= n:\n        if n % i == 0:\n            rlist.append(i)\n        i += 1\n    return rlist\ntry:\n    n=eval(input(\"请输入一个正整数:\"))\n    print(\"整数{}的因子是:{}\".format(n,allFactor(n)))\nexcept:\n    print(\"输入错误!\")",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0053",
+  "category": "基本操作",
+  "stem": "在考生文件夹下存在一个python源文件py101.py，请编写代码替换横线，不修改其他代码，实现下面功能：获得用户输入的一个长度小于15的英文单词，以20字符宽居中输出这个单词。第一行输出20个“=”符号，第二行和第一行宽度一致，左右两边输出“|”，单词居中，其他位置用“*”填充。示例如下：输入：请输入一个单词：python　输出：==================== / |******python******|",
+  "template": "#在____________上补充代码\n#不要修改其他代码\nf = input(\"请输入一个单词:\")\nprint(\"{}\".format(\"____________))\nprint(\"____________\".format(f))",
+  "reference": "#在____________上补充代码\n#不要修改其他代码\nf = input(\"请输入一个单词:\")\nprint(\"{}\".format(\"=\"*20))\nprint(\"|{:*^18}|\".format(f))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0054",
+  "category": "基本操作",
+  "stem": "在考生文件夹下存在一个python源文件py102.py。请编写代码替换横线，不修改其他代码，实现下面功能：获得用户输入的用逗号隔开的若干个整数，将输入的数据求和，并与一个给定的常数x相加，显示输出最后的结果。定义一个函数vfun(x, b) 计算并返回常数与列表里元素的和，其中参数x对应一个常数，参数b对应一个列表。在主程序中接收用户输入，调用函数，显示最后的结果。示例如下：输入：1,2,3,4,5　输出：25",
+  "template": "#在____________上补充代码\n#不要修改其他代码\ndef vfun(x,b):\n    ____________:\n        x += ____________\n    return x\nlc = ____________\nprint(vfun(10,lc))",
+  "reference": "#在____________上补充代码\n#不要修改其他代码\ndef vfun(x,b):\n    for i in lc:\n        x += eval(i)\n    return x\nlc = input().split(',')\nprint(vfun(10,lc))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0055",
+  "category": "基本操作",
+  "stem": "在考生文件夹下存在一个python源文件py103.py。请编写代码替换横线，不修改其他代码，实现下面功能：从键盘输入一个字符串，过滤掉其中的数字，将字母变为大写并打印输出。示例如下：输入：请输入一个字符串：3Love20　输出：LOVE",
+  "template": "#在____________上补充代码\n#不要修改其他代码\nss = input(\"请输入一个字符串：\")\nfor s in ss:\n    if ____________:\n        print(____________)\n    else:\n        ____________",
+  "reference": "#在____________上补充代码\n#不要修改其他代码\nss = input(\"请输入一个字符串：\")\nfor s in ss:\n    if ord('A') <= ord(s) <= ord('z'):\n        print(s.upper(),end=\"\")\n    else:\n        continue",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0056",
+  "category": "基本操作",
+  "stem": "在考生文件夹下存在一个python源文件py101.py，请写代码替换横线，不修改其他代码，实现下面功能：请用户输入一个整数作为圆的半径，计算圆的面积，将半径和面积显示在屏幕上。半径以浮点数方式居中显示，小数点后2位，总宽度为10，空白处以“=”填充；圆的面积以浮点数方式右对齐显示，小数点后2位，总宽度为10，空白处以“*”填充。示例如下：输入：4　输出：圆的半径是===4.00===, 面积是*****50.27",
+  "template": "#在 ____________上补充一行代码\n#不要修改其他代码\npi= 3.14159\nr = ____________\nprint(\"圆的半径是____________，面积是{____________}\".format(r, pi * r * r))",
+  "reference": "#在 ____________上补充一行代码\n#不要修改其他代码\npi= 3.14159\nr = eval(input(\"请输入圆的半径：\"))\nprint(\"圆的半径是{:=^10.2f}，面积是{:*>10.2f}\".format(r, pi * r * r))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0057",
+  "category": "基本操作",
+  "stem": "在考生文件夹下存在一个python源文件py102.py，请编写代码替换横线，不修改其他代码，实现下面功能：请用户输入2~5个整数，用英文逗号连接。将输入的数计算平均值，将数据与结果显示在屏幕上。示例如下：输入：1,2,3　输出：输入是: (1, 2, 3),平均数是: 2.0",
+  "template": "#在 ____________上补充一行代码\n#不要修改其他代码\nls = eval(input())\nprint(\"输入是：{},平均数是：{}\".format(ls, ____________))",
+  "reference": "#在 ____________上补充一行代码\n#不要修改其他代码\nls = eval(input())\nprint(\"输入是：{},平均数是：{}\".format(ls, sum(list(ls))/len(ls)))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0058",
+  "category": "基本操作",
+  "stem": "在考生文件夹下存在一个python源文件py103.py，请写代码替换横线，不修改其他代码，实现下面功能：请用户输入一个字符串，如果输入的都是英文小写字符，打印输出“全部是英文小写”；如果输入的不全是英文小写字符，打印输出“不全是英文小写”。示例如下：输入：ff2f　输出：不全是英文小写　输入：fdaff　输出：全部是英文小写",
+  "template": "#\n# 在____________上补充代码\n# 在……上补充一行或多行代码\n# 可以任意修改代码\n#\ns = input(\"请输入字符串：\")\nfor c in s:\n    ……\nelse:\n    print(\"全部是英文小写\")",
+  "reference": "#\n# 在____________上补充代码\n# 在……上补充一行或多行代码\n# 可以任意修改代码\n#\ns = input(\"请输入字符串：\")\nfor c in s:\n    zimu = \"qwertyuiopasdfghjklzxcvbnm\"\n    if c in zimu:\n        pass\n    else:\n        print(\"不全是英文小写\")\n        break\nelse:\n    print(\"全部是英文小写\")",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148749291"
+ },
+ {
+  "id": "p0059",
+  "category": "简单应用",
+  "stem": "考生文件夹下存在一个文件PY202.py，该文件是本题目的代码提示框架，其中代码可以任意修改。请在该文件中编写代码，以实现如下功能：键盘输入一组我国高校所对应的学校类型，以空格分隔，共一行，示例格式如下：综合 理工 综合 综合 综合 师范 理工。统计各类型的数量，从数量多到少的顺序屏幕输出类型及对应数量，以英文冒号分隔，每个类型一行，输出参考格式如下：综合：4　理工：2　师范：1",
+  "template": "# 以下代码为提示框架\n# 请在...处使用一行或多行代码替换\n# 请在______处使用一行代码替换\n#\n# 注意：提示框架代码可以任意修改，以完成程序功能为准\ntxt = input(\"请输入类型序列: \")\n...\nd = {}\n...\nls = list(d.items())\nls.sort(key=lambda x:x[1], reverse=True)  # 按照数量排序\nfor k in ls:\n    print(\"{}:{}\".format(k[0], k[1]))",
+  "reference": "# 以下代码为提示框架\n# 请在...处使用一行或多行代码替换\n# 请在______处使用一行代码替换\n#\n# 注意：提示框架代码可以任意修改，以完成程序功能为准\ntxt = input(\"请输入类型序列: \")\ntem = txt.split()\nd = {}\nfor i in range(len(tem)):\n    d[tem[i]]=d.get(tem[i], 0)+1\nls = list(d.items())\nls.sort(key=lambda x:x[1], reverse=True)  # 按照数量排序\nfor k in ls:\n    print(\"{}:{}\".format(k[0], k[1]))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0060",
+  "category": "简单应用",
+  "stem": "考生文件夹下存在一个文件PY201.py，请写代码替换横线，不修改其他代码，实现以下功能：使用turtle库的turtle.fd()函数和turtle.seth()函数绘制一个等边三角形，边长为200像素，效果如下图所示。",
+  "template": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nimport turtle as ___(1)___\nfor i in range(___(2)___):\n    ___(3)___(i*120)\n    t.fd(200)",
+  "reference": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nimport turtle as t\nfor i in range(3):\n    t.seth(i*120)\n    t.fd(200)",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0061",
+  "category": "简单应用",
+  "stem": "使用turtle库的turtle.fd()函数和turtle.seth()函数绘制一个边长为100的正八边形，在考生文件夹下给出了程序框架文件PY201.py，在横线处补充代码，不得修改其它代码。效果如下图所示。",
+  "template": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nimport turtle\nturtle.pensize(2)\nd = 0\nfor i in range(1, ______(1)______):\n    ______(2)______\n    d += ______(3)______\n    turtle.seth(d)",
+  "reference": "# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nimport turtle\nturtle.pensize(2)\nd = 0\nfor i in range(1, 9):\n    turtle.fd(100)\n    d += 360/8\n    turtle.seth(d)",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0062",
+  "category": "简单应用",
+  "stem": "使用字典和列表型变量完成村长选举。某村有40名有选举权和被选举权的村民，名单由考生文件夹下文件name.txt给出，从这40名村民中选出一人当村长，40人的投票信息由考生文件夹下文件vote.txt给出，每行是一张选票的信息，有效票中得票最多的村民当选。问题一：请从vote.txt中筛选出无效票写入文件vote1.txt。有效票的含义是：选票中只有一个名字且该名字在name.txt文件列表中，不是有效票的票称为无效票。问题二：给出当选村长的名字及其得票数。在考生文件夹下给出了程序框架文件PY202.py，补充代码完成程序",
+  "template": "'''\n'''\nf=open(\"name.txt\")\nnames=f.readlines()\nf.close()\nf=open(\"vote.txt\")\nvotes=f.readlines()\nf.close()\nf.close()\nf=open(\"vote1.txt\",\"w\")\nD={}\nNUM=0\nfor vote in _______(1)________:\n    num = len(vote.split())\n    if num==1 and vote in _______(2)________:\n        D[vote[:-1]]=_______(3)________+1\n        NUM+=1\n    else:\n        f.write(_______(4)________)\nf.close()        \nl=list(D.items())\nl.sort(key=lambda s:s[1],_______(5)________)\nname=____(6)____\nscore=____(7)____\nprint(\"有效票数为：{} 当选村长村民为:{},票数为：{}\".format(NUM,name,score))",
+  "reference": "'''\n'''\nf=open(\"name.txt\")\nnames=f.readlines()\nf.close()\nf=open(\"vote.txt\")\nvotes=f.readlines()\nf.close()\nf.close()\nf=open(\"vote1.txt\",\"w\")\nD={} # 写入\nNUM=0\nfor vote in votes:\n    num = len(vote.split())\n    if num==1 and vote in names:\n        D[vote[:-1]]=D.get(vote[:-1],0)+1\n        NUM+=1\n    else:\n        f.write(vote)\nf.close()        \nl=list(D.items())\nl.sort(key=lambda s:s[1],reverse = True)\nname=l[0][0]\nscore=l[0][1]\nprint(\"有效票数为：{} 当选村长村民为:{},票数为：{}\".format(NUM,name,score))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0063",
+  "category": "简单应用",
+  "stem": "使用turtle库的turtle.fd()函数和turtle.seth()函数绘制一个边长为100的正五边形，在考生文件夹下给出了程序框架文件PY201.py，在横线处补充代码，不得修改其它代码。效果如下图所示。",
+  "template": "# 请在______处使用一行或多行代码替换\n#\n# 注意：请不要修改其他已给出代码\nimport turtle\nturtle.pensize(2)\nd = 0\nfor i in range(1, ______(1)________):\n    ______(2)________\n    d += ______(3)________\n    turtle.seth(d)",
+  "reference": "# 请在______处使用一行或多行代码替换\n#\n# 注意：请不要修改其他已给出代码\nimport turtle\nturtle.pensize(2)\nd = 0\nfor i in range(1, 6):\n    turtle.fd(100)\n    d += 360/5\n    turtle.seth(d)",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0064",
+  "category": "简单应用",
+  "stem": "使用字典和列表型变量完成最有人气的明星的投票数据分析。投票信息由考生文件夹下文件vote.txt给出，一行只有一个明星姓名的投票才是有效票。有效票中得票最多的明星当选最有人气的明星。问题一：请统计有效票张数。在考生文件夹下给出了程序框架文件 PY202-1.py，补充代码完成程序（7分）问题二：请给出当选最有人气明星的姓名和票数，在考生文件夹下给出了程序框架文件 PY202-2.py，补充代码完成程序（8分）。",
+  "template": "py201.py\n# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nf = open(\"vote.txt\")\nnames = f.readlines()\nf.close()\nn = 0\nfor name in _______(1)_________:\n    num = _______(2)_________\n    if _______(3)________:\n        n+=__(4)____\nprint(\"有效票{}张\".format(n))\npy202.py\n# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nf = open(\"vote.txt\")\nnames = f.readlines()\nf.close()\nD = {}\nfor name in _______(1)_________:\n    if len(_____(2)______)==1:\n        D[name[:-1]]=_______(3)_________ + 1\nl = list(D.items())\nl.sort(key=lambda s:s[1],_______(4)_________)\nname = l[0][0]\nscore = l[0][1]\nprint(\"最具人气明星为:{},票数为：{}\".format(name,score))",
+  "reference": "py201.py\n# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nf = open(\"vote.txt\")\nnames = f.readlines()\nf.close()\nn = 0\nfor name in names:\n    num = len(name.split())\n    if num == 1:\n        n+= 1\nprint(\"有效票{}张\".format(n))\npy202.py\n# 请在______处使用一行代码或表达式替换\n#\n# 注意：请不要修改其他已给出代码\nf = open(\"vote.txt\")\nnames = f.readlines()\nf.close()\nD = {}\nfor name in names:\n    if len(name.split())==1:\n        D[name[:-1]]=D.get(name[:-1],0) + 1\nl = list(D.items())\nl.sort(key=lambda s:s[1],reverse = True)\nname = l[0][0]\nscore = l[0][1]\nprint(\"最具人气明星为:{},票数为：{}\".format(name,score))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0065",
+  "category": "简单应用",
+  "stem": "使用turtle库的turtle.fd()函数和turtle.seth()函数绘制一个边长为40像素的正12边型，在考生目录下给出了程序框架文件PY201.py，在横线处补充代码，不得修改其它代码。效果如下图所示。",
+  "template": "#301，请在空格处补充代码\nimport turtle\nturtle.pensize(2)\nd=0\nfor i in range(1, _______(1)_________):\n    _______(2)_________\n    d += _______(3)_________\n    turtle.seth(d)",
+  "reference": "#301，请在空格处补充代码\nimport turtle\nturtle.pensize(2)\nd=0\nfor i in range(1, 13):\n    turtle.fd(40)\n    d += 360/12\n    turtle.seth(d)",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0066",
+  "category": "简单应用",
+  "stem": "计算两个列表ls和lt对应元素乘积的和（即向量积），补充PY202.py文件。ls = [111, 222, 333, 444, 555, 666, 777, 888, 999]　lt = [999, 777, 555, 333, 111, 888, 666, 444, 222]",
+  "template": "#请补充若干行代码，完成向量积运算\nls = [111, 222, 333, 444, 555, 666, 777, 888, 999]\nlt = [999, 777, 555, 333, 111, 888, 666, 444, 222]\ns = 0\n________________\nprint(s)",
+  "reference": "#请补充若干行代码，完成向量积运算\nls = [111, 222, 333, 444, 555, 666, 777, 888, 999]\nlt = [999, 777, 555, 333, 111, 888, 666, 444, 222]\ns = 0\nfor i in range(len(ls)):\n    s += (ls[i] * lt[i])\nprint(s)",
+  "expectedOutput": "2402595",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0067",
+  "category": "简单应用",
+  "stem": "使用turtle库的turtle.fd()函数和turtle.left()函数绘制一个边长为200像素的正方形及一个紧挨四个顶点的圆形，在考生目录下给出了程序框架文件PY201.py，在横线处补充代码，不得修改其它代码。效果如下图所示。",
+  "template": "'''\n在横线处补充代码，不得修改其它代码\n'''\n#PY201.py\nimport turtle\nturtle.pensize(2)\nfor i in range(_______(1)_________):\n    turtle.fd(200)\n    turtle.left(90)\nturtle.left(_______(2)_________)\nturtle.circle(_______(3)_________*pow(2,0.5))",
+  "reference": "'''\n在横线处补充代码，不得修改其它代码\n'''\n#PY201.py\nimport turtle\nturtle.pensize(2)\nfor i in range(4):\n    turtle.fd(200)\n    turtle.left(90)\nturtle.left(360-45)\nturtle.circle(100*pow(2,0.5))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0068",
+  "category": "简单应用",
+  "stem": "获得用户的非数字输入，如果输入中存在数字，则要求用户重新输入，直至满足条件为止，并输出用户输入字符的个数，完善PY202.py文件中的代码。",
+  "template": "#请完善如下代码\n#在....处填写多行代码，不得修改其他代码\n#PY202.py\nwhile True:\n    s = input(\"请输入不带数字的文本:\")\n    ...\nprint(len(s))",
+  "reference": "#请完善如下代码\n#在....处填写多行代码，不得修改其他代码\n#PY202.py\nwhile True:\n    s = input(\"请输入不带数字的文本:\")\n    i = 0\n    for num in s:\n        if '0' <= num <= '9':\n            i += 1\n    if i == 0:\n        break\nprint(len(s))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0069",
+  "category": "简单应用",
+  "stem": "在考生文件夹下有个文件PY201.py，在横线处填写代码，完成如下功能。根据列表中保存的数据采用turtle库画图直方图，显示输出在屏幕上，效果如下图所示。ls = [69, 292, 33,131, 61, 254]",
+  "template": "#\n# 在____________上补充代码\n# 请不要修改其他代码\n#\n____________\nls = [69, 292, 33, 131, 61, 254]\nX_len = 400\nY_len = 300\nx0 = -200\ny0 = -100\nt.penup()\nt.goto(x0, y0)\nt.pendown()\nt.fd(X_len)\nt.fd(-X_len)\nt.seth(____________)\nt.fd(Y_len)\nt.pencolor('red')\nt.pensize(5)\nfor i in range(len(ls)):\n    t.____________\n    t.goto(x0 + (i+1)*50, ____________)\n    t.seth(90)\n    t.pendown()\n    t.fd(____________)\nt.done()",
+  "reference": "#\n# 在____________上补充代码\n# 请不要修改其他代码\n#\nimport turtle as t\nls = [69, 292, 33, 131, 61, 254]\nX_len = 400\nY_len = 300\nx0 = -200\ny0 = -100\nt.penup()\nt.goto(x0, y0)\nt.pendown()\nt.fd(X_len)\nt.fd(-X_len)\nt.seth(90)\nt.fd(Y_len)\nt.pencolor('red')\nt.pensize(5)\nfor i in range(len(ls)):\n    t.penup()\n    t.goto(x0 + (i+1)*50, y0)\n    t.seth(90)\n    t.pendown()\n    t.fd(ls[i])\nt.done()",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0070",
+  "category": "简单应用",
+  "stem": "在考生文件夹下有个文件PY202.py，在省略号处填写一行或多行代码，完成如下功能。在已定义好的字典pdict里有一些人名及其电话号码。请用户输入一个人的姓名，在字典中查找该用户的信息，如果找到，生成一个四位数字的验证码，并将名字、电话号码和验证码输出在屏幕上，如示例所示。如果查找不到该用户信息，则显示“对不起，您输入的用户信息不存在。”示例如下：输入：Bob　输出：Bob 234567891 1926　输入：bob　输出：对不起，您输入的用户信息不存在。",
+  "template": "#\n# 在......上补充一行或多行代码\n# 不得修改其他代码\n#\nimport random\nrandom.seed(2)\npdict= {'Alice':['123456789'],\n        'Bob':['234567891'],\n        'Lily':['345678912'],\n        'Jane':['456789123']}\nname = input('请输入一个人名:')\n......",
+  "reference": "#\n# 在......上补充一行或多行代码\n# 不得修改其他代码\n#\nimport random\nrandom.seed(2)\npdict= {'Alice':['123456789'],\n        'Bob':['234567891'],\n        'Lily':['345678912'],\n        'Jane':['456789123']}\nname = input('请输入一个人名:')\nif name in pdict:\n    print(\"{} {} {}\".format(name,pdict.get(name)[0],random.randint(1000,9999)))\nelse:\n    print(\"对不起，您输入的用户信息不存在。\")",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0071",
+  "category": "简单应用",
+  "stem": "在考生文件夹下有个文件PY201.py，在横线处填写代码，完成如下功能。利用random库和turtle库，在屏幕上绘制5个圆圈，圆圈的半径和圆心的坐标由randint()函数产生，圆心的X和Y坐标范围在[-100,100]之间；半径的大小范围在[20,50]之间，圆圈的颜色随机在color列表里选择。效果如下图所示。",
+  "template": "#\n# 在____________上补充代码\n# 请不要修改其他代码\n#\n____________\nimport random as r\ncolor = ['red','orange','blue','green','purple']\nr.seed(1)\nfor i in range(5):\n    rad = r.____________\n    x0 = r.____________\n    y0 = r.randint(-100,100)\n    t.color(r.choice(color))\n    t.penup()\n    t.____________\n    t.pendown()\n    t.____________(rad)\nt.done()",
+  "reference": "#\n# 在____________上补充代码\n# 请不要修改其他代码\n#\nimport turtle as t\nimport random as r\ncolor = ['red','orange','blue','green','purple']\nr.seed(1)\nfor i in range(5):\n    rad = r.randint(20,50)\n    x0 = r.randint(-100,100)\n    y0 = r.randint(-100,100)\n    t.color(r.choice(color))\n    t.penup()\n    t.goto(x0, y0)\n    t.pendown()\n    t.circle(rad)\nt.done()",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0072",
+  "category": "简单应用",
+  "stem": "在考生文件夹下有个文件PY202.py，定义了一个6个浮点数的一维列表lt1和一个包含3个数的一维列表lt2。示例如下：lt1 = [0.69, 0.292, 0.33, 0.131, 0.61, 0.254]　lt2 = [0.1, 0.8, 0.2]。在横线处填写代码，完成如下功能。计算lt1列表跟lt2列表的向量内积，两个向量X=[x1, x2, x3]和Y=[y1, y2, y3]的内积计算公式如下：k = x1 * y1 + x2 * y2 + x3 * y3。将每次计算的两组对应元素的值、以及对应元素乘积的累计和k的值显示在屏幕上，格式如下所示。第一步计算第一个k,分为3次累计 lt2[0]* lt1[0+0], lt2[1]* lt1[0+1], lt2[2]*lt1[0+2]的和。k=0.069 ,filter[0]=0.100 ,img[0+0]=0.690 / k=0.303 ,filter[1]=0.800 ,img[0+1]=0.292 / k=0.369 ,filter[2]=0.200 ,img[0+2]=0.330 …（略）",
+  "template": "#请在.....处填写多行表达式或语句\n#不得修改其他代码\nimg = [0.244, 0.832, 0.903, 0.145, 0.26, 0.452]\nfilter = [0.1,0.8,0.1]\nres = []\nfor i in range(len(img)-2):\n    ...\n    res.append(k)\nfor r in res:\n    print('{:<10.3f}'.format(r),end = '')",
+  "reference": "#请在.....处填写多行表达式或语句\n#不得修改其他代码\nimg = [0.244, 0.832, 0.903, 0.145, 0.26, 0.452]\nfilter = [0.1,0.8,0.1]\nres = []\nfor i in range(len(img)-2):\n    k = 0\n    for j in range(3):\n        k += filter[j]*img[i+j]\n        print('k={:<10.3f},filter[{}]={:<10.3f},img[{}+{}]={:<10.3f}'.format(k,j,filter[j],i,j,img[i+j]))\n    res.append(k)\nfor r in res:\n    print('{:<10.3f}'.format(r),end = '')",
+  "expectedOutput": "k=0.024     ,filter[0]=0.100     ,img[0+0]=0.244     \nk=0.690     ,filter[1]=0.800     ,img[0+1]=0.832     \nk=0.780     ,filter[2]=0.100     ,img[0+2]=0.903     \nk=0.083     ,filter[0]=0.100     ,img[1+0]=0.832     \nk=0.806     ,filter[1]=0.800     ,img[1+1]=0.903     \nk=0.820     ,filter[2]=0.100     ,img[1+2]=0.145     \nk=0.090     ,filter[0]=0.100     ,img[2+0]=0.903     \nk=0.206     ,filter[1]=0.800     ,img[2+1]=0.145     \nk=0.232     ,filter[2]=0.100     ,img[2+2]=0.260     \nk=0.014     ,filter[0]=0.100     ,img[3+0]=0.145     \nk=0.223     ,filter[1]=0.800     ,img[3+1]=0.260     \nk=0.268     ,filter[2]=0.100     ,img[3+2]=0.452     \n0.780     0.820     0.232     0.268",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0073",
+  "category": "简单应用",
+  "stem": "在考生文件夹下有个文件PY201.py，在横线处填写代码，完成如下功能。利用random库和turtle库，在屏幕上绘制4个小雪花，雪花的中心点坐标由列表points给出，雪花的半径长度由randint()函数产生。雪花的颜色是红色。效果如下图所示。",
+  "template": "#\n# 在____________上补充代码\n# 请不要修改其他代码\n#\nimport turtle as t\nimport random as r\nr.seed(1)\nt.pensize(2)\nt.____________('red')\nangles = 6\npoints= [[0,0],[50,40],[70,80],[-40,30]]\nfor i in range(____________):\n    x0,y0 = points[i]\n    t.penup()\n    t.goto(____________)\n    t.pendown()\n    length = r.randint(6, 16)\n    for j in range(angles):\n        t.____________(length)\n        t.____________(length)\n        t.right(360 / angles)\nt.done()",
+  "reference": "#\n# 在____________上补充代码\n# 请不要修改其他代码\n#\nimport turtle as t\nimport random as r\nr.seed(1)\nt.pensize(2)\nt.pencolor('red')\nangles = 6\npoints= [[0,0],[50,40],[70,80],[-40,30]]\nfor i in range(4):\n    x0,y0 = points[i]\n    t.penup()\n    t.goto(x0, y0)\n    t.pendown()\n    length = r.randint(6, 16)\n    for j in range(angles):\n        t.fd(length)\n        t.backward(length)\n        t.right(360 / angles)\nt.done()",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0074",
+  "category": "简单应用",
+  "stem": "在考生文件夹下有个文件data202.txt，为QS全球大学排名前20名的学校的模拟数据。同时，在考生文件夹下有个文件PY202.py，在省略号处填写一行或多行代码，完成如下功能。程序读取data202.csv文件内容，统计出现的国家个数以及每个国家上榜大学的数量及名称，输出结果格式示例如下：英国:　5 : 牛津大学 剑桥大学 帝国理工学院 伦敦大学学院 爱丁堡大学 / 瑞士:　1 : 苏黎世联邦理工学院 / …",
+  "template": "#\n# 在......上补充一行或多行代码\n# 在____________上补充一行代码\n# 可以修改代码\n#\nf = open('data202.csv','r')\nd={}\nfor line in f.readlines():\n    ......\n    d[country]=d.get(country,[])\n    d[country].append(university)\nfor country in d.keys():\n    print('{:>4}: {:>4} : {}'.format(country,len(d[country]),' '.join(d[country])))",
+  "reference": "#\n# 在......上补充一行或多行代码\n# 在____________上补充一行代码\n# 可以修改代码\n#\nf = open('data202.txt','r')\nschool = []\ncountry = []\nfor line in f:\n    lines = line.strip('\\n').split(\",\")\n    if lines != ['']:\n        school.append(lines[1:3]) # 构建学校列表\n        country.append(lines[-1]) # 构建国家列表\n        \ncountry = list(set(country)) # 列表去重复\nunis = []\nfor i in country:\n    n = 0\n    schools = []\n    result = []\n    for k in school:\n        if k[1] == i:\n            n += 1\n            schools.append(k[0])\n    result = [i, n, schools]\n    unis.append(result)\nfor d in unis:\n    print('{:>4}: {:>4} : {}'.format(d[0],d[1],''.join(d[2])))\n          \nf.close()",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0075",
+  "category": "简单应用",
+  "stem": "在考生文件夹下有个文件PY201.py，在横线处填写代码，完成如下功能。利用random库和turtle库，在屏幕上绘制3个黑色的正方形，正方形的左下角点坐标和正方形边长由randint()函数产生，参数在代码中给出。效果如下图所示。",
+  "template": "#\n# 在____________上补充代码\n# 请不要修改其他代码\n#\nimport turtle as t\nimport random as r\nr.seed(1)\nt.pensize(2)\nfor i in range(3):\n    length = r.____________(20,80)\n    x0 = r.randint(-100, 100)\n    y0 = r.randint(-100, 100)\n    t.penup()\n    t.goto(____________)\n    t.____________\n    for j in range(4):\n        t.____________(length)\n        t.____________(90*(j+1))\nt.done()",
+  "reference": "#\n# 在____________上补充代码\n# 请不要修改其他代码\n#\nimport turtle as t\nimport random as r\nr.seed(1)\nt.pensize(2)\nfor i in range(3):\n    length = r.randint(20,80)\n    x0 = r.randint(-100, 100)\n    y0 = r.randint(-100, 100)\n    t.penup()\n    t.goto(x0, y0)\n    t.pendown()\n    for j in range(4):\n        t.fd(length)\n        t.seth(90*(j+1))\nt.done()",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0076",
+  "category": "简单应用",
+  "stem": "在考生文件夹下有个文件data202.csv，记录了软件执行过程中发生操作的信息，每行记录一个操作，每个操作包含3列信息，第1列是操作的名称，第2列是执行该操作所消耗的时间，单位是秒，第3列是这个操作的时间占全部操作时间的百分比，各列之间用英文逗号隔开。如下所示：starting, 0.000037, 2.102 / After opening tables, 0.000008, 0.455 / System lock, 0.000004, 0.227 / Table lock, 0.000008, 0.455 / …（略）。请在py202.py中编写代码替换横线，可以修改其他代码，实现下面功能：读取data202.txt文件的内容，统计所有操作消耗时间的总和，并显示输出操作时间百分比最多的三个操作的名称及其百分比，格式示例如下（非真实答案）：the total execute time is 0.0017 / the top 0 percentage time is 46.023, spent in \"Filling schema table\" operation …（略）",
+  "template": "#请在......处填写一行或多行表达式或语句\n#可以修改其他代码\nsumtime = 0\npercls = []\nts = {}\nf = open('data202.txt', 'r') \n        ......\nprint('the total execute time is', sumtime)\ntns = list(ts.items())\ntns.sort(key=lambda x: x[1], reverse=True)\nfor i in range(3):\n    print('the top {} percentage time is {}, spent in \"{}\" operation'.format(i, tns[i][1],tns[i][0]))",
+  "reference": "#请在.....处填写多行表达式或语句\n#请在_____处填写一行表达式或代码\n#不得修改其他代码\nsumtime = 0\npercls = []\nts = {}\nwith open('out.txt', 'r') as f:\n    for line in f.readlines():\n        line = line.strip('\\n').split(',')\n        sumtime += eval(line[1])\n        ts[line[0]] = line[2]\n    \nprint('the total execute time is ', sumtime)\ntns = list(ts.items())\ntns.sort(key=lambda x: x[1], reverse=True)\nfor i in range(3):\n    print('the top {} percentage time is {}, spent in \"{}\" operation'.format(i, tns[i][1],tns[i][0]))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0077",
+  "category": "简单应用",
+  "stem": "在考生文件夹下有个文件PY201.py，在横线处填写代码，不修改其他代码，实现下面功能：使用turtle库绘制三个彩色的圆，圆的颜色按顺序从颜色列表color中获取，圆的圆心位于(0, 0)坐标处，半径从里至外分别是10像素，30像素，60像素。效果如下图所示。",
+  "template": "#\n# 在____________上补充代码\n#\nimport turtle as t\ncolor = ['red','green','blue']\nrs = [10,30,60]\nfor i in range(___(1)___):\n    t.penup()\n    t.goto(0, ___(2)___)\n    t. ___(3)___\n    t.pencolor(___(4)___)\n    t.circle(___(5)___)\nt.done()",
+  "reference": "#\n# 在____________上补充代码\n#\nimport turtle as t\ncolor = ['red','green','blue']\nrs = [10,30,60]\nfor i in range(3):\n    t.penup()\n    t.goto(0, -(rs[i]-rs[0]))\n    t.pendown()\n    t.pencolor(color[i])\n    t.circle(rs[i])\nt.done()",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0078",
+  "category": "简单应用",
+  "stem": "在考生文件夹下有个文件PY202.py，请编写代码替换省略号，完成如下功能。接受用户从键盘输入一段由多条句子组成的文本，每句用中文逗号或句号分隔，最后一句用中文句号结尾。(1) 用jieba库的精确模式对输入的文本分词，先将分词后的词语去掉标点符号，然后将剩余词语用“/”连接成1个字符串，并将结果打印输出到屏幕上。(2) 统计除标点符号以外的所有词语的个数，并将统计结果输出到屏幕上。示例如下（其中数据仅用于示意）：输入：这是一个美好的夜晚，天空中点缀着点点繁星，空气中弥漫着清香。输出：这是/一个/美好/的/夜晚/天空/中/点缀着/点点/繁星/空气/中/弥漫着/清香/ / 非标点符号的中文词语个数是14",
+  "template": "#\n# 在……上补充一行或多行代码\n# 可以修改其他代码\n#\nimport jieba\ns = input(\"请输入一段中文文本，句子之间以逗号分隔：\")\n……\nfor word in slst:\n   if word not in ['，','。']:\n     ……\nprint(wordstr)\n……",
+  "reference": "#\n# 在……上补充一行或多行代码\n# 可以修改其他代码\n#\nimport jieba\ns = input(\"请输入一段中文文本，句子之间以逗号分隔：\")\nslst = jieba.lcut(s)\nwordstr = \"\"\nnum = 0\nfor word in slst:\n   if word not in ['，','。']:\n      wordstr = wordstr + word + \"/\"\n      num += 1\nprint(wordstr)\nprint(\"非标点符号的中文词语个数是\"+str(num))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0079",
+  "category": "简单应用",
+  "stem": "在考生文件夹下存在一个Python源文件PY201.py，请编写代码替换横线，不修改其他代码，实现以下功能：使用turtle库函数绘制4个等距排列的正方形，边长为40像素，间距宽度为40。最左边的正方形左上角坐标为(0, 0)。效果如下图所示。",
+  "template": "import turtle\nn = __(1)__\nfor j in range(n):\n    turtle. __(2)__\n    for i in range(4):\n        turtle. __(3)__\n        turtle.right(__(4)__)\n    turtle.penup()\n    turtle.fd(__(5)__)\nturtle.done()",
+  "reference": "import turtle\nn = 4\nfor j in range(n):\n    turtle.pendown()\n    for i in range(4):\n        turtle.fd(40)\n        turtle.right(90)\n    turtle.penup()\n    turtle.fd(80)\nturtle.done()",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0080",
+  "category": "简单应用",
+  "stem": "在考生文件夹下存在一个python源文件PY202.py，请编写代码替换省略号，不可以修改已有代码，实现以下功能：(1) 定义一个列表persons，里面有一些名字字符串；(2) 在该列表中查找用户输入的一个名字字符串；如果找到，则生成一个四位数字的随机数组成的验证码，输出找到的名字字符串和验证码；如果找不到该字符串，则输出提示信息“对不起，您输入的名字不存在。”；如果用户输入一个字母‘q’，则退出程序；(3) 显示提示信息后，再次显示“请输入一个名字：”，提示用户输入，重复执行步骤2；执行3次后自动退出程序。示例如下（其中数据仅用于示意）：输入：Alice　输出：Alice 1001　输入：bob　输出：对不起，您输入的名字不存在。　输入：q　程序自动退出",
+  "template": "#\n# 在……上补充一行或多行代码，不得修改其他代码\n#\nimport random as r\nr.seed(0)\npersons = ['Aele', 'Bob','lala', 'baicai']\nflag = 3\nwhile flag>0:\n    flag -= 1\n    ……\n        print('{} {}'.format(name, num))\n    ……\n        print('对不起，您输入的名字不存在。')",
+  "reference": "#\n# 在……上补充一行或多行代码，不得修改其他代码\n#\nimport random as r\nr.seed(0)\npersons = ['Aele', 'Bob','lala', 'baicai']\nflag = 3\nwhile flag>0:\n    flag -= 1\n    name = input(\"请输入一个名字：\")\n    if name in persons:\n        num = r.randint(1000,9999)\n        print('{} {}'.format(name, num))\n    elif name == 'q':\n        break\n    elif name not in persons:\n        print('对不起，您输入的名字不存在。')",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0081",
+  "category": "简单应用",
+  "stem": "在考生文件夹下存在一个Python源文件PY201.py。请编写代码替换横线，不修改其他代码，实现下面功能：(1) 使用turtle库和random库，在屏幕上绘制5个彩色的圆；(2) 圆的颜色随机从颜色列表color中获取；(3) 圆的圆心坐标x和y值从范围[-100, 100]之间选取，半径从范围[10, 30]之间选取。效果如下图所示。",
+  "template": "import turtle as t\nimport random as r\ncolor = ['red','green','blue','purple','black']\nr.seed(1)\nfor j in range(__(1)__):\n    t.pencolor(color[r. __(2)__])\n    t.penup()\n    t.goto(__(3)__)\n    t. __(4)__\n    t.circle(__(5)__)\nt.done()",
+  "reference": "import turtle as t\nimport random as r\ncolor = ['red','green','blue','purple','black']\nr.seed(1)\nfor j in range(5):\n    t.pencolor(color[r.randint(0,4)])\n    t.penup()\n    t.goto(r.randint(-100,100),r.randint(-100,100))\n    t.pendown()\n    t.circle(r.randint(10,30))\nt.done()",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0082",
+  "category": "简单应用",
+  "stem": "在考生文件夹下存在一个Python源文件py202.py。请编写代码替换省略号，可修改其他代码，实现下面功能：(1) 获取用户输入的一段文本，包含但不限于中文字符、中文标点符号及其他字符；(2) 用jieba库的精确模式分词，统计分词后中文词语词频，具体为：将字符长度大于等于2的词语及其词频写入文件result202.txt，每行一个词语，词语和词频之间用冒号分隔。示例如下（其中数据仅用于示意）：输入：借助平台优势，宣传推广相应产品，并为技术从业者提供更多学习、交流、探讨的机会，从而促进技术交流、企业互通、人才培养，促进技术的发展。输出：借助:1 平台:1 优势:1 宣传:1 推广:1 相应:1 产品:1 技术:3 从业者:1 …（略）",
+  "template": "#\n# 在……上补充一行或多行代码\n#\nimport jieba\ns = input(\"请输入一个中文字符串，包含逗号和句号：\\n\")\n……\nfo = open(\"result202.txt\",\"w\",encoding='utf-8')\n……\nfo.close()",
+  "reference": "#\n# 在……上补充一行或多行代码\n#\nimport jieba\ns = input(\"请输入一个中文字符串，包含逗号和句号：\\n\")\nwords = jieba.lcut(s)\nd = {}\nfor i in words:\n    if len(i) >= 2:\n        d[i] = d.get(i, 0) + 1\nlt = list(d.items())\nfo = open(\"result202.txt\",\"w\",encoding='utf-8')\nfor i in lt:\n    fo.write(\"{}:{}\".format(i[0],i[1]))\nfo.close()",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0083",
+  "category": "简单应用",
+  "stem": "在考生文件夹下存在一个Python源文件PY201.py，请写代码替换横线，不修改其他代码，实现下面功能：使用turtle库和random库，绘制四个彩色的正方形，正方形颜色随机从颜色列表color中获取；正方形边长从范围[50, 200]之间选取，每个正方形左下角坐标x和y从范围[-100, 100]之间选取。示例如下：",
+  "template": "# 在____________上补充代码 （12根短线）\n#\nimport turtle as t\n_______（1）______\ncolor = ['red','blue','purple','black']\nr.seed(1)\nfor j in range(4):\n    t.pencolor(color[_______（2）______])\n    t.penup()\n    t.goto(r.randint(-100,100), _______（3）______)\n    t.pendown()\n    ra = r.randint(50, 200)\n    for i in range(_______（4）______):\n        t.fd(_______（5）______)\n        t.seth(90*i)\nt.done()",
+  "reference": "# 在____________上补充代码 （12根短线）\n#\nimport turtle as t\nimport random as r\ncolor = ['red','blue','purple','black']\nr.seed(1)\nfor j in range(4):\n    t.pencolor(color[r.randint(0,3)])\n    t.penup()\n    t.goto(r.randint(-100,100), r.randint(-100,100))\n    t.pendown()\n    ra = r.randint(50, 200)\n    for i in range(1,5):\n        t.fd(ra)\n        t.seth(90*i)\nt.done()",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0084",
+  "category": "简单应用",
+  "stem": "在考生文件夹下存在一个Python源文件PY202.py，请写代码替换横线，可修改其他代码，实现下面功能：文件PY202.py里定义了一个字符串dela='-;:,.()\"<>'，包含了需要去除的字符。获取用户输入的文本，去除字符串dela中的字符，用jieba精准分词后，输出统计并输出其中词语的个数。示例如下：输入：请-参-考\"论语-原文-输出示例.txt\"文-件　输出：替换之后是：请参考论语原文输出示例txt文件　里面有8个词语。此外，模板程序还将输出其他一些调试信息，请保留并按照提示给出相应输出，作为调试辅助。",
+  "template": "# 在____________上补充代码 （12根短线）\n#请在.....处填写多行表达式或语句\n#可以修改其他代码\n#\n# 在……上补充一行或多行代码 （6个点）\n#\nimport jieba\ndela = '-;:,.()\"<>'\ns = input(\"请输入一句话:\")\n……\nprint(\"替换之后是:{}\".format(____________))\n……\nprint(\"里面有{}个词语。\".format(____________))",
+  "reference": "# 在____________上补充代码 （12根短线）\n#请在.....处填写多行表达式或语句\n#可以修改其他代码\n#\n# 在……上补充一行或多行代码 （6个点）\n#\nimport jieba\ndela = '-;:,.()\"<>'\ns = input(\"请输入一句话:\")\nprint(\"\\n这句话是:{}\".format(s))\nnew = \"\"\nfor i in s:\n    if i in dela:\n        i = \"\"\n    new = new + i\nwordlists = jieba.lcut(new)\nprint(\"替换之后是:{}\".format(new))\nprint(\"里面有 {}个词语。\".format(len(wordlists)))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0085",
+  "category": "简单应用",
+  "stem": "考生文件夹下存在一个Python源文件PY201.py，请编写代码替换横线，不修改其他代码，实现下面功能：使用turtle库，在屏幕上绘制正方形及其内接圆形。其中，正方形左下角坐标为(0, 0)，边长为黑色，长度200像素，线宽1像素；内切圆为绿色，线宽5像素，内部以红色填充。示例如下：",
+  "template": "# 请在______处补充一行代码\n# 请不要修改其他代码\nimport turtle as t\nfor i in range(4):\n    (1) _____________________\n    t.left(90)\nt.penup()\n(2)___________________\nt.pendown()\n(3)___________________\nt.pensize(5)\nt.begin_fill()\n(4)_________________\n(5)_________________\nt.done()",
+  "reference": "# 请在______处补充一行代码\n# 请不要修改其他代码\nimport turtle as t\nfor i in range(4):\n    t.forward(200)\n    t.left(90)\nt.penup()\nt.goto(100,0)\nt.pendown()\nt.color(\"green\",\"red\")\nt.pensize(5)\nt.begin_fill()\nt.circle(100)\nt.end_fill()# 补充\nt.done()",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0086",
+  "category": "简单应用",
+  "stem": "在考生文件夹下存在一个Python源文件py201.py，请编写代码替换横线，不修改其他代码，实现下面功能：（飘逸的发丝）使用turtle库和random库，在屏幕上绘制4条起点为(0, 200)的波浪线，每条波浪线由3对上下相连的半圆弧连接而成，半径为40个像素，波浪线的颜色从模板代码里给出的颜色列表color中随机选择；波浪线起点的角度是[30, 180]范围内的随机整数。示例如下：",
+  "template": "#在____________上补充代码\n#不要修改其他代码\nimport random as r\nimport turtle as t\ndef drawSnake(_______（1）______):\n    t.penup()\n    t.goto(0,200)\n    t.pendown()\n    t.seth(-1*angl)\n    for i in range(length):\n        t.circle(_______（2）______, angl)\n        t.circle(-radius, angl)\nlength, radius = 3, 40\nr.seed(1)\ncolor = ['red','blue','purple','black']\nfor i in range(_______（3）______):\n    t.pencolor(r. _______（4）______ (color))\n    angl = r. _______（5）______ (30, 180)\n    drawSnake(angl)\nt.done()",
+  "reference": "#在____________上补充代码\n#不要修改其他代码\nimport random as r\nimport turtle as t\ndef drawSnake(angl):\n    t.penup()\n    t.goto(0,200)\n    t.pendown()\n    t.seth(-1*angl)\n    for i in range(length):\n        t.circle(radius, angl)\n        t.circle(-radius, angl)\nlength, radius = 3, 40\nr.seed(1)\ncolor = ['red','blue','purple','black']\nfor i in range(4):\n    t.pencolor(r.choice(color))\n    angl = r.randint(30, 180)\n    drawSnake(angl)\nt.done()",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0087",
+  "category": "简单应用",
+  "stem": "在考生文件夹下存在一个Python源文件py202.py，请编写代码替换横线，可修改其他代码，实现下面功能：考生文件夹下有1个文本文件，data202.txt里只有一行数据，包含所有学生的考号、姓名、考分，没有重复学号。学生之间用英文分号隔开，一个学生的三个数据之间用英文逗号隔开。100435,张三,98;100431,李四,86;…（略）。读取文件，统计一共有多少学生，显示输出最高分和最低分以及学生的姓名，中间以中文冒号隔开；如果分数相同，则输出多个学生姓名，姓名之间用英文逗号隔开，格式示例如下（非真实结果）：一共有20个学生　最高分：98：张三　最低分：80：王红,李四",
+  "template": "#\n# 在____________上补充代码\n# 在……上补充一行或多行代码\n# 可以修改其他代码\n#\nfi = open(\"data202.txt\",\"r\")\n……\nprint(\"一共有{}个学生\".format(len(lls)))\n……\nprint(\"最高分：{}：{}\".format(____________))\nprint(\"最低分：{}：{}\".format(____________))",
+  "reference": "#\n# 在____________上补充代码\n# 在……上补充一行或多行代码\n# 可以修改其他代码\n#\nfi = open(\"data202.txt\",\"r\")\nlls = fi.read().split(\";\")\nprint(\"一共有{}个学生\".format(len(lls)))\nstudents = []\nfor i in lls:\n    tem = i.split(\",\")\n    students.append(tem)\nstudents.sort(key=lambda x:x[2], reverse=True)\nmax_score = students[0][2]\nmax_name = []\nfor i in students:\n    if i[2] == max_score:\n        max_name.append(i[1])\n        \nmin_score = students[-1][2]\nmin_name = []\nfor i in students:\n    if i[2] == min_score:\n        min_name.append(i[1])\n        \nprint(\"最高分：{}：{}\".format(max_score,\",\".join(max_name)))\nprint(\"最低分：{}：{}\".format(min_score,\",\".join(min_name)))",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0088",
+  "category": "简单应用",
+  "stem": "在考生文件夹下存在一个Python源文件py201.py，请编写代码替换横线，不修改其他代码，实现下面功能：已知turtle库的circle(r, steps=0)函数可以绘制多边形，其中r代表多边形的边长，steps代表多边形的边数，默认是0。使用turtle库的circle函数，在屏幕上绘制5个等距排列的五边形，边长为50像素，颜色按顺序从颜色列表color中获取。最左边的五边形最低的顶点坐标是[-200, 0]，自左到右每个五边形的最低顶点间的距离是70像素。效果如下图所示。",
+  "template": "#在____________上补充代码\n#不要修改其他代码\nimport turtle as t\ncolor = ['red','green','blue','orange','pink']\nfor i in range(_______（1）______):\n    t.penup()\n    t.goto(_______（2）______)\n    t. _______（3）______\n    t.pencolor(_______（4）______)\n    t.circle(_______（5）______, steps = 5)\nt.done()",
+  "reference": "#在____________上补充代码\n#不要修改其他代码\nimport turtle as t\ncolor = ['red','green','blue','orange','pink']\nfor i in range(5):\n    t.penup()\n    t.goto(-200+i*70,0)\n    t.pendown()\n    t.pencolor(color[i])\n    t.circle(50, steps = 5)\nt.done()",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0089",
+  "category": "简单应用",
+  "stem": "在考生文件夹下存在一个python源文件py202.py，补充修改代码，实现下面功能：主程序调用4次函数calp(c, darts)，参数c的值从1开始，每次递增1，参数darts值为同次参数c的3倍。函数calp(c, darts)的功能是：产生darts个取值范围[0, darts]的随机数，计算darts个随机数之和。显示输出参数c、darts及随机数之和，输出格式示例如下：1　　3　　3 / 2　　6　　20 / ……（略）",
+  "template": "#\n# 在____________上补充代码\n# 在……上补充一行或多行代码\n# 可以修改其他代码\n#\nimport random as r\ndef calp(c, darts):\n    ____________\n    for i in ____________:\n        p += r.randint(0, darts) \n    print(\"{:2} {:12} {:12}\".format(c, darts, p))\n#\nr.seed(1)\nfor i in range(____________):\n    ……",
+  "reference": "#\n# 在____________上补充代码\n# 在……上补充一行或多行代码\n# 可以修改其他代码\n#\nimport random as r\n    \ndef calpi(c,darts):\n    p = 0 # 随机数之和\n    # 求随机数之和\n    for i in range(darts):\n        p += r.randint(0,darts)\n    print(\"{:2}{:12}{:12}\".format(c, darts, p))\nn = 4\nDART = 3\nr.seed(1)\nfor i in range(n):\n    c = i + 1\n    darts = c * DART\n    calpi(c,darts)\n                \n                \n                \n        \n    \n  \n  \n    \n      标签\n      \n          #python\n          #windows\n          #开发语言\n      \n    \n  \n            \n                    \n                        关注博主即可阅读全文\n                        \n                    \n            \n  \n  \n   \n      \n      \n        确定要放弃本次机会？\n      \n      福利倒计时\n      \n        \n        :\n        \n        :\n        \n      \n      \n        \n          \n          立减 ¥\n          \n        \n        普通VIP年卡可用\n      \n      立即使用\n  \n    \n      \n        \n            \n              \n                \n                  大头博士先生\n                \n              \n            \n            \n                关注\n              关注\n            \n        \n        \n          \n            \n              \n                \n                \n                \n                \n                    68\n                \n              \n              点赞\n            \n            \n              \n                \n                \n                \n              \n              踩\n            \n            \n              \n                \n                \n                \n                \n                    147\n                \n              \n              \n                \n                  \n                    收藏\n                  \n                \n              \n              \n                \n                  觉得还不错?\n                  \n                    一键收藏\n                  \n                 \n                \n              \n            \n            \n              \n                \n                \n                    3\n                \n              \n              评论\n            \n            \n              \n                \n                分享\n              \n                \n                \n                  \n                    复制链接\n                  \n                  \n                    分享到 QQ\n                  \n                  \n                    分享到新浪微博\n                  \n                  \n                    \n                    \n                      扫一扫\n                    \n                  \n                \n              \n            \n          \n            \n              \n              \n            \n            \n              \n                \n                  \n                  举报\n                \n              \n              \n                \n                  \n                  举报\n                \n              \n            \n          \n        \n      \n      \n              \n                \n              \n            \n              \n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tPython二级考试题目及答案解析(含刷题软件)\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tYOLO\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t04-15\n\t\t\t\t\t\n\t\t\t\t\t1万+\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\t答案：A 解析：print()函数可以在屏幕上输出指定的字符串或变量，input()函数用于从键盘获取用户输入，int()函数可以将指定的字符串或浮点数转换为整数，float()函数可以将指定的字符串或整数转换为浮点数。答案：A 解析：int()函数可以将字符串转换为整数，float()函数可以将字符串转换为浮点数，str()函数可以将任意类型的变量转换为字符串，bool()函数可以将任意类型的变量转换为布尔值。\n\t\t\t\n\t\t\n\t\n              \n  \n    \n      \n        \n          3 条评论\n        \n        \n        写评论\n      \n    \n  \n              \n                \n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tpythone二级题库 + 刷题软件 （超详细解析，看完必过） 第七套\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t斌擎科技\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t09-24\n\t\t\t\t\t\n\t\t\t\t\t5408\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\t刷 题软件（模拟python二级考试）\n操作题刷题软件\n公众h：露露IT\n回复：python二级\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t【3月考】二级Python最新真题及满分代码合集（综合应用题部分）\n\t\t\t\t\t最新发布\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tdt18859259983的博客\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t06-22\n\t\t\t\t\t\n\t\t\t\t\t8056\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\t【代码】【3月考】二级Python最新真题及满分代码合集（综合应用题部分）\n\t\t\t\n\t\t\n\t\n\t\t\n\t\t\t\n\t\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t【电子学会】2023年03月Python二级试题\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t老马的程序人生\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t06-23\n\t\t\t\t\t\n\t\t\t\t\t9055\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\t青少年软件编程（Python）等级考试试卷（二级）分数：100 题数：37。1、下列说法正确的是？（　）【易】\nA. {123: 'a', 'a': 123}不是一个合法的字典\nB. 数字、字符串、列表和元组都可以作为字典的键\nC. {(12, 34, 'a'): 'a', 'a': 5678}是一个合法的字典\nD. 字典中的内容一经创建就不能再修改\n2、下列程序的运行结果是？（ ）【易】\nd1 = dict(age=18)\nprint(d1)\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t【计算机二级Python】综合题目\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tguanguan12319的博客\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t03-14\n\t\t\t\t\t\n\t\t\t\t\t1万+\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\t【计算机二级】综合题目\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tPython二级考试试题汇总（史上最全）\n\t\t\t\t\t热门推荐\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tweixin_43474701的博客\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t07-30\n\t\t\t\t\t\n\t\t\t\t\t15万+\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\tPython二级考试试题（一）\n以下关于程序设计语言的描述，错误的选项是：\nA\nPython语言是一种脚本编程语言\nB\n汇编语言是直接操作计算机硬件的编程语言\nC\n程序设计语言经历了机器语言、汇编语言、脚本语言三个阶段\nD\n编译和解释的区别是一次性翻译程序还是每次执行时都要翻译程序\n正确答案： C\n表达式 1001 == 0x3e7 的结果是：\nA\nfalse\nB\nFalse\nC\ntrue\nD\nTrue\n正确答案： B\n以下选项，不是Python保留字的选项是：\nA\ndel\nB\npass\nC\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tECU-TEST笔记&使用技巧01\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tEigrl的博客\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t08-27\n\t\t\t\t\t\n\t\t\t\t\t1万+\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\t说明\n1）所述均基于如下环境：ECU-TEST 8.0、Win10系统、NI Veristand 2018（HIL测试）。不排除因为版本及软件环境问题，所述方法不奏效或有更好的方法，欢迎交流，一起提高。\n2）本博客以问答形式进行，所述问题均来自于实际测试（包括MIL、HIL测试）遇到的问题及需求，目的是提高测试效率和自动化测试序列的可维护性。\n3）本博客尽量从测试方法及ECU-TEST原...\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t【3月考】二级Python最新真题及满分代码合集（基本操作题部分）\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tdt18859259983的博客\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t06-18\n\t\t\t\t\t\n\t\t\t\t\t1万+\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\t本套试题内容适配2026年3月考试配套讲解视频欢迎关注B站：大头博士先生考前押题关注微博：大头博士先生祝大家优秀拿下！！！\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tXilinx SDK工程编译、链接、调试注意事项\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tAutumn_He的博客\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t09-02\n\t\t\t\t\t\n\t\t\t\t\t1万+\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\t1、添加工程\n启动SDK时选取workspace，如下图所示：\n对应的workpace文件夹中会生成如下几个文件：\n如果当前workspace是首次加载工程，SDK会进入启动界面\n点击Import Project，导入已有工程\n点击Browse，添加工程路径，一个完整的工程包含一个bsp文件夹，一个HW文件夹，和一个src文件夹（添加C功能函数）\n点击Fini...\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t【python二级-练习题】\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tm0_66318554的博客\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t06-18\n\t\t\t\t\t\n\t\t\t\t\t1万+\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\t2、随机密码验证\n题目描述：\n代码如下：\n3、信息分配表（字典）\n题目描述：\n代码如下：\n4、全模式分词（jieba)\n题目描述：\n代码如下：\n5、数字金字塔\n题目描述：\n6、求最大值、最小值及平均值\n题目描述：\n代码如下：\n7、交换变量\n题目描述：\n代码如下：\n或\n或\n8、输入密码-三次机会\n题目描述：\n代码如下：\n9、水仙花数\n题目描述：\n代码如下：\n或\n或\n或\n10、增加与去掉\n题目描述：\n代码如下：\n11、添加通讯录信息\n题目\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t计算机二级python经典真题\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tlvyuanxiang的博客\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t09-26\n\t\t\t\t\t\n\t\t\t\t\t2万+\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\t计算机二级python经典考题\n1、键盘输入正整数n,按要求把n输出到屏幕,格式要求:宽度为20个字符,减号字符,右填充,右对齐,带千位分隔符。如果输入正整数超过20位,则按照真实长度输出\n例如:键盘输入正整数n为1234,屏幕输出---------------1,234\nn = eval(input(\"请输入正整数:\"))\nprint(\"{:->20,}\".format(n))\n2、a和b是两个列表变量,列表a为[3,6,9]已给定,键盘输入列表b,计算a中元素与b中对应元素乘积的累加和。\n例\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tgolang 线上事故\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tlcf枫的博客\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t08-30\n\t\t\t\t\t\n\t\t\t\t\t732\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\tgolang 线上事故\n最近公司要做大促的一些活动。并且单量，qps持续上涨。之前使用的是django python 语言做的一个服务端。目前已经部署的国家里面最多的国家会有300+个实例。大促期间还可能会增加一个实例数。这么多的实例部署，回滚的时间都会特变长，除了问题也不好定位。并且如此多的一个机器，连接数* 实例数也会导致DB等其他服务扛不住这么大的并发。所以决定上go服务解决性能问题。\n...\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t【计算机二级python】综合题题目\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tguanguan12319的博客\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t03-12\n\t\t\t\t\t\n\t\t\t\t\t5784\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\t【计算机二级python】综合题题目\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t离心泵级间导叶的设计计算\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tcqzc55322的博客\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t12-03\n\t\t\t\t\t\n\t\t\t\t\t1875\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\t离心泵级间导叶的设计计算高速离心泵级间流道的作用是将第一级复合叶轮流出的高速液流收集起来并送入第二级复合叶轮。级间流道的设计应考虑降低液体的流速，实现动能向压力能转化，减小液体的水力损失。级间流道主要有蜗壳形流道和导叶两种结构形...\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t计算机二级考试-Python程序语言设计（部分题库）\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tm0_59162248的博客\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t08-09\n\t\t\t\t\t\n\t\t\t\t\t4510\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\t2018年9月随着全国计算机等级考试科目中加入“二级Python”，也确立了Python在国内的地位\n这里有部分Python题库编程，送给选取Python作为考试的童鞋\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tPython计算机二级编程题真题分享【纯干货】【选择题+操作题】\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tqq_39121450的博客\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t02-13\n\t\t\t\t\t\n\t\t\t\t\t3845\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\t全国计算机二级Python的基础知识非常重要，掌握好这些基础才能在编程的路上越走越远哦！希望大家都能顺利通过考试！ 操作题选择题 真题分享\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tUE4_SpeedTree Shader源码分析\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tzzgyy123的专栏\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t10-15\n\t\t\t\t\t\n\t\t\t\t\t2030\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\t目录\n1.UMaterialExpressionSpeedTree::Compile\n2.Compiler->SpeedTree\n3.GetSpeedTreeVertexOffset\n4.Scene中的SpeedTree应用 (Scene->UpdateSpeedTreeWind)\n5.GetSpeedTreeVertexOffsetInner\n由于之后做风场，也需要在S...\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t【2】python二级——操作题\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tm0_74045507的博客\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t03-19\n\t\t\t\t\t\n\t\t\t\t\t4541\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\t1.考生文件夹下存在一个文件PY101.py,请写代码替换横线，不修改其他代码，实现以下功能：键盘输入正整数n,按要求把输出到屏幕，格式要求：宽度为25个字符，等号字符(=)填充，右对齐，带千位分隔符。如果输入正整数超过25位，则按照真实长度输出。例如：键盘输入正整数n为1234，屏幕输出====================1,234#请完善如下代码#在______填入语句s=input()这题主要考察这个函数和。\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tDCMTK编译\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tC++ 爱好者 make_it_simple888\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t08-23\n\t\t\t\t\t\n\t\t\t\t\t1126\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\tdcmtk-3.6.4\n使用Unicode？dcmtk的编译选项里没有关于Unicode的选项，OFString的接口里明确使用了OFString(char*)作为构造函数参数，所以，我们可以假设不能够自己擅自在CMakeList.txt里增加一行\nadd_definitions(-DUNICODE -D_UNICODE)\n来强制使用Unicode编码。\n亲测：加了之后编译不过\nvoid...\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t全国计算机等级考试【NCRE】二级Python 真题分享！！\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tm0_75169084的博客\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t02-08\n\t\t\t\t\t\n\t\t\t\t\t5626\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\tPython的基础知识非常重要，掌握好这些基础才能在编程的路上越走越远哦！希望大家都能顺利通过考试！💪。\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t2024年Python最新Python二级考试试题汇总（史上最全）_计算机二级python真题\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t2301_82243979的博客\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t05-01\n\t\t\t\t\t\n\t\t\t\t\t1万+\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\t表达式 1001 == 0x3e7 的结果是：AfalseBFalseCtrueDTrue正确答案： BApython9322BpythonC93python22D9322正确答案： CAlaB请输入整数CDpython正确答案： CA2B请输入q退出：C3D1正确答案： AA0B2CD5正确答案： AA18 NoneB10 18。\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tVS中的C#项目怎样引入另一个项目\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tBADAO_LIUMANG_QIZHI的博客\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t08-21\n\t\t\t\t\t\n\t\t\t\t\t8725\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\t场景\n在C#项目A中需要引用项目B。\n实现\n将项目B手动复制到A所在的项目目录下的同一个解决方案中，即与项目A同级的目录下。\n在VS中打开项目B，打开解决方案资源管理器--右击解决方案--添加--现有项目\n然后找到项目B的.csproj文件打开。\n然后看到资源管理器中已经将B添加进来了\n点击项目A的引用-右键-添加\n将项目下的解决方...\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t中国电子学会2023年03月份青少年软件编程Python等级考试试卷二级真题(含答案)\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t艾科叮\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t04-06\n\t\t\t\t\t\n\t\t\t\t\t6230\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\t中国电子学会2023年03月份青少年软件编程Python等级考试试卷二级真题(含答案)\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\tVC中sqlite的使用\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\t在VC中对sqlite的使用，实现数据库大批数据的快速插入，读取数据库中的数据在ListCtrl中显示\n\t\t\t\n\t\t\n\t\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t中国电子学会2022年09月份青少年软件编程Python等级考试试卷二级真题(含答案)\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t艾科叮\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t11-15\n\t\t\t\t\t\n\t\t\t\t\t7909\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\t\n\t\t\t\t中国电子学会2022年09月份青少年软件编程Python等级考试试卷二级真题(含答案)\n\t\t\t\n\t\t\n\t\n              \n          \n    \n        \n            \n                \n            \n        \n        \n            \n                \n                    大头博士先生\n                \n            \n            \n              \n                \n                  博客等级\n                \n                  \n              \n                码龄8年\n               \n            \n        \n    \n    \n      \n          \n            6\n            原创\n        \n      \n       \n        362\n        点赞\n      \n       \n        578\n        收藏\n      \n      \n        2485\n        粉丝\n      \n    \n    \n         \n            关注  \n        \n        \n        私信\n        \n    \n      \n        \n          \n        \n      \n    \n        \n \n    \n\t热门文章\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t【3月考】二级Python最新真题及满分代码合集（基本操作题部分）\n\t\t\t\t\t\n\t\t\t\t\t17425\n                \n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t【3月考】二级Python最新真题及满分代码合集（简单应用题部分）\n\t\t\t\t\t\n\t\t\t\t\t12134\n                \n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t【3月考】二级Python最新真题及满分代码合集（综合应用题部分）\n\t\t\t\t\t\n\t\t\t\t\t8056\n                \n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t计算机二级Python全套真题及满分代码\n\t\t\t\t\t\n\t\t\t\t\t5718\n                \n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t【最新】计算机二级Python题库及满分代码\n\t\t\t\t\t\n\t\t\t\t\t2159\n                \n\t\t\t\n\t\t\n\t\n    分类专栏\n    \n        \n            \n                \n                    \n                    \n                    \n                        二级Python\n                    \n                \n            \n        \n    \n  \n      \n          \n              上一篇：\n          \n          \n            \n              【最新】计算机二级Python题库及满分代码\n            \n          \n      \n      \n          \n            下一篇：\n          \n          \n            \n              【3月考】二级Python最新真题及满分代码合集（基本操作题部分）\n            \n          \n      \n  \n\t大家在看\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t中小学教材PDF下载工具\n\t\t\t\t\t\n\t\t\t\t\t191\n        \n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t加速窗口最大子段和\n\t\t\t\t\t\n\t\t\t\t\t138\n        \n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\tU盘加密锁：一键加密隐私文件夹\n\t\t\t\t\t\n\t\t\t\t\t190\n        \n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t闭环挂名检测：识别未运行的虚假闭环\n\t\t\t\t\t\n\t\t\t\t\t185\n        \n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\tReAct/Plan-Execute/Reflexion三模式对比\n        \n\t\t\t\n\t\t\n\t\n    最新文章\n    \n        \n            \n            【3月考】二级Python最新真题及满分代码合集（综合应用题部分）\n            \n            \n            【3月考】二级Python最新真题及满分代码合集（基本操作题部分）\n            \n            \n            【最新】计算机二级Python题库及满分代码\n            \n        \n        \n        \n                2025年6篇\n        \n    \n    \n      \n        \n      \n    \n    \n  \n    \n      \n        \n      \n      · AI 阅读助手\n    \n  \n  \n    \n    \n  \n    \n        目录\n        \n            \n            \n                \n            \n            \n        \n          展开全部 \n          收起 \n    \n        \n    \n            \n              \n                  \n              \n      \n        \n  \n    \n      \n        \n      \n      · AI 阅读助手\n    \n  \n  \n    \n    \n  \n          \n              \n              目录\n              \n                  \n                      \n                          \n                      \n                  \n              \n                展开全部 \n                收起 \n              \n          \n          \n              \n                  \n \n              \n  \n      \n          \n              上一篇：\n          \n          \n            \n              【最新】计算机二级Python题库及满分代码\n            \n          \n      \n      \n          \n            下一篇：\n          \n          \n            \n              【3月考】二级Python最新真题及满分代码合集（基本操作题部分）\n            \n          \n      \n  \n          \n                  分类专栏\n                  \n                      \n                          \n                              \n                                  \n                                      \n                                      \n                                      \n                                          二级Python\n                                      \n                                  \n                              \n                          \n                      \n                        \n                          展开全部 \n                          收起 \n                        \n                  \n          \n        \n    \n    \n        \n            \n                \n                目录\n                \n                    \n                        \n                            \n                        \n                    \n                \n                \n            \n        \n    \n      \n      \n        \n      \n      \n\t\n\t\t评论 3\n\t\n  \n    \n      \n      \n      \n        \n        \n          \n          \n            \n              成就一亿技术人!\n            \n            \n              拼手气红包6.0元\n            \n          \n        \n        \n          \n            还能输入1000个字符\n          \n          \n             \n          \n          \n            \n              \n              插入表情\n              \n                \n              \n            \n            \n              \n              代码片\n              \n                \n                  HTML/XML\n                  objective-c\n                  Ruby\n                  PHP\n                  C\n                  C++\n                  JavaScript\n                  Python\n                  Java\n                  CSS\n                  SQL\n                  其它\n                \n              \n            \n            \n              \n              \n              \n              \n              \n              \n              \n            \n          \n        \n      \n    \n\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t查看更多评论\n\t\t\t\n\t\t\t\n\t\t\t\t\t 条评论被折叠 查看\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\n\t\n\t\n\t\t被折叠的  条评论\n\t\t 为什么被折叠?\n\t\t \n\t\t 到【灌水乐园】发言                                \n\t\t\n\t\t\n\t\t\n\t\t\t查看更多评论\n\t\t\n\t\n  \n    \n      添加红包\n      \n    \n    \n      \n        祝福语\n        \n          \n          \n        \n        请填写红包祝福语或标题\n      \n      \n        红包数量\n        \n          \n          个\n        \n        红包个数最小为10个\n      \n      \n        红包总金额\n        \n          \n          元\n        \n        红包金额最低5元\n      \n      \n        余额支付\n        \n          当前余额3.43元\n          前往充值 >\n        \n      \n      \n        \n          需支付：10.00元\n        \n        取消\n        确定\n      \n    \n  \n  \n    \n      \n        \n          \n            \n            成就一亿技术人!\n          \n          \n        \n        \n          \n          \n            领取后你会自动成为博主和红包主的粉丝\n            规则\n          \n        \n      \n      \n        \n          \n            \n              \n            \n            \n              hope_wisdom\n 发出的红包\n            \n          \n        \n        \n          \n          \n          \n        \n      \n    \n    \n  \n      \n      \n      实付元\n      使用余额支付\n      \n        \n          \n            \n            点击重新获取\n          \n        \n        扫码支付\n      \n      \n        \n          \n            \n          \n          \n        \n      \n      \n        \n        钱包余额\n          0\n          \n            \n            \n              \n                抵扣说明：\n                 1.余额是钱包充值的虚拟货币，按照1:1的比例进行支付金额的抵扣。\n 2.余额无法直接购买下载，可以购买VIP、付费专栏及课程。\n              \n            \n          \n      \n      余额充值",
+  "expectedOutput": "",
+  "source": "https://blog.csdn.net/dt18859259983/article/details/148748783"
+ },
+ {
+  "id": "p0090",
+  "category": "基本操作",
+  "stem": "键盘输入一段中文文本，不含标点符号和格，命名为变量s，用jieba库对其进行分词，输出该文本中词语的平均长度，保留1位小数。\n例如：键盘输入吃葡萄不吐葡萄皮  屏输出：1.6",
+  "template": "",
+  "reference": "import jieba\ntxt = input(\"请输入一段中文文本:\")\nls=jieba.lcut(txt)\nprint(\"{:.1f}\".format(len(txt)/len(ls)))",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/01%20%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C%E9%A2%98/README.md"
+ },
+ {
+  "id": "p0091",
+  "category": "基本操作",
+  "stem": "键盘输入一个9800到9811之间的正整n，作为Unicode编码，把n-1、n和n+1三个Unicode编码对应字符按照如下格式要求输出到屏幕：\n宽度为11个字符，加号字符+填充，居中。\n例如：键盘输入：9802  屏输出：++++♉♊♋++++",
+  "template": "",
+  "reference": "n = eval(input(\"请输入一个数字:\"))\nprint(\"{:+^11}\".format(chr(n-1)+chr(n)+chr(n+1)))",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/01%20%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C%E9%A2%98/README.md"
+ },
+ {
+  "id": "p0092",
+  "category": "基本操作",
+  "stem": "键盘输入正整数n，按要求输出到屏幕。\n格式要求：宽度为20个字符，减号字符填充，右对齐，带千位分隔符。\n如果输入正整数超过20位，则按照真实长度输出。\n例如：键盘输入正整数`1234`\n屏幕输出：`---------------1,234`",
+  "template": "",
+  "reference": "n = eval(input(\"请输入正整数:\"))\nprint(\"{:->20,}\".format(n))",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/01%20%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C%E9%A2%98/README.md"
+ },
+ {
+  "id": "p0093",
+  "category": "基本操作",
+  "stem": "键盘输入一句话，用jieba分词后，將切分的词组按照在原话中逆序输出到屏上，词组中间没有空格\n例如：\n输入: `我爱妈妈`\n输出: `妈妈爱我`",
+  "template": "",
+  "reference": "import jieba\ntxt = input(\"请输入一段中文文本:\")\n\nls = jieba.lcut(txt)\nfor i in ls[::-1]:\n    print(i,end=\"\")",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/01%20%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C%E9%A2%98/README.md"
+ },
+ {
+  "id": "p0094",
+  "category": "基本操作",
+  "stem": "随机选择一个手机品牌屏幕输出",
+  "template": "",
+  "reference": "import random\nbrandlist = ['华为','苹果','诺基亚','OPPO','小米']\nrandom.seed(0)\nname = random.sample(brandlist,1)\nprint(name)",
+  "expectedOutput": "['OPPO']",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/01%20%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C%E9%A2%98/README.md"
+ },
+ {
+  "id": "p0095",
+  "category": "基本操作",
+  "stem": "键盘输入一段文本，保存在一个字符串变量s中，分别用python内置函数计算宇符串s的中文字符个数及中文词语个数。\n注意：中文字符包含中文标点符号。\n例如：键盘输入`俄罗斯举办世界杯`\n屏幂输出：`中文字符数为8,中文词语为3`",
+  "template": "",
+  "reference": "import jieba\n\ns = input(\"请输入一个字符串\")\n\nn = len(s) \nm = len(jieba.lcut(s))\nprint(\"中文字符数为{}，中文词语数为{}。\".format(n, m))",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/01%20%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C%E9%A2%98/README.md"
+ },
+ {
+  "id": "p0096",
+  "category": "基本操作",
+  "stem": "从盘输入4个各数字采用格分隔，对应为变量x0,y0,x1,y1。计算两点(x0，y0)和(x1,y1)之间的距离，屏幕输出这个距高，保留2位小数。\n例如：键盘输入：0 1 3 5\n屏幕输出：5.00",
+  "template": "",
+  "reference": "ntxt = input(\"请输入4个数字(空格分隔):\")\nnls = ntxt.split()\nx0 = eval(nls[0])\ny0 = eval(nls[1])\nx1 = eval(nls[2])\ny1 = eval(nls[3])\nr = pow(pow(x1-x0, 2) + pow(y1-y0, 2), 0.5) \nprint(\"{:.2f}\".format(r))",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/01%20%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C%E9%A2%98/README.md"
+ },
+ {
+  "id": "p0097",
+  "category": "基本操作",
+  "stem": "键盘输入字符串s，按要求把s输出到屏幕\n格式要求：宽度为20个字符，等号字符=填充，居中对齐\n如果输入字符串起过20位，则全部输出\n例如：\n键盘输入字符串s为`PYTHON`\n屏幕输出：`=======PYTHON=======`",
+  "template": "",
+  "reference": "s = input(\"请输入一个字符串:\")\nprint(\"{:=^20}\".format(s))",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/01%20%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C%E9%A2%98/README.md"
+ },
+ {
+  "id": "p0098",
+  "category": "基本操作",
+  "stem": "某商店出售某品牌运动鞋，每双定价160，1双不打折，2双（含）到4（含）打九折，5双（含）到9双（含）打八折，10双（含）以上打七折，键盘输入购买数量，屏幕输出总额（保留整数）。\n示例格式如下：\n输入：1\n输出，总额为：160",
+  "template": "",
+  "reference": "n = eval(input(\"请输入数量：\"))\nif n == 1:\n    cost = n * 160\nelif n <= 4:\n    cost = n * 160 * 0.9\nelif n <= 9:\n    cost = n * 160 * 0.8\nelse:\n    cost = n * 160 * 0.7\nprint(\"总额为:\",cost)",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/01%20%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C%E9%A2%98/README.md"
+ },
+ {
+  "id": "p0099",
+  "category": "基本操作",
+  "stem": "根据斐那契列的定义，F(0)=0，F(1)=1,F(n)=F(n-l)+F(n-2)(N>=2)，输出不大于100的序列元·\n例如：屏幕输出实例为：`0,1,1,2,3,...(略)`",
+  "template": "",
+  "reference": "a, b = 0, 1\nwhile a<=100:\n    print(a, end=',')\n    a, b = b, a + b",
+  "expectedOutput": "0,1,1,2,3,5,8,13,21,34,55,89,",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/01%20%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C%E9%A2%98/README.md"
+ },
+ {
+  "id": "p0100",
+  "category": "基本操作",
+  "stem": "a和b是两个列表变量，列表a为[3，6，9]已给定，键盘输入列表b，计算a中元素与b中对应元素乘积的累加和。\n例如：\n盘输入列表b为[1,2,3],累加和为`1*3+2*6+3*9`，因此，屏幕输出计算结果为`42`",
+  "template": "",
+  "reference": "a = [3,6,9]\nb =  eval(input()) #例如：[1,2,3]\ns = 0\nfor i in range(3):\n    s += a[i]*b[i]\nprint(s)",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/01%20%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C%E9%A2%98/README.md"
+ },
+ {
+  "id": "p0101",
+  "category": "基本操作",
+  "stem": "以123为随机种子，随机生成10个在1(含)到999(含)之间的随机数，每个随机数后跟随一个逗号进行分隔，屏幕输出这10个随机数。",
+  "template": "",
+  "reference": "import random\nrandom.seed(123)\nfor i in range(10):\n    print(random.randint(1,999), end=\",\")",
+  "expectedOutput": "54,275,90,788,418,273,111,859,923,896,",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/01%20%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C%E9%A2%98/README.md"
+ },
+ {
+  "id": "p0102",
+  "category": "基本操作",
+  "stem": "键盘输入正整数n，按要求把n输出到屏幕，格式要宽度为15个字符，数字右边对齐，不足部分用*填充。\n例如：键盘输入正整数n为1234，屏幕输出`***********1234`",
+  "template": "",
+  "reference": "n = eval(input(\"请输入正整数:\"))\nprint(\"{:*>15}\".format(n))",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/01%20%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C%E9%A2%98/README.md"
+ },
+ {
+  "id": "p0103",
+  "category": "简单应用",
+  "stem": "链盘输入一组我国高校所对应的学校类型，以空格分隔，共一行\n示例格式如下：\n综合 理工 综合 综合 综合 师 范理工\n统计各类型的数量，从数量多到少的顺序屏幕输出类型及对应数量，以英文冒号分隔，每个类型一行，输出参考格式如下：\n综合：4\n理工：2\n师范：1",
+  "template": "",
+  "reference": "txt = input(\"请输入类型序列\")\n\ntem = txt.split()\nd = {}\n\nfor i in range(len(tem)):\n    d[tem[i]] = d.get(tem[i], 0)+1\n\nls = list(d.items())\n\nls.sort(key=lambda x: x[1], reverse=True)\n\nfor k in ls:\n    print(\"{}:{}\".format(k[0], k[1]))",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/02%20%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%E9%A2%98/Readme.md"
+ },
+ {
+  "id": "p0104",
+  "category": "简单应用",
+  "stem": "键盘输入小明学习的课程名称及考分等信息，信息间用空格分隔，每个课程一行，行回车结束录入，\n示例格式如下：\n数学 90\n语文 95\n英语 86\n物理 84\n生物 87\n屏幕输出得分最高的课程及成绩，得分最低的课程及成绩，及干均分（保留2位小数）。\n注意：其中逗号为英文逗号，格式如下：\n最高分课程是语文95，最低分课程是理84，干均分是88.40",
+  "template": "",
+  "reference": "data = input()\nd = {}\n\nwhile data:\n    t = data.split()\n    d[t[0]] = t[1]\n    data = input()\nprint(d)\n\nls = list(d.items())\nls.sort(key=lambda x: x[1], reverse=True)\nmax_course, max_grade = ls[0]\nmin_course, min_grade = ls[len(ls)-1]\naverage_grade = 0\nfor i in d.values():\n    average_grade = average_grade + int(i)\naverage_grade = average_grade / len(ls)\nprint(\"最高分课程是{} {}, 最低分课程是{} {}, 平均分是{:.2f}\".format(\n    max_course, max_grade, min_course, min_grade, average_grade))",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/02%20%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%E9%A2%98/Readme.md"
+ },
+ {
+  "id": "p0105",
+  "category": "简单应用",
+  "stem": "使用`turtle`库的`turtle.fd()`函和`turtle.seth()`函数绘制一个等边三角形，边长为200像素,效果如下图：",
+  "template": "",
+  "reference": "import turtle as t\n\nfor i in range(3):\n    t.seth(i*120)\n    t.fd(200)",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/02%20%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%E9%A2%98/Readme.md"
+ },
+ {
+  "id": "p0106",
+  "category": "简单应用",
+  "stem": "使用`turtle`库的`turtle.fd()`函和`turtle.seth()`函数绘制一个每方向为100像素长度的十字形,效果如下图：",
+  "template": "",
+  "reference": "import turtle as t\n\nfor i in range(4):\n    t.seth(i*90)\n    t.fd(100)\n    t.fd(-100)",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/02%20%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%E9%A2%98/Readme.md"
+ },
+ {
+  "id": "p0107",
+  "category": "简单应用",
+  "stem": "使用`turtle`库的`turtle.fd()`函和`turtle.seth()`函数绘制一边长为100像素的正八边形,效果如下图：",
+  "template": "",
+  "reference": "import turtle\nturtle.pensize(2)\nd = 0\nfor i in range(1, 9):\n    turtle.fd(100)\n    d += 360/8\n    turtle.seth(d)",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/02%20%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%E9%A2%98/Readme.md"
+ },
+ {
+  "id": "p0108",
+  "category": "简单应用",
+  "stem": "使用字典和列表型变量完成村长选举。\n某村有40名有选举权和被选举权的村民，名单由考生文件夹下文件`name.txt`给出，从这40名村民中选出一人当村长，40人的投票信息由考生文件夹下`vote.txt`给出，每行是一张选票的信息，有效票中得票最多的村民当选。\n问题一：请从`vote.txt`中筛选出无效票写入文件`vote1.txt`。有效票的含义是：选票中只有一个名,且该名字在`name.txt`文件列表中，不是有效票的票称为无效票。\n问题二：给出当选村长的名字及其得票数。",
+  "template": "",
+  "reference": "f = open(\"/name.txt\")\nnames = f.readlines()\nf.close()\nf = open(\"vote.txt\")\nvotes = f.readlines()\nf.close()\nf.close()\n\nf = open(\"vote1.txt\", \"w\")\nD = {}\nNUM = 0\nfor vote in votes:\n    num = len(vote.split())\n    if num == 1 and vote in names:\n        D[vote[:-1]] = D.get(vote[:-1], 0)+1\n        NUM += 1\n    else:\n        f.write(vote)\nf.close()\n\nl = list(D.items())\nl.sort(key=lambda s: s[1], reverse=True)\nname = l[0][0]\nscore = l[0][1]\nprint(\"有效票数为：{} 当选村长村民为:{},票数为：{}\".format(NUM, name, score))",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/02%20%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%E9%A2%98/Readme.md"
+ },
+ {
+  "id": "p0109",
+  "category": "简单应用",
+  "stem": "使用 `turtle`库的`turtle.fd()`和`turtle.seth()`函绘制一个边长为100的正五边形",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/02%20%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%E9%A2%98/Readme.md"
+ },
+ {
+  "id": "p0110",
+  "category": "简单应用",
+  "stem": "使用字典和列表型量完成最有人气的明星的投票居分析。投信息由考生文件夹下文件给出，一行只有一个明星姓名的投票才是有效票，有效票中得票最多的明星当选最有人气的明星。\n间题一：请统计有效票张数。（7分）\n问题二：请给出当选最有人气明星的姓名和票数。（8分）",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/02%20%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%E9%A2%98/Readme.md"
+ },
+ {
+  "id": "p0111",
+  "category": "简单应用",
+  "stem": "画图",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/02%20%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%E9%A2%98/Readme.md"
+ },
+ {
+  "id": "p0112",
+  "category": "简单应用",
+  "stem": "计算两个列表1s和1t对应元素乘积的和（即向量积）\n`1s=[111,222,333,444,555,666,777,888,999]`\n`1t=[999,888,777,666,555,444,333,222,111]`",
+  "template": "",
+  "reference": "ls = [111, 222, 333, 444, 555, 666, 777, 888, 999]\nlt = [999, 777, 555, 333, 111, 888, 666, 444, 222]\ns = 0\nfor i in range(len(ls)):\n    s += (ls[i] * lt[i])\nprint(s)",
+  "expectedOutput": "2402595",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/02%20%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%E9%A2%98/Readme.md"
+ },
+ {
+  "id": "p0113",
+  "category": "简单应用",
+  "stem": "根据列表中保存的数据采用turtle库画直方图，效果如图：\n```import turtle as t\nls = [69, 292, 33, 131, 61, 254]\nX_len = 400\nY_len = 300\nx0 = -200\ny0 = -100\nt.penup()\nt.goto(x0, y0)\nt.pendown()\nt.fd(X_len)\nt.fd(-X_len)\nt.seth(90)\nt.fd(Y_len)\nt.pencolor('red')\nt.pensize(5)\nfor i in range(len(ls)):\n    t.penup()\n    t.goto(x0 + (i+1)*50, y0)\n    t.seth(90)\n    t.pendown()\n    t.fd(ls[i])\nt.done()\n```",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/02%20%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%E9%A2%98/Readme.md"
+ },
+ {
+  "id": "p0114",
+  "category": "简单应用",
+  "stem": "在已定义号的字典pdict里有一些人名及其电话号码。请用户输入一个人代姓名，在字典中查找该用户的信息，如果找到，生成一个四位数字的验证码，并将名字、电话号码和验证码输出在屏幕上，如示例所示。如果找不到该用户的信息，则显示`对不起，您输入的用户信息不存在`。示例如下：\n输入：\nBob\n输出：\nBob 234567891 1926\n输入：bob\n输出：\n对不起，您输入的用户信息不存在。",
+  "template": "",
+  "reference": "import random\nrandom.seed(2)\n\npdict= {'Alice':['123456789'],\n        'Bob':['234567891'],\n        'Lily':['345678912'],\n        'Jane':['456789123']}\n\nname = input('请输入一个人名:')\nif name in pdict:\n    print(\"{} {} {}\".format(name,pdict.get(name)[0],random.randint(1000,9999)))\nelse:\n    print(\"对不起，您输入的用户信息不存在。\")",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/02%20%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%E9%A2%98/Readme.md"
+ },
+ {
+  "id": "p0115",
+  "category": "简单应用",
+  "stem": "利用random库和turtle库，在屏幕上绘制5个圆圈，圆的半径和圆心的坐标由randint()函数产生，圆心的X和Y坐标范围在[-100,100]之间；半径的大小范围在[20,50]之间，圆圈的颜色随机在color列表里选择。\n效果如下图：",
+  "template": "",
+  "reference": "import random as r\nimport turtle as t\n\ncolor = ['red', 'orange', 'blue', 'green', 'purple']\nr.seed(1)\nfor i in range(5):\n    rad = r.randint(20, 50)\n    x0 = r.randint(-100, 100)\n    y0 = r.randint(-100, 100)\n    t.color(r.choice(color))\n    t.penup()\n    t.goto(x0, y0)\n    t.pendown()\n    t.circle(rad)\nt.done()",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/02%20%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%E9%A2%98/Readme.md"
+ },
+ {
+  "id": "p0116",
+  "category": "简单应用",
+  "stem": "* 此题目有问题 *\n定义了一个6个浮点数的一维列表1t1和一个包含3个数的一维列表1t2。\n示例如下：\n1t1=[0.69,0.292,0.33,0.131,0.61,0.254]\n1t2=[0.1,0.8,0.2]\n完成如下功能：\n计算1t1列表跟1t2列表的向量内积,两个向量X:[x1,x2,x3]和Y=[y1,y2,y3]的内积计算公式如下:`k=x1*y1+x2*y2+x3*y3`\n将每次计算的两组对应元的值、以及对应元乘积的计和k的值显示在屏幕上，格式如下所\n第一步计算第一个k，分为3次累计1t2[0]*1t1[0+0],1t2[1]*1t1[0+1],1t2[2]*1t1[0+2]的和。\nk=0.069，filter[0]=0.100，img[0+0]=0.690\nk=0.303，filter[1]=0.800，img[0+1]=0.292\nk=0.369，filter[2]=0.200，img[0+2]=0.330\n...(略)",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/02%20%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%E9%A2%98/Readme.md"
+ },
+ {
+  "id": "p0117",
+  "category": "简单应用",
+  "stem": "利用random和turtle在屏幕上绘制4个小雪花，雪花的中心点坐标由列表points给出，雪花的半径长度由randint()函数产生。\n雪花的顔色是红色。效果如下图所示。",
+  "template": "",
+  "reference": "import turtle as t\nimport random as r\n\nr.seed(1)\nt.pensize(2)\nt.pencolor('red')\nangles = 6\npoints= [[0,0],[50,40],[70,80],[-40,30]]\n\nfor i in range(4):\n    x0,y0 = points[i]\n    t.penup()\n    t.goto(x0, y0)\n    t.pendown()\n\n    length = r.randint(6, 16)\n    for j in range(angles):\n        t.fd(length)\n        t.bk(length)\n        t.right(360 / angles)\nt.done()",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/02%20%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%E9%A2%98/Readme.md"
+ },
+ {
+  "id": "p0118",
+  "category": "简单应用",
+  "stem": "在考生文件夹下有个文件`data18.txt`,其中记录了2019年QS全大学排名前20名的学校信息。\n示例如下：\n1，麻省理工学院，美国\n2，斯坦福大学，美国\n3，哈佛大学，美国\n第一列为排名，第2列为学校名称，第3列为学校所属的国家，字段之间用逗号`,`隔开。\n程序读取`data18.txt`文件内容，统计出现的国家个数以及每个国家上榜大学的数量及名称，输出结果格式示例如下：\n英国：5：牛津大学 刽桥大学 帝国理工学院 伦敦大学学院 爱丁堡大学\n瑞士：1：苏黎世联邦理工学院\n...",
+  "template": "",
+  "reference": "import os\n\npath = os.path.dirname(__file__)\nf = open(path+'/data18.txt', 'r', encoding='utf-8')\n\nschool = []\ncountry = []\nfor line in f:\n    lines = line.strip('\\n').split(\",\")\n    if lines != ['']:\n        school.append(lines[1:3])  # 构建学校列表\n        country.append(lines[-1])  # 构建国家列表\n\ncountry = list(set(country))  # 列表去重复\n\nunis = []\nfor i in country:\n    n = 0\n    schools = []\n    result = []\n    for k in school:\n        if k[1] == i:\n            n += 1\n            schools.append(k[0])\n    result = [i, n, schools]\n    unis.append(result)\n\nfor d in unis:\n    print('{:>4}: {:>4} : {}'.format(d[0], d[1], ' '.join(d[2])))\n\nf.close()",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/02%20%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%E9%A2%98/Readme.md"
+ },
+ {
+  "id": "p0119",
+  "category": "简单应用",
+  "stem": "利用random库和turtle库在屏幕上画三个黑色的正方形，正方形左下角坐标和边长由randint()函数产生，参数在代码中给出。效果如下图：",
+  "template": "",
+  "reference": "import random as r\nimport turtle as t\n\nr.seed(1)\nt.pensize(2)\nfor i in range(3):\n    length = r.randint(20, 80)\n    x0 = r.randint(-100, 100)\n    y0 = r.randint(-100, 100)\n\n    t.penup()\n    t.goto(x0, y0)\n    t.pendown()\n    for j in range(4):\n        t.fd(length)\n        t.seth(90*(j+1))\nt.done()",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/02%20%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%E9%A2%98/Readme.md"
+ },
+ {
+  "id": "p0120",
+  "category": "简单应用",
+  "stem": "原始资料不齐，略",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/02%20%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%E9%A2%98/Readme.md"
+ },
+ {
+  "id": "p0121",
+  "category": "简单应用",
+  "stem": "让用户输入一首诗的文本，内部包含中文逗号和句号。\n(1)用jieba厚的精确模式对输入文本分词。將分词后的词语输出并以“/\"分隔；\n统计中文词语数并输出；\n(2)以逗号和句号将输入文本分隔成单句并输出，每句一行，每行20个字符宽，居中对齐。\n在(1)和（2）的输出之间，增加一个空行。\n示例如下（其中据仅用于示意）。\n输入：\n月亮河宽宽的河，一天我从你身旁过。\n输出：\n月亮/河/宽宽的/河/一天/我／从/你/身旁/过/\n中文词语数是：10\n    月亮河宽宽的河\n    一天我从你身旁过",
+  "template": "",
+  "reference": "import jieba\n\ns = input(\"请输入一段中文文本，句子之间以逗号或句号分隔：\")\nslist = jieba.lcut(s)\nm = 0\n\nfor i in slist:\n    if i in \"，。\":\n        continue\n    print(i, end='/')\n    m += 1\n\nprint(\"\\n中文词语数是：{}\\n\".format(m))\n\ns = ''\nfor i in slist:\n    if i in \"，。\":\n        print('{:^20}'.format(s))\n        s = ''\n        continue\n    s += i",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/02%20%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%E9%A2%98/Readme.md"
+ },
+ {
+  "id": "p0122",
+  "category": "简单应用",
+  "stem": "使用turtle库函数绘制4个等距排列的正方形，边长为像间距宽度为如。\n最左边的正方形左上角坐标为(0,0)。",
+  "template": "",
+  "reference": "import turtle\nn = 4\nfor j in range(n):\n    turtle.pendown()\n    for i in range(4):\n        turtle.fd(40)\n        turtle.right(90)\n    turtle.penup()\n    turtle.fd(80)\nturtle.done()",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/02%20%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%E9%A2%98/Readme.md"
+ },
+ {
+  "id": "p0123",
+  "category": "简单应用",
+  "stem": "实现以下功能：\n(1)定义一个列表`persons`，里面有一些名字字符串；\n(2)在该列表中查找用户输入的一个名字字符串，如果找到，则生成一个四位数字的随机数组成的验证码，输出找到的名字字符串和验证码；如果找不到该字符串，则输出捏示信息“对不起，您输入的名字不存在。”，如果用户输入一个字母`q`则退出程序；\n(3)显示提示信息后，再次显示“请输入一个名”，提示用户输入，重复执行步骤(2)；执行3次后自动退出程序。\n示例如下（其中数据仅用于示意）：\n输入：\nA1ice\n输出：\nA1ice 1001\n输入：\nbob\n输出：\n对不起，您输入的名字不存在·\n输入：\nq\n程序自动退出",
+  "template": "",
+  "reference": "import random as r\nr.seed(0)\npersons = ['Aele', 'Bob','lala', 'baicai']\nflag = 3\nwhile flag>0:\n    flag -= 1\n    name = input(\"请输入一个名字：\")\n    if name in persons:\n        num = r.randint(1000,9999)\n        print('{} {}'.format(name, num))\n    elif name == 'q':\n        break\n    elif name not in persons:\n        print('对不起，您输入的名字不存在。')",
+  "expectedOutput": "",
+  "source": "https://github.com/sandianyiyuan/NCRE2-Python/blob/master/02%20%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%E9%A2%98/Readme.md"
+ },
+ {
+  "id": "p0124",
+  "category": "综合应用",
+  "stem": "Fibonacci 数列前 n 项：输入 n，输出 Fibonacci 数列前 n 项（从 1, 1 开始）。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "1 1 2 3 5",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0125",
+  "category": "综合应用",
+  "stem": "水仙花数：输出 100~999 之间的所有水仙花数（各位数字立方和等于自身），用空格分隔。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "153 370 371 407",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0126",
+  "category": "综合应用",
+  "stem": "列表去重保序：输入一行空格分隔的整数，去重后保持首次出现顺序输出。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "1 2 3 4",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0127",
+  "category": "综合应用",
+  "stem": "字典合并求和：输入两行字符串，每行若干空格分隔的 字母:数字 对，合并同字母的数字求和，按字母升序输出 字母:数字 。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "a:1 b:5 c:4",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0128",
+  "category": "综合应用",
+  "stem": "统计字符频次：输入一行字符串，按字符出现次数降序输出 字符:次数（次数相同时按字符 ASCII 升序），每行一个。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "a:5 b:2 r:2 c:1 d:1",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0129",
+  "category": "综合应用",
+  "stem": "最大公约数（欧几里得）：输入两个正整数 a b（空格分隔），输出它们的最大公约数。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "6",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0130",
+  "category": "综合应用",
+  "stem": "统计文件行数与单词数：读取文件 data.txt 的所有内容（假设已存在），输出 行数 和 单词数（空格分隔），空格分隔。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "（运行结果）",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0131",
+  "category": "综合应用",
+  "stem": "反转字符串并写入文件：输入一行字符串，把它反转后写入 out.txt，再读出打印。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "nohtyP",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0132",
+  "category": "综合应用",
+  "stem": "Top-K 频次：输入一行空格分隔的整数，输出出现频率最高的 k 个数（k 由第二行输入）；同频时按数值升序，空格分隔。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "1 2",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0133",
+  "category": "综合应用",
+  "stem": "字典按值排序：输入若干 行 字母:数字 格式（空行结束），按数字降序输出 字母（每行一个），同值时按字母升序。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "a\nc\nb",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0134",
+  "category": "综合应用",
+  "stem": "安全除法：写一个 safe_div(a, b) 函数：b=0 时返回字符串 'err'，否则返回 a/b 保留 2 位小数。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "5.00",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0135",
+  "category": "综合应用",
+  "stem": "批量读文件：读取多行输入（每行一个文件名），文件不存在时打印 'MISSING: 文件名'，存在时打印文件首行。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "（运行结果）",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0136",
+  "category": "综合应用",
+  "stem": "Circle 类：定义 Circle 类，初始化半径 r；提供 area()（保留 2 位小数）和 circumference()（保留 2 位小数）。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "28.27 18.85",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0137",
+  "category": "综合应用",
+  "stem": "学生成绩类：定义 Student 类，初始化 name、scores（list）；提供 avg()（平均分，2 位小数）和 grade()（>=90 A / 80 B / 70 C / 60 D / 否则 F）。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "avg=80.00, grade=B",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0138",
+  "category": "综合应用",
+  "stem": "文本词频 Top 5：读多行文本（空行结束），输出词频最高的 5 个词（不区分大小写，标点 . , ! ? ; : 视为分隔），按频次降序、同频按字典序。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "python:2 hello:2 fun:1 is:1 world:1",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0139",
+  "category": "综合应用",
+  "stem": "合并两个 CSV：读 a.csv 与 b.csv（同构：首行表头），合并后写 c.csv。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "（运行结果）",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0140",
+  "category": "综合应用",
+  "stem": "日志统计：读 access.log 多行，每行格式 IP path status；统计每个 IP 的访问次数，按次数降序输出。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "（运行结果）",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0141",
+  "category": "综合应用",
+  "stem": "学生成绩管理（OOP）：定义 Student 类，初始化 name 和 scores 列表；提供 add(score)、avg()、max()、min() 方法。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "（运行结果）",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0142",
+  "category": "综合应用",
+  "stem": "简单计算器：读一行表达式（含 + - * / 和整数、空格），求值并保留 2 位小数。除数为 0 时输出 'ERROR'。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "13.00",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0143",
+  "category": "综合应用",
+  "stem": "密码强度检查：输入密码字符串，输出强度：长度 < 6 弱；含数字+字母 中；含数字+字母+特殊符号（!@#$%）强；其他 弱。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "强",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0144",
+  "category": "综合应用",
+  "stem": "阶乘求和：输入 n，输出 1! + 2! + ... + n! 的值。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "153",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0145",
+  "category": "综合应用",
+  "stem": "回文判断：输入一个字符串，判断它是否是回文（忽略大小写、忽略非字母数字字符），输出 YES 或 NO。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "YES",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0146",
+  "category": "综合应用",
+  "stem": "九九乘法表：输出左下三角的九九乘法表（每行用空格分隔，末尾换行）。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "1*1=1\n1*2=2 2*2=4\n...",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0147",
+  "category": "综合应用",
+  "stem": "字符统计：输入一行字符串，分别输出大写字母、小写字母、数字、空格、其他字符的个数（每行一个）。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "upper=2\nlower=8\ndigit=4\nspace=2\nother=1",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0148",
+  "category": "综合应用",
+  "stem": "求素数：输入 n，输出 [2, n] 区间内的所有素数，空格分隔。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "2 3 5 7 11 13 17 19",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0149",
+  "category": "综合应用",
+  "stem": "矩阵转置：输入 n × n 矩阵（n 在第一行），输出其转置矩阵。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "1 4 7\n2 5 8\n3 6 9",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0150",
+  "category": "综合应用",
+  "stem": "冒泡排序：输入 n 和 n 个整数，输出冒泡排序后的结果。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "1 2 3 4 5",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0151",
+  "category": "综合应用",
+  "stem": "统计单词数：输入多行英文（空行结束），输出所有单词总数（不区分大小写，标点视为分隔）。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "5",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0152",
+  "category": "综合应用",
+  "stem": "字符串压缩：输入一个字符串，把连续重复字符压缩为 字符+次数（如 aabbc → a2b2c1），输出压缩结果。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "a2b3c4",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "p0153",
+  "category": "综合应用",
+  "stem": "求数组最值：输入 n 和 n 个整数，输出最大值、最小值、平均值（2 位小数），空格分隔。",
+  "template": "",
+  "reference": "",
+  "expectedOutput": "5 1 3.00",
+  "source": "https://github.com/BUZAI946/ncre-python-guide/blob/main/python-level2.html"
+ },
+ {
+  "id": "demo-p01",
+  "category": "示例题",
+  "stem": "编写程序，输出 1 到 10（含 10）每个整数的平方，每行一个。\n示例输出：\n1\n4\n9\n...\n100",
+  "template": "for i in range(1, 11):\n    print(____)\n",
+  "reference": "for i in range(1, 11):\n    print(i * i)\n",
+  "expectedOutput": "1\n4\n9\n16\n25\n36\n49\n64\n81\n100",
+  "source": "内置示例题（非真题，用于验证程序）"
+ },
+ {
+  "id": "demo-p02",
+  "category": "示例题",
+  "stem": "编写程序，统计 100 以内（不含 100）一共有多少个素数（质数），并输出这个个数。",
+  "template": "def is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, int(n ** 0.5) + 1):\n        if n % i == 0:\n            return False\n    return True\n\nprint(____)\n",
+  "reference": "def is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, int(n ** 0.5) + 1):\n        if n % i == 0:\n            return False\n    return True\n\nprint(len([n for n in range(100) if is_prime(n)]))\n",
+  "expectedOutput": "25",
+  "source": "内置示例题（非真题，用于验证程序）"
+ },
+ {
+  "id": "demo-p03",
+  "category": "示例题",
+  "stem": "从键盘读入一行字符串，统计其中每个字符出现的次数，按字符的字典序逐行输出“字符 次数”。\n例如输入 aab，输出：\na 2\nb 1",
+  "template": "s = input()\nd = {}\nfor c in s:\n    d[c] = ____\nfor k in sorted(d):\n    print(k, d[k])\n",
+  "reference": "s = input()\nd = {}\nfor c in s:\n    d[c] = d.get(c, 0) + 1\nfor k in sorted(d):\n    print(k, d[k])\n",
+  "expectedOutput": "",
+  "source": "内置示例题（非真题，用于验证程序）"
+ }
+]
