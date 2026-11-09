@@ -124,6 +124,131 @@ namespace TsuruLauncher.Services.Animation
 
         #endregion
 
+        #region PopInOnSource —— 图片一加载出来就「弹一下」（带过冲）
+
+        /// <summary>
+        /// 挂在 <c>Image</c> 上：<c>Source</c> 从空变成有图的那一刻，播一次缩放 + 淡入的
+        /// **过冲**动画（<see cref="AxolotlMotion.OvershootEase"/> 的 y1 = 1.4，
+        /// 会先冲过目标尺寸再回落，这就是「弹弹的」手感）。
+        ///
+        /// <para>为什么需要它：皮肤卡片的 3D 缩略图是**逐帧异步渲染**的
+        /// （见 <c>SkinViewModel.SkinEntry.Thumbnail</c>），渲染完才通过 PropertyChanged
+        /// 回填。没有这个动画的话卡片会「啪」一下凭空出现；有它就是一次有意的弹入 ——
+        /// 把「异步填充」这个不得已的实现，变成观感上的一部分。</para>
+        ///
+        /// <para>顺带说明为什么不用现成的 <c>RevealOnHover</c>：那个是 hover 驱动的
+        /// （卡片角标那种），触发源是鼠标进出的 <c>MotionState</c>，和「内容加载完成」
+        /// 是两回事。</para>
+        /// </summary>
+        public static readonly DependencyProperty PopInOnSourceProperty =
+            DependencyProperty.RegisterAttached("PopInOnSource", typeof(bool), typeof(MotionAssist),
+                new PropertyMetadata(false, OnPopInOnSourceChanged));
+
+        public static bool GetPopInOnSource(DependencyObject o) => (bool)o.GetValue(PopInOnSourceProperty);
+        public static void SetPopInOnSource(DependencyObject o, bool v) => o.SetValue(PopInOnSourceProperty, v);
+
+        /// <summary>起始缩放。0.82 = 从略小弹到原尺寸。</summary>
+        public static readonly DependencyProperty PopInFromScaleProperty =
+            DependencyProperty.RegisterAttached("PopInFromScale", typeof(double), typeof(MotionAssist),
+                new PropertyMetadata(0.82));
+
+        public static double GetPopInFromScale(DependencyObject o) => (double)o.GetValue(PopInFromScaleProperty);
+        public static void SetPopInFromScale(DependencyObject o, double v) => o.SetValue(PopInFromScaleProperty, v);
+
+        /// <summary>弹入时长（ms）。过冲幅度由曲线决定，时长只影响快慢。</summary>
+        public static readonly DependencyProperty PopInMsProperty =
+            DependencyProperty.RegisterAttached("PopInMs", typeof(double), typeof(MotionAssist),
+                new PropertyMetadata(380.0));
+
+        public static double GetPopInMs(DependencyObject o) => (double)o.GetValue(PopInMsProperty);
+        public static void SetPopInMs(DependencyObject o, double v) => o.SetValue(PopInMsProperty, v);
+
+        /// <summary>Image.Source 的属性描述符（用于挂值变化回调；只能建一次）。</summary>
+        private static readonly System.ComponentModel.DependencyPropertyDescriptor
+            ImageSourceDescriptor = System.ComponentModel.DependencyPropertyDescriptor.FromProperty(
+                System.Windows.Controls.Image.SourceProperty, typeof(System.Windows.Controls.Image));
+
+        private static void OnPopInOnSourceChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        {
+            if (o is not System.Windows.Controls.Image img) return;
+
+            ImageSourceDescriptor.RemoveValueChanged(img, OnImageSourceChanged);
+            if (!(bool)e.NewValue) return;
+
+            ImageSourceDescriptor.AddValueChanged(img, OnImageSourceChanged);
+            // 挂上时已经有图（缓存命中，绑定时就是非空）也要弹一次，行为和异步回填一致
+            if (img.Source != null) PlayPopIn(img);
+        }
+
+        private static void OnImageSourceChanged(object? sender, EventArgs e)
+        {
+            if (sender is System.Windows.Controls.Image img && img.Source != null) PlayPopIn(img);
+        }
+
+        /// <summary>
+        /// 已经弹过的数据项。列表滚动时容器会被回收重建，<c>Image.Source</c> 会重新
+        /// 从 null 变成有值 —— 没有这个守卫的话，每滚回来一次就重弹一次，看着很吵。
+        /// 用弱键表：数据项被回收后条目自动消失，不会攒引用。
+        /// </summary>
+        private static readonly System.Runtime.CompilerServices.ConditionalWeakTable<object, object>
+            PoppedOnce = new();
+
+        private static void PlayPopIn(FrameworkElement fe)
+        {
+            try
+            {
+                var scale = MotionVisuals.EnsureScale(fe);
+                double from = GetPopInFromScale(fe);
+                double ms = GetPopInMs(fe);
+                bool animate = AxolotlMotion.FullMotionEnabled;
+
+                // 同一个数据项只弹一次（滚动回收重建不重播）
+                object? key = fe.DataContext;
+                if (key != null)
+                {
+                    if (PoppedOnce.TryGetValue(key, out _)) animate = false;
+                    else PoppedOnce.AddOrUpdate(key, key);
+                }
+
+                if (!animate)
+                {
+                    scale.BeginAnimation(ScaleTransform.ScaleXProperty, null);
+                    scale.BeginAnimation(ScaleTransform.ScaleYProperty, null);
+                    scale.ScaleX = 1.0; scale.ScaleY = 1.0;
+                    fe.BeginAnimation(UIElement.OpacityProperty, null);
+                    fe.Opacity = 1.0;
+                    return;
+                }
+
+                // 缩放走过冲曲线：先冲过 1.0 再回落 —— 这是手感的来源
+                var sx = new DoubleAnimation(from, 1.0, AxolotlMotion.Ms(ms)) { EasingFunction = AxolotlMotion.OvershootEase };
+                var sy = new DoubleAnimation(from, 1.0, AxolotlMotion.Ms(ms)) { EasingFunction = AxolotlMotion.OvershootEase };
+                scale.BeginAnimation(ScaleTransform.ScaleXProperty, sx);
+                scale.BeginAnimation(ScaleTransform.ScaleYProperty, sy);
+
+                // 透明度只走前 55%，弹的时候就已经看得见了，不会「先透明再突然出现」
+                var fade = new DoubleAnimation(0.0, 1.0, AxolotlMotion.Ms(ms * 0.55)) { EasingFunction = AxolotlMotion.EaseOut };
+                fe.BeginAnimation(UIElement.OpacityProperty, fade);
+
+                Utilities.Logger.LogInfo(
+                    $"[Motion] pop-in {DescribeShort(fe)} scale {from:0.00}->1 over {ms:0}ms cubic-bezier(0.15,1.4,0.64,0.96) overshoot");
+            }
+            catch { /* 动画失败绝不影响内容显示 */ }
+        }
+
+        /// <summary>日志里用的短描述（类名#名字，太长会刷屏）。</summary>
+        private static string DescribeShort(FrameworkElement fe)
+        {
+            try
+            {
+                string name = string.IsNullOrEmpty(fe.Name) ? "" : "#" + fe.Name;
+                return fe.GetType().Name + name;
+            }
+            catch { return "?"; }
+        }
+
+        #endregion
+
         #region CardCache（给动画容器挂 BitmapCache，避免整棵子树重绘）
 
         public static readonly DependencyProperty CardCacheProperty =

@@ -1,6 +1,7 @@
 <UserControl x:Class="TsuruLauncher.Controls.ResourceDetailSidePanel"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:motion="clr-namespace:TsuruLauncher.Services.Animation"
              xmlns:conv="clr-namespace:TsuruLauncher.Converters"
              Background="Transparent">
 
@@ -137,7 +138,7 @@
                                     </Border>
                                     <Border CornerRadius="17" ClipToBounds="True"
                                             Visibility="{Binding HasAvatar, Converter={StaticResource BoolToVis}}">
-                                        <Image Source="{Binding AvatarImage}" Stretch="UniformToFill"/>
+                                        <Image Source="{Binding AvatarImage}" Stretch="UniformToFill" motion:MotionAssist.PopInOnSource="True"/>
                                     </Border>
                                 </Grid>
                                 <StackPanel Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center">

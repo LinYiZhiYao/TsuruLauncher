@@ -550,6 +550,23 @@
                                  Text="{Binding InstanceSearchText, UpdateSourceTrigger=PropertyChanged}"
                                  Background="Transparent" BorderThickness="0"
                                  Foreground="{DynamicResource TextPrimaryBrush}" CaretBrush="{DynamicResource AccentBrush}"/>
+                        <!-- 占位提示：这个搜索框原来是个完全空白的宽框，只有左边一个放大镜，
+                             用户不知道它是搜实例的。 -->
+                        <TextBlock Grid.Column="1" Margin="8,0,0,0" Padding="0,8" FontSize="13"
+                                   Text="搜索实例名 / 版本号…" VerticalAlignment="Center"
+                                   IsHitTestVisible="False"
+                                   Foreground="{DynamicResource TextDimBrush}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding InstanceSearchText}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
                     </Grid>
                 </Border>
             </Grid>
@@ -599,8 +616,12 @@
                                                     <TextBlock Text="{Binding VersionId}" Style="{StaticResource TagText}"
                                                                FontFamily="Consolas, Microsoft YaHei UI"/>
                                                 </Border>
+                                                <!-- ⚠ 路径别给 320px：它在这个 Auto 列里会把整列撑宽，
+                                                     挤到右边的「安装 / 开始游戏」按钮上（截图看就是顶在一起）。
+                                                     190px + 左边 10px 间距，够看清是哪套实例，也不抢位置。
+                                                     完整路径仍在 ToolTip 里。 -->
                                                 <TextBlock Text="{Binding GameDir}" Style="{StaticResource TagText}"
-                                                           VerticalAlignment="Center" MaxWidth="320"
+                                                           VerticalAlignment="Center" Margin="10,0,0,0" MaxWidth="190"
                                                            TextTrimming="CharacterEllipsis"
                                                            ToolTip="{Binding GameDir}"/>
                                             </StackPanel>

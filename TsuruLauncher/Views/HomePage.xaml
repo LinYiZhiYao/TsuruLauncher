@@ -385,7 +385,12 @@
                             <Button Style="{StaticResource PrimaryButton}" Content="创建实例" Click="CreateInstance_Click"
                                     AutomationProperties.Name="创建实例"
                                     Visibility="{Binding DataContext.HasVersions, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource InverseBoolToVis}}"/>
-                            <Button Style="{StaticResource PrimaryButton}" Command="{Binding LaunchGameCommand}"
+                            <!-- ⚠ 必须是 DataContext.LaunchGameCommand + AncestorType=Page。
+                                 这个 DataTemplate 的 DataContext 是 HomeWidget，本身没有
+                                 LaunchGameCommand —— 直接写 {Binding LaunchGameCommand} 会绑到 null，
+                                 按钮能点但完全没反应。同文件 664 行的写法是对的。 -->
+                            <Button Style="{StaticResource PrimaryButton}"
+                                    Command="{Binding DataContext.LaunchGameCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                     AutomationProperties.Name="开始游戏"
                                     Visibility="{Binding DataContext.HasVersions, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BoolToVis}}">
                                 <StackPanel Orientation="Horizontal">
@@ -666,7 +671,7 @@
                             HorizontalAlignment="Stretch" Click="OpenGameDir_Click"/>
                     <Button Style="{StaticResource GhostButton}" Content="版本设置"
                             HorizontalAlignment="Stretch"
-                            Click="OpenVersionSelector_Click"/>
+                            Click="OpenVersionSettings_Click"/>
                 </StackPanel>
             </Border>
         </DataTemplate>

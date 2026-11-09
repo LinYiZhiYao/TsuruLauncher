@@ -166,7 +166,7 @@ namespace TsuruLauncher.Services
             BuildGameArguments(sbArgs, game, account, assetsPath, classpath, Log);
 
             statusCallback?.Invoke("启动游戏进程...");
-            Process? process = StartGameProcess(javaPath, sbArgs.ToString().Trim(), game.GameDir, nativesPath, Log);
+            Process? process = StartGameProcess(javaPath, sbArgs.ToString().Trim(), game.GameDir, nativesPath, Log, game.PreLaunchCommand);
             if (process == null) return null;
 
             WireProcessOutput(process, Log);
@@ -351,12 +351,65 @@ namespace TsuruLauncher.Services
                 }
             }
 
+            // ── 版本设置页里配的项（以前只保存不生效，甚至根本不保存）──────
+            // 窗口标题 → --title "..."（空 = 跟随游戏默认）
+            if (!string.IsNullOrEmpty(game.WindowTitle))
+            {
+                string t = game.WindowTitle.Contains(' ') ? $"\"{game.WindowTitle}\"" : game.WindowTitle;
+                sbArgs.Append("--title ").Append(t).Append(' ');
+                Log($"[Version] window title = {game.WindowTitle}");
+            }
+
+            // 附加游戏参数
+            if (!string.IsNullOrEmpty(game.GameArgs))
+            {
+                sbArgs.Append(game.GameArgs).Append(' ');
+                Log($"[Version] extra game args = {game.GameArgs}");
+            }
+
             if (!string.IsNullOrEmpty(_configService.Settings.GlobalGameArguments))
                 sbArgs.Append(_configService.Settings.GlobalGameArguments).Append(" ");
         }
 
-        private Process? StartGameProcess(string javaPath, string arguments, string workingDir, string nativesPath, Action<string> Log)
+        private Process? StartGameProcess(string javaPath, string arguments, string workingDir, string nativesPath, Action<string> Log,
+            string? preLaunchCommand = null)
         {
+            // ── 版本设置页里的「启动前执行命令」──────────────────────────
+            // 以前这个输入框只存在于界面上：不保存、也不执行。现在真正跑一次。
+            // 用 cmd /c 是为了支持用户写管道、重定向这类 shell 语法；
+            // 最多等 30 秒，超时就继续启动（不能让一条卡住的命令把游戏堵死）。
+            if (!string.IsNullOrWhiteSpace(preLaunchCommand))
+            {
+                try
+                {
+                    Log($"[PreLaunch] {preLaunchCommand}");
+                    var pre = Process.Start(new ProcessStartInfo("cmd.exe", "/c " + preLaunchCommand)
+                    {
+                        WorkingDirectory = workingDir,
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true
+                    });
+                    if (pre != null)
+                    {
+                        string stdout = pre.StandardOutput.ReadToEnd();
+                        string stderr = pre.StandardError.ReadToEnd();
+                        if (!pre.WaitForExit(30000))
+                        {
+                            Log("[PreLaunch] 超时 30s，继续启动");
+                            try { pre.Kill(true); } catch { }
+                        }
+                        if (!string.IsNullOrWhiteSpace(stdout)) Log("[PreLaunch][OUT] " + stdout.Trim());
+                        if (!string.IsNullOrWhiteSpace(stderr)) Log("[PreLaunch][ERR] " + stderr.Trim());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log("[PreLaunch][ERROR] " + ex.Message);
+                }
+            }
+
             var psi = new ProcessStartInfo
             {
                 FileName = javaPath,

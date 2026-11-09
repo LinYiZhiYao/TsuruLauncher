@@ -214,12 +214,178 @@ namespace TsuruLauncher.Services
             return Path.Combine(appData, "npm");
         }
 
-        private static string DshBaseDir()
+        /// <summary>
+        /// 找到本机安装的 dsh 包目录（多个位置里取**版本最高**的那个）。
+        ///
+        /// <para>⚠ 不能写死 <c>~/.dsh/profiles/node_modules/@deepseek-ai/dsh</c>：
+        /// 0.2.0-rc.2 装在那里，但新版可能装到具体 profile 自己的 node_modules、
+        /// 或改成全局 npm 安装 —— 写死路径一升级就显示「未安装」。
+        /// 所以把常见位置都扫一遍，按 package.json 的版本号挑最高的。</para>
+        /// </summary>
+        private static string? DshPackageDir()
         {
             string userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             if (string.IsNullOrWhiteSpace(userProfile))
                 userProfile = Environment.ExpandEnvironmentVariables("%USERPROFILE%");
-            return Path.Combine(userProfile, ".dsh", "profiles", "node_modules", "@deepseek-ai", "dsh");
+
+            string profilesRoot = Path.Combine(userProfile, ".dsh", "profiles");
+            var candidates = new List<string>
+            {
+                // 默认位置（0.2.0-rc.2 就在这）
+                Path.Combine(profilesRoot, "node_modules", "@deepseek-ai", "dsh"),
+                // 全局 npm（如果哪天改成全局安装）
+                Path.Combine(NpmRoot(), "node_modules", "@deepseek-ai", "dsh"),
+            };
+
+            // 每个 profile 自己的 node_modules
+            try
+            {
+                if (Directory.Exists(profilesRoot))
+                    foreach (string p in Directory.GetDirectories(profilesRoot))
+                        candidates.Add(Path.Combine(p, "node_modules", "@deepseek-ai", "dsh"));
+            }
+            catch { /* 目录不可读就跳过 */ }
+
+            string? best = null;
+            string bestVer = "";
+            foreach (string dir in candidates)
+            {
+                try
+                {
+                    if (!Directory.Exists(dir)) continue;
+                    string ver = ReadVersion(Path.Combine(dir, "package.json"));
+                    if (best == null || CompareVersions(ver, bestVer) > 0)
+                    {
+                        best = dir;
+                        bestVer = ver;
+                    }
+                }
+                catch { /* 该候选不可用 */ }
+            }
+            return best;
+        }
+
+        /// <summary>
+        /// 从 package.json 的 <c>bin</c> 字段解析真正的入口文件。
+        ///
+        /// <para>当前版本是 <c>"bin": { "dsh": "lib/bin.js" }</c>，但**不能写死** ——
+        /// 入口文件名属于包自己的元数据，升级后可能变（0.2.0-rc.2 → 0.2.1-rc.2 目前没变，
+        /// 但没理由赌下一次也不变）。两种写法都支持：对象形式取 <c>dsh</c> 键（没有就取第一个），
+        /// 字符串形式直接当入口。</para>
+        /// </summary>
+        private static string? ReadBinEntry(string packageDir)
+        {
+            try
+            {
+                string pj = Path.Combine(packageDir, "package.json");
+                if (!File.Exists(pj)) return null;
+                string text = File.ReadAllText(pj);
+
+                string? rel = null;
+                var obj = Regex.Match(text, "\"bin\"\\s*:\\s*\\{(?<body>[^}]*)\\}", RegexOptions.Singleline);
+                if (obj.Success)
+                {
+                    string body = obj.Groups["body"].Value;
+                    var named = Regex.Match(body, "\"dsh\"\\s*:\\s*\"([^\"]+)\"");
+                    if (named.Success) rel = named.Groups[1].Value;
+                    else
+                    {
+                        var any = Regex.Match(body, "\"([^\"]+)\"\\s*:\\s*\"([^\"]+)\"");
+                        if (any.Success) rel = any.Groups[2].Value;
+                    }
+                }
+                else
+                {
+                    var str = Regex.Match(text, "\"bin\"\\s*:\\s*\"([^\"]+)\"");
+                    if (str.Success) rel = str.Groups[1].Value;
+                }
+
+                if (string.IsNullOrWhiteSpace(rel)) return null;
+                string full = Path.Combine(packageDir, rel.Replace('/', '\\'));
+                return File.Exists(full) ? full : null;
+            }
+            catch { return null; }
+        }
+
+        /// <summary>
+        /// 比较两个版本号（够用即可）：按非数字切分，逐段比数字，缺失段当 0。
+        /// 这样 <c>0.2.1-rc.2</c> &gt; <c>0.2.0-rc.2</c>，<c>0.2.0</c> &gt; <c>0.2.0-rc.2</c> 之外的情况也不会崩。
+        /// </summary>
+        private static int CompareVersions(string? a, string? b)
+        {
+            static int[] Parts(string? s)
+                => Regex.Matches(s ?? string.Empty, "\\d+")
+                        .Select(m => int.TryParse(m.Value, out int n) ? n : 0)
+                        .ToArray();
+
+            int[] pa = Parts(a), pb = Parts(b);
+            int len = Math.Max(pa.Length, pb.Length);
+            for (int i = 0; i < len; i++)
+            {
+                int x = i < pa.Length ? pa[i] : 0;
+                int y = i < pb.Length ? pb[i] : 0;
+                if (x != y) return x.CompareTo(y);
+            }
+            return 0;
+        }
+
+        /// <summary>
+        /// dsh 的 **npm 工程根目录**（不是包目录本身）。
+        ///
+        /// <para>包目录可能是符号链接（例如 <c>~/.dsh/profiles/node_modules/@deepseek-ai/dsh</c>
+        /// 指向 npx 缓存里的真身）。必须解析到真身、再往上找到 <c>node_modules</c> 的父目录 ——
+        /// 在符号链接那一层跑 <c>npm install</c> 会装到错误的位置。</para>
+        /// </summary>
+        private static string? DshInstallRoot()
+        {
+            try
+            {
+                string? pkg = DshPackageDir();
+                if (pkg == null) return null;
+
+                var info = new DirectoryInfo(pkg);
+                string real = info.FullName;
+                try
+                {
+                    var target = info.ResolveLinkTarget(returnFinalTarget: true);
+                    if (target != null) real = target.FullName;
+                }
+                catch { /* 不是链接就按原路径处理 */ }
+
+                var dir = new DirectoryInfo(real);
+                while (dir != null &&
+                       !string.Equals(dir.Name, "node_modules", StringComparison.OrdinalIgnoreCase))
+                    dir = dir.Parent;
+
+                return dir?.Parent?.FullName;
+            }
+            catch { return null; }
+        }
+
+        /// <summary>
+        /// dsh 该升到哪个版本：从 npm 的 <c>latest</c> / <c>next</c> 两个 tag 里取**较高者**。
+        ///
+        /// <para>为什么要比两个：dsh 的 <c>latest</c> 长期滞后（停在 0.2.0-rc.2），
+        /// 新版本只发在 <c>next</c> 上；但也不能无脑用 next —— 万一哪次 next 反而更旧。</para>
+        /// </summary>
+        private static string? ResolveDshTargetVersion(int timeoutMs)
+        {
+            try
+            {
+                var (exit, stdout, _) = RunCaptured(
+                    "npm", "view @deepseek-ai/dsh dist-tags --json",
+                    Math.Min(timeoutMs, 30000));
+                if (exit != 0 || string.IsNullOrWhiteSpace(stdout)) return null;
+
+                string? best = null;
+                foreach (Match m in Regex.Matches(stdout, "\"(?:latest|next)\"\\s*:\\s*\"([^\"]+)\""))
+                {
+                    string v = m.Groups[1].Value;
+                    if (best == null || CompareVersions(v, best) > 0) best = v;
+                }
+                return best;
+            }
+            catch { return null; }
         }
 
         /// <summary>在 PATH 里找 node.exe，找不到返回 null。</summary>
@@ -316,12 +482,13 @@ namespace TsuruLauncher.Services
                 }
                 else if (t.Kind == "dsh")
                 {
-                    string baseDir = DshBaseDir();
-                    if (Directory.Exists(baseDir))
+                    // 目录与入口都不写死：扫多个安装位置取最高版本，入口读 package.json 的 bin
+                    string? pkgDir = DshPackageDir();
+                    if (pkgDir != null)
                     {
                         state.Installed = true;
-                        state.EntryPath = Path.Combine(baseDir, "lib", "bin.js");
-                        state.Version = ReadVersion(Path.Combine(baseDir, "package.json"));
+                        state.EntryPath = ReadBinEntry(pkgDir) ?? Path.Combine(pkgDir, "lib", "bin.js");
+                        state.Version = ReadVersion(Path.Combine(pkgDir, "package.json"));
                     }
                 }
             }
@@ -385,8 +552,31 @@ namespace TsuruLauncher.Services
             {
                 if (t.Kind == "dsh")
                 {
-                    log = "DeepSeek Harness 不是 npm 包，请用它自己的方式更新（HTA 版同样不支持自动更新）。";
-                    return false;
+                    // dsh 不是全局 npm 包：它装在 ~/.dsh/profiles 里（常见是指向 npx 缓存的符号链接），
+                    // 所以不能用 `npm install -g`，必须**在它自己的工程目录里**跑 npm install。
+                    string? root = DshInstallRoot();
+                    if (root == null)
+                    {
+                        log = "找不到 DeepSeek Harness 的安装目录（可能还没安装）。";
+                        return false;
+                    }
+
+                    // 目标版本：npm 的 latest 与 next 里取较高者。
+                    // dsh 的 latest 长期滞后（停在 0.2.0-rc.2），新版本只发在 next 上；
+                    // 但仍要比较 —— 万一哪次 next 反而比 latest 旧，不能盲目用 next。
+                    string? targetVer = latest ? ResolveDshTargetVersion(timeoutMs) : null;
+                    string spec = string.IsNullOrEmpty(targetVer) ? t.Package : t.Package + "@" + targetVer;
+
+                    // 有 package.json 才能 --save-exact：锁住版本，避免以后被动漂移
+                    string flags = File.Exists(Path.Combine(root, "package.json")) ? " --save-exact" : "";
+
+                    var (dexit, dout, derr) = RunCaptured(
+                        "npm", "install \"" + spec + "\"" + flags + " --no-audit --no-fund",
+                        timeoutMs, root);
+
+                    log = ("DeepSeek Harness → npm install " + spec + "\n目录：" + root + "\n\n"
+                           + (dout ?? "") + "\n" + (derr ?? "")).Trim();
+                    return dexit == 0;
                 }
 
                 string args = "install -g " + t.Package + (latest ? "@latest" : "") + " --no-fund --no-audit";
@@ -406,7 +596,8 @@ namespace TsuruLauncher.Services
         /// 统一的「起进程 + 重定向 + 超时 Kill」封装，照 PythonRunner.Run 的写法。
         /// 返回 (exitCode, stdout, stderr)；超时返回 exitCode = -1。
         /// </summary>
-        private static (int Exit, string Stdout, string Stderr) RunCaptured(string exe, string arguments, int timeoutMs)
+        private static (int Exit, string Stdout, string Stderr) RunCaptured(
+            string exe, string arguments, int timeoutMs, string? workingDir = null)
         {
             var psi = new ProcessStartInfo("cmd.exe")
             {
@@ -419,6 +610,9 @@ namespace TsuruLauncher.Services
                 StandardOutputEncoding = Encoding.UTF8,
                 StandardErrorEncoding = Encoding.UTF8,
             };
+            // npm install 必须在该包的工程目录里跑，否则会装到别处
+            if (!string.IsNullOrWhiteSpace(workingDir) && Directory.Exists(workingDir))
+                psi.WorkingDirectory = workingDir;
 
             using var p = Process.Start(psi);
             if (p == null) return (-1, "", "启动进程失败");
@@ -450,9 +644,12 @@ namespace TsuruLauncher.Services
                     return;
                 }
 
-                string inner = t.Kind == "dsh"
-                    ? "node \"" + entry + "\"" + (string.IsNullOrEmpty(t.Args) ? "" : " " + t.Args)
-                    : "\"" + entry + "\"" + (string.IsNullOrEmpty(t.Args) ? "" : " " + t.Args);
+                // dsh 的入口是 .js（要用 node 跑）；但如果哪天改成全局安装，
+                // 入口会变成 dsh.cmd —— 那种情况直接执行，不要再套一层 node。
+                string ext = Path.GetExtension(entry).ToLowerInvariant();
+                bool needsNode = t.Kind == "dsh" && (ext == ".js" || ext == ".mjs" || ext == ".cjs");
+                string inner = (needsNode ? "node \"" + entry + "\"" : "\"" + entry + "\"")
+                             + (string.IsNullOrEmpty(t.Args) ? "" : " " + t.Args);
 
                 var psi = new ProcessStartInfo("cmd.exe")
                 {

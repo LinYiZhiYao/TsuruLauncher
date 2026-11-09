@@ -24,7 +24,16 @@ namespace TsuruLauncher.Models
         public int MaxMemoryMB { get; set; } = 2048;
 
         // 命令
+        public string GameArgs { get; set; } = "";
         public string PreLaunchCommand { get; set; } = "";
+
+        // 高级选项（以前只有界面没有行为，现在会保存并被 GameService / LaunchService 读取）
+        /// <summary>内存优化策略：0=跟随全局 1=开启 2=关闭。</summary>
+        public int MemoryOptimizeIndex { get; set; } = 0;
+        public bool DisableModUpdate { get; set; } = false;
+        public bool IgnoreJavaCompatibility { get; set; } = false;
+        public bool DisableFileVerify { get; set; } = false;
+        public bool DisableLaunchWrapper { get; set; } = false;
         public string PostExitCommand { get; set; } = "";
     }
 

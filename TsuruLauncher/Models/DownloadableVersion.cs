@@ -21,6 +21,16 @@ namespace TsuruLauncher.Models
         };
 
         public bool IsRelease => Type == "release";
+
+        /// <summary>
+        /// ⚠ 必须重写 ToString()。
+        ///
+        /// <para>版本下拉框用的是自绘 ComboBox 模板（ContentPresenter 绑 SelectionBoxItem）。
+        /// 只要那条链路有一处没把 ContentTemplate 传下去，WPF 就退回 ToString()，
+        /// 选择框里就会显示 <c>TsuruLauncher.Models.DownloadableVersion</c> —— 实测就是这样。
+        /// 光靠 XAML 的 DisplayMemberPath 兜不住，重写 ToString 才是稳的。</para>
+        /// </summary>
+        public override string ToString() => Id;
     }
 
     public class VersionManifest

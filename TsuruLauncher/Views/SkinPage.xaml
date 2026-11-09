@@ -234,16 +234,26 @@
                         <ctl:SkinPreviewWeb x:Name="Preview" Slim="{Binding IsSlimPreview}"
                                             SkinSource="{Binding PreviewSkin}" CapeSource="{Binding OfficialCape}"/>
                     <!-- 脚下投影：跟着角色一起淡入（放在 SkinPreview3D 外面，
-                         因为它的 Root 会整体淡入，阴影要自己动） -->
-                    <Ellipse x:Name="GroundShadow" Width="120" Height="18" VerticalAlignment="Bottom"
-                             HorizontalAlignment="Center" Margin="0,0,0,46" Opacity="0" IsHitTestVisible="False">
-                        <Ellipse.Fill>
-                            <RadialGradientBrush>
-                                <GradientStop Color="#3A000000" Offset="0"/>
-                                <GradientStop Color="#00000000" Offset="1"/>
-                            </RadialGradientBrush>
-                        </Ellipse.Fill>
-                    </Ellipse>
+                         因为它的 Root 会整体淡入，阴影要自己动）。
+                         ⚠ 位置必须用**比例**（73.2% 高度）而不是固定像素边距 ——
+                         角色在 WebGL 里是按画布高度百分比摆的，用固定 px 的话
+                         窗口一改高度，脚底和阴影就会重新错开。 -->
+                    <Grid IsHitTestVisible="False">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="732*"/>
+                            <RowDefinition Height="268*"/>
+                        </Grid.RowDefinitions>
+                        <Ellipse x:Name="GroundShadow" Grid.Row="1" Width="120" Height="18"
+                                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-9,0,0"
+                                 Opacity="0">
+                            <Ellipse.Fill>
+                                <RadialGradientBrush>
+                                    <GradientStop Color="#3A000000" Offset="0"/>
+                                    <GradientStop Color="#00000000" Offset="1"/>
+                                </RadialGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Grid>
                 </Grid>
 
                 <TextBlock Grid.Row="2" Text="↔ 拖动以旋转" FontSize="12" HorizontalAlignment="Center"
@@ -345,7 +355,7 @@
                                                     Background="{DynamicResource Surface4Brush}">
                                                 <Grid>
                                                     <!-- 3D 缩略图（离屏渲染），不是平铺贴图 -->
-                                                    <Image Source="{Binding Thumbnail}" Stretch="Uniform"
+                                                    <Image Source="{Binding Thumbnail}" Stretch="Uniform" motion:MotionAssist.PopInOnSource="True"
                                                            Visibility="{Binding IsNotAddCard, Converter={StaticResource BoolToVis}}"
                                                            RenderOptions.BitmapScalingMode="HighQuality"/>
 
@@ -510,7 +520,7 @@
                                         <Border Grid.Row="0" CornerRadius="8" ClipToBounds="True"
                                                 Background="{DynamicResource Surface4Brush}">
                                             <Grid>
-                                                <Image Source="{Binding Thumbnail}" Stretch="Uniform"
+                                                <Image Source="{Binding Thumbnail}" Stretch="Uniform" motion:MotionAssist.PopInOnSource="True"
                                                        RenderOptions.BitmapScalingMode="HighQuality"/>
 
                                                 <!-- 选中描边：淡入淡出 -->

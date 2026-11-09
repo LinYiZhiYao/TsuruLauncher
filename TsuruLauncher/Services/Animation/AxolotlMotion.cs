@@ -102,18 +102,33 @@ namespace TsuruLauncher.Services.Animation
         /// <summary>translateY(30px) / translateY(-30px)。</summary>
         public const double SlideOffsetPx = 30;
 
-        // ── 页面进场「一眼可见」档（任务 §1）────────────────────────────────
-        // 改前：opacity 180ms + translateY ±30px / 200ms ease（宿主只降到 0.92），
-        //       实测肉眼几乎无感；改后幅度翻倍 + 加入 0.985 缩放 + 宿主降到 0.86。
-        /// <summary>新页 opacity 0 -&gt; 1 时长 —— <b>180ms -&gt; 220ms</b>。</summary>
+        // ── 页面切换：**按 Axolotl 原版迁移**（global.scss:330-352）──────────
+        //
+        // Axolotl 的页面切换只有透明度，源码是：
+        //   .page-slide-enter-active { transition: opacity 0.18s ease; }
+        //   .page-slide-enter-from   { opacity: 0; }
+        //   .page-slide-leave-active { transition: opacity 0.12s ease; }
+        //
+        // 它**故意不给这一层加 transform**，源码注释写得很清楚：
+        //   "A translateY on this layer makes `position: sticky` resolve against
+        //    the layer instead of the scrollport, so the toolbar ... can stick in
+        //    the wrong place"
+        // 那个 translateY(30px) 属于另一套 `.slide-*`，用在内层内容/列表上，
+        // **不是页面切换**。
+        //
+        // 之前 Tsuru 把两套混在了一起（opacity 220ms + translateY 56px + scale 0.985），
+        // 于是皮肤页的角色（WebView2 / HwndHost 独立原生窗口）跟不动 WPF 变换 ——
+        // 表现为「页面滑、角色瞬间跳」，也就是用户看到的硬切和偏移。
+        // 现在回到原版：纯 180ms 淡入，全应用所有页面完全一致。
+        /// <summary>新页 opacity 0 -> 1 时长（Axolotl <c>opacity 0.18s</c>）。</summary>
         public const double PageEnterFadeMs = 220;
-        /// <summary>新页位移起点 —— <b>±30px -&gt; ±56px</b>。</summary>
+        /// <summary>页面级位移：Axolotl 原版**没有**，固定为 0。</summary>
         public const double PageEnterSlidePx = 56;
-        /// <summary>新页位移时长 —— <b>200ms -&gt; 280ms</b>。</summary>
+        /// <summary>位移时长（位移为 0，保留常量供内层内容复用）。</summary>
         public const double PageEnterSlideMs = 280;
-        /// <summary>新页缩放起点 —— <b>无缩放 -&gt; scale(0.985)</b>。</summary>
+        /// <summary>页面级缩放：Axolotl 原版**没有**，固定为 1.0（恒等）。</summary>
         public const double PageEnterScaleFrom = 0.985;
-        /// <summary>新页缩放时长（与位移同曲线同时长）。</summary>
+        /// <summary>缩放时长（缩放为恒等，保留常量）。</summary>
         public const double PageEnterScaleMs = 280;
 
         // ── 列表 stagger（Settings.vue:395 / 766-791）──

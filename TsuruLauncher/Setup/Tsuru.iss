@@ -15,7 +15,7 @@
 ; ═══════════════════════════════════════════════════════════════
 
 #define MyAppName "Tsuru Launcher"
-#define MyAppVersion "2.1.4"
+#define MyAppVersion "2.1.5"
 #define MyAppPublisher "Tsuru"
 #define MyAppURL "https://github.com/LinYiZhi-wp/TsuruLauncher"
 #define MyAppExeName "TsuruLauncher.exe"
@@ -31,6 +31,9 @@ AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 VersionInfoVersion={#MyAppVersion}
+; 安装包自己的图标（左上角 + 添加删除程序里显示）。
+; ⚠ 相对路径的基准是 .iss 所在目录（Setup/），所以图标要写 ..\Assets\
+SetupIconFile=..\Assets\tsuru-icon.ico
 DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes

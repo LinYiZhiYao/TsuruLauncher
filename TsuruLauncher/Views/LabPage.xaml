@@ -296,7 +296,7 @@
                         <ColumnDefinition Width="150"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBox x:Name="ToolSearchBox" Grid.Column="0" Style="{StaticResource iOS26.SearchBox}"
+                    <TextBox x:Name="ToolSearchBox" Grid.Column="0" Style="{StaticResource iOS26.SearchBox}" Tag="搜索工具名 / 说明…"
                              TextChanged="ToolSearch_Changed" ToolTip="按工具名或说明搜索"/>
 
                     <ComboBox x:Name="CategoryFilter" Grid.Column="2" SelectedIndex="0"

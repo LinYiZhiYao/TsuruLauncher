@@ -20,6 +20,14 @@ namespace TsuruLauncher.Views
         {
             InitializeComponent();
 
+            // 离开皮肤页时把还在排队的缩略图渲染全部作废。
+            // 队列是 static 的，不取消的话会继续在 UI 线程上一张张渲（实测单张 ~1.1s），
+            // 切到「下载」页时转场只有 280ms，直接被卡到终点 —— 表现就是「划入动画没了」。
+            IsVisibleChanged += (_, e) =>
+            {
+                if (e.NewValue is false) SkinEntry.CancelThumbQueue();
+            };
+
             // 脚下投影跟着皮肤一起淡入（没皮肤时不显示）
             DataContextChanged += (_, __) =>
             {
@@ -85,6 +93,61 @@ namespace TsuruLauncher.Views
                     await System.Threading.Tasks.Task.Delay(2500).ConfigureAwait(true);
                     Dispatcher.BeginInvoke(RunSkinSelfTest, System.Windows.Threading.DispatcherPriority.Background);
                 };
+
+            HookSkinViewModel(DataContext as SkinViewModel);
+            DataContextChanged += (_, __) => HookSkinViewModel(DataContext as SkinViewModel);
+            Loaded += (_, __) => HookPageLifetimeEvents();
+        }
+
+        // ══ VM 订阅 ══
+        //
+        // 构造函数里的 DataContextChanged 有可能**根本不触发**（DataContext 在页面构造前
+        // 就已经由 Frame 注入好了），于是「换皮肤时投影淡入 / 文字脉冲」全部失效。
+        // 所以这里额外在构造函数末尾和 Loaded 各挂一次，并且做成幂等的。
+        private SkinViewModel? _hookedVm;
+        private bool _lifetimeHooked;
+
+        private void HookSkinViewModel(SkinViewModel? vm)
+        {
+            if (ReferenceEquals(_hookedVm, vm)) return;
+            if (_hookedVm != null) _hookedVm.PropertyChanged -= OnSkinVmChanged;
+            _hookedVm = vm;
+            if (vm != null) vm.PropertyChanged += OnSkinVmChanged;
+        }
+
+        private void OnSkinVmChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (DataContext is not SkinViewModel vm) return;
+            switch (e.PropertyName)
+            {
+                case nameof(SkinViewModel.PreviewSkin):
+                    FadeShadow(vm.PreviewSkin != null);
+                    break;
+                case nameof(SkinViewModel.ChipText):
+                    PulseIn(ChipTextBlock);
+                    break;
+                case nameof(SkinViewModel.ApplyStatus):
+                    PulseIn(ApplyStatusText);
+                    break;
+                case nameof(SkinViewModel.SectionTitle):
+                    PulseIn(SectionTitleText);
+                    break;
+            }
+        }
+
+        /// <summary>页面级生命周期：只挂一次，避免每次进入重复订阅造成泄漏。</summary>
+        private void HookPageLifetimeEvents()
+        {
+            if (_lifetimeHooked) return;
+            _lifetimeHooked = true;
+
+            // 每次页面重新显示都刷新一次账号状态（切账号、登录完成都会走到这里）
+            IsVisibleChanged += (_, e) =>
+            {
+                if (e.NewValue is not true) return;
+                HookSkinViewModel(DataContext as SkinViewModel);
+                Vm?.OnPageShown();
+            };
         }
 
         /// <summary>

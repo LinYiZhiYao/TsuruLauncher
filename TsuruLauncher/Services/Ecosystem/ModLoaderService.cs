@@ -11,6 +11,13 @@ namespace TsuruLauncher.Services.Ecosystem
 {
     public class ModLoaderService
     {
+        /// <summary>
+        /// 安装器（Forge / OptiFine）最长允许运行时间。
+        /// 超时就强杀进程并抛 <see cref="TimeoutException"/> —— 宁可失败，
+        /// 也不能让 UI 永久停在「安装中」（这是之前 IsInstalling 永不复位的根因）。
+        /// </summary>
+        private const int InstallerTimeoutMs = 10 * 60 * 1000;
+
         private readonly DownloadService _downloadService;
         private const string FabricMetaUrl = "https://meta.fabricmc.net/v2";
 
@@ -19,7 +26,7 @@ namespace TsuruLauncher.Services.Ecosystem
             _downloadService = new DownloadService();
         }
 
-        public async Task<JObject> InstallFabricAsync(string mcVersion, string loaderVersion, string dotMinecraftPath, IProgress<double>? progress = null, IProgress<string>? status = null)
+        public async Task<JObject> InstallFabricAsync(string mcVersion, string loaderVersion, string dotMinecraftPath, IProgress<double>? progress = null, IProgress<string>? status = null, System.Threading.CancellationToken ct = default)
         {
             string versionId = $"{mcVersion}-fabric-{loaderVersion}";
             string versionDir = Path.Combine(dotMinecraftPath, "versions", versionId);
@@ -152,7 +159,7 @@ namespace TsuruLauncher.Services.Ecosystem
 
         private const string BMCLAPI_FORGE = "https://bmclapi2.bangbang93.com";
 
-        public async Task InstallForgeAsync(string mcVersion, string forgeVersion, string dotMinecraftPath, IProgress<double>? progress = null, IProgress<string>? status = null)
+        public async Task InstallForgeAsync(string mcVersion, string forgeVersion, string dotMinecraftPath, IProgress<double>? progress = null, IProgress<string>? status = null, System.Threading.CancellationToken ct = default)
         {
             status?.Report("正在获取Forge安装信息...");
 
@@ -227,13 +234,13 @@ namespace TsuruLauncher.Services.Ecosystem
                 // Pick the argument style for this MC version, and if the installer
                 // rejects it (UnrecognizedOptionException), retry with the other style.
                 bool legacy = IsLegacyForgeInstaller(mcVersion);
-                string? installError = await RunForgeInstallerOnceAsync(installerPath, dotMinecraftPath, requiredJava, legacy, progress, status);
+                string? installError = await RunForgeInstallerOnceAsync(installerPath, dotMinecraftPath, requiredJava, legacy, progress, status, ct);
                 if (installError != null &&
                     (installError.Contains("UnrecognizedOption", StringComparison.OrdinalIgnoreCase) ||
                      installError.Contains("not a recognized option", StringComparison.OrdinalIgnoreCase)))
                 {
                     status?.Report("安装器参数格式不兼容，自动切换重试...");
-                    installError = await RunForgeInstallerOnceAsync(installerPath, dotMinecraftPath, requiredJava, !legacy, progress, status);
+                    installError = await RunForgeInstallerOnceAsync(installerPath, dotMinecraftPath, requiredJava, !legacy, progress, status, ct);
                 }
                 if (installError != null)
                     throw new Exception(installError);
@@ -318,7 +325,7 @@ namespace TsuruLauncher.Services.Ecosystem
         /// running it in silent mode (creates versions/{mc}-OptiFine).
         /// optifineVersion is expected in "type_patch" form, e.g. "HD_U_I6".
         /// </summary>
-        public async Task InstallOptiFineAsync(string mcVersion, string optifineVersion, string dotMinecraftPath, IProgress<double>? progress = null, IProgress<string>? status = null)
+        public async Task InstallOptiFineAsync(string mcVersion, string optifineVersion, string dotMinecraftPath, IProgress<double>? progress = null, IProgress<string>? status = null, System.Threading.CancellationToken ct = default)
         {
             if (string.IsNullOrEmpty(optifineVersion))
                 throw new Exception("OptiFine 版本为空");
@@ -388,10 +395,27 @@ namespace TsuruLauncher.Services.Ecosystem
                 process.BeginOutputReadLine();
                 process.BeginErrorReadLine();
 
+                // ⚠ 必须有超时 + 强杀：安装器会因为网络等待、交互式提示、Java 版本不匹配
+                //   而永远不退出。没有超时的话这个循环永不结束 → 上游 CreateInstance 的
+                //   finally 不执行 → IsInstalling 永久 true，界面上就是「安装中」一直不动，
+                //   而且取消也停不下来（这里既没传 token 也没 Kill）。
+                long installerWaited = 0;
                 while (!process.HasExited)
                 {
                     await Task.Delay(500);
+                    installerWaited += 500;
                     progress?.Report(0.5);
+                    if (ct.IsCancellationRequested)
+                    {
+                        try { process.Kill(entireProcessTree: true); } catch { }
+                        ct.ThrowIfCancellationRequested();
+                    }
+                    if (installerWaited >= InstallerTimeoutMs)
+                    {
+                        try { process.Kill(entireProcessTree: true); } catch { }
+                        throw new TimeoutException(
+                            $"安装程序超过 {InstallerTimeoutMs / 60000} 分钟没有结束，已强制终止。请检查网络或 Java 版本。");
+                    }
                 }
                 await process.WaitForExitAsync();
 
@@ -450,7 +474,7 @@ namespace TsuruLauncher.Services.Ecosystem
         /// Runs the Forge installer once with the given argument style.
         /// Returns the error text on failure, or null on success.
         /// </summary>
-        private async Task<string?> RunForgeInstallerOnceAsync(string installerPath, string dotMinecraftPath, int requiredJava, bool legacyArgs, IProgress<double>? progress, IProgress<string>? status)
+        private async Task<string?> RunForgeInstallerOnceAsync(string installerPath, string dotMinecraftPath, int requiredJava, bool legacyArgs, IProgress<double>? progress, IProgress<string>? status, System.Threading.CancellationToken ct = default)
         {
             var javaPath = FindJavaPath(requiredJava);
             if (string.IsNullOrEmpty(javaPath))
@@ -499,10 +523,27 @@ namespace TsuruLauncher.Services.Ecosystem
                 process.BeginOutputReadLine();
                 process.BeginErrorReadLine();
 
+                // ⚠ 必须有超时 + 强杀：安装器会因为网络等待、交互式提示、Java 版本不匹配
+                //   而永远不退出。没有超时的话这个循环永不结束 → 上游 CreateInstance 的
+                //   finally 不执行 → IsInstalling 永久 true，界面上就是「安装中」一直不动，
+                //   而且取消也停不下来（这里既没传 token 也没 Kill）。
+                long installerWaited = 0;
                 while (!process.HasExited)
                 {
                     await Task.Delay(500);
+                    installerWaited += 500;
                     progress?.Report(0.5);
+                    if (ct.IsCancellationRequested)
+                    {
+                        try { process.Kill(entireProcessTree: true); } catch { }
+                        ct.ThrowIfCancellationRequested();
+                    }
+                    if (installerWaited >= InstallerTimeoutMs)
+                    {
+                        try { process.Kill(entireProcessTree: true); } catch { }
+                        throw new TimeoutException(
+                            $"安装程序超过 {InstallerTimeoutMs / 60000} 分钟没有结束，已强制终止。请检查网络或 Java 版本。");
+                    }
                 }
 
                 await process.WaitForExitAsync();

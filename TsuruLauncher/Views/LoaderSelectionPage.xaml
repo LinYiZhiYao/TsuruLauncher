@@ -19,6 +19,13 @@
         <conv:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
         <conv:InverseBoolConverter x:Key="InverseBoolConverter"/>
 
+        <!-- ⚠ 这个页面有 12 处 {StaticResource EaseOutCubic}，但之前**没有定义** ——
+             打开「加载器选择」页时每处都会抛
+             “无法找到名为 EaseOutCubic 的资源”，导致整页模板化失败。
+             而这一页正是「新建实例 → 选加载器」的必经环节。
+             定义方式与 DownloadPage / SkinPage / DownloadManagerPage 保持一致。 -->
+        <x:Static x:Key="EaseOutCubic" Member="anim:AxolotlMotion.EaseOut"/>
+
         <Style x:Key="LoaderListBox" TargetType="ListBox">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>

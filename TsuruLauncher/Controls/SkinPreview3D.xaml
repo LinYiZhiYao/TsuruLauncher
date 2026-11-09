@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
              d:DesignHeight="360" d:DesignWidth="300"
-             Cursor="SizeWE" Background="Transparent">
+             Cursor="Hand" Background="Transparent">
     <!-- Root 承担「换皮肤时的淡入 + 上浮」 -->
     <Grid x:Name="Root">
         <Viewport3D x:Name="Viewport" ClipToBounds="True">

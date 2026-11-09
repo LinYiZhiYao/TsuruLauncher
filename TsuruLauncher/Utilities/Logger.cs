@@ -21,7 +21,44 @@ namespace TsuruLauncher.Utilities
     /// </summary>
     public static class Logger
     {
-        private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TsuruLauncher.log");
+        /// <summary>
+        /// 日志落点：优先程序目录（便携版）；**写不进去就退回 %APPDATA%\TsuruLauncher**。
+        ///
+        /// ⚠ 为什么必须做这个回退：安装包默认装到 <c>C:\Program Files\</c>，
+        /// 普通用户对它**没有写权限**，原来写死程序目录的结果是——
+        /// 安装版一个日志文件都不会产生，所有异常被静默吞掉，出问题完全没法查。
+        /// </summary>
+        private static readonly string LogPath = ResolveLogPath();
+
+        private static string ResolveLogPath()
+        {
+            string exeDir = AppDomain.CurrentDomain.BaseDirectory;
+            try
+            {
+                // 探测可写：建一个马上删掉的空文件，不留下痕迹
+                string probe = Path.Combine(exeDir, ".write_probe");
+                using (new FileStream(probe, FileMode.Create, FileAccess.Write, FileShare.None, 1, FileOptions.DeleteOnClose))
+                { }
+                return Path.Combine(exeDir, "TsuruLauncher.log");
+            }
+            catch
+            {
+                try
+                {
+                    string dir = Path.Combine(
+                        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "TsuruLauncher");
+                    Directory.CreateDirectory(dir);
+                    return Path.Combine(dir, "TsuruLauncher.log");
+                }
+                catch
+                {
+                    return Path.Combine(Path.GetTempPath(), "TsuruLauncher.log");
+                }
+            }
+        }
+
+        /// <summary>日志所在目录（轮转清理用，不能再用 BaseDirectory —— 可能已回退到 %APPDATA%）。</summary>
+        private static string LogDir => Path.GetDirectoryName(LogPath) ?? AppDomain.CurrentDomain.BaseDirectory;
         private static readonly object _lock = new object();
         private const long MaxLogSizeBytes = 5 * 1024 * 1024;
 
@@ -49,7 +86,7 @@ namespace TsuruLauncher.Utilities
                             File.Move(LogPath, archivePath);
 
                             int maxArchives = 3;
-                            var archives = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "TsuruLauncher.*.log")
+                            var archives = Directory.GetFiles(LogDir, "TsuruLauncher.*.log")
                                 .OrderByDescending(f => f).Skip(maxArchives).ToList();
                             foreach (var old in archives)
                             {
@@ -82,39 +119,99 @@ namespace TsuruLauncher.Utilities
             }
         }
 
+        /// <summary>运行期每隔这么多「写入字符数」才去 stat 一次文件大小（避免每行都 stat）。</summary>
+        private const long RuntimeCheckBytes = 4 * 1024 * 1024;
+
+        private static StreamWriter? TryOpenLog()
+        {
+            try
+            {
+                var fs = new FileStream(LogPath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
+                return new StreamWriter(fs) { AutoFlush = true };
+            }
+            catch { return null; }
+        }
+
+        private static void PruneArchives()
+        {
+            try
+            {
+                const int maxArchives = 3;
+                var archives = Directory.GetFiles(LogDir, "TsuruLauncher.*.log")
+                    .OrderByDescending(f => f).Skip(maxArchives).ToList();
+                foreach (var old in archives)
+                {
+                    try { File.Delete(old); } catch { }
+                }
+            }
+            catch { }
+        }
+
+        /// <summary>
+        /// 运行期轮转：超过上限就把当前日志改名归档，然后重开一个。
+        ///
+        /// <para>⚠ 原来只有 <see cref="Initialize"/> 里检查一次 —— 一个不关的会话会无限增长。
+        /// 实测：连开 3 天的日志 61.7 MB，历史归档里有 81 MB 和 95 MB 的，而常量写的是 5 MB。
+        /// 一旦出现刷屏级别的异常（曾经有个 XAML bug 一下报了 6431 次），几百 MB 很快就写出来了。</para>
+        /// </summary>
+        private static bool RotateLogIfTooBig(ref StreamWriter? writer)
+        {
+            try
+            {
+                long len;
+                try { len = writer?.BaseStream?.Length ?? 0; }
+                catch { return false; }
+                if (len < MaxLogSizeBytes) return false;
+
+                try { writer?.Flush(); writer?.Dispose(); } catch { }
+                writer = null;
+
+                string archivePath = LogPath.Replace(".log", $".{DateTime.Now:yyyyMMdd_HHmmss}.log");
+                try { File.Move(LogPath, archivePath); } catch { }
+                PruneArchives();
+
+                writer = TryOpenLog();
+                return true;
+            }
+            catch
+            {
+                writer = TryOpenLog();
+                return false;
+            }
+        }
+
         private static void WorkerLoop()
         {
             StreamWriter? writer = null;
+            long writtenSinceCheck = 0;
 
-            StreamWriter? TryOpen()
-            {
-                try
-                {
-                    var fs = new FileStream(LogPath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
-                    return new StreamWriter(fs) { AutoFlush = true };
-                }
-                catch { return null; }
-            }
-
-            writer = TryOpen();
+            writer = TryOpenLog();
 
             while (!_stop)
             {
                 try { _signal.WaitOne(250); } catch { }
-                if (writer == null) writer = TryOpen();
-                Drain(writer);
+                if (writer == null) writer = TryOpenLog();
+                writtenSinceCheck += Drain(writer);
+
+                if (writtenSinceCheck >= RuntimeCheckBytes)
+                {
+                    writtenSinceCheck = 0;
+                    RotateLogIfTooBig(ref writer);
+                }
             }
 
             Drain(writer);
             try { writer?.Flush(); writer?.Dispose(); } catch { }
         }
 
-        private static void Drain(StreamWriter? writer)
+        private static long Drain(StreamWriter? writer)
         {
+            long bytes = 0;
             while (_queue.TryDequeue(out var line))
             {
-                try { writer?.Write(line); } catch { /* 尽力而为 */ }
+                try { writer?.Write(line); bytes += line.Length + 1; } catch { /* 尽力而为 */ }
             }
+            return bytes;
         }
 
         public static void Log(string message, string type = "INFO")

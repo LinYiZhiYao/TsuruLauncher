@@ -6,28 +6,42 @@
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              mc:Ignorable="d"
              Width="380" MinHeight="68" Margin="0,8,0,8">
+    <!-- ⚠ x:Shared="False" 不能去掉：
+         这两个 Storyboard 是**共享资源**，而 Close() 每次都会往 SlideOut 上挂一个
+         Completed 处理器（闭包捕获当前 toast 的 _onClose）。共享实例上挂处理器会**累积** ——
+         每关一个 toast，之前所有 toast 的回调都会被再触发一次，而且这些闭包会把
+         历史 toast 全部钉在内存里不释放。x:Shared="False" 让每次 FindResource 拿到新实例。 -->
     <UserControl.Resources>
-        <Storyboard x:Key="SlideIn">
+        <Storyboard x:Key="SlideIn" x:Shared="False">
             <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.35">
                 <DoubleAnimation.EasingFunction>
                     <CubicEase EasingMode="EaseOut"/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
-            <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,-60,0,0" To="0,8,0,0" Duration="0:0:0.4">
-                <ThicknessAnimation.EasingFunction>
+            <!-- ⚠ 这里原来动的是 Margin（ThicknessAnimation）—— Margin 属于布局属性，
+                 每帧都会触发一次布局传递。改成 RenderTransform 的位移：
+                 视觉等价（原本 top margin -60→8，即相对基准位 -68→0），但完全不触发布局。 -->
+            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                             From="-68" To="0" Duration="0:0:0.4">
+                <DoubleAnimation.EasingFunction>
                     <BackEase EasingMode="EaseOut" Amplitude="0.3"/>
-                </ThicknessAnimation.EasingFunction>
-            </ThicknessAnimation>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
         </Storyboard>
-        <Storyboard x:Key="SlideOut">
+        <Storyboard x:Key="SlideOut" x:Shared="False">
             <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.25"/>
-            <ThicknessAnimation Storyboard.TargetProperty="Margin" To="20,-60,20,0" Duration="0:0:0.3">
-                <ThicknessAnimation.EasingFunction>
+            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                             To="-68" Duration="0:0:0.3">
+                <DoubleAnimation.EasingFunction>
                     <CubicEase EasingMode="EaseIn"/>
-                </ThicknessAnimation.EasingFunction>
-            </ThicknessAnimation>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
         </Storyboard>
     </UserControl.Resources>
+
+    <UserControl.RenderTransform>
+        <TranslateTransform x:Name="SlideTransform"/>
+    </UserControl.RenderTransform>
 
     <Border x:Name="Container" CornerRadius="16"
             Background="{DynamicResource Surface5Brush}" BorderBrush="{DynamicResource GlassBorderBrush}" BorderThickness="1">

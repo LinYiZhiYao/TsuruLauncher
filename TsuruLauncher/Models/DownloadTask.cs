@@ -60,6 +60,8 @@ namespace TsuruLauncher.Models
         // Retry metadata (populated by DownloadManagerService so RetryFailed can
         // rebuild the correct download instead of guessing from the display name)
         public string VersionId { get; set; } = string.Empty;
+        /// <summary>版本 JSON 的下载地址（重试时必须带上，否则会拼出 404 的 packages/{id}/{id}.json）。</summary>
+        public string VersionUrl { get; set; } = string.Empty;
         public string LoaderChoice { get; set; } = "Vanilla";
         public string LoaderVersion { get; set; } = string.Empty;
         public string Source { get; set; } = "Official";

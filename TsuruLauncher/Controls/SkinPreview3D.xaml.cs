@@ -56,6 +56,56 @@ namespace TsuruLauncher.Controls
             DependencyProperty.Register(nameof(SkinSource), typeof(BitmapImage), typeof(SkinPreview3D),
                 new PropertyMetadata(null, OnSkinChanged));
 
+        /// <summary>披风贴图。WebView2 版有这个依赖属性，换成 WPF 3D 后保留接口，
+        /// 目前不渲染披风（模型里没有披风层），只为绑定兼容。</summary>
+        public static readonly DependencyProperty CapeSourceProperty =
+            DependencyProperty.Register(nameof(CapeSource), typeof(BitmapImage), typeof(SkinPreview3D),
+                new PropertyMetadata(null));
+
+        public BitmapImage? CapeSource
+        {
+            get => (BitmapImage?)GetValue(CapeSourceProperty);
+            set => SetValue(CapeSourceProperty, value);
+        }
+
+        /// <summary>自检用：控件是否已就绪（WPF 3D 永远就绪）。</summary>
+        public bool IsReady => true;
+
+        /// <summary>自检用：设置视角偏航角。</summary>
+        public Task SetYawAsync(double degrees)
+        {
+            return Dispatcher.InvokeAsync(() =>
+            {
+                _dragging = false;
+                _yaw.Angle = degrees;
+            }).Task;
+        }
+
+        /// <summary>自检用：把当前视角导出成 PNG。</summary>
+        public Task<bool> ExportPngAsync(string path)
+        {
+            return Task.Run(() =>
+            {
+                try
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        int w = Math.Max(1, (int)ActualWidth);
+                        int h = Math.Max(1, (int)ActualHeight);
+                        var rtb = new RenderTargetBitmap(w, h, 96, 96, PixelFormats.Pbgra32);
+                        rtb.Render(this);
+                        var enc = new PngBitmapEncoder();
+                        enc.Frames.Add(BitmapFrame.Create(rtb));
+                        string? dir = System.IO.Path.GetDirectoryName(path);
+                        if (!string.IsNullOrEmpty(dir)) System.IO.Directory.CreateDirectory(dir);
+                        using var fs = System.IO.File.Create(path);
+                        enc.Save(fs);
+                    });
+                    return true;
+                }
+                catch { return false; }
+            });
+        }
         public BitmapImage? SkinSource
         {
             get => (BitmapImage?)GetValue(SkinSourceProperty);
@@ -175,8 +225,21 @@ namespace TsuruLauncher.Controls
         /// 做法就是临时造一个本控件、量好尺寸、`RenderTargetBitmap.Render()` 抓一张。
         /// 比另写一套建模逻辑省事，也不会跟预览区的效果走偏。
         /// </summary>
+        /// <summary>
+        /// 离屏渲染一张缩略图。
+        ///
+        /// <para>⚠ 单张实测 31~63ms，而且**不是算力问题** —— 耗时正好是 2~4 个
+        /// ~15.6ms 的帧间隔，说明在等渲染线程（<c>UpdateLayout</c> +
+        /// <c>RenderTargetBitmap.Render</c> 对 Viewport3D 的固有代价）。
+        /// 所以**不要**在数据绑定期连续调用它，调用方必须逐帧串行
+        /// （见 <c>SkinViewModel.SkinEntry.Thumbnail</c> 里的逐帧队列）。</para>
+        ///
+        /// <para>试过复用同一个 SkinPreview3D 实例来代替每次 new：A/B 实测
+        /// 485ms vs 500ms，**没有改善** —— 成本不在建控件，已回退，别重复这条路。</para>
+        /// </summary>
         public static BitmapSource? RenderThumbnail(BitmapSource skin, bool slim, int size, double yawDeg)
         {
+            long t0 = Environment.TickCount64;
             try
             {
                 var ctl = new SkinPreview3D
@@ -197,6 +260,9 @@ namespace TsuruLauncher.Controls
                 var rtb = new RenderTargetBitmap(size, size, 96, 96, PixelFormats.Pbgra32);
                 rtb.Render(ctl);
                 rtb.Freeze();
+
+                Utilities.Logger.LogInfo(
+                    $"[SkinThumb] 渲染 {Environment.TickCount64 - t0}ms size={size} slim={slim}");
                 return rtb;
             }
             catch (Exception ex)
@@ -393,8 +459,11 @@ namespace TsuruLauncher.Controls
             //     背面 N·L≈0    → 120
             //   正面/侧面 = 1.4 倍 —— 柔和的体积感，暗面不发黑。
             var group = new Model3DGroup();
-            group.Children.Add(new AmbientLight(Color.FromRgb(0x78, 0x78, 0x78)));
-            group.Children.Add(new DirectionalLight(Color.FromRgb(0x88, 0x88, 0x88), new Vector3D(0.56, -0.74, -0.37)));
+            // Axolotl 是 AmbientLight intensity=2 + DirectionalLight intensity=1.2（环境光压到主导），
+            // 这里折成 WPF 的 0-255：环境光接近满亮、方向光只留一点明暗，
+            // 原来 0x78+0x88 太暗，肤色会被压得发灰。
+            group.Children.Add(new AmbientLight(Color.FromRgb(0xE6, 0xE6, 0xE6)));
+            group.Children.Add(new DirectionalLight(Color.FromRgb(0x4E, 0x4E, 0x4E), new Vector3D(0.56, -0.74, -0.37)));
 
             // 贴图刷子。
             // ⚠ 必须显式指定 Absolute + Viewport=(0,0,1,1)：
@@ -402,14 +471,35 @@ namespace TsuruLauncher.Controls
             //   UV 范围**。每个面都是独立的 GeometryModel3D，于是整张贴图被硬塞进单个面里
             //   —— 渲染出来就是每个面上一个缩小版整图（一堆彩色小方块）。
             //   绝对坐标 + (0,0,1,1) 才能让 UV(0..1) 老老实实映射到整张贴图。
-            var brush = new ImageBrush(tex)
+            // ⚠ WPF 3D **不认** BitmapScalingMode（那东西只对 2D 绘制生效），
+            //   3D 材质采样永远是双线性 —— 64×64 的皮肤直接贴上去就是一圈糊边，
+            //   这也是「看起来比 Axolotl 粗糙」的主因（three.js 那边是 NearestFilter，像素是锐的）。
+            //
+            //   绕过办法：先用 2D 渲染把贴图**按最近邻放大**到 8 倍（64→512），
+            //   2D 这条路径是认 NearestNeighbor 的；3D 再对这张大图做双线性采样，
+            //   因为每个原始像素已经被放大成 8×8 的硬边色块，双线性也糊不掉边。
+            // ⚠⚠ 这里**绝对不要**再放大一次。
+            //
+            //   历史上这里写过 `const int scale = 8` + 一个 RenderTargetBitmap，
+            //   本意是把 64×64 放到 512。但那时 tex 还是原始尺寸；
+            //   后来上面加了 UpscaleNearest(tex, 16)（64 → 1024），这段没跟着改，
+            //   于是变成 **1024 × 8 = 8192×8192**：
+            //   单张位图 6700 万像素 / 268 MB，每渲一张缩略图就建一次 ——
+            //   实测 `[SkinThumb] 渲染 ~1.1 秒` 全是它，把 UI 线程按死，
+            //   连累别的页面转场（表现为「点下载卡」「划入动画没了」）。
+            //
+            //   UpscaleNearest 本身就是最近邻放大，像素已经是硬边的，
+            //   这里直接用 tex 即可，不需要再走一次 2D 缩放。
+            BitmapSource crisp = tex;
+
+            var brush = new ImageBrush(crisp)
             {
                 Stretch = Stretch.Fill,
                 ViewportUnits = BrushMappingMode.Absolute,
                 Viewport = new Rect(0, 0, 1, 1),
                 TileMode = TileMode.None,
             };
-            RenderOptions.SetBitmapScalingMode(brush, BitmapScalingMode.NearestNeighbor);
+            RenderOptions.SetBitmapScalingMode(brush, BitmapScalingMode.HighQuality);
 
             // 模型坐标：y 向上，脚底在 y=0。
             //

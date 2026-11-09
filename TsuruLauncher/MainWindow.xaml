@@ -12,6 +12,7 @@
         xmlns:motion="clr-namespace:TsuruLauncher.Services.Animation"
         mc:Ignorable="d"
         Title="Tsuru Launcher" Height="760" Width="1180" MinHeight="620" MinWidth="1040"
+        Icon="pack://application:,,,/Assets/tsuru-icon.ico"
         WindowStartupLocation="CenterScreen"
         WindowBackdropType="None"
         ExtendsContentIntoTitleBar="True">

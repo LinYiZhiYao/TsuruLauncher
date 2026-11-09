@@ -298,6 +298,13 @@ namespace TsuruLauncher.Services
             Brush(d, "ScrollBarBrush", textPrimary, 0x45);
             Brush(d, "ScrollBarHoverBrush", textPrimary, 0x70);
 
+            // 滑块轨道（未填充的那一段）。
+            // ⚠ 之前用的是 GlassLightBrush，而浅色模式下它就是 Surface2 —— 一种很浅的
+            //   表面色，铺在白色卡片上完全看不见，滑块看起来只有一个孤立的白点。
+            //   用 textPrimary + 低透明度：浅色下是浅灰、深色下是深灰，
+            //   一个值就能在两种主题下都有足够对比，不用分支。
+            Brush(d, "SliderTrackBrush", textPrimary, 0x2E);
+
             // legacy aliases still referenced by older styles
             Brush(d, "iOS26.Accent", accentMain);
             Brush(d, "iOS26.AccentHover", accentHover);

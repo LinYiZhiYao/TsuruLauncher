@@ -67,7 +67,10 @@ namespace TsuruLauncher.Controls
             foreach (var child in EnumerateRows())
             {
                 bool on = ReferenceEquals(child.Tag, dir);
-                child.Background = on ? Res("AccentAlphaBrush") ?? child.Background : Res("Surface2Brush") ?? child.Background;
+                // ⚠ 原来写的是 AccentAlphaBrush —— 全项目没有这个资源，Res() 返回 null，
+                //    于是选中行只剩 1.5px 边框、没有强调色底，选中反馈很弱。
+                //    ThemeService 实际提供的是 AccentGlassBrush。
+                child.Background = on ? Res("AccentGlassBrush") ?? child.Background : Res("Surface2Brush") ?? child.Background;
                 child.BorderBrush = on ? Res("AccentBrush") ?? child.BorderBrush : Res("GlassBorderBrush") ?? child.BorderBrush;
                 child.BorderThickness = new Thickness(on ? 1.5 : 1);
             }

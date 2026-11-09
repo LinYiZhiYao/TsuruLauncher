@@ -64,8 +64,14 @@ def main():
         import shutil
         shutil.rmtree(PUBLISH)
         print('  已删除旧的 publish/')
+    # ReadyToRun：把 IL 预编译成原生码。实测冷启动 1439ms → 887ms（-38%），
+    # 热启动 764ms → 636ms，代价是发布包约 +4.5 MB。
+    # 对启动器这个交换划算：多出的体积只下载一次，启动却是每次都要等的。
+    # ⚠ R2R 必须带 RID，所以这里不能再加 --no-restore（RID 专属的还原得先跑）。
     run(['dotnet', 'publish', 'TsuruLauncher.csproj', '-c', 'Release',
-         '-o', 'publish', '--no-restore', '-p:DebugType=none'], cwd=REPO)
+         '-r', 'win-x64', '--self-contained', 'false',
+         '-p:PublishReadyToRun=true',
+         '-o', 'publish', '-p:DebugType=none'], cwd=REPO)
 
     # 顺带确认没有配置泄漏到 publish
     for bad in ('config.json', 'accounts.json'):

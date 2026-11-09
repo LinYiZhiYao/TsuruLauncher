@@ -81,22 +81,101 @@ namespace TsuruLauncher.ViewModels
         private bool _thumbnailTried;
 
         /// <summary>
-        /// 卡片用的 **3D 缩略图**（离屏渲染一次，之后缓存）。
-        /// 参考里卡片显示的就是 3D 渲染而不是平铺贴图 —— 平铺贴图看不出模型长什么样。
+        /// 卡片用的 **3D 缩略图**。
+        ///
+        /// <para>⚠ 必须在**逐帧队列**里渲染，不能在数据绑定期同步渲。</para>
+        ///
+        /// <para>原因：一张缩略图要走 <c>Measure/Arrange/UpdateLayout</c> +
+        /// <c>RenderTargetBitmap.Render</c>，而 WPF 3D 的这一步实测要 31~63ms
+        /// （正好是 2~4 个 ~15.6ms 的帧间隔 —— 是在等渲染线程，不是算力不够）。
+        /// 皮肤页一打开要 12 张（9 款内置默认皮肤 + 已保存 + 账号卡），
+        /// 同步连渲 = <b>12 × 约 40ms ≈ 485ms 的 UI 线程冻结</b>，
+        /// 表现就是「切到皮肤页明显卡一下」。</para>
+        ///
+        /// <para>现在的行为：绑定时只做一次字典查找（微秒级）；未命中的投进队列，
+        /// 每帧渲一张，渲完通过 PropertyChanged 回填（<c>SkinEntry</c> 本来就是
+        /// ObservableObject）。卡片刻之间不再有一整块阻塞。</para>
         /// </summary>
         public BitmapSource? Thumbnail
         {
             get
             {
-                if (!_thumbnailTried)
-                {
-                    _thumbnailTried = true;
-                    if (Preview == null) return null;
+                if (_thumbnail != null) return _thumbnail;
+                if (_thumbnailTried) return null;
+                _thumbnailTried = true;
+                if (Preview == null) return null;
 
-                    _thumbnail = GetCachedThumbnail(Path, IsSlim, Preview);
+                // 命中缓存直接返回（字典查找，微秒级）
+                if (TryGetCachedThumbnail(Path, IsSlim, Preview, out var hit))
+                {
+                    _thumbnail = hit;
+                    return hit;
                 }
-                return _thumbnail;
+
+                // 未命中：排进逐帧队列，先返回 null（卡片短暂空白，下一帧起逐张出现）
+                _thumbQueue.Enqueue(this);
+                PumpThumbQueue();
+                return null;
             }
+        }
+
+        /// <summary>逐帧队列渲完之后回填，并通知绑定刷新。</summary>
+        internal void ApplyThumbnail(BitmapSource? bmp)
+        {
+            _thumbnail = bmp;
+            OnPropertyChanged(nameof(Thumbnail));
+        }
+
+        // ── 逐帧渲染队列 ───────────────────────────────────────────────
+        // 每一轮 Dispatcher 只渲一张：渲完把控制权交还，输入和重绘都能插进来。
+        // 这样 12 张的总耗时不变，但不再是一整块 485ms 的白屏。
+        private static readonly Queue<SkinEntry> _thumbQueue = new();
+        private static bool _thumbPumping;
+        /// <summary>取消代次：离开皮肤页时 +1，让已排队的回调自己作废。</summary>
+        private static int _thumbGen;
+
+        /// <summary>
+        /// 离开皮肤页时调用：清空待渲染队列，正在排队的那次回调直接作废。
+        ///
+        /// ⚠ 为什么必须有：队列是 <c>static</c> 的，切到别的页面后仍会一张张渲下去。
+        /// 而单张渲染实测要 **~1.1 秒**（<c>RenderTargetBitmap.Render</c> 等渲染线程），
+        /// 全部跑在 UI 线程上 —— 用户切到「下载」页时，转场动画只有 280ms，
+        /// 被这 1.1 秒一卡，动画直接跳到终点，看起来就是「划入动画没了」。
+        /// </summary>
+        internal static void CancelThumbQueue()
+        {
+            _thumbGen++;
+            _thumbQueue.Clear();
+            _thumbPumping = false;
+        }
+
+        private static void PumpThumbQueue()
+        {
+            if (_thumbPumping || _thumbQueue.Count == 0) return;
+            _thumbPumping = true;
+            int gen = _thumbGen;
+
+            System.Windows.Threading.Dispatcher.CurrentDispatcher.BeginInvoke(
+                System.Windows.Threading.DispatcherPriority.Background,
+                new Action(() =>
+                {
+                    if (gen != _thumbGen) return;   // 已被 CancelThumbQueue 作废
+                    _thumbPumping = false;
+                    if (_thumbQueue.Count == 0) return;
+
+                    SkinEntry? e = null;
+                    try
+                    {
+                        e = _thumbQueue.Dequeue();
+                        e.ApplyThumbnail(e.RenderAndCacheThumbnail());
+                    }
+                    catch
+                    {
+                        try { e?.ApplyThumbnail(null); } catch { }
+                    }
+
+                    if (_thumbQueue.Count > 0) PumpThumbQueue();   // 交给下一帧
+                }));
         }
 
         // ── 缩略图缓存 ────────────────────────────────────────────────
@@ -119,39 +198,163 @@ namespace TsuruLauncher.ViewModels
         private static readonly object _thumbLock = new();
         private const int ThumbCacheLimit = 128;
 
-        private static BitmapSource? GetCachedThumbnail(string path, bool slim, BitmapSource preview)
+        /// <summary>
+        /// 只查缓存（内存 → 磁盘），**绝不渲染**。内存查找微秒级，磁盘约 1~3ms。
+        /// 返回 false 表示未命中。
+        /// </summary>
+        private static bool TryGetCachedThumbnail(string path, bool slim, BitmapSource? preview, out BitmapSource? bmp)
         {
-            // 没有文件路径（账号临时卡）就直渲，不进缓存
-            if (string.IsNullOrEmpty(path))
-                return Controls.SkinPreview3D.RenderThumbnail(preview, slim, ThumbnailSize, ThumbnailYaw);
+            bmp = null;
 
-            string key;
-            try
-            {
-                var mtime = System.IO.File.GetLastWriteTimeUtc(path);
-                key = $"{path}|{mtime.Ticks}|{slim}";
-            }
-            catch
-            {
-                return Controls.SkinPreview3D.RenderThumbnail(preview, slim, ThumbnailSize, ThumbnailYaw);
-            }
+            string key = ThumbCacheKey(path, slim, preview);
+            if (string.IsNullOrEmpty(key)) return false;
 
             lock (_thumbLock)
             {
-                if (_thumbCache.TryGetValue(key, out var hit)) { ThumbHit++; return hit; }
+                if (_thumbCache.TryGetValue(key, out var hit)) { ThumbHit++; bmp = hit; return true; }
             }
-            ThumbMiss++;
-            if (Environment.GetEnvironmentVariable("TSURU_SKIN3D_DEBUG") == "1")
-                Utilities.Logger.LogInfo($"[Skin] 重渲缩略图 key={System.IO.Path.GetFileName(path)}");
 
-            var bmp = Controls.SkinPreview3D.RenderThumbnail(preview, slim, ThumbnailSize, ThumbnailYaw);
+            // 内存没有 → 试磁盘。重启后第一次进皮肤页走的就是这条：
+            // 直接读 PNG（约 1~3ms），省掉整轮 31~63ms/张 的 3D 离屏渲染。
+            bmp = LoadThumbFromDisk(key);
+            if (bmp == null) return false;
 
+            ThumbDiskHit++;
+            Utilities.Logger.LogInfo("[SkinThumb] 磁盘命中（省掉一次 3D 渲染）");
             lock (_thumbLock)
             {
-                // 简单上限，别无限涨（皮肤库正常也就几十张）
                 if (_thumbCache.Count >= ThumbCacheLimit) _thumbCache.Clear();
                 _thumbCache[key] = bmp;
             }
+            return true;
+        }
+
+        /// <summary>
+        /// 缓存键。有文件路径就用「路径 + mtime + 模型」，换了皮肤文件自然失效；
+        /// 没有路径的（账号当前那张）用**贴图内容指纹** —— 内容没变就复用，
+        /// 不然它每次启动都要重渲一遍（它是不缓存列表里最后剩下的那一张）。
+        /// </summary>
+        private static string ThumbCacheKey(string path, bool slim, BitmapSource? preview)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(path))
+                    return $"{path}|{System.IO.File.GetLastWriteTimeUtc(path).Ticks}|{slim}";
+
+                if (preview == null) return "";
+
+                // ⚠ 不要用 FormatConvertedBitmap：它要求源位图可转换，遇到某些格式
+                //   （或未冻结的自定义源）会抛异常 —— 异常被 catch 吞掉后 key 变成空串，
+                //   于是这张永远不进缓存、每次启动都重渲（实测就是这样漏掉了账号卡）。
+                //   直接按原始格式取像素，任何 BitmapSource 都支持。
+                int stride = ((preview.Format.BitsPerPixel + 7) / 8) * preview.PixelWidth;
+                var buf = new byte[stride * preview.PixelHeight];
+                preview.CopyPixels(buf, stride, 0);
+                byte[] h = System.Security.Cryptography.SHA1.HashData(buf);
+                return $"acct|{Convert.ToHexString(h.AsSpan(0, 8))}|{slim}";
+            }
+            catch { return ""; }
+        }
+
+        // ── 缩略图磁盘缓存 ─────────────────────────────────────────────
+        // 内存缓存只在进程内有效，一重启就全没了 —— 于是每次开皮肤页都要把
+        // 缩略图重渲一遍。落盘之后第二次启动直接读文件，等于「提前加载好了」。
+        //
+        // 文件名用 key 的哈希：key 里含完整路径 + mtime，直接当文件名会撞长度限制
+        // 和非法字符。mtime 进了 key，所以换了皮肤文件自然会生成新的，不会读旧图。
+        internal static int ThumbDiskHit;
+
+        // ⚠ 目录只算一次并缓存：ThumbDiskDir 会被绑定 getter 反复调用（每次缩略图查询
+        //   都走 ThumbCacheKey → DiskPathFor），里面若每次都 Directory.CreateDirectory，
+        //   就是在 UI 线程上反复做系统调用。实测前没感觉，但这是白烧的。
+        private static string? _thumbDiskDir;
+        private static bool _thumbDiskDirTried;
+
+        private static string ThumbDiskDir()
+        {
+            if (_thumbDiskDirTried) return _thumbDiskDir ?? "";
+            _thumbDiskDirTried = true;
+            try
+            {
+                string dir = System.IO.Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    "TsuruLauncher", ".thumbcache");
+                System.IO.Directory.CreateDirectory(dir);
+                _thumbDiskDir = dir;
+                return dir;
+            }
+            catch { _thumbDiskDir = null; return ""; }
+        }
+
+        private static string DiskPathFor(string key)
+        {
+            try
+            {
+                string dir = ThumbDiskDir();
+                if (string.IsNullOrEmpty(dir)) return "";
+                byte[] hash = System.Security.Cryptography.SHA1.HashData(
+                    System.Text.Encoding.UTF8.GetBytes(key));
+                string name = Convert.ToHexString(hash.AsSpan(0, 8)).ToLowerInvariant() + ".png";
+                return System.IO.Path.Combine(dir, name);
+            }
+            catch { return ""; }
+        }
+
+        private static BitmapSource? LoadThumbFromDisk(string key)
+        {
+            try
+            {
+                string p = DiskPathFor(key);
+                if (string.IsNullOrEmpty(p) || !System.IO.File.Exists(p)) return null;
+
+                var img = new BitmapImage();
+                img.BeginInit();
+                img.CacheOption = BitmapCacheOption.OnLoad;   // 读进内存后立刻释放文件句柄
+                img.UriSource = new Uri(p, UriKind.Absolute);
+                img.EndInit();
+                img.Freeze();                                  // 冻结后才可跨线程共享
+                return img;
+            }
+            catch { return null; }
+        }
+
+        private static void SaveThumbToDisk(string key, BitmapSource bmp)
+        {
+            try
+            {
+                string p = DiskPathFor(key);
+                if (string.IsNullOrEmpty(p)) return;
+                var enc = new PngBitmapEncoder();
+                enc.Frames.Add(BitmapFrame.Create(bmp));
+                using var fs = System.IO.File.Create(p);
+                enc.Save(fs);
+            }
+            catch { /* 写不进磁盘不影响显示 */ }
+        }
+
+        /// <summary>
+        /// 真正渲染并写入缓存。**只在逐帧队列里调用**，不要放回绑定 getter。
+        /// </summary>
+        internal BitmapSource? RenderAndCacheThumbnail()
+        {
+            if (Preview == null) return null;
+
+            ThumbMiss++;
+            var bmp = Controls.SkinPreview3D.RenderThumbnail(Preview, IsSlim, ThumbnailSize, ThumbnailYaw);
+            if (bmp == null) return null;
+
+            // 账号卡（没有文件路径）现在也能缓存 —— ThumbCacheKey 会退化成
+            // 用贴图内容指纹当键。它是不缓存列表里最后剩下的那一张，
+            // 不处理的话每次启动都还要重渲一次。
+            string key = ThumbCacheKey(Path, IsSlim, Preview);
+            if (string.IsNullOrEmpty(key)) return bmp;
+
+            lock (_thumbLock)
+            {
+                if (_thumbCache.Count >= ThumbCacheLimit) _thumbCache.Clear();
+                _thumbCache[key] = bmp;
+            }
+            SaveThumbToDisk(key, bmp);   // 落盘：下次启动就不用重渲了
             return bmp;
         }
 
@@ -225,6 +428,13 @@ namespace TsuruLauncher.ViewModels
         private string? _backupOwner;
 
         /// <summary>
+        /// 预览区当前显示的是**哪个账号**的皮肤。
+        /// ⚠ 换账号时必须靠它判断要不要立刻清空预览 —— 否则在新账号的皮肤拉回来之前，
+        ///   预览区会一直显示上一个账号的皮肤（隐私问题：别人的号能看到你的皮肤）。
+        /// </summary>
+        private string? _previewOwner;
+
+        /// <summary>
         /// 「我自己的皮肤」那张卡片 —— 账号当前正在用的那张。
         /// ⚠ 它指向**隐藏目录里的备份文件**（有 Path 才能重新应用），
         ///   但显示在列表第一位；用户自己加的文件排在它后面。
@@ -275,6 +485,10 @@ namespace TsuruLauncher.ViewModels
 
             if (value)
             {
+                // 首次切到官方页签才填充那 9 张默认皮肤 —— 在「已保存」页签时
+                // 它们不可见，提前填充只会白付 9 张缩略图的 3D 渲染成本。
+                EnsureOfficialList();
+
                 // ⚠ 10 秒内已经拉过就不再拉。
                 //   之前每次切到「官方皮肤」都发一次 /minecraft/profile 请求 ——
                 //   来回切页签会连续打网络，既卡又撞 Mojang 的频率限制。
@@ -332,11 +546,30 @@ namespace TsuruLauncher.ViewModels
             RebuildOfficialList();
 
             var account = _accountProvider?.Invoke();
+            Utilities.Logger.LogInfo(
+                $"[Skin] LoadOfficial 开始：account={(account == null ? "<null>" : account.Username)} " +
+                $"type={(account == null ? "-" : account.Type.ToString())} " +
+                $"providerSet={_accountProvider != null}");
+
+            // ⚠⚠ 换账号：**立刻**把预览清成默认皮肤，不等网络。
+            //   上面那段重置没有动 PreviewSkin —— 不在这里清的话，
+            //   从「登录 A」切到「登录 B」时，B 会在 A 的皮肤上停住好几百毫秒；
+            //   如果 B 的皮肤拉取失败且没有本地备份，就会一直显示 A 的皮肤。
+            if (account != null &&
+                !string.Equals(_previewOwner, account.Username, StringComparison.OrdinalIgnoreCase))
+            {
+                Utilities.Logger.LogInfo(
+                    $"[Skin] 账号切换：{_previewOwner ?? "<无>"} → {account.Username}，先清空预览");
+                ShowDefaultPreview();
+                _previewOwner = account.Username;
+            }
 
             if (account == null)
             {
                 OfficialMessage = "还没有登录账号。到「设置」里登录微软账号或外置登录后再回来。";
+                Utilities.Logger.LogInfo("[Skin] LoadOfficial：拿不到账号（provider 为 null 或未登录），退回默认皮肤");
                 _backupOwner = null;
+                _previewOwner = null;   // 没有账号 = 预览里不该有任何人的皮肤
                 Reload();               // ⚠ 必须先 Reload —— 它会把预览重置成「未选择」
                 ShowDefaultPreview();   // 再盖上默认皮肤
                 return;
@@ -382,6 +615,7 @@ namespace TsuruLauncher.ViewModels
                 if (active == null)
                 {
                     OfficialMessage = "这个账号还没有设置皮肤，游戏里用的是默认皮肤。";
+                    Utilities.Logger.LogInfo("[Skin] LoadOfficial：账号没有设置皮肤（skins 为空）");
                     return;
                 }
 
@@ -389,6 +623,7 @@ namespace TsuruLauncher.ViewModels
                 if (skinBytes == null)
                 {
                     OfficialMessage = "皮肤图片下载失败，检查一下网络再重试。";
+                    Utilities.Logger.LogInfo("[Skin] LoadOfficial：皮肤图片下载失败 url=" + active.Url);
                     return;
                 }
 
@@ -461,6 +696,7 @@ namespace TsuruLauncher.ViewModels
                 // ⚠ PreviewName **不要**在这里覆盖成用户名 ——
                 //   MarkCurrentAccountSkin 里已经按卡片名设过了（比如 "Steve"），
                 //   在它之后再赋值会把名字冲掉。
+                Utilities.Logger.LogInfo($"[Skin] LoadOfficial 成功：slim={slim} 贴图={OfficialSkin?.PixelWidth}x{OfficialSkin?.PixelHeight}");
                 IsSlimPreview = slim;
                 PreviewSkin = OfficialSkin;
                 if (string.IsNullOrEmpty(PreviewName) || PreviewName == "未选择")
@@ -472,6 +708,7 @@ namespace TsuruLauncher.ViewModels
             catch (Exception ex)
             {
                 OfficialMessage = "拉取账号皮肤失败：" + ex.Message;
+                Utilities.Logger.LogError(ex, "Skin.LoadOfficial");
 
                 // ⚠⚠ 失败时**退回本地备份**，不能让界面空掉。
                 //   网络/接口挂了不代表皮肤丢了 —— 备份一直在 skins/.account/<用户名>/ 里。
@@ -646,8 +883,11 @@ namespace TsuruLauncher.ViewModels
 
         public SkinViewModel()
         {
-            Reload();
+            // ⚠ 顺序不能反：Reload() 在库为空时会退回默认皮肤，
+            //   而默认皮肤是 LoadDefaultSkins() 才装进来的 —— 反了就会退成 null，
+            //   界面显示「还没有皮肤」（安装版实测踩过）。
             LoadDefaultSkins();
+            Reload();
         }
 
         /// <summary>加载随程序打包的官方默认皮肤（9 款）。</summary>
@@ -708,7 +948,10 @@ namespace TsuruLauncher.ViewModels
                            ?? SavedSkins.FirstOrDefault(s => !s.IsAddCard);
 
                 if (pick != null) Select(pick);
-                else { PreviewSkin = null; PreviewName = "未选择"; }
+                // ⚠ 库为空时**不能**把预览清成 null —— 那会让整个预览区显示「还没有皮肤」。
+                //   退回随程序打包的默认皮肤（Steve），至少预览区是正常的。
+                //   账号皮肤拉回来之后会覆盖掉。
+                else ShowDefaultPreview();
             }
             catch { }
             finally
@@ -809,9 +1052,32 @@ namespace TsuruLauncher.ViewModels
             return $"{username}（账号）";
         }
 
-        /// <summary>重建切换列表 = 9 款官方默认皮肤。</summary>
+        /// <summary>切换列表是否已填充过（见 <see cref="EnsureOfficialList"/>）。</summary>
+        private bool _officialFilled;
+
+        /// <summary>
+        /// 重建切换列表 = 9 款官方默认皮肤。
+        ///
+        /// <para>⚠ 这里**不无条件填充**：9 张默认皮肤的缩略图每张要 31~63ms 的 WPF 3D
+        /// 离屏渲染。皮肤页默认开在「已保存皮肤」页签，那 9 张根本看不见 ——
+        /// 无条件填充等于每次进皮肤页都白渲 9 张（约 300ms）。
+        /// 所以只在官方页签真正可见时才填（<see cref="EnsureOfficialList"/>）。</para>
+        /// </summary>
         private void RebuildOfficialList()
         {
+            OfficialSkins.Clear();
+            _officialFilled = false;
+            if (IsOfficialTab) EnsureOfficialList();
+        }
+
+        /// <summary>
+        /// 首次切到「官方皮肤」页签时才真正填充默认皮肤列表。
+        /// 观感不变（切过去就看到一样的 9 张），只是不再为看不见的页签提前付渲染成本。
+        /// </summary>
+        private void EnsureOfficialList()
+        {
+            if (_officialFilled) return;
+            _officialFilled = true;
             OfficialSkins.Clear();
             foreach (var d in DefaultSkins) OfficialSkins.Add(d);
         }

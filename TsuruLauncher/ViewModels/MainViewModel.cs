@@ -381,6 +381,7 @@ namespace TsuruLauncher.ViewModels
             }
             NotifyWidgetSlots();
             SaveWidgetLayout();
+            RaiseWidgetLayoutDirty();
         }
 
         public string HomeLayoutHint => IsHomeEditing ? "完成" : "自定义";
@@ -425,6 +426,7 @@ namespace TsuruLauncher.ViewModels
             Utilities.Logger.LogInfo("[WidgetEdit] add kind=" + kind + " -> " + HomeWidgets.Count + " 个");
             NotifyWidgetSlots();
             SaveWidgetLayout();
+            RaiseWidgetLayoutDirty();
         }
 
         [CommunityToolkit.Mvvm.Input.RelayCommand]
@@ -436,6 +438,7 @@ namespace TsuruLauncher.ViewModels
             Utilities.Logger.LogInfo("[WidgetEdit] remove kind=" + widget.Kind + " -> " + HomeWidgets.Count + " 个");
             NotifyWidgetSlots();
             SaveWidgetLayout();
+            RaiseWidgetLayoutDirty();
         }
 
         [CommunityToolkit.Mvvm.Input.RelayCommand]
@@ -449,6 +452,7 @@ namespace TsuruLauncher.ViewModels
             Utilities.Logger.LogInfo("[WidgetEdit] resize kind=" + widget.Kind + " -> " + widget.SizeKey);
             NotifyWidgetSlots();
             SaveWidgetLayout();
+            RaiseWidgetLayoutDirty();
         }
 
         [CommunityToolkit.Mvvm.Input.RelayCommand]
@@ -458,6 +462,7 @@ namespace TsuruLauncher.ViewModels
             Utilities.Logger.LogInfo("[WidgetEdit] reset -> " + HomeWidgets.Count + " 个");
             NotifyWidgetSlots();
             SaveWidgetLayout();
+            RaiseWidgetLayoutDirty();
         }
 
         [CommunityToolkit.Mvvm.Input.RelayCommand]
@@ -468,6 +473,7 @@ namespace TsuruLauncher.ViewModels
             foreach (var widget in HomeWidgets) widget.RefreshSize();
             _configService.Settings.HomeCompact = IsHomeCompact;
             _configService.SaveConfigDebounced();
+            RaiseWidgetLayoutDirty();
         }
 
         // ─────────── 小组件编辑：把「按种类取实例」暴露成属性，XAML 才能把
@@ -530,6 +536,7 @@ namespace TsuruLauncher.ViewModels
             Utilities.Logger.LogInfo("[WidgetEdit] free place " + widget.Kind + " -> " + widget.X + "," + widget.Y);
             NotifyWidgetSlots();
             SaveWidgetLayout();
+            RaiseWidgetLayoutDirty();
         }
 
         /// <summary>拖拽交换两个小组件在布局里的顺序（并持久化）。</summary>
@@ -544,6 +551,7 @@ namespace TsuruLauncher.ViewModels
             Utilities.Logger.LogInfo("[WidgetEdit] drag swap " + kindA + " <-> " + kindB);
             NotifyWidgetSlots();
             SaveWidgetLayout();
+            RaiseWidgetLayoutDirty();
         }
 
         /// <summary>某个种类当前是否已经启用（XAML 用它把已添加的项标成「已添加」）。</summary>
@@ -592,6 +600,7 @@ namespace TsuruLauncher.ViewModels
             Utilities.Logger.LogInfo("[WidgetEdit] size " + widget.Kind + " -> " + size);
             NotifyWidgetSlots();
             SaveWidgetLayout();
+            RaiseWidgetLayoutDirty();
         }
 
         /// <summary>向前 / 向后移动（Axolotl Move earlier / Move later）。</summary>
@@ -606,6 +615,7 @@ namespace TsuruLauncher.ViewModels
             Utilities.Logger.LogInfo("[WidgetEdit] move " + widget.Kind + " " + (delta < 0 ? "earlier" : "later"));
             NotifyWidgetSlots();
             SaveWidgetLayout();
+            RaiseWidgetLayoutDirty();
         }
 
         /// <summary>首次进入用默认 6 个小件，之后沿用用户自己的布局。</summary>
@@ -918,6 +928,83 @@ namespace TsuruLauncher.ViewModels
         }
 
         /// <summary>Fills the player card from the active account.</summary>
+        /// <summary>当前启动器版本（设置页显示用，别再硬编码）。</summary>
+        public string CurrentVersionText
+        {
+            get
+            {
+                try
+                {
+                    var v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+                    return v == null ? "v?" : $"v{v.Major}.{v.Minor}.{v.Build}";
+                }
+                catch { return "v?"; }
+            }
+        }
+
+        /// <summary>
+        /// 检查更新：直接向官网取版本号。
+        ///
+        /// <para>⚠ 之前 SettingsPage 绑了 <c>Command="{Binding CheckUpdateCommand}"</c>，
+        /// 但全项目根本没有这个命令 —— 按钮点下去**完全没反应**，
+        /// 而且同一行还硬编码显示 <c>v1.0.0</c>（实际是 2.1.4）。</para>
+        /// </summary>
+        [CommunityToolkit.Mvvm.Input.RelayCommand]
+        private async Task CheckUpdateAsync()
+        {
+            string current = CurrentVersionText.TrimStart('v');
+            try
+            {
+                using var http = new System.Net.Http.HttpClient { Timeout = TimeSpan.FromSeconds(15) };
+                http.DefaultRequestHeaders.UserAgent.ParseAdd("TsuruLauncher/" + current);
+                string html = await http.GetStringAsync("https://tsuru.ink/");
+
+                var m = System.Text.RegularExpressions.Regex.Match(html, @"v(\d+\.\d+\.\d+)");
+                if (!m.Success)
+                {
+                    Controls.iOS26Dialog.Show("无法从官网获取版本号，请稍后再试。", "检查更新");
+                    return;
+                }
+
+                string latest = m.Groups[1].Value;
+                if (Version.TryParse(latest, out var lv) && Version.TryParse(current, out var cv) && lv > cv)
+                {
+                    bool? go = Controls.iOS26Dialog.Show(
+                        $"发现新版本 {latest}（当前 {current}）。\n\n是否打开下载页面？", "检查更新");
+                    if (go == true)
+                    {
+                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(
+                            "https://tsuru.ink/") { UseShellExecute = true });
+                    }
+                }
+                else
+                {
+                    Controls.iOS26Dialog.Show($"已是最新版本（{current}）。", "检查更新");
+                }
+            }
+            catch (Exception ex)
+            {
+                Utilities.Logger.LogError(ex, "CheckUpdate");
+                Controls.iOS26Dialog.Show("检查更新失败：网络不可用。", "检查更新");
+            }
+        }
+
+        /// <summary>
+        /// 小组件的尺寸 / 顺序 / 紧凑模式变了 —— 需要重新排一次网格。
+        ///
+        /// <para>⚠ 这个事件是补漏用的：<c>ApplyWidgetPacking</c>（HomePage 里唯一写
+        /// Grid.Row/Column/Span 的地方）原来只在「组件数量变化 / 宿主宽度变化 /
+        /// 切 grid↔free」时触发，而 CycleWidgetSize / SwapWidgetOrder / MoveWidget /
+        /// ToggleCompact 只改了数据、没有通知布局，于是点了「切换尺寸」「往前移」
+        /// 界面完全没反应（只有右栏文字变了），要等窗口 resize 才突然生效。
+        /// 注释里提到的 WidgetSize_Changed 全项目并不存在，就是这里断的线。</para>
+        /// </summary>
+        public event Action? WidgetLayoutDirty;
+
+        private void RaiseWidgetLayoutDirty()
+        {
+            try { WidgetLayoutDirty?.Invoke(); } catch { }
+        }
         public void RefreshPlayerCard()
         {
             var acc = AccountManager?.CurrentAccount;
@@ -926,10 +1013,14 @@ namespace TsuruLauncher.ViewModels
                 PlayerName = "未登录";
                 PlayerStatus = "离线";
                 PlayerDetail = "尚未添加账号";
+                // ⚠ GreetingText 依赖 PlayerName，但原来这条路径完全不通知，
+                //   导致问候语一直停在旧名字上（只有 RefreshLibraryStats 里碰巧补了一次）。
+                OnPropertyChanged(nameof(GreetingText));
                 return;
             }
 
             PlayerName = acc.Username;
+            OnPropertyChanged(nameof(GreetingText));
             bool ms = acc.Type == AccountType.Microsoft;
             PlayerStatus = ms ? "正版" : "离线";
             string tail = string.IsNullOrEmpty(acc.Uuid)
@@ -1044,13 +1135,26 @@ namespace TsuruLauncher.ViewModels
             {
                 System.Diagnostics.Debug.WriteLine($"Preload failed: {ex.Message}");
             }
-
-            Application.Current.Dispatcher.Invoke(() =>
+            finally
             {
-                IsPreloading = false;
-                RefreshNews();
-                PreloadCompleted?.Invoke();
-            });
+                // ⚠ 必须用 finally：原来复位和 PreloadCompleted 都在 try/catch 之后，
+                //   只要 Dispatcher 在关窗时已经不可用、或 PreloadService 内部有异常逃逸，
+                //   这两步就都执行不到 —— 右栏那条「正在预加载资源…」会一直挂着不消失。
+                try
+                {
+                    Application.Current?.Dispatcher.Invoke(() =>
+                    {
+                        IsPreloading = false;
+                        RefreshNews();
+                        PreloadCompleted?.Invoke();
+                    });
+                }
+                catch
+                {
+                    // Dispatcher 已经停了（关窗中）：至少要复位内部状态
+                    try { IsPreloading = false; } catch { }
+                }
+            }
         }
 
         private void ApplyLanguage()

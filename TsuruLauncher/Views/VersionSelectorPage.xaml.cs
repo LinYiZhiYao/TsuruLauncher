@@ -53,12 +53,29 @@ namespace TsuruLauncher.Views
         {
             // 文件夹列表现在由右侧信息栏的 Controls.VersionFolderPanel 承载，
             // 它自己探测目录、自己渲染；选中后通过静态事件回来触发版本重载。
+            // ⚠ 这里挂了静态事件，但原来只在新实例构造时「先解再挂」，
+            //   而 HomePage.OpenVersionSelector_Click 每次点击都 new 一个页面 ——
+            //   上一个实例永远留在静态事件里，既泄漏内存，又会在用户选文件夹时
+            //   各自再跑一次同步 DetectVersions（重复扫描）。
+            //   现在页面卸载时主动解绑。
+            if (!_folderHookAttached)
+            {
+                Unloaded += OnVersionSelectorUnloaded;
+                _folderHookAttached = true;
+            }
             Controls.VersionFolderPanel.FolderSelected -= OnFolderSelected;
             Controls.VersionFolderPanel.FolderSelected += OnFolderSelected;
 
             // 右栏那块的可见性/内容由外壳 SyncInfoPanelPageContent 负责，这里不碰。
         }
 
+        private bool _folderHookAttached;
+
+        /// <summary>页面卸载时解绑静态事件，避免旧实例被永久持有并重复扫描。</summary>
+        private void OnVersionSelectorUnloaded(object sender, RoutedEventArgs e)
+        {
+            try { Controls.VersionFolderPanel.FolderSelected -= OnFolderSelected; } catch { }
+        }
         private void OnFolderSelected(string path)
         {
             if (string.IsNullOrEmpty(path)) return;

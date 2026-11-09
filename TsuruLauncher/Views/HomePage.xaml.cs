@@ -103,14 +103,25 @@ namespace TsuruLauncher.Views
             {
                 vm.PropertyChanged -= OnHomeViewModelPropertyChanged;
                 vm.PropertyChanged += OnHomeViewModelPropertyChanged;
+                // ⚠ 小组件的尺寸 / 顺序 / 紧凑模式变化必须触发一次网格重排。
+                //   ApplyWidgetPacking 是唯一写 Grid.Row/Column/Span 的地方，
+                //   而它原来的触发点只有「组件数量变化 / 宿主宽度变化 / 切 grid↔free」——
+                //   于是点「切换尺寸」只有右栏文字变了、卡片大小完全不动。
+                vm.WidgetLayoutDirty -= OnWidgetLayoutDirty;
+                vm.WidgetLayoutDirty += OnWidgetLayoutDirty;
                 ApplyHomeMode(vm.IsMinimalHome, animate: false);
             }
         }
 
+        private void OnWidgetLayoutDirty() => QueueWidgetPacking();
+
         private void HomePage_Unloaded(object sender, RoutedEventArgs e)
         {
             if (DataContext is MainViewModel vm)
+            {
                 vm.PropertyChanged -= OnHomeViewModelPropertyChanged;
+                vm.WidgetLayoutDirty -= OnWidgetLayoutDirty;
+            }
 
             // 离开可视树时把两态动画就地落定：否则被换掉的页面上会留着
             // "半透明的 incoming + 还挂着 BitmapCache 的 outgoing"，下次回来接着乱。
@@ -824,13 +835,23 @@ namespace TsuruLauncher.Views
         private bool _dragMoved;
         private bool _dragFromHandle;
 
-        /// <summary>从命中元素往上找「⣿ 手柄」（Tag 是 HomeWidget 的 WidgetDragHandle 按钮）。</summary>
+        /// <summary>
+        /// 判断是不是「⣿」拖动手柄。
+        ///
+        /// <para>⚠ 原来用 <c>b.Style == Application.Current.TryFindResource("WidgetDragHandle")</c> 判断，
+        /// 但那个样式定义在 <c>HomePage.xaml</c> 的 **Page.Resources** 里，
+        /// <c>Application.TryFindResource</c> 只查应用级资源 → 永远返回 null →
+        /// 手柄一次都识别不到，随后 <c>HitButton(src)</c> 把按下当成普通按钮并 return，
+        /// 整个「拖动手柄排序」完全失效。这里直接比对 Content（U+28FF）最稳。</para>
+        /// </summary>
+        private static bool IsDragHandle(Button b) => b.Content as string == "\u28FF";
+
+        /// <summary>从命中元素往上找「⣿ 手柄」（Tag 是 HomeWidget 的按钮）。</summary>
         private static Button? HandleUnder(DependencyObject? d)
         {
             while (d != null)
             {
-                if (d is Button b && b.Tag is Models.HomeWidget &&
-                    b.Style == System.Windows.Application.Current?.TryFindResource("WidgetDragHandle"))
+                if (d is Button b && b.Tag is Models.HomeWidget && IsDragHandle(b))
                     return b;
                 d = System.Windows.Media.VisualTreeHelper.GetParent(d);
             }
@@ -843,8 +864,7 @@ namespace TsuruLauncher.Views
             for (int i = 0; i < n; i++)
             {
                 var c = System.Windows.Media.VisualTreeHelper.GetChild(root, i);
-                if (c is Button b && b.Tag is Models.HomeWidget &&
-                    b.Style == System.Windows.Application.Current?.TryFindResource("WidgetDragHandle"))
+                if (c is Button b && b.Tag is Models.HomeWidget && IsDragHandle(b))
                     return b;
                 var r = FindHandle(c);
                 if (r != null) return r;

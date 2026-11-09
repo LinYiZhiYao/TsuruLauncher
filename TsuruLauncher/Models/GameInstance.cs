@@ -28,6 +28,38 @@ namespace TsuruLauncher.Models
         public int CustomMinMemoryMb { get; set; } = 512;
         public string CustomJavaPath { get; set; } = string.Empty;
         public string CustomJvmArgs { get; set; } = string.Empty;
+
+        // ── 版本设置页里那些「以前只有界面、没有行为」的项 ──────────────
+        // ⚠ 这几个属性之前**根本不存在**：VersionSettings 模型里有同名字段，
+        //   但版本设置页保存的是 tsuru_profile.json，而读取方（本类和 LaunchService）
+        //   完全不认识这些键 —— 于是用户在界面上改了也不生效。
+        //   现在补进模型 + 读写 + 启动时真正使用。
+
+        /// <summary>游戏窗口标题（空 = 跟随全局）。启动时拼成 <c>--title "..."</c>。</summary>
+        public string WindowTitle { get; set; } = string.Empty;
+
+        /// <summary>自定义信息（展示用，例如「和朋友联机专用」）。</summary>
+        public string CustomInfo { get; set; } = string.Empty;
+
+        /// <summary>附加游戏参数（会拼在启动命令尾部，空 = 无）。</summary>
+        public string GameArgs { get; set; } = string.Empty;
+
+        /// <summary>内存优化策略：0=跟随全局 1=开启 2=关闭。</summary>
+        public int MemoryOptimize { get; set; } = 0;
+
+        /// <summary>禁止更新 Mod。</summary>
+        public bool DisableModUpdate { get; set; }
+
+        /// <summary>忽略 Java 兼容性警告。</summary>
+        public bool IgnoreJavaCompatibility { get; set; }
+
+        /// <summary>关闭文件校验（跳过启动前的完整性检查）。</summary>
+        public bool DisableFileVerify { get; set; }
+
+        /// <summary>禁用 Java Launch Wrapper。</summary>
+        public bool DisableLaunchWrapper { get; set; }
+        /// <summary>启动游戏前执行的命令（空 = 不执行）。</summary>
+        public string PreLaunchCommand { get; set; } = string.Empty;
     }
 
     public class Library

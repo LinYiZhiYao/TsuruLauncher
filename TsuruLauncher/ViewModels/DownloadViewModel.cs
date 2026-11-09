@@ -956,13 +956,23 @@ namespace TsuruLauncher.ViewModels
             };
             string source = SelectedSource;
 
+            // ⚠ 必须把目标目录算出来随任务传下去。
+            //   原来这里算了 safeName / gameDir，但下载器完全不用它们，
+            //   自己在 DownloadGameFullAsync 里重拼 versions/{version.Id}，
+            //   结果：向导里填的实例名被版本号取代，隔离目录也不生效。
+            //   隔离模式 → versions/{实例名}；默认/共享模式 → versions/{版本号}。
+            string versionDir = DirectoryMode == "Isolated"
+                ? Path.Combine(root, "versions", safeName)
+                : Path.Combine(root, "versions", selected.Id);
+
             var task = new DownloadTask
             {
                 Name = safeName,
                 Status = "正在准备安装…",
                 VersionId = selected.Id,
                 LoaderChoice = loaderChoice,
-                Source = source
+                Source = source,
+                DestinationPath = versionDir
             };
 
             var pending = new InstanceCard
@@ -1104,6 +1114,21 @@ namespace TsuruLauncher.ViewModels
                     string reason = failure
                                     ?? (string.IsNullOrWhiteSpace(task.ErrorMessage) ? task.Status : task.ErrorMessage)
                                     ?? "未知原因";
+
+                    // ⚠ 必须把任务标失败并移出活动列表。
+                    //   之前这里只回滚了临时卡片，task 仍留在 ActiveTasks 里，
+                    //   IsCompleted / IsFailed 都是 false —— 速度定时器一直把它算作活动任务，
+                    //   RetryFailed 也不会重试它，用户看到的就是「正在准备安装…」永远不动。
+                    //   最容易复现：选一个没有对应 Forge/Fabric 构建的版本，或加载器查询网络失败。
+                    try
+                    {
+                        task.IsFailed = true;
+                        task.ErrorMessage = reason;
+                        task.Status = "失败：" + reason;
+                        DownloadManagerService.Instance.ActiveTasks.Remove(task);
+                    }
+                    catch { }
+
                     RollbackFailedCreate(pending, reason, bg.Elapsed.TotalMilliseconds);
                 }
 

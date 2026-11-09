@@ -212,9 +212,27 @@
                                 <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
                                     <TextBlock Text="自定义" Width="76" VerticalAlignment="Center" FontSize="12"
                                                Foreground="{DynamicResource TextSecondaryBrush}"/>
-                                    <TextBox x:Name="CustomAccentBox" Width="110" Height="30"
-                                             VerticalContentAlignment="Center"
-                                             ToolTip="输入 #RRGGBB 例如 #7C5CFF"/>
+                                    <Grid VerticalAlignment="Center">
+                                        <TextBox x:Name="CustomAccentBox" Width="110" Height="30"
+                                                 VerticalContentAlignment="Center"
+                                                 ToolTip="输入 #RRGGBB 例如 #7C5CFF"/>
+                                        <!-- 空的时候给占位提示。原来这个框里什么都没有，
+                                             渲染出来就是一块空白灰方格，看着像坏了。 -->
+                                        <TextBlock Text="#RRGGBB" FontSize="12" Margin="10,0,0,0"
+                                                   VerticalAlignment="Center" IsHitTestVisible="False"
+                                                   Foreground="{DynamicResource TextDimBrush}">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, ElementName=CustomAccentBox}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
                                     <Button Content="应用" Margin="8,0,0,0" Padding="14,4" FontSize="12"
                                             Cursor="Hand" Click="ApplyCustomAccent_Click"/>
                                     <CheckBox x:Name="SystemAccentCheck" Content="跟随系统强调色"
@@ -711,7 +729,7 @@
                                             
                                             <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
                                                 <TextBlock Text="Current" Foreground="{DynamicResource AccentBrush}" VerticalAlignment="Center" Margin="0,0,10,0"
-                                                           Visibility="{Binding Path=IsSelected, Converter={StaticResource BoolToVis}}"/>
+                                                           Visibility="{Binding Path=IsCurrent, Converter={StaticResource BoolToVis}}"/>
                                                 
                                                 <Button Content="Remove" 
                                                         Click="RemoveAccount_Click" 
@@ -878,7 +896,7 @@
                                     <Border Style="{StaticResource iOS26.SettingsItem}" BorderThickness="0" Background="Transparent">
                                         <Grid>
                                              <TextBlock Text="{DynamicResource Settings_CheckUpdate}" Style="{StaticResource iOS26.SettingsItem.Title}" Foreground="{StaticResource iOS26.Accent}"/>
-                                             <TextBlock Text="v1.0.0" Style="{StaticResource iOS26.SettingsItem.Value}"/>
+                                             <TextBlock Text="{Binding CurrentVersionText}" Style="{StaticResource iOS26.SettingsItem.Value}"/>
                                         </Grid>
                                     </Border>
                                 </ControlTemplate>

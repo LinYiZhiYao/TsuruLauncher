@@ -114,6 +114,9 @@ namespace TsuruLauncher.Services.Network
                 task.Status = "Downloading...";
                 Debug.WriteLine($"[DownloadManager] Starting download: {name} from {url} to {destination}");
                 await _downloadService.DownloadFileAsync(url, destination, null, new Progress<long>(bytes => task.IncrementBytes(bytes)), task.Cts.Token);
+                task.Cts.Token.ThrowIfCancellationRequested();
+
+                ClearInstallMarker(task, task.VersionId);
                 task.Status = "Completed";
                 task.IsCompleted = true;
                 task.Progress = 1.0;
@@ -138,6 +141,7 @@ namespace TsuruLauncher.Services.Network
                 Name = name,
                 Status = "Preparing...",
                 VersionId = version.Id,
+                VersionUrl = version.Url,
                 LoaderChoice = loaderChoice,
                 LoaderVersion = loaderVersion,
                 Source = source
@@ -154,6 +158,9 @@ namespace TsuruLauncher.Services.Network
 
                 await DownloadGameFullAsync(task, version, loaderChoice, source);
                 
+                task.Cts.Token.ThrowIfCancellationRequested();
+
+                ClearInstallMarker(task, task.VersionId);
                 task.Status = "Completed";
                 task.IsCompleted = true;
                 task.Progress = 1.0;
@@ -187,8 +194,15 @@ namespace TsuruLauncher.Services.Network
         {
             var mainVM = GetMainViewModelSafe();
             string gamePath = mainVM?.ConfigService.Settings.GamePath ?? ".minecraft";
-            string versionDir = Path.Combine(gamePath, "versions", version.Id);
+            // ⚠ 优先用向导传下来的目标目录（隔离模式是 versions/实例名）。
+            //   原来无条件重算 versions/{version.Id} —— 向导里填的实例名被直接丢弃，
+            //   装完变成版本号命名的目录。
+            string versionDir = string.IsNullOrEmpty(task.DestinationPath)
+                ? Path.Combine(gamePath, "versions", version.Id)
+                : task.DestinationPath;
             Directory.CreateDirectory(versionDir);
+            // 半安装标记：资源/依赖没下完就失败时，版本扫描不能把它当成已安装版本。
+            try { File.WriteAllText(Path.Combine(versionDir, InstallMarkerName), ""); } catch { }
 
             // 1. Download version.json
             task.Status = "正在获取版本信息...";
@@ -206,13 +220,47 @@ namespace TsuruLauncher.Services.Network
                 };
             }
             string jsonPath = Path.Combine(versionDir, $"{version.Id}.json");
-            await _downloadService.DownloadFileAsync(jsonUrl, jsonPath, null, null, task.Cts.Token);
-            task.JsonProgress = 1.0;
+
+            // ⚠ 坏 version.json 会让重试永远失败：
+            //   DownloadFileAsync 在 expectedSha1 == null 时只要文件存在就直接返回，
+            //   于是上次崩溃/磁盘写满留下的 0 字节或截断 JSON 会被一直沿用，
+            //   JObject.Parse 每次都抛同一个错，点多少次重试都一样，只能手动删文件。
+            //   这里解析失败就删掉重下一次（只重试一次，避免死循环）。
+            JObject? json = null;
+            for (int attempt = 0; attempt < 2 && json == null; attempt++)
+            {
+                if (attempt > 0)
+                {
+                    try { if (File.Exists(jsonPath)) File.Delete(jsonPath); } catch { }
+                    Utilities.Logger.LogInfo($"[Download] version.json 解析失败，已删除重下（第 {attempt + 1} 次）");
+                    await _downloadService.DownloadFileAsync(jsonUrl, jsonPath, null, null, task.Cts.Token);
+                }
+                else
+                {
+                    await _downloadService.DownloadFileAsync(jsonUrl, jsonPath, null, null, task.Cts.Token);
+                }
+
+                task.JsonProgress = 1.0;
+
+                try
+                {
+                    string jsonContent = File.ReadAllText(jsonPath);
+                    if (string.IsNullOrWhiteSpace(jsonContent))
+                        throw new InvalidDataException("version.json 是空文件");
+                    json = JObject.Parse(jsonContent);
+                }
+                catch (Exception ex)
+                {
+                    Utilities.Logger.LogInfo($"[Download] version.json 无效：{ex.Message}");
+                }
+            }
+
+            if (json == null)
+                throw new InvalidDataException(
+                    $"无法获取有效的版本信息（{version.Id}）。请检查网络或更换下载源后重试。");
+
             task.JsonStatus = "已完成";
             task.JsonStatusText = "已完成";
-
-            string jsonContent = File.ReadAllText(jsonPath);
-            var json = JObject.Parse(jsonContent);
 
             var downloadRequests = new List<DownloadRequest>();
 
@@ -305,8 +353,27 @@ namespace TsuruLauncher.Services.Network
             // Keep files that already exist BUT have a checksum: DownloadFileAsync
             // verifies them instantly (skip when valid, re-download when corrupt),
             // so a previously corrupted file gets repaired during install.
+            // ⚠ 原来这里是 `r.Sha1 == null || !File.Exists(...)`：
+            //   「有 SHA1 且文件已存在」会被直接排除，DownloadFileAsync 根本不被调用，
+            //   于是 VerifyFile 也不会执行 —— 上次崩溃/写坏的 client.jar、library
+            //   永远被当成已完成，最后表现为启动失败或莫名其妙的类加载错误。
+            //   现在：空文件一律重下；≤4 MB 的顺手校验哈希（成本可忽略）；
+            //   大文件仍然跳过，否则每次安装都要对几百 MB 重新算一遍 SHA1。
             var pendingRequests = downloadRequests
-                .Where(r => r.Sha1 == null || !File.Exists(r.DestinationPath))
+                .Where(r =>
+                {
+                    if (r.Sha1 == null) return true;
+                    if (!File.Exists(r.DestinationPath)) return true;
+                    try
+                    {
+                        long len = new FileInfo(r.DestinationPath).Length;
+                        if (len == 0) return true;
+                        if (len <= 4L * 1024 * 1024)
+                            return !_downloadService.VerifyFileInternal(r.DestinationPath, r.Sha1);
+                        return false;
+                    }
+                    catch { return true; }
+                })
                 .ToList();
             task.RemainingFiles = pendingRequests.Count;
 
@@ -465,6 +532,22 @@ namespace TsuruLauncher.Services.Network
             catch { return null; }
         }
 
+        /// <summary>「正在安装」标记文件名。</summary>
+        public const string InstallMarkerName = ".tsuru_installing";
+
+        private static void ClearInstallMarker(DownloadTask task, string versionId)
+        {
+            try
+            {
+                string dir = !string.IsNullOrEmpty(task.DestinationPath)
+                    ? task.DestinationPath
+                    : Path.Combine(GetMainViewModelSafe()?.ConfigService.Settings.GamePath ?? ".minecraft",
+                                   "versions", versionId);
+                string marker = Path.Combine(dir, InstallMarkerName);
+                if (File.Exists(marker)) File.Delete(marker);
+            }
+            catch { }
+        }
         public void CancelAll()
         {
             foreach (var task in ActiveTasks.ToList())
@@ -509,9 +592,14 @@ namespace TsuruLauncher.Services.Network
                 else if (!string.IsNullOrEmpty(task.VersionId))
                 {
                     // Game (or game+loader) download — reuse the recorded choices
-                    var version = new DownloadableVersion { Id = task.VersionId };
-                    _ = AttemptDownloadWithLoaderAsync(task, version, task.LoaderChoice, task.LoaderVersion,
-                        string.IsNullOrEmpty(task.Source) ? ConfigService.Instance.Settings.DownloadSource : task.Source);
+                    // ⚠ 必须带上 VersionUrl：原来只传 Id，重试时会拼出
+                    //   https://piston-meta.mojang.com/v1/packages/{id}/{id}.json —— 那是 404，
+                    //   官方源下重试永远失败。
+                    var version = new DownloadableVersion { Id = task.VersionId, Url = task.VersionUrl };
+                    var src = string.IsNullOrEmpty(task.Source) ? ConfigService.Instance.Settings.DownloadSource : task.Source;
+                    // 放到线程池：RetryFailed 是从按钮的 UI 线程调进来的，
+                    // 直接 await 会让 JSON 解析 / 几千次 File.Exists 全跑在 UI 线程上。
+                    _ = Task.Run(() => AttemptDownloadWithLoaderAsync(task, version, task.LoaderChoice, task.LoaderVersion, src));
                 }
                 else
                 {
@@ -557,7 +645,7 @@ namespace TsuruLauncher.Services.Network
 
                         await modLoaderService.InstallFabricAsync(version.Id, loaderVersion, gamePath,
                             new Progress<double>(p => task.ComponentsProgress = p),
-                            new Progress<string>(s => task.ComponentsStatusText = s));
+                            new Progress<string>(s => task.ComponentsStatusText = s), task.Cts.Token);
                     }
                     else if (loaderChoice == "Forge")
                     {
@@ -567,7 +655,7 @@ namespace TsuruLauncher.Services.Network
 
                         await modLoaderService.InstallForgeAsync(version.Id, loaderVersion, gamePath,
                             new Progress<double>(p => task.ComponentsProgress = p),
-                            new Progress<string>(s => task.ComponentsStatusText = s));
+                            new Progress<string>(s => task.ComponentsStatusText = s), task.Cts.Token);
                     }
                     else if (loaderChoice == "OptiFine")
                     {
@@ -577,10 +665,13 @@ namespace TsuruLauncher.Services.Network
 
                         await modLoaderService.InstallOptiFineAsync(version.Id, loaderVersion, gamePath,
                             new Progress<double>(p => task.ComponentsProgress = p),
-                            new Progress<string>(s => task.ComponentsStatusText = s));
+                            new Progress<string>(s => task.ComponentsStatusText = s), task.Cts.Token);
                     }
                 }
 
+                task.Cts.Token.ThrowIfCancellationRequested();
+
+                ClearInstallMarker(task, task.VersionId);
                 task.Status = "Completed";
                 task.IsCompleted = true;
                 task.Progress = 1.0;

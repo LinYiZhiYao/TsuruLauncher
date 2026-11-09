@@ -185,6 +185,12 @@ namespace TsuruLauncher.Services.Network
             }
         }
 
+        /// <summary>
+        /// 给「预筛选」用的哈希校验入口（VerifyFile 本身是私有的）。
+        /// 预筛选必须能验证已存在文件，否则磁盘上损坏的 client.jar / library
+        /// 会被当成已完成，永远不重修。
+        /// </summary>
+        internal bool VerifyFileInternal(string path, string expectedSha1) => VerifyFile(path, expectedSha1);
         private bool VerifyFile(string path, string expectedSha1)
         {
             try

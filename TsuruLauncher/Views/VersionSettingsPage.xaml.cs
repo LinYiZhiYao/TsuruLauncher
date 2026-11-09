@@ -41,6 +41,26 @@ namespace TsuruLauncher.Views
         public VersionSettingsPage(GameInstance version, string startTab) : this(version)
         {
             _startTab = startTab;
+            // ⚠ 链式构造里 this(version) 已经把 InitializePage() 跑完了，
+            //   而那时 _startTab 还是默认的 "overview" —— 所以装完加载器跳「Mod管理」
+            //   永远停在概览。这里必须再显式切一次。
+            ApplyStartTab();
+        }
+
+        /// <summary>内存模式变化时刷新内存滑块的可用状态（由设置页构建时赋值）。</summary>
+        private Action? _applyMemoryModeAvailability;
+
+        /// <summary>按 _startTab 决定初始页签（InitializePage 与两参构造都会调）。</summary>
+        private void ApplyStartTab()
+        {
+            if (_startTab == "mods")
+            {
+                Dispatcher.BeginInvoke(() => TabButton_Click(TabMods, new RoutedEventArgs()));
+            }
+            else
+            {
+                ShowOverviewTab();
+            }
         }
 
         private void InitializePage()
@@ -48,15 +68,8 @@ namespace TsuruLauncher.Views
             _settings = LoadVersionSettings(_version.Id);
             
             SubtitleText.Text = _version.Id;
-            
-            if (_startTab == "mods")
-            {
-                 Dispatcher.BeginInvoke(() => TabButton_Click(TabMods, new RoutedEventArgs()));
-            }
-            else
-            {
-                 ShowOverviewTab();
-            }
+
+            ApplyStartTab();
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -93,6 +106,16 @@ namespace TsuruLauncher.Views
                     if (json.ContainsKey("CustomMinMemoryMb")) settings.MinMemoryMB = (int?)json["CustomMinMemoryMb"] ?? 512;
                     if (json.ContainsKey("CustomJavaPath")) settings.JavaPath = json["CustomJavaPath"]?.ToString() ?? "";
                     if (json.ContainsKey("CustomJvmArgs")) _customJvmArgs = json["CustomJvmArgs"]?.ToString() ?? "";
+                    if (json.ContainsKey("WindowTitle")) settings.WindowTitle = json["WindowTitle"]?.ToString() ?? "";
+                    if (json.ContainsKey("CustomInfo")) settings.CustomInfo = json["CustomInfo"]?.ToString() ?? "";
+                    if (json.ContainsKey("GameArgs")) settings.GameArgs = json["GameArgs"]?.ToString() ?? "";
+                    if (json.ContainsKey("PreLaunchCommand")) settings.PreLaunchCommand = json["PreLaunchCommand"]?.ToString() ?? "";
+                    if (json.ContainsKey("VersionIsolation")) settings.VersionIsolation = (bool?)json["VersionIsolation"] ?? true;
+                    if (json.ContainsKey("MemoryOptimize")) settings.MemoryOptimizeIndex = (int?)json["MemoryOptimize"] ?? 0;
+                    if (json.ContainsKey("DisableModUpdate")) settings.DisableModUpdate = (bool?)json["DisableModUpdate"] ?? false;
+                    if (json.ContainsKey("IgnoreJavaCompatibility")) settings.IgnoreJavaCompatibility = (bool?)json["IgnoreJavaCompatibility"] ?? false;
+                    if (json.ContainsKey("DisableFileVerify")) settings.DisableFileVerify = (bool?)json["DisableFileVerify"] ?? false;
+                    if (json.ContainsKey("DisableLaunchWrapper")) settings.DisableLaunchWrapper = (bool?)json["DisableLaunchWrapper"] ?? false;
                 }
             }
             catch { }
@@ -110,6 +133,19 @@ namespace TsuruLauncher.Views
                 json["CustomMinMemoryMb"] = _settings?.MinMemoryMB ?? 512;
                 json["CustomJavaPath"] = _settings?.JavaPath ?? "";
                 json["CustomJvmArgs"] = _customJvmArgs ?? "";
+                // ⚠ 这几项以前**根本没写进文件**：版本设置页上改了「窗口标题 / 自定义信息 /
+                //   游戏参数 / 启动前命令 / 版本隔离」，保存时不落盘、启动时也不读，
+                //   等于界面上摆了一批假控件。现在全部落盘，并由 GameService / LaunchService 真正读取。
+                json["WindowTitle"] = _settings?.WindowTitle ?? "";
+                json["CustomInfo"] = _settings?.CustomInfo ?? "";
+                json["GameArgs"] = _settings?.GameArgs ?? "";
+                json["PreLaunchCommand"] = _settings?.PreLaunchCommand ?? "";
+                json["VersionIsolation"] = _settings?.VersionIsolation ?? true;
+                json["MemoryOptimize"] = _settings?.MemoryOptimizeIndex ?? 0;
+                json["DisableModUpdate"] = _settings?.DisableModUpdate ?? false;
+                json["IgnoreJavaCompatibility"] = _settings?.IgnoreJavaCompatibility ?? false;
+                json["DisableFileVerify"] = _settings?.DisableFileVerify ?? false;
+                json["DisableLaunchWrapper"] = _settings?.DisableLaunchWrapper ?? false;
 
                 string configPath = Path.Combine(_version.GameDir, Services.GameService.ProfileFileName);
                 File.WriteAllText(configPath, json.ToString());
@@ -1183,9 +1219,36 @@ namespace TsuruLauncher.Views
             };
             stackPanel.Children.Add(border);
             List<UIElement> list = new List<UIElement>();
-            list.Add(CreateSettingItem("版本隔离", CreateComboBox(new string[2] { "开启", "关闭" })));
-            list.Add(CreateSettingItem("游戏窗口标题", CreateTextBox("跟随全局设置")));
-            list.Add(CreateSettingItem("自定义信息", CreateTextBox("跟随全局设置")));
+            // ── 这三项以前是「只有界面、没有行为」的空壳 ─────────────────────
+            //   改了不保存、启动时也不读，等于摆了一批假控件。现在接到 _settings 并落盘。
+            //   文本框用 LostFocus 而不是 TextChanged：否则每敲一个键就写一次 JSON。
+            var isolationCombo = CreateComboBox(new string[2] { "开启", "关闭" },
+                _settings?.VersionIsolation == false ? 1 : 0);
+            isolationCombo.SelectionChanged += delegate
+            {
+                if (!IsLoaded || _settings == null) return;
+                _settings.VersionIsolation = isolationCombo.SelectedIndex == 0;
+                SaveVersionSettings();
+            };
+            list.Add(CreateSettingItem("版本隔离", isolationCombo));
+
+            var titleBox = CreateTextBox(string.IsNullOrEmpty(_settings?.WindowTitle) ? "跟随全局设置" : _settings!.WindowTitle);
+            titleBox.LostFocus += delegate
+            {
+                if (_settings == null) return;
+                _settings.WindowTitle = Equals(titleBox.Text, "跟随全局设置") ? "" : titleBox.Text.Trim();
+                SaveVersionSettings();
+            };
+            list.Add(CreateSettingItem("游戏窗口标题", titleBox));
+
+            var infoBox = CreateTextBox(string.IsNullOrEmpty(_settings?.CustomInfo) ? "跟随全局设置" : _settings!.CustomInfo);
+            infoBox.LostFocus += delegate
+            {
+                if (_settings == null) return;
+                _settings.CustomInfo = Equals(infoBox.Text, "跟随全局设置") ? "" : infoBox.Text.Trim();
+                SaveVersionSettings();
+            };
+            list.Add(CreateSettingItem("自定义信息", infoBox));
             int selectedIndex = 0;
             VersionSettings? settings = _settings;
             if (settings != null && settings.MemoryMode == MemoryAllocation.Custom)
@@ -1202,12 +1265,51 @@ namespace TsuruLauncher.Views
                 Orientation = Orientation.Horizontal,
                 Margin = new Thickness(0.0, 0.0, 0.0, 15.0)
             };
-            stackPanel3.Children.Add(CreateRadioButton("跟随全局设置", isChecked: true));
-            stackPanel3.Children.Add(CreateRadioButton("自动配置", isChecked: false));
-            stackPanel3.Children.Add(CreateRadioButton("自定义", isChecked: false));
+            // ⚠ 这三个单选框以前点了也不生效：不写 _settings、不保存，
+            //   所以「自定义内存」永远切不过去。现在按当前模式初始化并写回。
+            var followRadio = CreateRadioButton("跟随全局设置", isChecked: _settings?.MemoryMode != MemoryAllocation.Custom);
+            var autoRadio = CreateRadioButton("自动配置", isChecked: false);
+            var customRadio = CreateRadioButton("自定义", isChecked: _settings?.MemoryMode == MemoryAllocation.Custom);
+
+            void OnMemoryMode(RadioButton r, MemoryAllocation mode)
+            {
+                r.Checked += delegate
+                {
+                    if (!IsLoaded || _settings == null) return;
+                    if (_settings.MemoryMode == mode) return;
+                    _settings.MemoryMode = mode;
+                    SaveVersionSettings();
+                    _applyMemoryModeAvailability?.Invoke();
+                };
+            }
+            OnMemoryMode(followRadio, MemoryAllocation.FollowGlobal);
+            OnMemoryMode(autoRadio, MemoryAllocation.Auto);
+            OnMemoryMode(customRadio, MemoryAllocation.Custom);
+
+            stackPanel3.Children.Add(followRadio);
+            stackPanel3.Children.Add(autoRadio);
+            stackPanel3.Children.Add(customRadio);
             stackPanel2.Children.Add(CreateSettingItem("游戏内存", stackPanel3));
-            stackPanel2.Children.Add(CreateSettingItem(" ", CreateRealMemorySlider()));
-            stackPanel2.Children.Add(CreateSettingItem("启动游戏前进行内存优化", CreateComboBox(new string[3] { "跟随全局设置", "开启", "关闭" })));
+            var memorySliderHost = CreateRealMemorySlider();
+            stackPanel2.Children.Add(CreateSettingItem(" ", memorySliderHost));
+
+            // 非「自定义」时把内存滑块置灰，避免「明明是跟随全局却还能拖」的错觉
+            void ApplyMemoryModeAvailabilityCore()
+            {
+                memorySliderHost.IsEnabled = _settings?.MemoryMode == MemoryAllocation.Custom;
+                memorySliderHost.Opacity = memorySliderHost.IsEnabled ? 1.0 : 0.45;
+            }
+            ApplyMemoryModeAvailabilityCore();
+            _applyMemoryModeAvailability = ApplyMemoryModeAvailabilityCore;
+                        var memOptCombo = CreateComboBox(new string[3] { "跟随全局设置", "开启", "关闭" },
+                Math.Max(0, Math.Min(2, _settings?.MemoryOptimizeIndex ?? 0)));
+            memOptCombo.SelectionChanged += delegate
+            {
+                if (!IsLoaded || _settings == null) return;
+                _settings.MemoryOptimizeIndex = memOptCombo.SelectedIndex;
+                SaveVersionSettings();
+            };
+            stackPanel2.Children.Add(CreateSettingItem("启动游戏前进行内存优化", memOptCombo));
             Grid grid = new Grid
             {
                 Margin = new Thickness(0.0, 10.0, 0.0, 0.0)
@@ -1279,13 +1381,48 @@ namespace TsuruLauncher.Views
                 }
             };
             list2.Add(CreateSettingItem("Java 虚拟机参数", _jvmArgsBox));
-            list2.Add(CreateSettingItem("游戏参数", CreateTextBox("跟随全局设置")));
-            list2.Add(CreateSettingItem("启动前执行命令", CreateTextBox("")));
+            // 这两项同样原来只会显示不会生效，现在接到 _settings（失焦落盘）。
+            var gameArgsBox = CreateTextBox(string.IsNullOrEmpty(_settings?.GameArgs) ? "留空则不追加参数" : _settings!.GameArgs);
+            gameArgsBox.LostFocus += delegate
+            {
+                if (_settings == null) return;
+                _settings.GameArgs = Equals(gameArgsBox.Text, "留空则不追加参数") ? "" : gameArgsBox.Text.Trim();
+                SaveVersionSettings();
+            };
+            list2.Add(CreateSettingItem("游戏参数", gameArgsBox));
+
+            var preCmdBox = CreateTextBox(_settings?.PreLaunchCommand ?? "");
+            preCmdBox.LostFocus += delegate
+            {
+                if (_settings == null) return;
+                _settings.PreLaunchCommand = preCmdBox.Text.Trim();
+                SaveVersionSettings();
+            };
+            list2.Add(CreateSettingItem("启动前执行命令", preCmdBox));
             StackPanel stackPanel4 = new StackPanel();
-            stackPanel4.Children.Add(CreateCheckbox("禁止更新 Mod", isChecked: false));
-            stackPanel4.Children.Add(CreateCheckbox("忽略 Java 兼容性警告", isChecked: false));
-            stackPanel4.Children.Add(CreateCheckbox("关闭文件校验", isChecked: false));
-            stackPanel4.Children.Add(CreateCheckbox("禁用 Java Launch Wrapper", isChecked: false));
+            // ⚠ 这四个勾选原来只是摆着：不写 _settings、不保存、启动时也不读。
+            //   现在全部接到 _settings（Checked/Unchecked 都落盘），并由 GameService / LaunchService 读写。
+            CheckBox AddAdvanced(string text, bool initial, Action<bool> apply)
+            {
+                var cb = CreateCheckbox(text, isChecked: initial);
+                RoutedEventHandler sync = delegate
+                {
+                    if (!IsLoaded || _settings == null) return;
+                    apply(cb.IsChecked == true);
+                    SaveVersionSettings();
+                };
+                cb.Checked += sync;
+                cb.Unchecked += sync;
+                return cb;
+            }
+            stackPanel4.Children.Add(AddAdvanced("禁止更新 Mod", _settings?.DisableModUpdate ?? false,
+                v => { if (_settings != null) _settings.DisableModUpdate = v; }));
+            stackPanel4.Children.Add(AddAdvanced("忽略 Java 兼容性警告", _settings?.IgnoreJavaCompatibility ?? false,
+                v => { if (_settings != null) _settings.IgnoreJavaCompatibility = v; }));
+            stackPanel4.Children.Add(AddAdvanced("关闭文件校验", _settings?.DisableFileVerify ?? false,
+                v => { if (_settings != null) _settings.DisableFileVerify = v; }));
+            stackPanel4.Children.Add(AddAdvanced("禁用 Java Launch Wrapper", _settings?.DisableLaunchWrapper ?? false,
+                v => { if (_settings != null) _settings.DisableLaunchWrapper = v; }));
             Grid grid4 = new Grid
             {
                 Margin = new Thickness(120.0, 0.0, 0.0, 0.0)

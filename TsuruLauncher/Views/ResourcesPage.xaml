@@ -593,10 +593,14 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Border Width="38" Height="38" CornerRadius="9" Background="{DynamicResource Surface4Brush}" Margin="0,0,10,0" ClipToBounds="True">
-                            <Image Source="{Binding IconImage}" Stretch="UniformToFill"/>
+                            <Image Source="{Binding IconImage}" Stretch="UniformToFill" motion:MotionAssist.PopInOnSource="True"/>
                         </Border>
                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <!-- ⚠ ToolTip 不能省：卡片宽度固定，长名字会被裁成
+                                 「Cloth Confi...」「Ferrite...」，没有 tooltip 的话
+                                 用户永远看不到完整名字（所有长名 mod 都一样，不是个别）。 -->
                             <TextBlock Text="{Binding Name}" FontSize="13" FontWeight="SemiBold"
+                                       ToolTip="{Binding Name}"
                                        Foreground="{DynamicResource TextPrimaryBrush}" TextTrimming="CharacterEllipsis"/>
                             <TextBlock Text="{Binding Author}" FontSize="11" Margin="0,2,0,0"
                                        Foreground="{DynamicResource TextTertiaryBrush}" TextTrimming="CharacterEllipsis"/>
@@ -690,20 +694,30 @@
 
                     <Border Width="56" Height="56" CornerRadius="10" VerticalAlignment="Center" ClipToBounds="True"
                             Background="{DynamicResource Surface4Brush}">
-                        <Image Source="{Binding IconImage}" Stretch="UniformToFill"/>
+                        <Image Source="{Binding IconImage}" Stretch="UniformToFill" motion:MotionAssist.PopInOnSource="True"/>
                     </Border>
 
                     <StackPanel Grid.Column="1" Margin="12,0,12,0" VerticalAlignment="Center">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name}" FontSize="13.5" FontWeight="SemiBold" VerticalAlignment="Center"
+                        <!-- ⚠ 这里原来是水平 StackPanel。StackPanel 用**无限宽**测量子元素，
+                             于是 TextTrimming="CharacterEllipsis" 永远不会生效 ——
+                             长项目名/作者名不省略，直接溢出并压到右侧的下载量 /「+ 安装」列上。
+                             换成 Grid（Auto + * + Auto），名字才有确定的可用宽度可裁。 -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" MaxWidth="200"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Name}" FontSize="13.5" FontWeight="SemiBold" VerticalAlignment="Center"
+                                       ToolTip="{Binding Name}"
                                        Foreground="{DynamicResource TextPrimaryBrush}" TextTrimming="CharacterEllipsis"/>
-                            <Border Background="{DynamicResource InfoGlassBrush}" CornerRadius="8" Padding="7,2" Margin="8,0,0,0"
+                            <Border Grid.Column="1" Background="{DynamicResource InfoGlassBrush}" CornerRadius="8" Padding="7,2" Margin="8,0,0,0"
                                     VerticalAlignment="Center">
                                 <TextBlock Text="{Binding PlatformText}" FontSize="10" Foreground="{DynamicResource InfoBrush}"/>
                             </Border>
-                            <TextBlock Text="{Binding Author}" FontSize="11" Margin="8,0,0,0" VerticalAlignment="Center"
+                            <TextBlock Grid.Column="2" Text="{Binding Author}" FontSize="11" Margin="8,0,0,0" VerticalAlignment="Center"
                                        Foreground="{DynamicResource TextTertiaryBrush}" TextTrimming="CharacterEllipsis"/>
-                        </StackPanel>
+                        </Grid>
 
                         <TextBlock Text="{Binding Summary}" FontSize="11.5" Margin="0,4,0,0" MaxHeight="17"
                                    Foreground="{DynamicResource TextSecondaryBrush}" TextTrimming="CharacterEllipsis"/>
@@ -941,7 +955,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Style="{StaticResource iOS26.SearchBox}" FontSize="13.5" Padding="16,9"
+                <TextBox Grid.Column="0" Style="{StaticResource iOS26.SearchBox}" FontSize="13.5" Tag="搜索模组、整合包、资源包…" Padding="16,9"
                          Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}"
                          ToolTip="搜索模组 / 整合包 / 资源包 / 光影…">
                     <TextBox.InputBindings>
@@ -1021,7 +1035,7 @@
                             <!-- 热门 · 网格：ResponsiveWrapPanel 按 GridTargetItemWidth 算列数并把宽度铺满
                                  （原来是 WrapPanel ItemWidth=230 写死，右侧留一大块空白） -->
                             <ItemsControl x:Name="FeaturedTrendingGrid" ItemsSource="{Binding TrendingMods}" ItemTemplate="{StaticResource ProjectCardTemplate}">
-                                <ItemsControl.ItemsPanel><ItemsPanelTemplate><seg:ResponsiveWrapPanel ItemGap="10" TargetItemWidth="{Binding GridTargetItemWidth}" motion:PageAnimation.StaggerChildren="True"/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemsPanel><ItemsPanelTemplate><seg:ResponsiveWrapPanel ItemGap="10" TargetItemWidth="{Binding GridTargetItemWidth}"/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                             </ItemsControl>
                             <!-- 热门 · 列表 -->
                             <ItemsControl x:Name="FeaturedTrendingList" ItemsSource="{Binding TrendingRowsView}" ItemTemplate="{StaticResource ProjectRowTemplate}"
@@ -1040,7 +1054,7 @@
                             </Grid>
 
                             <ItemsControl x:Name="FeaturedNewestGrid" ItemsSource="{Binding NewestMods}" ItemTemplate="{StaticResource ProjectCardTemplate}">
-                                <ItemsControl.ItemsPanel><ItemsPanelTemplate><seg:ResponsiveWrapPanel ItemGap="10" TargetItemWidth="{Binding GridTargetItemWidth}" motion:PageAnimation.StaggerChildren="True"/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemsPanel><ItemsPanelTemplate><seg:ResponsiveWrapPanel ItemGap="10" TargetItemWidth="{Binding GridTargetItemWidth}"/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                             </ItemsControl>
                             <ItemsControl x:Name="FeaturedNewestList" ItemsSource="{Binding NewestRowsView}" ItemTemplate="{StaticResource ProjectRowTemplate}"
                                           Visibility="Collapsed"/>
@@ -1069,7 +1083,7 @@
                                  没有预热时的实测：20 张卡 = 29ms、11 行列表 = 52ms（都在点击这一帧）。 -->
                             <ItemsControl x:Name="SearchGridResults" ItemsSource="{Binding SearchResults}" ItemTemplate="{StaticResource ProjectCardTemplate}"
                                           Visibility="Collapsed">
-                                <ItemsControl.ItemsPanel><ItemsPanelTemplate><seg:ResponsiveWrapPanel ItemGap="10" TargetItemWidth="{Binding GridTargetItemWidth}" motion:PageAnimation.StaggerChildren="True"/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemsPanel><ItemsPanelTemplate><seg:ResponsiveWrapPanel ItemGap="10" TargetItemWidth="{Binding GridTargetItemWidth}"/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                             </ItemsControl>
 
                             <!-- 列表 -->
@@ -1153,7 +1167,7 @@
                                     <StackPanel>
                                         <TextBlock Text="{Binding SelectedLocalMod.FileName}" FontSize="12" FontWeight="SemiBold"
                                                    TextTrimming="CharacterEllipsis" Foreground="{DynamicResource TextPrimaryBrush}"/>
-                                        <Image Source="{Binding SelectedLocalMod.PreviewImage}" Stretch="Uniform" MaxHeight="200" Margin="0,8,0,0"/>
+                                        <Image Source="{Binding SelectedLocalMod.PreviewImage}" Stretch="Uniform" motion:MotionAssist.PopInOnSource="True" MaxHeight="200" Margin="0,8,0,0"/>
                                     </StackPanel>
                                 </Border>
                             </StackPanel>

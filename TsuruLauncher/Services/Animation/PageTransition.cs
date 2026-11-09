@@ -59,19 +59,34 @@ namespace TsuruLauncher.Services.Animation
         /// Collapsed，或者进场回调把正在淡出的面板又拉回 Opacity=1）——
         /// 这正是"动画被自身 settle 逻辑反复重置""覆盖层停在中间态"的来源。
         /// </summary>
-        private static readonly Dictionary<FrameworkElement, int> _playTokens = new();
+        /// <summary>
+        /// 「当前轮次」表：元素 → 最新一轮的编号。
+        ///
+        /// <para>⚠ 这里必须用 <see cref="ConditionalWeakTable{TKey,TValue}"/> 而不是普通 Dictionary。
+        /// 之前是 <c>Dictionary&lt;FrameworkElement,int&gt;</c>，**只增不减**：
+        /// 每个被播放过的元素都被静态字典强引用，永远不会被 GC ——
+        /// 是「越用越卡」的典型来源（同一份代码里 <c>_motionTargets</c> /
+        /// <c>_cacheTimers</c> / <c>_scaleHosts</c> 都有删除路径，只有它漏了，
+        /// 而且没被 <see cref="DebugCounters"/> 统计到，所以一直没暴露）。
+        /// 弱键表在元素被回收时自动摘除条目，既不再泄漏，也不需要手工清理 ——
+        /// 手工清理反而容易在「动画被反向打断」时把有效轮次删掉。</para>
+        /// </summary>
+        private static readonly System.Runtime.CompilerServices.ConditionalWeakTable<FrameworkElement, PlayToken>
+            _playTokens = new();
+
+        /// <summary>轮次号的装箱载体（<see cref="ConditionalWeakTable{TKey,TValue}"/> 的值必须是引用类型）。</summary>
+        private sealed class PlayToken { public int Value; }
 
         /// <summary>开启新一轮播放：返回本轮轮次号，之前所有轮次的收尾自动作废。</summary>
         private static int NextPlayToken(FrameworkElement target)
         {
-            int token = _playTokens.TryGetValue(target, out var current) ? current + 1 : 1;
-            _playTokens[target] = token;
-            return token;
+            var box = _playTokens.GetOrCreateValue(target);
+            return ++box.Value;
         }
 
         /// <summary>该轮次是否仍是这个元素当前的有效播放。</summary>
         private static bool IsCurrentPlay(FrameworkElement target, int token)
-            => _playTokens.TryGetValue(target, out var current) && current == token;
+            => _playTokens.TryGetValue(target, out var box) && box.Value == token;
 
         /// <summary>系统「减少动画」开关；默认（开关关闭）= 完整播放 Axolotl 原版动效。</summary>
         public static bool AnimationsEnabled => AxolotlMotion.FullMotionEnabled;
@@ -233,6 +248,93 @@ namespace TsuruLauncher.Services.Animation
 
         /// <summary>
         /// 通用过渡。走 Axolotl 的 <c>.slide</c>（global.scss:302-317）：
+        /// <summary>
+        /// PCL2 换页模式开关（环境变量 <c>TSURU_PAGE_SWAP=pcl</c>）。
+        ///
+        /// <para>依据是 PCL2 的 <c>FormMain.PageChangeAnim</c>（源码 FormMain.xaml.vb:1513）：
+        /// 它<b>不做交叉淡入</b>，而是「停顿 110ms → 瞬间换页 → 新页播自己的入场动画」。
+        /// 所以这一模式下位移/缩放全部归零，只留极短的不透明度过渡，
+        /// 缓动换成 PCL2 的 <c>AniEaseOutFluent(power=3)</c> 即 <c>1-(1-t)³</c>。</para>
+        ///
+        /// <para>默认（不设环境变量）保持 Axolotl 那套 180/200ms 交叉淡入，行为完全不变。</para>
+        /// </summary>
+        public static bool PclSwapMode { get; } = ReadPclSwapMode();
+
+        private static bool ReadPclSwapMode()
+        {
+            try
+            {
+                string v = (Environment.GetEnvironmentVariable("TSURU_PAGE_SWAP") ?? "").Trim();
+                return v.Equals("pcl", StringComparison.OrdinalIgnoreCase);
+            }
+            catch { return false; }
+        }
+
+        /// <summary>
+        /// PCL2 <c>AniEaseOutBack(power)</c>：<c>1-(1-t)^p·cos(1.5πt)</c>。
+        ///
+        /// <para>这是 PCL2 页面入场真正的手感来源：power=2 时在 t=0.5 冲到
+        /// <b>1.177</b>（冲过目标再回落），所以哪怕缩放幅度只有 0.96→1.0，
+        /// 观感上也是「弹」一下而不是「胀」一下。</para>
+        ///
+        /// <para>不能近似成 cubic-bezier：cos 项产生的过冲形状和贝塞尔不一样，
+        /// 近似出来的幅度不够，这就是之前「没手感」的原因之一。</para>
+        /// </summary>
+        private sealed class PclOutBackEase : IEasingFunction
+        {
+            private readonly double _power;
+            public PclOutBackEase(double power) => _power = power;
+
+            public double Ease(double t)
+            {
+                if (t <= 0) return 0;
+                if (t >= 1) return 1;
+                return 1 - Math.Pow(1 - t, _power) * Math.Cos(1.5 * Math.PI * t);
+            }
+        }
+
+        /// <summary>PCL2 <c>AniEaseInFluent(power)</c>：<c>t^power</c>（退场用，Weak=2）。</summary>
+        private sealed class PclInFluentEase : IEasingFunction
+        {
+            private readonly double _power;
+            public PclInFluentEase(double power) => _power = power;
+
+            public double Ease(double t)
+            {
+                if (t <= 0) return 0;
+                if (t >= 1) return 1;
+                return Math.Pow(t, _power);
+            }
+        }
+
+        // PCL2 的 AniEasePower：Weak=2, Middle=3, Strong=4（源码 ModAnimation.vb）
+        private static readonly IEasingFunction PclOutBack2 = new PclOutBackEase(2);
+        private static readonly IEasingFunction PclInFluent2 = new PclInFluentEase(2);
+
+        /// <summary>
+        /// 这个元素能不能安全地做「整页缩放」。
+        ///
+        /// <para>⚠ 本文件里已有结论（见 PlayMotion 的注释）：对页面根逐帧 scale 会让渲染线程
+        /// 每帧重新栅格化整棵子树，实测 1,281,280 设备像素就是掉帧的根因，安全预算是
+        /// <see cref="MotionAssist.SafeCacheDevicePixels"/>（1,200,000）。
+        /// PCL2 敢直接缩页面，是因为它的页面比这里小且没有 BitmapCache 策略。</para>
+        ///
+        /// <para>所以这里按同一阈值守卫：超预算就不缩，只保留 PCL2 的 100ms 淡入 ——
+        /// 宁可少一点弹，也不要重新引入掉帧。</para>
+        /// </summary>
+        private static bool CanScaleSafely(FrameworkElement target)
+        {
+            try
+            {
+                var dpi = VisualTreeHelper.GetDpi(target);
+                double w = target.ActualWidth * dpi.DpiScaleX;
+                double h = target.ActualHeight * dpi.DpiScaleY;
+                if (w <= 0 || h <= 0) return true;      // 还没布局，按可缩处理
+                return w * h <= MotionAssist.SafeCacheDevicePixels;
+            }
+            catch { return false; }
+        }
+
         /// transform 0.2s ease + opacity 0.2s ease，位移 30px。
         /// </summary>
         public static void Play(FrameworkElement target, TransitionType type, Action? onCompleted = null)
@@ -297,6 +399,18 @@ namespace TsuruLauncher.Services.Animation
                 return;
             }
 
+            // ── PCL2 换页模式（TSURU_PAGE_SWAP=pcl）─────────────────────────
+            // 参数是逐字照 PCL2 MyPageLeft.vb 抄的：
+            //   入场：ScaleTransform 0.96→1.0 / 400ms / AniEaseOutBack(2)
+            //         Opacity 0→1 / 100ms
+            //   退场：ScaleTransform 1.0→0.95 / 110ms / AniEaseInFluent(Weak=2)
+            //         Opacity →0 / 80ms，延迟 30ms
+            // ⚠ 这里**不要**再放 PCL2 的换页实现。
+            //   实测：整个项目没有任何地方调用 Play(target, TransitionType, ...)，
+            //   它只在 SkinPreview3D / VersionFolderPanel 里以 PlayOpacity 的形式被用到，
+            //   页面切换根本不走这条路 —— 之前把 PCL 分支加在这里，日志有输出但画面
+            //   一点没变。真正的切页入口是 PlayPageEnter（见下方 Page transitions 区）。
+
             PlayMotion(target, animateOpacity, opacityFrom, opacityTo,
                 xFrom, xTo, yFrom, yTo,
                 AxolotlMotion.Ms(AxolotlMotion.SlideMs), AxolotlMotion.Ease, onCompleted);
@@ -358,6 +472,49 @@ namespace TsuruLauncher.Services.Animation
             if (!AnimationsEnabled)
             {
                 ApplyRestingState(page, 1, 0, 0);
+                return;
+            }
+
+            // ── PCL2 换页模式（TSURU_PAGE_SWAP=pcl）───────────────────────────
+            // ⚠ 这才是切页链上真正执行的函数（MainWindow.RootFrame_Navigated →
+            //   PlayPageEnter）。play(Type) 那条路是死代码，改它没有任何效果。
+            //
+            // 参数逐字照 PCL2 MyPageLeft.vb / TriggerShowAnimation：
+            //   RenderTransform = ScaleTransform(0.96, 0.96)，原点居中，Opacity = 0
+            //   AaScaleTransform(→1.0, 400ms, AniEaseOutBack(2))
+            //   AaOpacity(→1, 100ms)
+            // 也就是说 PCL2 **不做位移**，靠「缩小一点 + 过冲涨回来」表现切换。
+            //
+            // 与下方 r3 的结论冲突（那里明确要求「切页去掉 scale，只留 opacity+translateY」，
+            // 因为整页根 1,281,280 设备像素、逐帧 scale 会让渲染线程重栅格化）。
+            // 处理办法：动画期间给内层容器挂 BitmapCache（AttachMotionCacheAfterLayout），
+            // 缩放退化成对一张位图重采样；同时这一模式是显式开关，默认行为完全不变。
+            if (PclSwapMode)
+            {
+                var pclTranslate = MotionVisuals.EnsureTranslate(page);
+                page.BeginAnimation(UIElement.OpacityProperty, null);
+                pclTranslate.BeginAnimation(TranslateTransform.XProperty, null);
+                pclTranslate.BeginAnimation(TranslateTransform.YProperty, null);
+                page.Opacity = 0;
+                pclTranslate.X = 0;
+                pclTranslate.Y = 0;          // PCL2 不位移
+
+                var pclScale = MotionVisuals.EnsureScale(page);
+                pclScale.BeginAnimation(ScaleTransform.ScaleXProperty, null);
+                pclScale.BeginAnimation(ScaleTransform.ScaleYProperty, null);
+                pclScale.ScaleX = pclScale.ScaleY = 0.96;
+
+                RegisterTarget(page);
+                MotionAssist.AttachMotionCacheAfterLayout(page, "page-enter-pcl", () => IsAnimating(page));
+
+                PlayMotion(page, true, 0, 1, 0, 0, 0, 0,
+                    AxolotlMotion.Ms(100), AxolotlMotion.Ease, null,
+                    scaleFrom: 0.96, scaleTo: 1.0,
+                    scaleDuration: AxolotlMotion.Ms(400), scaleEase: PclOutBack2,
+                    scaleHost: page);
+
+                Utilities.Logger.LogInfo(
+                    "[Motion] PCL swap page-enter scale 0.96->1 400ms OutBack2 + opacity 100ms, 无位移, 无宿主回落");
                 return;
             }
 
@@ -588,16 +745,19 @@ namespace TsuruLauncher.Services.Animation
         {
             if (container == null) return;
 
-            for (int i = 0; i < container.Children.Count; i++)
+            int count = container.Children.Count;
+            bool animate = AnimationsEnabled;
+
+            // 只有前 MaxStaggerItems 项会真的挂动画时钟，其余的只是「确保没有残留」。
+            int limit = Math.Min(count, MaxStaggerItems);
+
+            for (int i = 0; i < limit; i++)
             {
                 if (container.Children[i] is not FrameworkElement child) continue;
 
-                // 每项都先归零：被上一轮打断时残留在 translateY(-6px) 的卡片在这里复位
+                // 这几项要重播，必须无条件归位（被上一轮打断时残留在 translateY 上）
                 SettleElement(child);
-
-                // 错峰限流：只有前 8 项参与错峰（首屏可见的就这几张），
-                // 其余直接到位 —— 几百张卡片同时挂动画时钟是纯粹的帧开销。
-                if (!AnimationsEnabled || i >= MaxStaggerItems) continue;
+                if (!animate) continue;
 
                 var translate = MotionVisuals.EnsureTranslate(child);
                 child.BeginAnimation(UIElement.OpacityProperty, null);
@@ -611,6 +771,39 @@ namespace TsuruLauncher.Services.Animation
                     AxolotlMotion.StaggerOffsetPx, 0,
                     AxolotlMotion.Ms(AxolotlMotion.StaggerItemMs), AxolotlMotion.Ease, null,
                     beginTime: TimeSpan.FromMilliseconds(delayMs));
+            }
+
+            // ── 超出错峰上限的项：不参与动画，只在「可能残留」时才归位 ──────────
+            // 原来这里对**每一项**都先 SettleElement，几十上百项白跑一遍 ——
+            // 而 SettleElement 一次要做 4 次字典查找 + 1 次 BeginAnimation(null)
+            // + 两次树/变换遍历，是 3ms 同步预算里最容易失控的一笔
+            //（ResourcesPage 早就为这个原因另写了一套 O(8) 的错峰）。
+            // 现在用 O(1) 判据先筛一遍，干净的子项一次都不碰。
+            for (int i = limit; i < count; i++)
+            {
+                if (container.Children[i] is not FrameworkElement child) continue;
+                if (!HasMotionResidue(child)) continue;
+                SettleElement(child);
+            }
+        }
+
+        /// <summary>
+        /// 该元素上是否可能残留动画状态。三项都是 O(1)：
+        /// 属性上还挂着时钟（<see cref="UIElement.HasAnimatedProperties"/>）、
+        /// 不透明度被改过、或还在动效集合里。
+        /// 拿不准时按「脏」处理 —— 宁可多归位一次，也不要留下半透明的残留卡片。
+        /// </summary>
+        private static bool HasMotionResidue(FrameworkElement element)
+        {
+            try
+            {
+                return element.HasAnimatedProperties
+                       || element.Opacity != 1.0
+                       || _motionTargets.Contains(element);
+            }
+            catch
+            {
+                return true;
             }
         }
 
@@ -1644,9 +1837,16 @@ namespace TsuruLauncher.Services.Animation
         /// <summary>
         /// 调试用：把各个静态集合的大小打出来。
         /// 「越用越卡」八成是某个只增不减的集合在攒引用，先量再猜。
+        ///
+        /// <para>⚠ 这个清单必须覆盖**所有**按元素记录的静态集合。历史上 `_playTokens`
+        /// 就是因为不在这里而长期没暴露 —— 它是唯一只增不减的那个（已改成
+        /// <see cref="System.Runtime.CompilerServices.ConditionalWeakTable{TKey,TValue}"/>）。
+        /// 以后再加这类集合，记得同步加进来。</para>
         /// </summary>
         public static string DebugCounters =>
-            $"motionTargets={_motionTargets.Count} cacheTimers={_cacheTimers.Count} scaleHosts={_scaleHosts.Count}";
+            $"motionTargets={_motionTargets.Count} cacheTimers={_cacheTimers.Count} " +
+            $"scaleHosts={_scaleHosts.Count} finalizeTimers={_finalizeTimers.Count} " +
+            $"playTokens={_playTokens.Count()} activeStoryboards={_activeStoryboards.Count}";
 
         public static bool IsAnimating(FrameworkElement element) => element != null && _motionTargets.Contains(element);
 

@@ -56,7 +56,7 @@
 
                         <!-- 包含内容 -->
                         <TextBlock Text="包含内容" Style="{StaticResource FilterSectionTitle}" Margin="0,10,0,6"/>
-                        <TextBox Style="{StaticResource iOS26.SearchBox}" FontSize="12" Padding="12,7"
+                        <TextBox Style="{StaticResource iOS26.SearchBox}" FontSize="12" Tag="按包含内容筛选…" Padding="12,7"
                                  Text="{Binding ContentFilterText, UpdateSourceTrigger=PropertyChanged}"
                                  ToolTip="在类别列表里搜索"/>
 

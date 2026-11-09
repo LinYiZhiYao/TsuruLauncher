@@ -56,6 +56,8 @@ namespace TsuruLauncher.Services
             foreach (var dir in directories)
             {
                 var dirName = new DirectoryInfo(dir).Name;
+                if (File.Exists(Path.Combine(dir, "" + TsuruLauncher.Services.Network.DownloadManagerService.InstallMarkerName))) continue;   // 半安装目录
+
                 var jsonPath = Path.Combine(dir, $"{dirName}.json");
 
                 if (File.Exists(jsonPath))
@@ -574,6 +576,15 @@ namespace TsuruLauncher.Services
                     if (json.ContainsKey("CustomMemoryMb")) instance.CustomMemoryMb = (int?)json["CustomMemoryMb"] ?? 0;
                     if (json.ContainsKey("CustomJavaPath")) instance.CustomJavaPath = json["CustomJavaPath"]?.ToString() ?? "";
                     if (json.ContainsKey("CustomJvmArgs")) instance.CustomJvmArgs = json["CustomJvmArgs"]?.ToString() ?? "";
+                    // 版本设置页里那几项「以前只有界面没有行为」的配置
+                    if (json.ContainsKey("WindowTitle")) instance.WindowTitle = json["WindowTitle"]?.ToString() ?? "";
+                    if (json.ContainsKey("CustomInfo")) instance.CustomInfo = json["CustomInfo"]?.ToString() ?? "";
+                    if (json.ContainsKey("GameArgs")) instance.GameArgs = json["GameArgs"]?.ToString() ?? "";
+                    if (json.ContainsKey("MemoryOptimize")) instance.MemoryOptimize = (int?)json["MemoryOptimize"] ?? 0;
+                    if (json.ContainsKey("DisableModUpdate")) instance.DisableModUpdate = (bool?)json["DisableModUpdate"] ?? false;
+                    if (json.ContainsKey("IgnoreJavaCompatibility")) instance.IgnoreJavaCompatibility = (bool?)json["IgnoreJavaCompatibility"] ?? false;
+                    if (json.ContainsKey("DisableFileVerify")) instance.DisableFileVerify = (bool?)json["DisableFileVerify"] ?? false;
+                    if (json.ContainsKey("DisableLaunchWrapper")) instance.DisableLaunchWrapper = (bool?)json["DisableLaunchWrapper"] ?? false;                    if (json.ContainsKey("PreLaunchCommand")) instance.PreLaunchCommand = json["PreLaunchCommand"]?.ToString() ?? "";
                 }
             }
             catch {}
@@ -588,6 +599,15 @@ namespace TsuruLauncher.Services
                 json["CustomMemoryMb"] = instance.CustomMemoryMb;
                 json["CustomJavaPath"] = instance.CustomJavaPath;
                 json["CustomJvmArgs"] = instance.CustomJvmArgs;
+                json["WindowTitle"] = instance.WindowTitle;
+                json["CustomInfo"] = instance.CustomInfo;
+                json["GameArgs"] = instance.GameArgs;
+                json["PreLaunchCommand"] = instance.PreLaunchCommand;
+                json["MemoryOptimize"] = instance.MemoryOptimize;
+                json["DisableModUpdate"] = instance.DisableModUpdate;
+                json["IgnoreJavaCompatibility"] = instance.IgnoreJavaCompatibility;
+                json["DisableFileVerify"] = instance.DisableFileVerify;
+                json["DisableLaunchWrapper"] = instance.DisableLaunchWrapper;
 
                 string configPath = Path.Combine(instance.GameDir, ProfileFileName);
                 File.WriteAllText(configPath, json.ToString());

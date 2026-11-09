@@ -612,10 +612,14 @@
                                 <RepeatButton Command="Slider.DecreaseLarge" Focusable="False">
                                     <RepeatButton.Template>
                                         <ControlTemplate TargetType="RepeatButton">
+                                            <!-- ⚠ 不要给 HorizontalAlignment：Track 会给这个
+                                                 RepeatButton 分配「滑动点左侧」的宽度，Border 必须
+                                                 Stretch 才能填满。写 Right + 不设 Width 时，
+                                                 Border 内容为空 → 宽度算出来是 0 → 整条轨道画不出来，
+                                                 用户只能看到一个孤零零的滑块圆点。 -->
                                             <Border x:Name="TrackFill"
                                                     Height="6"
                                                     CornerRadius="3"
-                                                    HorizontalAlignment="Right"
                                                     VerticalAlignment="Center">
                                                 <Border.Background>
                                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
@@ -708,12 +712,12 @@
                                 <RepeatButton Command="Slider.IncreaseLarge" Focusable="False">
                                     <RepeatButton.Template>
                                         <ControlTemplate TargetType="RepeatButton">
+                                            <!-- 同上：必须 Stretch，否则宽度为 0（未填充段直接消失）。 -->
                                             <Border x:Name="TrackBackground"
                                                     Height="6"
                                                     CornerRadius="3"
-                                                    Background="{DynamicResource GlassLightBrush}"
-                                                    VerticalAlignment="Center"
-                                                    HorizontalAlignment="Left"/>
+                                                    Background="{DynamicResource SliderTrackBrush}"
+                                                    VerticalAlignment="Center"/>
                                         </ControlTemplate>
                                     </RepeatButton.Template>
                                 </RepeatButton>
@@ -731,7 +735,7 @@
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Padding" Value="12,10"/>
+        <Setter Property="Padding" Value="12,7"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="CaretBrush" Value="{DynamicResource AccentBrush}"/>
         <Setter Property="Template">
@@ -750,13 +754,16 @@
                                       VerticalScrollBarVisibility="Hidden"/>
                     </Border>
                     <ControlTemplate.Triggers>
+                        <!-- ⚠ 原来这里写死 #40141B18 / #3D141B18 —— 深色半透明，
+                             在浅色主题下会糊成一大片中灰，就是设置页那个「Modrinth API 镜像」
+                             输入框看起来特别重的原因。改用主题画刷。 -->
                         <Trigger Property="IsFocused" Value="True">
                             <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource AccentBrush}"/>
-                            <Setter TargetName="border" Property="Background" Value="#40141B18"/>
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource SurfaceInputBrush}"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="#50FFFFFF"/>
-                            <Setter TargetName="border" Property="Background" Value="#3D141B18"/>
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}"/>
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource SurfaceInputBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -770,10 +777,26 @@
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Padding" Value="12,10,32,10"/>
+        <!-- 和 iOS26.SearchBox 的 12,7 对齐：原来这里是 12,10，
+             摆在搜索框旁边会高出一截、顶边对不上（实验室页最明显）。 -->
+        <Setter Property="Padding" Value="12,7,32,7"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <!-- ⚠ 必须虚拟化：版本下拉有近千个 MC 版本，默认非虚拟化时每展开一次
+             都要为全部条目创建 ComboBoxItem 容器，展开就是一次明显卡顿
+             （用户反馈「换版本卡」）。VirtualizingStackPanel + Recycling 之后
+             只创建屏幕范围内的那十几个。 -->
+        <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True"/>
+        <Setter Property="VirtualizingStackPanel.VirtualizationMode" Value="Recycling"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
@@ -913,12 +936,16 @@
 
     <!-- Search Box -->
     <Style x:Key="iOS26.SearchBox" TargetType="TextBox">
-        <Setter Property="Background" Value="{DynamicResource GlassLightBrush}"/>
+        <!-- 收窄：原来 Padding 16,10 + FontSize 14 + RadiusLarge（大圆角）
+             叠加起来是一只又高又胖的胶囊，配上浅色下几乎无对比的 GlassLightBrush，
+             看起来就是一大块模糊的浅色板子。现在改成 12,7 + 13 号 + RadiusMedium，
+             并用 SurfaceInputBrush 给一点点灰底，让它读起来像输入框而不是色块。 -->
+        <Setter Property="Background" Value="{DynamicResource SurfaceInputBrush}"/>
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Padding" Value="16,10"/>
-        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Padding" Value="12,7"/>
+        <Setter Property="FontSize" Value="13"/>
         <Setter Property="CaretBrush" Value="{DynamicResource AccentBrush}"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -927,7 +954,7 @@
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="{StaticResource RadiusLarge}"
+                            CornerRadius="{StaticResource RadiusMedium}"
                             Padding="{TemplateBinding Padding}"
                             SnapsToDevicePixels="True">
                         <Grid>
@@ -935,15 +962,36 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="&#x1F50D;" FontSize="14" Margin="0,0,8,0" VerticalAlignment="Center" Opacity="0.5"/>
+                            <TextBlock Text="&#x1F50D;" FontSize="13" Margin="0,0,6,0" VerticalAlignment="Center" Opacity="0.45"/>
                             <ScrollViewer x:Name="PART_ContentHost"
                                           Grid.Column="1"
                                           Focusable="False"
                                           HorizontalScrollBarVisibility="Hidden"
                                           VerticalScrollBarVisibility="Hidden"/>
+                            <!-- 占位提示：文字由调用方的 Tag 提供（Tag="搜索模组…"）。
+                                 ⚠ 之前所有搜索框只有一个放大镜图标、没有提示文字，
+                                   用户不知道这一栏能搜什么。 -->
+                            <TextBlock x:Name="placeholder"
+                                       Grid.Column="1"
+                                       Text="{TemplateBinding Tag}"
+                                       Margin="2,0,0,0"
+                                       FontSize="{TemplateBinding FontSize}"
+                                       VerticalAlignment="Center"
+                                       IsHitTestVisible="False"
+                                       Visibility="Collapsed"
+                                       Foreground="{DynamicResource TextDimBrush}"/>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="Text" Value="">
+                            <Setter TargetName="placeholder" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <!-- ⚠ 聚焦时必须把占位藏掉：否则光标（caret）会直接压在占位文字上，
+                             看起来像「按|包含内容筛选…」这种叠字。放在 Text="" 之后，
+                             靠触发器顺序覆盖它。 -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="placeholder" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
                         <Trigger Property="IsFocused" Value="True">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource GlassMediumBrush}"/>
                             <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}"/>

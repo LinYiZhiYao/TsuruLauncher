@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <title>Skin Preview</title>
 <style>
+  html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: transparent; }
+  canvas { display: block; }
   html, body {
     margin: 0; padding: 0; width: 100%; height: 100%;
     overflow: hidden; background: transparent;
@@ -37,16 +39,24 @@ const LIMB_W = 4, LIMB_H = 12, LIMB_D = 4;
 const OVERLAY_GROW = 0.5;             // 第二层每边外扩 0.25
 
 // ── 场景 ──────────────────────────────────────────────────────────
+// 全局错误上报：之前页面没有任何 onerror，JS 异常全静默 —— 表现就是「画面停在上一帧」。
+window.addEventListener('error', (ev) => {
+  try { report('JS 异常: ' + (ev.message || '?') + ' @line ' + (ev.lineno || '?')); } catch (e) { }
+});
+window.addEventListener('unhandledrejection', (ev) => {
+  try { report('JS Promise 拒绝: ' + (ev.reason && ev.reason.message ? ev.reason.message : ev.reason)); } catch (e) { }
+});
+
 const scene = new THREE.Scene();
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.setClearAlpha(0);
-renderer.setPixelRatio(window.devicePixelRatio || 1);
+renderer.setPixelRatio(1);   // 固定 1：DPR 缩放会让 drawingBuffer 与 CSS 尺寸不一致，画面被放大溢出
 document.body.appendChild(renderer.domElement);
 
 // 相机：FOV 35、水平（position 和 target 同 y），比模型中心略低一点
 const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 500);
-const CAM_DIST = 74, CAM_Y = -2;
+let CAM_DIST = 74; const CAM_Y = -2;
 camera.position.set(0, CAM_Y, CAM_DIST);
 camera.lookAt(0, CAM_Y, 0);
 
@@ -61,6 +71,62 @@ const model = new THREE.Group();
 model.rotation.y = THREE.MathUtils.degToRad(15.75);
 scene.add(model);
 
+/**
+ * 按模型包围盒自动取景：把相机距离算成「刚好把角色塞进画面并留 20% 边距」。
+ * 固定 CAM_DIST=74 只对手搓模型成立；换成 glTF 后尺寸不同就会出框，
+ * 所以这里改成算出来的（Axolotl 的 use-skin-preview-fit.ts 也是这个思路）。
+ */
+function fitCamera() {
+  const box = new THREE.Box3().setFromObject(model);
+  if (box.isEmpty()) return;
+  const size = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+
+  // Axolotl 取景预设（use-skin-preview-fit.ts:22-24）：fov 35 / zoom 0.96 /
+  // padding { top: .2, right: .14, bottom: .3, left: .14 }
+  const PAD = { top: 0.2, right: 0.14, bottom: 0.3, left: 0.14 };
+  const ZOOM = 0.96;
+
+  const vFov = THREE.MathUtils.degToRad(camera.fov);
+  const hFov = 2 * Math.atan(Math.tan(vFov / 2) * Math.max(camera.aspect, 0.0001));
+  const needY = (size.y / 2) / Math.tan(vFov / 2) / (1 - PAD.top - PAD.bottom);
+  const needX = (size.x / 2) / Math.tan(hFov / 2) / (1 - PAD.left - PAD.right);
+
+  // ⚠ LOOK_DOWN：**必须是 0**。
+  //   以前控件下半部分落在窗口可视区之外，需要相机向下看、把角色顶到可见区中部，
+  //   所以这里写死过 15。但那是旧布局的补偿 —— 现在预览区完整可见，
+  //   再压 15 单位就会把角色顶到画面上半部（模型高 32 单位，15 接近一半），
+  //   脚底和 SkinPage 里 GroundShadow 的 118px 边距直接脱节。
+  //   实测：间隙 174px ÷ 11.78px/单位 ≈ 14.8 单位 ≈ LOOK_DOWN 的 15，改 0 后严丝合缝。
+  const DPR_COMP = 1;
+  const LOOK_DOWN = 0;
+  const FIT_BOOST = 1.18;   // 角色在面板里再放大一点（实测放完仍完整入框）
+  const dist = Math.max(needY, needX) / ZOOM * DPR_COMP / FIT_BOOST + size.z / 2;
+
+  CAM_DIST = dist;
+  camera.position.set(center.x, center.y - LOOK_DOWN, dist);
+  camera.lookAt(center.x, center.y - LOOK_DOWN, 0);
+  camera.updateProjectionMatrix();
+  camera.updateMatrixWorld(true);
+
+  report('取景 size=' + JSON.stringify({ x: +size.x.toFixed(2), y: +size.y.toFixed(2) }) +
+    ' dist=' + dist.toFixed(2) + ' aspect=' + camera.aspect.toFixed(3));
+}/** 诊断：把真正参与渲染的 mesh 世界尺寸打出来（定位「画面里那个大的」是谁）。 */
+function reportSceneMeshes() {
+  const rows = [];
+  scene.traverse(o => {
+    if (!o.isMesh) return;
+    const b = new THREE.Box3().setFromObject(o);
+    if (b.isEmpty()) return;
+    const sz = b.getSize(new THREE.Vector3());
+    rows.push({ name: (o.name || o.parent?.name || '?'), y: +sz.y.toFixed(2), w: +sz.x.toFixed(2), cy: +b.getCenter(new THREE.Vector3()).y.toFixed(2) });
+  });
+  rows.sort((a, b) => b.y - a.y);
+  report('场景里的 mesh 数=' + rows.length + ' 最大前三=' + JSON.stringify(rows.slice(0, 3)));
+}
+let mixer = null;
+let baseAction = null;
+let animTimer = null;
 let skinMaterial = null;
 let capeMaterial = null;
 
@@ -129,9 +195,225 @@ function addBox(group, w, h, d, x, y, z, uv, material) {
  * slim = 纤细模型（手臂 3 格宽）
  * 每个部件是一个 Group，四肢各自挂在一个「关节」子节点上，方便做 idle 动画。
  */
+// ── 原版模型（Axolotl glTF）──────────────────────────────────────
+// Axolotl 的角色不是手搓方块，而是 packages/assets/models/{classic,slim}-player.gltf
+// （Blockbench 导出，13 个 mesh，含第二层 overlay）。这里原样搬过来，
+// 用一个最小 glTF 解析器建 THREE 对象 —— 不引第三方 loader，也不改模型数据。
+const GLTF = { classic: null, slim: null, failed: false };
+
+function _b64(uri) {
+  const i = uri.indexOf('base64,');
+  const bin = atob(uri.slice(i + 7));
+  const out = new Uint8Array(bin.length);
+  for (let k = 0; k < bin.length; k++) out[k] = bin.charCodeAt(k);
+  return out.buffer;
+}
+
+function _accessor(gl, buf, idx) {
+  const a = gl.accessors[idx];
+  const bv = gl.bufferViews[a.bufferView];
+  const Ctor = { 5120: Int8Array, 5121: Uint8Array, 5122: Int16Array, 5123: Uint16Array, 5125: Uint32Array, 5126: Float32Array }[a.componentType];
+  const N = { SCALAR: 1, VEC2: 2, VEC3: 3, VEC4: 4 }[a.type];
+  const base = (bv.byteOffset || 0) + (a.byteOffset || 0);
+  const stride = bv.byteStride || 0;
+  const tight = Ctor.BYTES_PER_ELEMENT * N;
+  if (!stride || stride === tight) return new Ctor(buf, base, a.count * N);
+  const out = new Ctor(a.count * N);
+  const dv = new DataView(buf);
+  const get = { 5126: 'getFloat32', 5123: 'getUint16', 5125: 'getUint32', 5121: 'getUint8', 5120: 'getInt8', 5122: 'getInt16' }[a.componentType];
+  for (let e = 0; e < a.count; e++)
+    for (let c = 0; c < N; c++)
+      out[e * N + c] = dv[get](base + e * stride + c * tight, true);
+  return out;
+}
+
+function _buildGLTF(gl) {
+  const buf = _b64(gl.buffers[0].uri);
+
+  function nodeToObject(ni) {
+    const n = gl.nodes[ni];
+    const o = new THREE.Group();
+    o.name = n.name || ('node' + ni);
+    if (n.matrix) o.applyMatrix4(new THREE.Matrix4().fromArray(n.matrix));
+    else {
+      if (n.translation) o.position.fromArray(n.translation);
+      if (n.rotation) o.quaternion.fromArray(n.rotation);
+      if (n.scale) o.scale.fromArray(n.scale);
+    }
+    if (n.mesh !== undefined) {
+      for (const pr of gl.meshes[n.mesh].primitives) {
+        const geo = new THREE.BufferGeometry();
+        geo.setAttribute('position', new THREE.BufferAttribute(_accessor(gl, buf, pr.attributes.POSITION), 3));
+        if (pr.attributes.NORMAL !== undefined)
+          geo.setAttribute('normal', new THREE.BufferAttribute(_accessor(gl, buf, pr.attributes.NORMAL), 3));
+        if (pr.attributes.TEXCOORD_0 !== undefined)
+          geo.setAttribute('uv', new THREE.BufferAttribute(_accessor(gl, buf, pr.attributes.TEXCOORD_0), 2));
+        if (pr.indices !== undefined) geo.setIndex(new THREE.BufferAttribute(_accessor(gl, buf, pr.indices), 1));
+        const m = new THREE.Mesh(geo, null);
+        m.userData.matIndex = (pr.material === undefined ? 0 : pr.material);   // 0=皮肤 1=披风
+        o.add(m);
+      }
+    }
+    for (const c of (n.children || [])) o.add(nodeToObject(c));
+    return o;
+  }
+
+  // 动画：glTF 里自带 idle / idle_sub_1 等片段（Axolotl 的角色是会动的）。
+  // 这里把 channels/samplers 转成 THREE 的 KeyframeTrack，交给 AnimationMixer 播。
+  const clips = [];
+  for (const anim of (gl.animations || [])) {
+    const tracks = [];
+    for (const ch of anim.channels) {
+      const smp = anim.samplers[ch.sampler];
+      const nodeName = gl.nodes[ch.target.node] && gl.nodes[ch.target.node].name;
+      // ⚠ 丢掉 Body 节点的轨道：动画里 Body.quaternion 是整身倾斜（idle 的摆动），
+      //   套到 glTF 的绑定空间上会把角色整体带歪。只保留头/四肢/披风的小幅动作。
+      if (nodeName === 'Body') continue;
+      if (!nodeName || !smp) continue;
+      const times = Array.from(_accessor(gl, buf, smp.input));
+      const vals = Array.from(_accessor(gl, buf, smp.output));
+      const path = ch.target.path;
+      if (path === 'rotation') tracks.push(new THREE.QuaternionKeyframeTrack(nodeName + '.quaternion', times, vals));
+      else if (path === 'translation') tracks.push(new THREE.VectorKeyframeTrack(nodeName + '.position', times, vals));
+      // ⚠ 故意**丢掉** scale 轨道：FBX/Blockbench 导出的 glTF 常把 100× 单位换算写成
+      //   根节点的 scale 动画，播起来会把角色瞬间放大（实测就是「模型大了两三倍」）。
+      //   Minecraft 角色不做缩放动画，丢掉它没有视觉损失。
+    }
+    if (tracks.length) clips.push(new THREE.AnimationClip(anim.name, -1, tracks));
+  }
+
+  const scene = gl.scenes[gl.scene || 0];
+  const root = new THREE.Group();
+  for (const ni of scene.nodes) root.add(nodeToObject(ni));
+  root.userData.clips = clips;
+  return root;
+}
+
+async function preloadGLTFModels() {
+  const names = { classic: 'classic-player.gltf', slim: 'slim-player.gltf' };
+  for (const key of Object.keys(names)) {
+    try {
+      const res = await fetch('./' + names[key], { cache: 'force-cache' });
+      GLTF[key] = _buildGLTF(await res.json());
+      report('原版模型已加载 ' + names[key]);
+    } catch (e) {
+      GLTF.failed = true;
+      report('⚠ 原版模型加载失败，退回手搓模型: ' + (e && e.message));
+    }
+  }
+}
+
+/** 用原版 glTF 建角色：克隆模板 + 统一材质 + 归一化到与原手搓模型相同的高度/落点。 */
+function buildCharacterFromGLTF(slim) {
+  while (model.children.length) {
+    const c = model.children.pop();
+    c.traverse?.(o => { if (o.geometry) o.geometry.dispose(); });
+  }
+  const template = GLTF[slim ? 'slim' : 'classic'];
+  const g = template.clone(true);
+  g.traverse(o => { if (o.isMesh) o.material = skinMaterial; });
+
+  // glTF 单位与手搓模型不同：按包围盒把高度归一到 32，脚底落到 y=0、水平居中，
+  // 这样相机参数完全不用动。
+  // ⚠ 必须先 updateMatrixWorld(true)：Box3.setFromObject 只读**已更新**的世界矩阵，
+  //   否则拿到的是未应用节点 transform 的包围盒 —— 缩放会算错（实测模型被放大到只看得见躯干）。
+  g.updateMatrixWorld(true);
+  const box = new THREE.Box3().setFromObject(g);
+  const size = new THREE.Vector3();
+  box.getSize(size);
+  // 目标高度直接给 18：相机固定 dist=74 / fov=35 时视野高度约 46.6 单位，
+  // 18 单位只占 39%，即便有未知的显示放大也不会出框。
+  const s = size.y > 0 ? 32 / size.y : 1;   // 归一到 32 单位（和原手搓模型一致）
+  g.scale.setScalar(s);
+  g.updateMatrixWorld(true);
+  const box2 = new THREE.Box3().setFromObject(g);
+  const center = new THREE.Vector3();
+  box2.getCenter(center);
+  // ⚠ 关键：相机的注视点是 (0, CAM_Y, 0)，视野高度约 2*CAM_DIST*tan(FOV/2) ≈ 46 单位。
+  //   之前把「脚底」对齐到 y=0，模型中心就落在 y=16，而画面只覆盖到 y≈21 ——
+  //   32 单位的角色头顶正好出框（实测就是「只有躯干和腿」）。
+  //   这里改成把模型**中心**对齐到相机注视点，无论模型多高都在画面正中。
+  g.position.x -= center.x;
+  g.position.z -= center.z;
+  g.position.y -= center.y;   // 模型中心放到原点，取景时再算
+  g.updateMatrixWorld(true);
+
+  report("glTF bbox 原始=" + JSON.stringify({x:+size.x.toFixed(2),y:+size.y.toFixed(2),z:+size.z.toFixed(2)}) + " scale=" + s.toFixed(4) + " 归一后minY=" + box2.min.y.toFixed(2) + " maxY=" + box2.max.y.toFixed(2) + " 子网格=" + (function(){let n=0;g.traverse(o=>{if(o.isMesh)n++});return n})());
+  // ⚠ 必须**先** model.add(g) 再取景：
+  //   fitCamera / reportSceneMeshes 都是遍历 model 求包围盒，
+  //   原来这两行写在 add 之前 —— 包围盒为空，fitCamera 直接 return，
+  //   相机一直是给手搓模型调的 74，所以 glTF 模型永远出框。
+  model.add(g);
+  joints = null;   // 原版模型自带骨骼层级，不做程序化摆动
+  // 材质：0=皮肤，1=披风（没披风就隐藏那一块，不能拿皮肤贴图糊上去）
+  g.traverse(o => {
+    if (!o.isMesh) return;
+    if (o.userData.matIndex === 1) {
+      if (capeMaterial) { o.material = capeMaterial; o.visible = true; }
+      else o.visible = false;
+    } else {
+      o.material = skinMaterial;
+    }
+  });
+
+  // 动画：播放所有 idle* 片段（模型自带，不是我写的摆动）
+  if (animTimer) { clearTimeout(animTimer); animTimer = null; }
+  if (mixer) { try { mixer.stopAllAction(); } catch (e) { } mixer = null; }
+  baseAction = null;
+  const clips = template.userData.clips || [];
+  const idleClips = clips.filter(c => /^idle/i.test(c.name));
+  if (idleClips.length) {
+    mixer = new THREE.AnimationMixer(g);
+    // Axolotl (SkinPreviewRenderer.vue:177-180 / use-skin-preview-animation.ts):
+    //   idle loops forever; idle_sub_1/2/3 play once every 8000ms with 0.3s crossfade.
+    const byName = {};
+    for (const c of clips) byName[c.name] = c;
+    const FADE = 0.3;
+    const RANDOMS = ['idle_sub_1', 'idle_sub_2', 'idle_sub_3'].filter(n => byName[n]);
+    baseAction = mixer.clipAction(byName['idle']);
+    baseAction.reset();
+    baseAction.fadeIn(0.05);
+    baseAction.play();
+    if (RANDOMS.length) {
+      const schedule = () => {
+        animTimer = setTimeout(() => {
+          try {
+            const nm = RANDOMS[Math.floor(Math.random() * RANDOMS.length)];
+            const act = mixer.clipAction(byName[nm]);
+            act.reset();
+            act.setLoop(THREE.LoopOnce, 1);
+            act.clampWhenFinished = true;
+            if (baseAction) baseAction.fadeOut(FADE);
+            act.fadeIn(FADE);
+            act.play();
+            const onFinished = (e) => {
+              if (e.action !== act) return;
+              mixer.removeEventListener('finished', onFinished);
+              act.fadeOut(FADE);
+              if (baseAction) { baseAction.reset(); baseAction.fadeIn(FADE); }
+            };
+            mixer.addEventListener('finished', onFinished);
+          } catch (e) { }
+          schedule();
+        }, 8000);
+      };
+      schedule();
+    }
+    mixer.update(0);          // 先摆好第一帧姿势
+    model.updateMatrixWorld(true);
+    report('播放动画 ' + idleClips.map(c => c.name).join(' + '));
+  }
+
+  fitCamera();
+  reportSceneMeshes();
+}
+
 let joints = null;
 
 function buildCharacter(slim) {
+  // 有原版 glTF 就用原版模型（几何/UV 与 Axolotl 完全一致），否则退回手搓方块。
+  if (GLTF[slim ? 'slim' : 'classic']) { buildCharacterFromGLTF(slim); return; }
+
   // 清掉旧的
   while (model.children.length) {
     const c = model.children.pop();
@@ -277,6 +559,20 @@ function buildCharacter(slim) {
  */
 function canvasSignature() {
   renderer.render(scene, camera);
+  // 【一次性诊断】把相机/画布/模型真实世界尺寸打出来，定位「画面里那个大的」到底是什么
+  if (!window.__diagOnce) {
+    window.__diagOnce = true;
+    setTimeout(() => {
+      try {
+        const bx = new THREE.Box3().setFromObject(model).getSize(new THREE.Vector3());
+        report('DIAG camZ=' + camera.position.z.toFixed(2) + ' aspect=' + camera.aspect.toFixed(3) +
+          ' fov=' + camera.fov + ' canvas=' + renderer.domElement.width + 'x' + renderer.domElement.height +
+          ' css=' + renderer.domElement.clientWidth + 'x' + renderer.domElement.clientHeight +
+          ' modelWorld=' + JSON.stringify({ x: +bx.x.toFixed(2), y: +bx.y.toFixed(2), z: +bx.z.toFixed(2) }) +
+          ' rootScale=' + model.scale.toArray().map(v => +v.toFixed(2)).join(','));
+      } catch (e) { report('DIAG 失败 ' + e.message); }
+    }, 600);
+  }
   const gl = renderer.getContext();
   const w = gl.drawingBufferWidth, h = gl.drawingBufferHeight;
   const px = new Uint8Array(w * h * 4);
@@ -372,6 +668,8 @@ const clock = new THREE.Clock();
 
 function tick() {
   requestAnimationFrame(tick);
+  const dt = clock.getDelta();
+  if (mixer) mixer.update(dt);
   const t = clock.getElapsedTime();
   const swing = Math.sin((t / IDLE_PERIOD) * Math.PI * 2);
 
@@ -385,17 +683,47 @@ function tick() {
     joints.cape.rotation.x = Math.sin((t / IDLE_PERIOD) * Math.PI * 0.75) * THREE.MathUtils.degToRad(1.8);
   }
   renderer.render(scene, camera);
+  // 【一次性诊断】把相机/画布/模型真实世界尺寸打出来，定位「画面里那个大的」到底是什么
+  if (!window.__diagOnce) {
+    window.__diagOnce = true;
+    setTimeout(() => {
+      try {
+        const bx = new THREE.Box3().setFromObject(model).getSize(new THREE.Vector3());
+        report('DIAG camZ=' + camera.position.z.toFixed(2) + ' aspect=' + camera.aspect.toFixed(3) +
+          ' fov=' + camera.fov + ' canvas=' + renderer.domElement.width + 'x' + renderer.domElement.height +
+          ' css=' + renderer.domElement.clientWidth + 'x' + renderer.domElement.clientHeight +
+          ' modelWorld=' + JSON.stringify({ x: +bx.x.toFixed(2), y: +bx.y.toFixed(2), z: +bx.z.toFixed(2) }) +
+          ' rootScale=' + model.scale.toArray().map(v => +v.toFixed(2)).join(','));
+      } catch (e) { report('DIAG 失败 ' + e.message); }
+    }, 600);
+  }
 }
 tick();
 
 // ── 尺寸自适应 ────────────────────────────────────────────────────
 function resize() {
-  const w = window.innerWidth, h = window.innerHeight;
+  // 严格 1:1 —— 让 WebGL 的绘制缓冲像素数 == canvas 的 CSS 尺寸。
+  // 之前用 window/documentElement/visualViewport 推视口，在 WebView2 的 DPI 链下
+  // 会差 1.5 倍：canvas 比控件大、画面被拉伸并溢出，角色看起来又大又偏。
+  // 这里改成直接量宿主盒子的 CSS 尺寸，再把它同时设成缓冲尺寸和 CSS 尺寸，
+  // 中间不经过任何缩放推断。
+  const host = document.body;
+  const rect = host.getBoundingClientRect();
+  const w = Math.max(1, Math.round(rect.width));
+  const h = Math.max(1, Math.round(rect.height));
+
+  renderer.setPixelRatio(1);
   renderer.setSize(w, h, false);
-  camera.aspect = w / Math.max(h, 1);
+  const el = renderer.domElement;
+  el.style.width = '100%';
+  el.style.height = '100%';
+  el.style.display = 'block';
+
+  camera.aspect = w / h;
   camera.updateProjectionMatrix();
-}
-window.addEventListener('resize', resize);
+  try { fitCamera(); } catch (e) { }
+}window.addEventListener('resize', resize);
+try { new ResizeObserver(() => resize()).observe(document.body); } catch (e) { }
 resize();
 
 // ── 给 C# 调的接口 ────────────────────────────────────────────────
@@ -445,15 +773,39 @@ window.skinPreview = {
    */
   capturePng() {
     renderer.render(scene, camera);
+  // 【一次性诊断】把相机/画布/模型真实世界尺寸打出来，定位「画面里那个大的」到底是什么
+  if (!window.__diagOnce) {
+    window.__diagOnce = true;
+    setTimeout(() => {
+      try {
+        const bx = new THREE.Box3().setFromObject(model).getSize(new THREE.Vector3());
+        report('DIAG camZ=' + camera.position.z.toFixed(2) + ' aspect=' + camera.aspect.toFixed(3) +
+          ' fov=' + camera.fov + ' canvas=' + renderer.domElement.width + 'x' + renderer.domElement.height +
+          ' css=' + renderer.domElement.clientWidth + 'x' + renderer.domElement.clientHeight +
+          ' modelWorld=' + JSON.stringify({ x: +bx.x.toFixed(2), y: +bx.y.toFixed(2), z: +bx.z.toFixed(2) }) +
+          ' rootScale=' + model.scale.toArray().map(v => +v.toFixed(2)).join(','));
+      } catch (e) { report('DIAG 失败 ' + e.message); }
+    }, 600);
+  }
     return renderer.domElement.toDataURL('image/png');
   },
   /** 调试用 */
   stats() {
     let meshes = 0;
     model.traverse(o => { if (o.isMesh) meshes++; });
-    return { meshes, yaw };
+    return { meshes, yaw, gltf: !!GLTF[lastSlim ? 'slim' : 'classic'] };
   },
 };
+
+// 启动时把原版 glTF 模型准备好（不阻塞首帧：没准备好就先用手搓模型）。
+preloadGLTFModels().then(() => {
+  // 模型到位后，如果已经有贴图就立刻重建一次，换成原版模型。
+  if (skinMaterial && GLTF[lastSlim ? 'slim' : 'classic']) {
+    buildCharacter(lastSlim);
+    if (typeof onModelReady === 'function') onModelReady();
+    report('已切换为原版 glTF 模型 ' + (lastSlim ? 'slim' : 'classic') + ' ' + JSON.stringify(window.skinPreview.stats()));
+  }
+});
 </script>
 </body>
 </html>

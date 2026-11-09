@@ -146,12 +146,11 @@
             <!-- ⚠ hover 描边高亮走 AdornerLayer 动画（直接 Setter 改 BorderBrush 是硬切）。
                  另外原来的 hover Background 和基础色是同一个 GlassLightBrush —— 等于没效果，去掉了。 -->
             <Setter Property="motion:MotionAssist.HoverTintBorderBrush" Value="{DynamicResource GlassStrongBrush}"/>
-
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding SelectedVersion, Source={StaticResource ResourceKey}, FallbackValue={x:Null}}" Value="{x:Null}">
-                    <!-- Default state -->
-                </DataTrigger>
-            </Style.Triggers>
+            <!-- 原来这里有一段 <Style.Triggers>：
+                 <DataTrigger Binding="{Binding SelectedVersion, Source={StaticResource ResourceKey} ...}">
+                 但 (1) 全项目都不存在名为 ResourceKey 的资源，StaticResource 解析必然失败；
+                 (2) 触发器体是空的（只有一句注释），本来就没做任何事。
+                 属于残留死代码，已删除 —— 留着只会在该 Style 被应用时抛 XamlParseException。 -->
         </Style>
 
         <Style x:Key="ModernButton" TargetType="Button">
@@ -582,7 +581,7 @@
                                                    HorizontalAlignment="Center" VerticalAlignment="Center"
                                                    Foreground="{DynamicResource TextTertiaryBrush}"
                                                    Visibility="{Binding Resource.HasIcon, Converter={StaticResource InverseBoolToVis}}"/>
-                                        <Image Source="{Binding Resource.IconImage}"
+                                        <Image Source="{Binding Resource.IconImage}" motion:MotionAssist.PopInOnSource="True"
                                                Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                     </Grid>
                                 </Border>
@@ -702,10 +701,13 @@
                                 <TextBlock Text="📋 描述" FontSize="15" FontWeight="SemiBold"
                                            Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,12"/>
 
-                                <!-- 正文：直接放 TextBlock，不再包 ScrollViewer（外层 Scroller 负责滚动） -->
-                                <TextBlock Text="{Binding Resource.Description}" FontSize="13.5"
-                                           Foreground="{DynamicResource TextPrimaryBrush}" LineHeight="24"
-                                           TextWrapping="Wrap" Opacity="0.85" Margin="0,4,0,0"/>
+                                <!-- 正文：Markdown 渲染成原生 WPF 元素（标题/列表/代码块/图片/可点链接）。
+                                     ⚠ 原来这里是 TextBlock Text="{Binding Resource.Description}"，
+                                       而 Modrinth 返回的是 Markdown + 内嵌 HTML —— 界面上会原样显示
+                                       图片语法、水平线语法、center 标签、img 标签，看着像坏了。
+                                     渲染逻辑在 Controls\MarkdownView.cs。 -->
+                                <ContentControl ctl:MarkdownView.Text="{Binding Resource.Description}"
+                                                Margin="0,4,0,0"/>
 
                                 <!-- Tags / Categories -->
                                 <ItemsControl ItemsSource="{Binding Resource.Categories}" Margin="0,16,0,0">
@@ -752,7 +754,7 @@
                                                 <TextBlock Text="🖼️" FontSize="26" Opacity="0.35"
                                                            HorizontalAlignment="Center" VerticalAlignment="Center"
                                                            Visibility="{Binding HasImage, Converter={StaticResource InverseBoolToVis}}"/>
-                                                <Image Source="{Binding Image}" Stretch="UniformToFill"
+                                                <Image Source="{Binding Image}" Stretch="UniformToFill" motion:MotionAssist.PopInOnSource="True"
                                                        RenderOptions.BitmapScalingMode="HighQuality"/>
                                             </Grid>
                                         </Border>
@@ -1052,9 +1054,16 @@
 
                                                     <!-- 通道圆点（美西螈版本表第一列 VersionChannelIndicator：
                                                          正式版绿 / 测试版橙 / 内测版红） -->
-                                                    <StackPanel Grid.Column="0" Orientation="Horizontal"
-                                                                VerticalAlignment="Center" Margin="0,0,12,0">
-                                                        <Ellipse Width="8" Height="8" Margin="0,0,8,0"
+                                                    <!-- ⚠ 原来是水平 StackPanel：无限宽测量导致
+                                                         TextTrimming 失效，长 jar 文件名会溢出到
+                                                         「游戏版本 / 平台 / 发布时间」列。
+                                                         换成 Grid（Auto + *），文件名才有确定宽度可裁。 -->
+                                                    <Grid Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Ellipse Grid.Column="0" Width="8" Height="8" Margin="0,0,8,0"
                                                                  VerticalAlignment="Center"
                                                                  ToolTip="{Binding ChannelLabel}">
                                                             <Ellipse.Style>
@@ -1071,12 +1080,12 @@
                                                                 </Style>
                                                             </Ellipse.Style>
                                                         </Ellipse>
-                                                        <TextBlock Text="{Binding FileName}" FontSize="12.5"
+                                                        <TextBlock Grid.Column="1" Text="{Binding FileName}" FontSize="12.5"
                                                                    FontWeight="SemiBold" VerticalAlignment="Center"
                                                                    Foreground="{DynamicResource TextPrimaryBrush}"
                                                                    TextTrimming="CharacterEllipsis"
                                                                    ToolTip="{Binding FileName}"/>
-                                                    </StackPanel>
+                                                    </Grid>
 
                                                     <!-- 游戏版本：前两个 chip + 「+N」（美西螈 getDisplayGameVersions().slice(0,2)） -->
                                                     <StackPanel Grid.Column="1" Orientation="Horizontal"

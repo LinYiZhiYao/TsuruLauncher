@@ -869,12 +869,12 @@ namespace TsuruLauncher
                     // ⚠ 顺序不能反：PlayPageEnter 开头的 SettleActiveMotion 会把动效集合里的
                     //   所有元素立即归位，而 PlayHostOverlapFade 会把宿主登记进那个集合 ——
                     //   先播宿主回落再播新页进场的话，宿主的 1->0.86->1 会在同一帧被清掉。
-                    // 皮肤页不走页面级的位移：那套用的是 RenderTransform（渲染层变换、不触发布局），
-                    // 而页面正中的角色是 WebView2（HwndHost），它的原生窗口位置只在**布局阶段**同步，
-                    // 结果就是页面滑上去了、角色停在原地 —— 「角色和页面平移不一致」。
-                    // 皮肤页的位移改由 SkinPage.PlayLayoutSlideIn 用 LayoutTransform 做，
-                    // 那条路径会触发布局，HwndHost 才会跟着一起动。
-                    PageTransition.PlayPageEnter(page, enterIsForward);
+                    // 皮肤页：页面级**不传**位移（WebView2 是 HwndHost，不跟 RenderTransform），
+                    // 改由 SkinPage.PlayLayoutSlideIn 用 LayoutTransform 做 —— 那条路径会触发
+                    // 布局，HwndHost 才会跟着一起滑。两边都做会变成双倍位移。
+                    PageTransition.PlayPageEnter(page, enterIsForward,
+                        page is Views.SkinPage ? 0 : (double?)null);
+                    if (page is Views.SkinPage skinPage) skinPage.PlayLayoutSlideIn();
                     PageTransition.PlayHostOverlapFade(PageTransitionHost);
                 }
 
@@ -887,8 +887,8 @@ namespace TsuruLauncher
                     $"host=opacity 1->{PageTransition.HostDipOpacity}->1 over " +
                     $"{PageTransition.HostOverlapMs / 2:0}+{PageTransition.HostOverlapMs / 2:0}ms cubic-bezier(0.4,0,0.2,1) started=after-enter " +
                     $"+ enter=opacity {AxolotlMotion.PageEnterFadeMs}ms ease, " +
-                    $"translateY={(enterIsForward ? "+" : "-")}{AxolotlMotion.PageEnterSlidePx:0}px->0={AxolotlMotion.PageEnterSlideMs}ms cubic-bezier(0.22,1,0.36,1), " +
-                    $"scale {AxolotlMotion.PageEnterScaleFrom}->1={AxolotlMotion.PageEnterScaleMs}ms same-curve " +
+                    $"translateY={(enterIsForward ? "+" : "-")}{(page is Views.SkinPage ? 0 : AxolotlMotion.PageEnterSlidePx):0}px->0={AxolotlMotion.PageEnterSlideMs}ms cubic-bezier(0.22,1,0.36,1), " +
+                    $"scale=none(scaleHost 恒为 null，从未生效) " +
                     $"(overlapped) stagger={AxolotlMotion.StaggerStepMs}ms step/{AxolotlMotion.StaggerCapMs}ms cap/" +
                     $"{AxolotlMotion.StaggerItemMs}ms item/translateY({AxolotlMotion.StaggerOffsetPx}px) max={PageTransition.MaxStaggerItemCount} " +
                     $"sidebar={AxolotlMotion.SidebarWidthMs}ms animations={PageTransition.AnimationsEnabled} " +

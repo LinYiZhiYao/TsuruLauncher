@@ -10,14 +10,22 @@
     <Product>Tsuru Launcher</Product>
     <Company>Tsuru</Company>
     <Title>Tsuru Launcher</Title>
-    <Version>2.1.4</Version>
-    <AssemblyVersion>2.1.4.0</AssemblyVersion>
-    <FileVersion>2.1.4.0</FileVersion>
-    <ApplicationIcon />
+    <Version>2.1.5</Version>
+    <AssemblyVersion>2.1.5.0</AssemblyVersion>
+    <FileVersion>2.1.5.0</FileVersion>
+    <ApplicationIcon>Assets\tsuru-icon.ico</ApplicationIcon>
+
+    <!-- 发布包里不带第三方包的 XML 文档和 PDB 符号（约 2 MB，运行完全用不到）：
+         它们只会让安装包变大、磁盘占用变多，对启动和运行没有任何帮助。
+         保留 .pri（WinRT 资源索引）和 .dll.config，这两个是真的会用到。 -->
+    <AllowedReferenceRelatedFileExtensions Condition="'$(Configuration)' == 'Release'">.pri;.dll.config;.exe.config</AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
 
   <ItemGroup>
     <Resource Include="Assets\Images\**" />
+
+    <!-- 应用图标：窗口标题栏 / 任务栏（exe 图标由上面的 ApplicationIcon 负责） -->
+    <Resource Include="Assets\tsuru-icon.ico" />
 
     <!-- 皮肤 3D 预览的网页资源：WebView2 要从**磁盘**加载，所以按 Content 拷到输出目录 -->
     <Content Include="Assets\SkinPreview\**" CopyToOutputDirectory="PreserveNewest" />
@@ -33,9 +41,12 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="Markdig" Version="0.37.0" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3719.77" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="SharpZipLib" Version="1.4.2" />
+    <!-- SharpZipLib 已移除：全项目的压缩/解压都走 .NET 自带的 System.IO.Compression
+         （ModpackService / GameExportService / JavaRuntimeService 无一例外），
+         这个包一次都没被引用，挂着只是让启动时多加载一个程序集。 -->
     <PackageReference Include="System.Management" Version="8.0.0" />
     <PackageReference Include="WPF-UI" Version="3.0.4" />
   </ItemGroup>
