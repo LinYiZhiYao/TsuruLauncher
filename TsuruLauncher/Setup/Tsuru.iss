@@ -15,7 +15,7 @@
 ; ═══════════════════════════════════════════════════════════════
 
 #define MyAppName "Tsuru Launcher"
-#define MyAppVersion "2.1.5"
+#define MyAppVersion "1.0.0"
 #define MyAppPublisher "Tsuru"
 #define MyAppURL "https://github.com/LinYiZhi-wp/TsuruLauncher"
 #define MyAppExeName "TsuruLauncher.exe"
