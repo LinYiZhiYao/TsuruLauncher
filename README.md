@@ -2,19 +2,17 @@
 
 # Tsuru Launcher
 
-**把界面做认真的 Minecraft 启动器**
+**Minecraft 启动器 · 动效优先**
 
-Windows 10+ · .NET 8 · WPF
+Windows 10+ · .NET 8 · WPF · GPL-3.0
 
-官网：[**tsuru.ink**](https://tsuru.ink)
-
-[![Release](https://img.shields.io/github/v/release/LinYiZhi-wp/TsuruLauncher?style=flat-square&label=release)](https://github.com/LinYiZhi-wp/TsuruLauncher/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/LinYiZhi-wp/TsuruLauncher/total?style=flat-square)](https://github.com/LinYiZhi-wp/TsuruLauncher/releases)
-[![Platform](https://img.shields.io/badge/platform-Windows%2010%2B-0078D4?style=flat-square&logo=windows)](https://github.com/LinYiZhi-wp/TsuruLauncher/releases/latest)
+[![Release](https://img.shields.io/github/v/release/LinYiZhiYao/TsuruLauncher?style=flat-square&label=release)](https://github.com/LinYiZhiYao/TsuruLauncher/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/LinYiZhiYao/TsuruLauncher/total?style=flat-square)](https://github.com/LinYiZhiYao/TsuruLauncher/releases)
+[![Platform](https://img.shields.io/badge/platform-Windows%2010%2B-0078D4?style=flat-square&logo=windows)](https://github.com/LinYiZhiYao/TsuruLauncher/releases/latest)
 [![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=flat-square&logo=dotnet)](https://dotnet.microsoft.com/download/dotnet/8.0)
-[![License](https://img.shields.io/github/license/LinYiZhi-wp/TsuruLauncher?style=flat-square)](LICENSE)
+[![License](https://img.shields.io/github/license/LinYiZhiYao/TsuruLauncher?style=flat-square)](LICENSE)
 
-[官网](https://tsuru.ink) · [下载](#下载) · [界面](#界面) · [设计](#设计) · [从源码构建](#从源码构建) · [版本历史](#版本历史)
+[下载](#下载) · [界面](#界面) · [设计](#设计) · [从源码构建](#从源码构建) · [版本历史](#版本历史)
 
 </div>
 
@@ -101,18 +99,18 @@ DeepSeek Harness）：一眼看出装没装、有没有新版，直接安装 / �
 
 ## 下载
 
-前往 [**Releases**](https://github.com/LinYiZhi-wp/TsuruLauncher/releases/latest)：
+前往 [**Releases**](https://github.com/LinYiZhiYao/TsuruLauncher/releases/latest)：
 
 | 文件 | 说明 |
 |------|------|
-| `Tsuru-Launcher-Setup-v2.1.4.exe` | **安装版**（推荐）：带安装向导，自动创建开始菜单与桌面快捷方式，支持卸载 |
-| `Tsuru-v2.1.4.zip` | **便携版**：解压后直接运行 `TsuruLauncher.exe`，不写注册表 |
+| `Tsuru-Launcher-Setup-v2.1.5.exe` | **安装版**（推荐）：带安装向导，自动创建开始菜单与桌面快捷方式，支持卸载 |
+| `Tsuru-v2.1.5.zip` | **便携版**：解压后直接运行 `TsuruLauncher.exe`，不写注册表 |
 
 **运行要求**：Windows 10 或更高版本（64 位） + [.NET 8 桌面运行时](https://dotnet.microsoft.com/download/dotnet/8.0)。
 安装器会自动检测运行时，缺失时给出下载链接（不阻断安装）。
 
 > [!WARNING]
-> **只从本仓库的 [Releases](https://github.com/LinYiZhi-wp/TsuruLauncher/releases) 下载。**
+> **只从本仓库的 [Releases](https://github.com/LinYiZhiYao/TsuruLauncher/releases) 下载。**
 > 第三方重新打包的安装包可能被改动过，作者无法保证其安全性 —— 这是启动器类软件
 > 最常见的投毒渠道。
 
@@ -121,7 +119,7 @@ DeepSeek Harness）：一眼看出装没装、有没有新版，直接安装 / �
 需要 [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) 与 Windows 10+。
 
 ```bash
-git clone https://github.com/LinYiZhi-wp/TsuruLauncher.git
+git clone https://github.com/LinYiZhiYao/TsuruLauncher.git
 cd TsuruLauncher
 
 # 仓库根目录没有 .sln，要指向项目文件
@@ -295,7 +293,7 @@ ModLoader 与整合包服务，改进动画过渡。
 
 ```
 Tsuru Launcher
-Copyright (C) 2026 LinYiZhi-wp
+Copyright (C) 2026 LinYiZhiYao
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
